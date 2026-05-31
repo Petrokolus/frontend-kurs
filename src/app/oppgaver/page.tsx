@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { ReadmeRenderer } from "@/components/ReadmeRenderer";
+import { ReadmeRenderer } from "@/components/readme-renderer";
 
 export default function OppgaverPage() {
   const readme = fs.readFileSync(

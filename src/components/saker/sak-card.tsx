@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Sak } from "@/lib/types";
-import { StatusBadge } from "./StatusBadge";
+import { StatusBadge } from "./status-badge";
 
 type Props = {
   sak: Sak;

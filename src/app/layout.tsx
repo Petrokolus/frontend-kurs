@@ -50,6 +50,12 @@ export default function RootLayout({
               Ressurser
             </p>
             <Link
+              href="/oppgaver"
+              className="rounded-md px-2 py-1.5 text-sm hover:bg-muted transition-colors block"
+            >
+              Oppgaver
+            </Link>
+            <Link
               href="/api-docs"
               className="rounded-md px-2 py-1.5 text-sm hover:bg-muted transition-colors block"
             >

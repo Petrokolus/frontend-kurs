@@ -3,6 +3,7 @@ import { Roboto, Roboto_Mono } from "next/font/google";
 import { SideNav } from "@/components/side-nav";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import "./globals.css";
+import { PropsWithChildren } from "react";
 
 const roboto = Roboto({
   variable: "--font-sans",
@@ -20,11 +21,7 @@ export const metadata: Metadata = {
   description: "Introduksjonskurs i frontend-utvikling med Next.js",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html
       lang="no"

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -33,8 +34,14 @@ export function SideNav() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="px-4 py-3 font-semibold text-sm">
-        Frontend-kurs
+      <SidebarHeader className="px-4 py-4 border-b">
+        <Image
+          src="/twoday-logo.svg"
+          alt="Twoday"
+          width={100}
+          height={22}
+          priority
+        />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

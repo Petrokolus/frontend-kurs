@@ -5,6 +5,20 @@
 @custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
 
+@theme {
+  --color-twoday-black: #000000;
+  --color-twoday-white: #ffffff;
+  --color-twoday-light-gray: #f0eceb;
+  --color-twoday-amber: #ffbf00;
+  --color-twoday-gray: #848484;
+  --color-twoday-light-amber: #fff8d1;
+  --color-twoday-off-white: #fbfaee;
+  --color-twoday-olive: #abb07a;
+  --color-twoday-light-olive: #d6d8c5;
+  --color-twoday-earth: #c6aa91;
+  --color-twoday-light-earth: #ece2da;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

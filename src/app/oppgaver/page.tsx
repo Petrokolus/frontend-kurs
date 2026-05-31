@@ -5,11 +5,11 @@ import { ReadmeRenderer } from "@/components/readme-renderer";
 export default function OppgaverPage() {
   const readme = fs.readFileSync(
     path.join(process.cwd(), "README.md"),
-    "utf-8",
+    "utf-8"
   );
 
   return (
-    <div className="p-8 max-w-3xl">
+    <div className="max-w-3xl p-8">
       <ReadmeRenderer content={readme} />
     </div>
   );

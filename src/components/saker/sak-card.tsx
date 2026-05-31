@@ -13,7 +13,7 @@ export function SakCard({ sak }: Props) {
         <CardTitle className="text-base">{sak.tittel}</CardTitle>
         <StatusBadge status={sak.status} />
       </CardHeader>
-      <CardContent className="text-sm text-muted-foreground space-y-1">
+      <CardContent className="text-muted-foreground space-y-1 text-sm">
         <p>Type: {sak.type}</p>
         <p>Saksbehandler: {sak.saksbehandler}</p>
         <p>Opprettet: {new Date(sak.opprettet).toLocaleDateString("nb-NO")}</p>

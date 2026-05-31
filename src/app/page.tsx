@@ -3,52 +3,69 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
   return (
-    <div className="p-8 max-w-3xl">
-      <h1 className="text-3xl font-bold mb-2">Velkommen til frontend-kurset</h1>
+    <div className="max-w-3xl p-8">
+      <h1 className="mb-2 text-3xl font-bold">Velkommen til frontend-kurset</h1>
       <p className="text-muted-foreground mb-8">
-        I dag skal du lære å bygge et frontend-system fra bunnen av — slik du ville gjort det på jobb.
-        Du har fått en applikasjon med et ferdig API og et komponentbibliotek. Oppgaven din er å bygge
-        brukergrensesnittet som kobler det hele sammen.
+        I dag skal du lære å bygge et frontend-system fra bunnen av — slik du
+        ville gjort det på jobb. Du har fått en applikasjon med et ferdig API og
+        et komponentbibliotek. Oppgaven din er å bygge brukergrensesnittet som
+        kobler det hele sammen.
       </p>
 
-      <div className="grid gap-4 sm:grid-cols-2 mb-8">
+      <div className="mb-8 grid gap-4 sm:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Saksbehandlingssystem</CardTitle>
           </CardHeader>
-          <CardContent className="text-sm text-muted-foreground">
-            Applikasjonen du skal bygge. En oversikt over saker med mulighet til å se detaljer for hver enkelt sak.
+          <CardContent className="text-muted-foreground text-sm">
+            Applikasjonen du skal bygge. En oversikt over saker med mulighet til
+            å se detaljer for hver enkelt sak.
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Komponentbibliotek</CardTitle>
           </CardHeader>
-          <CardContent className="text-sm text-muted-foreground">
-            Du har tilgang til ferdige UI-komponenter fra shadcn/ui, samt domenespesifikke komponenter
-            som <code className="text-xs bg-muted px-1 py-0.5 rounded">SakCard</code> og{" "}
-            <code className="text-xs bg-muted px-1 py-0.5 rounded">StatusBadge</code>.
+          <CardContent className="text-muted-foreground text-sm">
+            Du har tilgang til ferdige UI-komponenter fra shadcn/ui, samt
+            domenespesifikke komponenter som{" "}
+            <code className="bg-muted rounded px-1 py-0.5 text-xs">
+              SakCard
+            </code>{" "}
+            og{" "}
+            <code className="bg-muted rounded px-1 py-0.5 text-xs">
+              StatusBadge
+            </code>
+            .
           </CardContent>
         </Card>
       </div>
 
-      <h2 className="text-lg font-semibold mb-3">Kom i gang</h2>
-      <ul className="space-y-2 text-sm text-muted-foreground">
+      <h2 className="mb-3 text-lg font-semibold">Kom i gang</h2>
+      <ul className="text-muted-foreground space-y-2 text-sm">
         <li>
           📄 Les gjennom{" "}
-          <Link href="/api-docs" className="underline underline-offset-4 text-foreground hover:text-muted-foreground">
+          <Link
+            href="/api-docs"
+            className="text-foreground hover:text-muted-foreground underline underline-offset-4"
+          >
             API-dokumentasjonen
           </Link>{" "}
           for å forstå hvilke data du har tilgjengelig.
         </li>
         <li>
           📋 Åpne{" "}
-          <code className="text-xs bg-muted px-1 py-0.5 rounded">README.md</code>{" "}
+          <code className="bg-muted rounded px-1 py-0.5 text-xs">
+            README.md
+          </code>{" "}
           i prosjektmappen — der finner du oppgavene.
         </li>
         <li>
           🧩 Komponentene du kan bruke ligger i{" "}
-          <code className="text-xs bg-muted px-1 py-0.5 rounded">src/components/</code>.
+          <code className="bg-muted rounded px-1 py-0.5 text-xs">
+            src/components/
+          </code>
+          .
         </li>
       </ul>
     </div>

@@ -12,7 +12,8 @@ export const spec = {
       get: {
         tags: ["saker"],
         summary: "Hent alle saker",
-        description: "Returnerer en liste over alle saker, sortert nyeste først.",
+        description:
+          "Returnerer en liste over alle saker, sortert nyeste først.",
         operationId: "getAllSaker",
         responses: {
           "200": {
@@ -93,7 +94,10 @@ export const spec = {
         properties: {
           id: { type: "integer", example: 1 },
           tittel: { type: "string", example: "Klage på avslag om bostøtte" },
-          beskrivelse: { type: "string", example: "Bruker klager på vedtak..." },
+          beskrivelse: {
+            type: "string",
+            example: "Bruker klager på vedtak...",
+          },
           status: {
             type: "string",
             enum: ["Åpen", "Under behandling", "Lukket"],

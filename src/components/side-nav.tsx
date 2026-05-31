@@ -34,7 +34,7 @@ export function SideNav() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="px-4 py-4 border-b">
+      <SidebarHeader className="border-b px-4 py-4">
         <Image
           src="/twoday-logo.svg"
           alt="Twoday"
@@ -53,7 +53,11 @@ export function SideNav() {
                   <SidebarMenuButton
                     asChild
                     isActive={isActive(item.href)}
-                    className={isActive(item.href) ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium" : ""}
+                    className={
+                      isActive(item.href)
+                        ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                        : ""
+                    }
                   >
                     <Link href={item.href}>{item.label}</Link>
                   </SidebarMenuButton>
@@ -72,7 +76,11 @@ export function SideNav() {
                   <SidebarMenuButton
                     asChild
                     isActive={isActive(item.href)}
-                    className={isActive(item.href) ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium" : ""}
+                    className={
+                      isActive(item.href)
+                        ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                        : ""
+                    }
                   >
                     <Link href={item.href}>{item.label}</Link>
                   </SidebarMenuButton>

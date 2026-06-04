@@ -2,7 +2,7 @@
 
 Et introduksjonskurs i frontend-utvikling. Du vil lære hva frontend er, hvordan det henger sammen med et API, og hvordan du bygger et brukergrensesnitt slik du ville gjort det på jobb.
 
-Kurset er bygget rundt et realistisk scenario: du har startet i en ny jobb og har fått i oppgave å bygge et saksbehandlingssystem. Du har fått tilgang til et ferdig API og et komponentbibliotek — jobben din er å koble det hele sammen i en fungerende applikasjon.
+Kurset er bygget rundt et realistisk scenario: du har startet i en ny jobb og har fått i oppgave å bygge et foosball-managementsystem for kontoret. Du har fått tilgang til et ferdig API og et komponentbibliotek — jobben din er å koble det hele sammen i en fungerende applikasjon.
 
 ---
 
@@ -11,6 +11,8 @@ Kurset er bygget rundt et realistisk scenario: du har startet i en ny jobb og ha
 - [Forutsetninger](#forutsetninger)
 - [Kom i gang](#kom-i-gang)
 - [Oppgaver](#oppgaver)
+  - [Del 1 – Grunnleggende](#del-1--grunnleggende)
+  - [Del 2 – Mer selvstendig](#del-2--mer-selvstendig)
 
 ---
 
@@ -236,4 +238,176 @@ Er du her, er alt satt opp korrekt og du er klar til å begynne på oppgavene!
 
 ## Oppgaver
 
-> 🚧 Oppgavene skrives her.
+Kurset er delt i to deler. I **del 1** er oppgavene nøye instruert med forklaringer, teori og kodesnippets du kan ta utgangspunkt i. I **del 2** er instruksjonene kortere — her forventes det at du bruker det du har lært og slår opp i dokumentasjonen selv.
+
+---
+
+## Del 1 – Grunnleggende
+
+### Oppgave 1 – Vis alle spillere (UFERDIG)
+
+**Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave 2 – Spillerdetaljer (UFERDIG)
+
+**Hva du skal lære:** Filbasert routing i Next.js, dynamiske route-parametere, lenking mellom sider med `<Link>`, og tilgjengelighet (`alt`-tekst på bilder).
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave 3 – Opprett spiller (UFERDIG)
+
+**Hva du skal lære:** HTML-skjemaer i React, `useState` for skjematilstand, kontrollerte inputs, sende data til API med `fetch`, og tilgjengelighet i skjemaer.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave 4 – Hooks i praksis (UFERDIG)
+
+**Hva du skal lære:** Hva en hook er og reglene for hooks, `useState` til interaktiv tilstand, `useEffect` til sideeffekter, og `useRef` til direkte DOM-tilgang.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave 5 – Opprett spiller med React Hook Form (UFERDIG)
+
+**Hva du skal lære:** Installere og bruke en tredjeparts React-pakke, fordelen med `react-hook-form` over manuell state, og skjemavalidering.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave 6 – Rediger spiller (UFERDIG)
+
+**Hva du skal lære:** Gjenbruke komponenter, bruke en dialog/modal, forhåndsutfylle skjema med eksisterende data, og sende PATCH-kall til API.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave 7 – Slett spiller (UFERDIG)
+
+**Hva du skal lære:** DELETE-kall mot API, bekreftelsesdialog, og oppdatere visningen etter sletting.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave 8 – Filtrering og sortering av spillere (UFERDIG)
+
+**Hva du skal lære:** URL search params til filtrering, forskjellen på lokal og URL-basert tilstand, og server-side sortering.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+## Del 2 – Mer selvstendig
+
+### Oppgave 9 – Kamphistorikk (UFERDIG)
+
+Lag en ny side som viser kamphistorikk i en tabell med paginering.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave 10 – Registrere en kamp (UFERDIG)
+
+Lag et skjema for å registrere resultatet av en kamp mellom to spillere.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave 11 – Dashboard (UFERDIG)
+
+Implementer et dashboard i henhold til UX-skissen fra UX-kurset.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave – Suspense og loading (UFERDIG)
+
+Legg til `loading.tsx` og `<Suspense>`-grenser med skeleton-komponenter. Gjøres først nøye instruert på spillersiden, deretter selvstendig på kampsiden.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave – ELO og plasseringsbadge (UFERDIG)
+
+Beregn ELO-rating basert på kamphistorikk og vis gull/sølv/bronse-badge på spillerkortene.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave – Booke kamper (UFERDIG)
+
+Lag et system for å planlegge fremtidige kamper med tid og deltakere.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave – Betting på kamper (UFERDIG)
+
+Legg til mulighet for å tippe utfall på planlagte kamper.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave – Error og not-found på spillerdetaljer (UFERDIG)
+
+Legg til `not-found.tsx` hvis spilleren ikke finnes, og `error.tsx` for generelle feil.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave – Tester med Vitest (UFERDIG)
+
+Noen tester i prosjektet feiler. Få dem til å bli grønne!
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave – Innlogging (UFERDIG)
+
+Legg til autentisering og beskytt sider som krever innlogging.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave – Filtrering på kamper med debounce (UFERDIG)
+
+Legg til filtrering på kampsiden med debounce for å unngå for mange API-kall.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave – Breadcrumbs med usePathname (UFERDIG)
+
+Implementer breadcrumb-navigasjon ved hjelp av `usePathname`.
+
+> 🚧 Oppgavetekst skrives her.
+
+---
+
+### Oppgave – Zod-validering (UFERDIG)
+
+Legg til Zod for skjemavalidering i kombinasjon med `react-hook-form`.
+
+> 🚧 Oppgavetekst skrives her.

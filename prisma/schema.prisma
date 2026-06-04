@@ -7,12 +7,14 @@ datasource db {
   provider = "sqlite"
 }
 
-model Sak {
-  id            Int      @id @default(autoincrement())
-  tittel        String
-  beskrivelse   String
-  status        String
-  type          String
-  saksbehandler String
-  opprettet     DateTime @default(now())
+model Spiller {
+  id           Int     @id @default(autoincrement())
+  navn         String
+  avdeling     String
+  kull         String
+  posisjon     String
+  styrke       String?
+  svakhet      String?
+  rating       Int
+  skyggerating Int?
 }

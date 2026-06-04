@@ -1,20 +1,20 @@
 export const spec = {
   openapi: "3.0.0",
   info: {
-    title: "Saksbehandling API",
+    title: "Foosball API",
     version: "1.0.0",
-    description: "API for saksbehandlingssystemet brukt i frontend-kurset.",
+    description: "API for foosball-portalen brukt i frontend-kurset.",
   },
   servers: [{ url: "http://localhost:3000" }],
-  tags: [{ name: "saker", description: "Operasjoner på saker" }],
+  tags: [{ name: "spillere", description: "Operasjoner på spillere" }],
   paths: {
-    "/api/saker": {
+    "/api/spillere": {
       get: {
-        tags: ["saker"],
-        summary: "Hent alle saker",
+        tags: ["spillere"],
+        summary: "Hent alle spillere",
         description:
-          "Returnerer en liste over alle saker, sortert nyeste først.",
-        operationId: "getAllSaker",
+          "Returnerer en liste over alle spillere, sortert etter rating.",
+        operationId: "getAllSpillere",
         responses: {
           "200": {
             description: "OK",
@@ -22,17 +22,19 @@ export const spec = {
               "application/json": {
                 schema: {
                   type: "array",
-                  items: { $ref: "#/components/schemas/Sak" },
+                  items: { $ref: "#/components/schemas/Spiller" },
                 },
                 example: [
                   {
                     id: 1,
-                    tittel: "Klage på avslag om bostøtte",
-                    beskrivelse: "Bruker klager på vedtak om avslag...",
-                    status: "Åpen",
-                    type: "Klage",
-                    saksbehandler: "Kari Nordmann",
-                    opprettet: "2024-01-15T00:00:00.000Z",
+                    navn: "Ole Christiansen",
+                    avdeling: "Utvikling",
+                    kull: "2021",
+                    posisjon: "Angriper",
+                    styrke: "Klinisk foran mål",
+                    svakhet: "Bidrar lite defensivt",
+                    rating: 90,
+                    skyggerating: 93,
                   },
                 ],
               },
@@ -41,18 +43,18 @@ export const spec = {
         },
       },
     },
-    "/api/saker/{id}": {
+    "/api/spillere/{id}": {
       get: {
-        tags: ["saker"],
-        summary: "Hent én sak",
-        description: "Returnerer én enkelt sak basert på id.",
-        operationId: "getSakById",
+        tags: ["spillere"],
+        summary: "Hent én spiller",
+        description: "Returnerer én enkelt spiller basert på id.",
+        operationId: "getSpillerById",
         parameters: [
           {
             name: "id",
             in: "path",
             required: true,
-            description: "ID-en til saken",
+            description: "ID-en til spilleren",
             schema: { type: "integer", example: 1 },
           },
         ],
@@ -61,16 +63,17 @@ export const spec = {
             description: "OK",
             content: {
               "application/json": {
-                schema: { $ref: "#/components/schemas/Sak" },
+                schema: { $ref: "#/components/schemas/Spiller" },
                 example: {
                   id: 1,
-                  tittel: "Klage på avslag om bostøtte",
-                  beskrivelse:
-                    "Bruker klager på vedtak om avslag om bostøtte for perioden januar–mars 2024.",
-                  status: "Åpen",
-                  type: "Klage",
-                  saksbehandler: "Kari Nordmann",
-                  opprettet: "2024-01-15T00:00:00.000Z",
+                  navn: "Ole Christiansen",
+                  avdeling: "Utvikling",
+                  kull: "2021",
+                  posisjon: "Angriper",
+                  styrke: "Klinisk foran mål",
+                  svakhet: "Bidrar lite defensivt",
+                  rating: 90,
+                  skyggerating: 93,
                 },
               },
             },
@@ -79,7 +82,7 @@ export const spec = {
             description: "Ikke funnet",
             content: {
               "application/json": {
-                example: { error: "Sak ikke funnet" },
+                example: { error: "Spiller ikke funnet" },
               },
             },
           },
@@ -89,31 +92,26 @@ export const spec = {
   },
   components: {
     schemas: {
-      Sak: {
+      Spiller: {
         type: "object",
         properties: {
           id: { type: "integer", example: 1 },
-          tittel: { type: "string", example: "Klage på avslag om bostøtte" },
-          beskrivelse: {
+          navn: { type: "string", example: "Ole Christiansen" },
+          avdeling: { type: "string", example: "Utvikling" },
+          kull: { type: "string", example: "2021" },
+          posisjon: { type: "string", example: "Angriper" },
+          styrke: {
             type: "string",
-            example: "Bruker klager på vedtak...",
+            nullable: true,
+            example: "Klinisk foran mål",
           },
-          status: {
+          svakhet: {
             type: "string",
-            enum: ["Åpen", "Under behandling", "Lukket"],
-            example: "Åpen",
+            nullable: true,
+            example: "Bidrar lite defensivt",
           },
-          type: {
-            type: "string",
-            enum: ["Klage", "Søknad", "Henvendelse"],
-            example: "Klage",
-          },
-          saksbehandler: { type: "string", example: "Kari Nordmann" },
-          opprettet: {
-            type: "string",
-            format: "date-time",
-            example: "2024-01-15T00:00:00.000Z",
-          },
+          rating: { type: "integer", example: 90 },
+          skyggerating: { type: "integer", nullable: true, example: 93 },
         },
       },
     },

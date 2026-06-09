@@ -16,13 +16,19 @@ import {
 } from "@/components/ui/sidebar";
 
 const pages = [
-  { href: "/", label: "Hjem" },
-  { href: "/saker", label: "Saker" },
+  { href: "/spillere", label: "Spillere" },
 ];
 
 const resourcePages = [
   { href: "/oppgaver", label: "Oppgaver" },
   { href: "/api-docs", label: "API-dokumentasjon" },
+];
+
+const externalLinks = [
+  { href: "https://ui.shadcn.com/docs/components", label: "shadcn/ui" },
+  { href: "https://tailwindcss.com/docs/installation/using-vite", label: "Tailwind CSS" },
+  { href: "https://nextjs.org/docs", label: "Next.js" },
+  { href: "https://react.dev/reference/react", label: "React" },
 ];
 
 export function SideNav() {
@@ -35,13 +41,15 @@ export function SideNav() {
   return (
     <Sidebar>
       <SidebarHeader className="border-b px-4 py-4">
-        <Image
-          src="/twoday-logo.svg"
-          alt="Twoday"
-          width={100}
-          height={22}
-          priority
-        />
+        <Link href="/velkommen">
+          <Image
+            src="/twoday-logo.svg"
+            alt="Twoday"
+            width={100}
+            height={22}
+            priority
+          />
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -83,6 +91,23 @@ export function SideNav() {
                     }
                   >
                     <Link href={item.href}>{item.label}</Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Dokumentasjon</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {externalLinks.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.href} target="_blank" rel="noopener noreferrer">
+                      {item.label}
+                    </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

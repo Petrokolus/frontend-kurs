@@ -1,12 +1,13 @@
-export type SakStatus = "Åpen" | "Under behandling" | "Lukket";
-export type SakType = "Klage" | "Søknad" | "Henvendelse";
+export type Posisjon = "Angriper" | "Midtbane" | "Forsvarer" | "Keeper";
 
-export type Sak = {
+export type Spiller = {
   id: number;
-  tittel: string;
-  beskrivelse: string;
-  status: SakStatus;
-  type: SakType;
-  saksbehandler: string;
-  opprettet: string;
+  navn: string;
+  avdeling: string;
+  kull: string;
+  posisjon: string;
+  styrke?: string | null;
+  svakhet?: string | null;
+  rating: number;
+  skyggerating?: number | null;
 };

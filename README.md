@@ -244,12 +244,35 @@ Kurset er delt i to deler. I **del 1** er oppgavene nøye instruert med forklari
 
 ## Del 1 – Grunnleggende
 
-### Oppgave 1 – Vis alle spillere (UFERDIG)
+### Oppgave 1 – Vis alle spillere
 
 **Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
 
-> 🚧 Oppgavetekst skrives her.
+I React bygger vi brukergrensesnitt av komponenter — gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode):
 
+```
+function Hilsen() {
+  return <p>Hello, world!</p>;
+}
+```
+
+For å gjøre en komponent gjenbrukbar sender vi inn data via props (properties). Props fungerer som argumenter til funksjonen:
+
+```
+function Hilsen({ navn }: { navn: string }) {
+  return <p>Hei, {navn}!</p>;
+}
+
+// Bruk:
+<Hilsen navn="Ola" />
+<Hilsen navn="Kari" />
+```
+
+> 🚧 Naviger til mappen src/app/spillere. Der finner dere tre filer som dere skal få lov til å prøve å fullføre:
+
+- spiller-card.tsx - filen som er tenkt å vise litt informasjon om hver enkelt spiller
+- spillere-liste.tsx - filen som sørger for at vi får en liste med SpillerCards, én for hver spiller
+- page.tsx - filen som forteller Next at her er det en side vi vil kunne navigere til. Her vil vi som regel ikke ha noe logikk, men det er et fint sted å legge komponenter som vi vil vise på siden.
 ---
 
 ### Oppgave 2 – Spillerdetaljer (UFERDIG)

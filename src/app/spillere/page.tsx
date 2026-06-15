@@ -1,8 +1,21 @@
+import { Spiller } from "@/lib/types";
+import SpillerCard from "./spiller-card";
+
+const mockSpiller: Spiller = {  // Dette er en "dummy"-spiller som vi kan bruke for å teste ut hvordan SpillerCard-komponenten ser ut når vi gir den data.
+  id: 1,
+  navn: "Ola Nordmann",
+  avdeling: "Digital Engineering",
+  kull: "NK20",
+  posisjon: "Angrep",
+  rating: 0
+}
+
 export default async function SpillerePage() {
+
   return (
     <div className="max-w-4xl p-8">
-      <h1 className="mb-6 text-3xl font-bold">Spillere</h1>
-      <p className="text-muted-foreground">Ingen spillere å vise ennå.</p>
+      {/* Oppgave 1a - LEGG TIL EN OVERSKRIFT HER */}
+    <p>Her var det ganske tomt foreløpig!</p>
     </div>
   );
 }

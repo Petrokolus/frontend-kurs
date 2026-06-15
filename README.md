@@ -250,7 +250,7 @@ Kurset er delt i to deler. I **del 1** er oppgavene nøye instruert med forklari
 
 I React bygger vi brukergrensesnitt av komponenter — gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode):
 
-```
+```typescript
 function Hilsen() {
   return <p>Hello, world!</p>;
 }
@@ -258,8 +258,12 @@ function Hilsen() {
 
 For å gjøre en komponent gjenbrukbar sender vi inn data via props (properties). Props fungerer som argumenter til funksjonen:
 
-```
-function Hilsen({ navn }: { navn: string }) {
+```typescript
+type Props = {
+  navn: string;
+};
+
+function Hilsen({ navn }: Props) {
   return <p>Hei, {navn}!</p>;
 }
 
@@ -268,11 +272,52 @@ function Hilsen({ navn }: { navn: string }) {
 <Hilsen navn="Kari" />
 ```
 
-> 🚧 Naviger til mappen src/app/spillere. Der finner dere tre filer som dere skal få lov til å prøve å fullføre:
+Siden vi også skriver i TypeScript, så kan dere se at vi definerer typen på alle props.
 
-- spiller-card.tsx - filen som er tenkt å vise litt informasjon om hver enkelt spiller
-- spillere-liste.tsx - filen som sørger for at vi får en liste med SpillerCards, én for hver spiller
-- page.tsx - filen som forteller Next at her er det en side vi vil kunne navigere til. Her vil vi som regel ikke ha noe logikk, men det er et fint sted å legge komponenter som vi vil vise på siden.
+Naviger til mappen src/app/spillere. Der finner dere tre filer som dere skal få lov til å prøve å fullføre:
+
+- spiller-card.tsx - Komponentet som viser informasjon om én spiller
+- spillere-liste.tsx - Liste-komponent som setter sammen SpillerCard-komponenter til en liste/oversikt
+- page.tsx - filen som forteller Next at her er det en side vi vil kunne navigere til. Her er det også naturlig å hente spiller-data fra APIet, som vi deretter sender inn som props til komponentene vi ønsker på siden.
+
+#### Oppgave 1a - Legg til en overskrift
+Hvis dere har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av oppstartsguiden, så kan dere allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser dere det som nå finnes av innhold i page.tsx i spillere-mappen. 
+
+ Alle sider trenger en overskrift! Naviger til page.tsx og legg til en passende overskrift. HTML har sitt eget element for overskrifter: 
+
+```typescript
+<h1>Dette er en overskrift</h1>
+```
+
+Tailwind CSS nullstiller alle nettleserens innebygde styles — inkludert overskrifter. Det betyr at `<h1>` ikke automatisk ser stor og fet ut, slik den gjør når man bruker vanlig CSS. Du må legge til stilene selv via `className`:
+
+```tsx
+<h1 className="text-3xl font-bold">Dette er en overskrift</h1>
+```
+Dette er hvordan man styler ved hjelp av Tailwind CSS. Det kodesnutten over gjør:
+- *text-3xl*: Setter font-størrelse til XXXL
+- *font-bold*: Setter font-type til bold (fet skrift) 
+#### Oppgave 1b - Vis et SpillerCard på siden
+ Forsøk å vise litt mer enn bare overskriften på siden. Komponenter som vi lager i React kan importeres og deretter legges inn i page.tsx på samme måte som overskrift-taggen du nettopp har lagt til. Klarer du å importere og vise et SpillerCard på siden?
+
+**HINT**: Vi importerer og bruker SpillerCard i spillere-liste.tsx. 
+
+Et komponent som SpillerCard trenger noe data for å vises. Øverst i page.tsx vil du finne en konstant som du kan sende inn som prop for å løse denne oppgaven.
+
+#### Oppgave 1c - Fyll på litt fler detaljer
+
+Hvis du klarte å vise et SpillerCard på siden i forrige oppgave, så la du kanskje merke til at det ikke var så mye mer spennende informasjon enn navnet som vises. Prøv å vise noe mer informasjon i SpillerCard, basert på prop-typen Spiller.
+
+#### Oppgave 1d - Hent spillere
+Vi har en lokal database med foosball-spillere! Innhold derfra kan hentes gjennom API'et på denne måten:
+
+```ts
+  const result = await fetch("http://localhost:3000/api/spillere");
+  const spillere = await result.json();
+```
+
+Prøv å lime inn koden i page.tsx, og se om du klarer å bruke dataen og komponentene i mappen til å vise en liste med alle spillere!
+
 ---
 
 ### Oppgave 2 – Spillerdetaljer (UFERDIG)

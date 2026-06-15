@@ -6,7 +6,7 @@ type Props = {
   params: Promise<{ id: string }>; // id fra URL-en, f.eks. "1"
 };
 
-export default async function SpillerDetaljSide({ params }: Props) {
+export default async function SpillerPage({ params }: Props) {
   const { id } = await params; // Hent ut id-en
 
   // TODO 2b: Hent spilleren fra API-et med id-en du har tilgjengelig.

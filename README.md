@@ -252,11 +252,58 @@ Kurset er delt i to deler. I **del 1** er oppgavene nøye instruert med forklari
 
 ---
 
-### Oppgave 2 – Spillerdetaljer (UFERDIG)
+### Oppgave 2 – Spillerdetaljer
 
 **Hva du skal lære:** Filbasert routing i Next.js, dynamiske route-parametere, lenking mellom sider med `<Link>`, og tilgjengelighet (`alt`-tekst på bilder).
 
-> 🚧 Oppgavetekst skrives her.
+I oppgave 1 bygde vi en liste over alle spillere. Nå skal vi lage en detaljside for hver enkelt spiller — en side du kan navigere til ved å klikke på et spillerkort i listen.
+
+#### Oppgave 2a – Besøk detaljsiden
+
+I Next.js er filstrukturen direkte koblet til URL-strukturen. Slik fungerer det:
+
+| Fil | URL |
+|-----|-----|
+| `app/spillere/page.tsx` | `/spillere` |
+| `app/spillere/[id]/page.tsx` | `/spillere/1`, `/spillere/42`, osv. |
+
+Firkantparentesene i `[id]` er Next.js sin syntaks for et **dynamisk segment** — en del av URL-en som kan variere. `id` er bare et navn vi velger selv; det blir tilgjengelig i koden etterpå.
+
+Du finner allerede en ferdig fil på `src/app/spillere/[id]/page.tsx`. Naviger til `http://localhost:3000/spillere/1` i nettleseren — ser du noe?
+
+#### Oppgave 2b – Hent og vis spillerdata
+
+Nå som du har en side, er det på tide å vise riktig spiller. ID-en fra URL-en er tilgjengelig via `params`-objektet som Next.js sender inn i siden automatisk — du ser det allerede øverst i filen.
+
+Prøv å hente spilleren fra API-et og vis detaljene på siden!
+
+**HINT**: API-ruten for én spiller er `/api/spillere/:id` — du kan teste den direkte i nettleseren på f.eks. `http://localhost:3000/api/spillere/1`. Mønsteret er det samme som i oppgave 1d, men nå bruker du `id`-variabelen til å bygge URL-en.
+
+#### Oppgave 2c – Vis spillerens bilde
+
+Hver spiller har et bilde tilgjengelig på `/spiller/{id}.png`. Legg til et bilde av spilleren øverst på detaljsiden.
+
+Alle bilder på nettsider bør ha en `alt`-attributt. `alt`-teksten er en tekstlig beskrivelse av bildet som brukes av skjermlesere (for blinde og svaksynte), og vises dersom bildet ikke kan lastes:
+
+```tsx
+<img src="/spiller/1.png" alt="Profilbilde av Erik Solberg" />
+```
+
+Tenk på hva `alt`-teksten bør si: hva *formidler* bildet? For et profilbilde er navnet på personen den viktigste informasjonen. Husk at du nå har tilgang til spillerens navn fra API-et!
+
+#### Oppgave 2d – Lenk fra spillerlisten
+
+Detaljsiden er fin, men ingen kommer seg dit uten en lenke! I Next.js bruker vi `<Link>`-komponenten fra `next/link` for å navigere mellom sider:
+
+```tsx
+import Link from "next/link";
+
+<Link href="/spillere/1">Gå til Erik Solberg</Link>
+```
+
+`<Link>` skiller seg fra en vanlig `<a>`-tag ved at den gjør navigasjonen raskere — neste side lastes i bakgrunnen mens du fortsatt ser den forrige, i stedet for at nettleseren laster hele siden på nytt fra scratch.
+
+Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan klikke på et spillerkort og komme til detaljsiden for den spilleren.
 
 ---
 

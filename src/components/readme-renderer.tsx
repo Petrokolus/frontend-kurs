@@ -23,9 +23,16 @@ function headingText(children: React.ReactNode): string {
 }
 
 function makeHeading(Tag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6") {
-  return function Heading({ children, ...props }: ComponentPropsWithoutRef<typeof Tag>) {
+  return function Heading({
+    children,
+    ...props
+  }: ComponentPropsWithoutRef<typeof Tag>) {
     const id = slugify(headingText(children));
-    return <Tag id={id} {...props}>{children}</Tag>;
+    return (
+      <Tag id={id} {...props}>
+        {children}
+      </Tag>
+    );
   };
 }
 

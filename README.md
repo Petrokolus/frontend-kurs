@@ -20,7 +20,19 @@ Kurset er bygget rundt et realistisk scenario: du har startet i en ny jobb og ha
 
 Før du begynner må du ha installert følgende på maskinen din. Følg hvert steg nøye, og ikke hopp videre før du har bekreftet at hvert steg fungerer. Sitter du fast, spør kursholder eller personen ved siden av deg.
 
-### 1. Node.js
+### 1. Git
+
+Git er versjonskontrollsystemet vi bruker til å lagre og dele kode. Vi antar at du har git fra tidligere kurs — sjekk med:
+
+```bash
+git --version
+```
+
+Hvis du ikke har git installert, last det ned fra [git-scm.com/install](https://git-scm.com/install) og spør om hjelp om du trenger det.
+
+---
+
+### 2. Node.js
 
 Node.js er motoren som kjører JavaScript utenfor nettleseren. Vi bruker versjon **24.16.0 LTS**.
 
@@ -36,25 +48,40 @@ Hvis du ser `v24.16.0`, er du klar. Gå til steg 2.
 
 Hvis du ser en annen versjon eller får en feilmelding, installer Node.js slik:
 
-1. Gå til [nodejs.org](https://nodejs.org)
+1. Gå til [nodejs.org](https://nodejs.org) og trykk på "Get Node.js" knappen.
 
-<!-- SKJERMBILDE: nodejs.org startsiden med LTS-knappen markert -->
+![Node.js Homepage with "Get Node js" button highlighted](nodejs_homepage.png)
 
-2. Klikk på knappen merket **"24.16.0 LTS"** (venstre knapp)
+2. Klikk på knappen merket **"Windows installer (.msi)"**
 
-<!-- SKJERMBILDE: Installasjonsfilen som lastes ned -->
+![Node js download page with windows installer button highlighted](nodejs_download_page.png)
+
+OBS. Dersom du har Mac endrer du til "macOS i den blå firkanten og trykker på "macOS installer (.pkg)". Stegene videre er de samme.
+
+![Node js download page with macOS installer button highlighted](nodejs_download_page_mac.png)
 
 3. Åpne filen som lastes ned og klikk **Next**
 
-<!-- SKJERMBILDE: Velkomstskjermen i Node.js-installatøren -->
+![Node js setup wizard with "Next" button highlighted](nodejs_setup_wizard_homepage.png)
 
 4. Godta lisensvilkårene og klikk **Next** gjennom alle stegene. Ikke endre noe — standardvalgene er riktige.
 
-<!-- SKJERMBILDE: Siste steg med Finish-knappen -->
+![License agreement with "Next" button highlighted](nodejs_license_agreement.png)
+![Destination folder for node.js](nodejs_destination_folder.png)
+![Node js Custom Setup](nodejs_custom_setup.png)
+![Node js tools for Native Modules](nodejs_tools_for_native_modules.png)
 
-5. Klikk **Finish** når installasjonen er ferdig.
+PS. Du velger selv om du vil installere "Tools for Native Modules". Det er ikke nødvendig, men da har du det liggende skulle du trenge det senere.
+Dersom du velger å installere "Tools for Native Modules", vil du få opp følgende vindu når du har fullført insstallasjonen av Node.js. Følg instruksjonene i vinduet, til du ser "Type ENTER to exit:" Da er installasjonen fullført.
 
-6. Lukk terminalen, åpne en ny, og kjør:
+![Node js tools for native modules install](nodejs_tools_for_native_modules_install.png)
+
+5. Klikk **Install** og deretter **Finish** når installasjonen er ferdig.
+
+![Node js installation](nodejs_installation.png)
+![Node js installation complete](nodejs_installation_complete.png)
+
+6. Åpne en terminal og kjør kommandoen:
 
 ```bash
 node --version
@@ -64,7 +91,7 @@ Du skal nå se `v24.16.0`.
 
 ---
 
-### 2. pnpm (via Corepack)
+### 3. pnpm (via Corepack)
 
 pnpm er pakkebehandleren vi bruker i kurset. Den er tryggere og mer effektiv enn npm, blant annet fordi den ikke lar pakker kjøre ukjent kode uten at du godkjenner det eksplisitt. Vi bruker pnpm versjon 11.
 
@@ -78,7 +105,7 @@ Vi installerer pnpm gjennom **Corepack**, som følger med Node.js og lar deg akt
 corepack enable
 ```
 
-<!-- SKJERMBILDE: Terminal med corepack enable kjørt -->
+Denne kommandoen gir ingen outout. Det er normalt.
 
 Bekreft at pnpm er tilgjengelig:
 
@@ -86,11 +113,22 @@ Bekreft at pnpm er tilgjengelig:
 pnpm --version
 ```
 
-Du skal se noe som `11.x.x`.
+Dersom du ikke har kjørt pnpm via Corepack før, vil du få opp et spørsmål om å installere pnpm. Skriv `Y` og trykk Enter.
+
+Du vil da se noe som dette:
+
+```bash
+❯ corepack enable
+❯ pnpm --version
+! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-11.7.0.tgz
+? Do you want to continue? [Y/n]
+
+11.7.0
+```
 
 ---
 
-### 3. Visual Studio Code
+### 4. Visual Studio Code
 
 Vi anbefaler Visual Studio Code (VS Code) som kodeeditor. Den er gratis og har god støtte for TypeScript og React.
 
@@ -100,23 +138,25 @@ Søk etter "Visual Studio Code" i programmene dine. Hvis den er installert, gå 
 
 Hvis ikke:
 
-1. Gå til [code.visualstudio.com](https://code.visualstudio.com)
+1. Gå til [code.visualstudio.com/Download](https://code.visualstudio.com/Download)
 
-<!-- SKJERMBILDE: VS Code sin nedlastingsside -->
+![vs code download page](vs_code_download_page.png)
 
-2. Klikk på den store blå nedlastingsknappen for ditt operativsystem
-3. Åpne filen som lastes ned og følg instruksjonene
+2. Klikk på den store blå nedlastingsknappen for ditt operativsystem.
+3. Åpne filen som lastes ned og følg instruksjonene.
+   ![VS Code setup wizard license agreement](vs_code_setup_wizard_licence_agreement.png)
+   ![VS Code additional tasks](vs_code_additional_tasks.png)
+   ![VS Code install](vs_code_install.png)
+   ![VS Code installation complete](vs_code_installation_complete.png)
 
 ---
 
-### 4. VS Code-utvidelser
+### 5. VS Code-utvidelser (Valgfritt)
 
 Disse utvidelsene gjør det enklere å skrive React og TypeScript.
 
 1. Åpne VS Code
 2. Trykk `Ctrl+Shift+X` (Windows) / `Cmd+Shift+X` (Mac) for å åpne utvidelsespanelet
-
-<!-- SKJERMBILDE: VS Code med utvidelsespanelet åpent -->
 
 3. Søk opp og installer følgende utvidelser én etter én:
 
@@ -126,7 +166,9 @@ Disse utvidelsene gjør det enklere å skrive React og TypeScript.
 | **Prettier - Code formatter** | Formaterer koden automatisk     |
 | **Tailwind CSS IntelliSense** | Gir autofullfør for CSS-klasser |
 
-<!-- SKJERMBILDE: ESLint-utvidelsen i søkeresultatet med Install-knappen -->
+![vs code extension eslint](vs_code_extension_eslint.png)
+![vs code extension prettier](vs_code_extension_prettier.png)
+![vs code extension tailwind](vs_code_extension_tailwind.png)
 
 ---
 
@@ -134,7 +176,21 @@ Disse utvidelsene gjør det enklere å skrive React og TypeScript.
 
 Når alle forutsetningene er på plass, følger du disse stegene for å starte prosjektet.
 
-### Steg 1 — Klon prosjektet fra GitHub
+### Steg 1 — Fork prosjektet på GitHub
+
+For at du skal kunne lagre arbeidet ditt, må du lage din egen kopi av dette kurs-repoet på din egen GitHub. Dette kalles å **forke**.
+
+1. Gå til [github.com/Petrokolus/frontend-kurs](https://github.com/Petrokolus/frontend-kurs)
+2. Logg inn på GitHub (eller opprett en bruker hvis du ikke har en)
+3. Klikk på **Fork**-knappen øverst til høyre på siden og følg instruksjonene.
+
+![github repo fork](github_repo_fork.png)
+
+Du har nå din egen kopi av repoet under din GitHub-bruker.
+
+---
+
+### Steg 2 — Klon din fork
 
 1. Åpne terminalen
 2. Naviger til mappen der du vil lagre prosjektet, for eksempel:
@@ -143,10 +199,10 @@ Når alle forutsetningene er på plass, følger du disse stegene for å starte p
 cd repos/kurs
 ```
 
-3. Klon repoet:
+3. Klon **din** fork (bytt ut `<brukernavn>` med ditt GitHub-brukernavn):
 
 ```bash
-git clone <url-til-repoet>
+git clone https://github.com/<brukernavn>/frontend-kurs.git
 ```
 
 4. Gå inn i prosjektmappen:
@@ -157,7 +213,7 @@ cd frontend-kurs
 
 ---
 
-### Steg 2 — Åpne prosjektet i VS Code
+### Steg 3 — Åpne prosjektet i VS Code
 
 ```bash
 code .
@@ -165,11 +221,9 @@ code .
 
 VS Code åpner seg med prosjektmappen. Hvis kommandoen ikke fungerer, åpne VS Code manuelt og velg **File → Open Folder**, naviger til `frontend-kurs`-mappen og klikk **Velg mappe**.
 
-<!-- SKJERMBILDE: VS Code åpnet med frontend-kurs-mappen -->
-
 ---
 
-### Steg 3 — Åpne terminalen i VS Code
+### Steg 4 — Åpne terminalen i VS Code
 
 Klikk på **Terminal** i menyen øverst → **New Terminal**.
 
@@ -181,11 +235,11 @@ pwd
 
 Du skal se en filsti som slutter på `frontend-kurs`. Hvis ikke, spør kursholder eller personen ved siden av deg.
 
-<!-- SKJERMBILDE: VS Code med terminal åpen nederst -->
+![vs code with terminal open](vs_code_with_terminal_open.png)
 
 ---
 
-### Steg 4 — Installer avhengigheter
+### Steg 5 — Installer avhengigheter
 
 ```bash
 pnpm install
@@ -199,7 +253,7 @@ Done in Xs
 
 ---
 
-### Steg 5 — Start utviklingsserveren
+### Steg 6 — Start utviklingsserveren
 
 ```bash
 pnpm dev
@@ -213,11 +267,9 @@ Du skal se noe som ligner på dette:
 ✓ Ready in Xs
 ```
 
-<!-- SKJERMBILDE: Terminal med pnpm dev kjørende -->
-
 ---
 
-### Steg 6 — Åpne applikasjonen
+### Steg 7 — Åpne applikasjonen
 
 Åpne nettleseren og gå til:
 
@@ -225,13 +277,9 @@ Du skal se noe som ligner på dette:
 http://localhost:3000
 ```
 
-Du skal nå se velkomstsiden til kurset.
+Du skal nå se velkomstsiden til kurset og du er klar til å begynne på oppgavene!
 
-<!-- SKJERMBILDE: Velkomstsiden i nettleseren -->
-
-Er du her, er alt satt opp korrekt og du er klar til å begynne på oppgavene!
-
-> **Viktig:** Utviklingsserveren må kjøre i terminalen mens du jobber. Lukk den ikke.
+> **Viktig:** Utviklingsserveren må kjøre i terminalen mens du jobber. Lukk du terminalen, vil nettsiden slutte å fungere.
 > Trenger du en ny terminal, åpne en ny fane med `+`-ikonet i terminalfeltet i VS Code.
 
 ---

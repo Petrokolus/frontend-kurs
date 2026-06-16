@@ -474,11 +474,100 @@ Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan
 
 ---
 
-### Oppgave 4 – Hooks i praksis (UFERDIG)
+### Oppgave 4 – Hooks i praksis
 
 **Hva du skal lære:** Hva en hook er og reglene for hooks, `useState` til interaktiv tilstand, `useEffect` til sideeffekter, og `useRef` til direkte DOM-tilgang.
 
-> 🚧 Oppgavetekst skrives her.
+Hooks er funksjoner som lar deg "hekte deg på" React sine innebygde funksjoner. Du har allerede brukt `useState` i forrige oppgave — nå skal vi se på to til.
+
+Reglene for hooks er enkle, men viktige:
+- Hooks skal alltid kalles øverst i komponenten — aldri inne i if-setninger eller løkker
+- Hooks kan bare brukes i React-komponenter (eller i egne custom hooks)
+
+I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil du bruke alle tre hookene til forskjellige ting — og det er poenget. De løser fundamentalt ulike problemer.
+
+#### Oppgave 4a – Legg til et søkefelt med `useState`
+
+Opprett en ny fil `src/app/spillere/spiller-sok.tsx`. Dette blir en client component, siden den trenger interaktivitet — husk `"use client"` øverst.
+
+Komponenten skal ha:
+- Et `<input>`-felt der brukeren kan skrive
+- En `useState` som holder søketeksten
+- En `onChange` på inputen som oppdaterer staten
+
+```tsx
+const [sok, setSok] = useState("");
+```
+
+Importer og vis `SpillerSok` i `page.tsx`. Foreløpig trenger du ikke koble den til spillerlisten — det kommer i neste steg.
+
+#### Oppgave 4b – Filtrer spillerlisten
+
+Nå skal søket faktisk gjøre noe. Søketeksten må sendes fra `SpillerSok` og opp til `page.tsx`, slik at den kan brukes til å filtrere hvilke spillere som vises.
+
+En måte å løse dette på er å løfte staten opp — flytte `useState` til `page.tsx` og sende ned `sok` og `setSok` som props til `SpillerSok`.
+
+Filtreringen kan gjøres slik:
+
+```tsx
+const filtrerte = spillere.filter((spiller) =>
+  spiller.navn.toLowerCase().includes(sok.toLowerCase())
+);
+```
+
+Send `filtrerte` til `SpillereListe` i stedet for `spillere`.
+
+<details class="hint">
+<summary>Hint</summary>
+
+Husk å gjøre `page.tsx` til en client component når du flytter `useState` dit (`"use client"` øverst). Server components kan ikke ha interaktiv tilstand.
+
+</details>
+
+#### Oppgave 4c – Husk søket med `useEffect`
+
+Det er litt irriterende at søket forsvinner hver gang du laster siden på nytt. Vi kan bruke `localStorage` til å huske det.
+
+`useEffect` brukes til å synkronisere React-tilstand med noe utenfor React — som `localStorage`, en ekstern API, eller DOM-en. Syntaksen ser slik ut:
+
+```tsx
+useEffect(() => {
+  // Kjøres etter render
+}, [avhengigheter]); // Kjøres på nytt når avhengighetene endres
+```
+
+Bruk `useEffect` til å lagre søketeksten i `localStorage` hver gang den endres:
+
+```tsx
+useEffect(() => {
+  localStorage.setItem("spillerSok", sok);
+}, [sok]);
+```
+
+Og les den ut som startverdi i `useState`, slik at søket er gjenopprettet neste gang siden lastes:
+
+```tsx
+const [sok, setSok] = useState(() => localStorage.getItem("spillerSok") ?? "");
+```
+
+#### Oppgave 4d – Auto-fokus med `useRef`
+
+`useRef` gir deg en direkte referanse til et DOM-element — uten å trigge en re-render. Det brukes når du trenger å gjøre noe med selve elementet i nettleseren, som å fokusere det.
+
+Legg til auto-fokus på søkefeltet, slik at det er klart til bruk med en gang siden lastes:
+
+```tsx
+const inputRef = useRef<HTMLInputElement>(null);
+
+useEffect(() => {
+  inputRef.current?.focus();
+}, []); // Tom avhengighetsliste = kjør én gang, etter første render
+
+// På input-elementet:
+<input ref={inputRef} ... />
+```
+
+`?.` betyr "gjør dette bare hvis verdien ikke er `null`" — trygg tilgang på et element som kanskje ikke finnes ennå.
 
 ---
 

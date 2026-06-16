@@ -6,17 +6,8 @@ Kurset er bygget rundt et realistisk scenario: du har startet i en ny jobb og ha
 
 ---
 
-## Innhold
-
-- [Forutsetninger](#forutsetninger)
-- [Kom i gang](#kom-i-gang)
-- [Oppgaver](#oppgaver)
-  - [Del 1 – Grunnleggende](#del-1--grunnleggende)
-  - [Del 2 – Mer selvstendig](#del-2--mer-selvstendig)
-
----
-
-## Forutsetninger
+<details>
+<summary>Forutsetninger</summary>
 
 Før du begynner må du ha installert følgende på maskinen din. Følg hvert steg nøye, og ikke hopp videre før du har bekreftet at hvert steg fungerer. Sitter du fast, spør kursholder eller personen ved siden av deg.
 
@@ -170,9 +161,12 @@ Disse utvidelsene gjør det enklere å skrive React og TypeScript.
 ![vs code extension prettier](vs_code_extension_prettier.png)
 ![vs code extension tailwind](vs_code_extension_tailwind.png)
 
+</details>
+
 ---
 
-## Kom i gang
+<details>
+<summary>Kom i gang</summary>
 
 Når alle forutsetningene er på plass, følger du disse stegene for å starte prosjektet.
 
@@ -282,17 +276,17 @@ Du skal nå se velkomstsiden til kurset og du er klar til å begynne på oppgave
 > **Viktig:** Utviklingsserveren må kjøre i terminalen mens du jobber. Lukk du terminalen, vil nettsiden slutte å fungere.
 > Trenger du en ny terminal, åpne en ny fane med `+`-ikonet i terminalfeltet i VS Code.
 
+</details>
+
 ---
 
 ## Oppgaver
 
-Kurset er delt i to deler. I **del 1** er oppgavene nøye instruert med forklaringer, teori og kodesnippets du kan ta utgangspunkt i. I **del 2** er instruksjonene kortere — her forventes det at du bruker det du har lært og slår opp i dokumentasjonen selv.
+Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan ta utgangspunkt i. Etter hvert blir instruksjonene kortere — da forventes det at du bruker det du har lært og slår opp i dokumentasjonen selv.
 
 ---
 
-## Del 1 – Grunnleggende
-
-### Oppgave 1 – Vis alle spillere
+## Oppgave 1 – Vis alle spillere
 
 **Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
 
@@ -355,21 +349,36 @@ Dette er hvordan man styler ved hjelp av Tailwind CSS. Det kodesnutten over gjø
 
 Forsøk å vise litt mer enn bare overskriften på siden. Komponenter som vi lager i React kan importeres og deretter legges inn i page.tsx på samme måte som overskrift-taggen du nettopp har lagt til. Klarer du å importere og vise et SpillerCard på siden?
 
-**HINT**: Vi importerer og bruker SpillerCard i spillere-liste.tsx.
+<details class="hint">
+<summary>Hint</summary>
+
+Vi importerer og bruker SpillerCard i spillere-liste.tsx.
+
+</details>
 
 #### Oppgave 1c - Bytt ut const med prop
 
-Et komponent som SpillerCard trenger noe data for å vises. Per nå, så har vi konstanten mockSpiller som er definert inni SpillerCard-komponentet. Så lenge vi bruker denne konstanten som data, så vil et SpillerCard alltid vise samme verdier. Hvis du ser litt nærmere på fila, så vil du se en type, "Props", som per nå er ubrukt. En slik type bruker vi vanligvis til å definere hvordan argumentene vi sender inn i en funksjon skal se ut. 
+Et komponent som SpillerCard trenger noe data for å vises. Per nå, så har vi konstanten mockSpiller som er definert inni SpillerCard-komponentet. Så lenge vi bruker denne konstanten som data, så vil et SpillerCard alltid vise samme verdier. Hvis du ser litt nærmere på fila, så vil du se en type, "Props", som per nå er ubrukt. En slik type bruker vi vanligvis til å definere hvordan argumentene vi sender inn i en funksjon skal se ut.
 
 Forsøk å slette konstanten mockSpiller fra SpillerCard, og se om du i stedet klarer å sende data inn til komponentet fra utsiden, og endelig få bruk for typen "Props"
 
-**HINT**: Se hvordan Props er brukt til å definere argument/parameter i SpillereListe
+<details class="hint">
+<summary>Hint</summary>
+
+Se hvordan Props er brukt til å definere argument/parameter i SpillereListe.
+
+</details>
 
 #### Oppgave 1d - Fyll på litt fler detaljer
 
 Hvis du klarte å vise et SpillerCard på siden i forrige oppgave, så la du kanskje merke til at det ikke var så mye mer spennende informasjon enn navnet som vises. Prøv å vise noe mer informasjon i SpillerCard.
 
-**HINT**: Usikker på hva slags informasjon du kan vise? Se hvilke verdier som finnes i et spiller-objekt ved å holde musepekeren over "Spiller" eller ved å bruke crtl + venstreklikk.
+<details class="hint">
+<summary>Hint</summary>
+
+Usikker på hva slags informasjon du kan vise? Se hvilke verdier som finnes i et spiller-objekt ved å holde musepekeren over "Spiller" eller ved å bruke `Ctrl + venstreklikk`.
+
+</details>
 
 #### Oppgave 1e - Hent spillere
 
@@ -384,7 +393,7 @@ Prøv å lime inn koden i page.tsx, og se om du klarer å bruke dataen og kompon
 
 ---
 
-### Oppgave 2 – Spillerdetaljer
+## Oppgave 2 – Spillerdetaljer
 
 **Hva du skal lære:** Filbasert routing i Next.js, dynamiske route-parametere, lenking mellom sider med `<Link>`, og tilgjengelighet (`alt`-tekst på bilder).
 
@@ -466,15 +475,166 @@ Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan
 
 ---
 
-### Oppgave 3 – Opprett spiller (UFERDIG)
+## Oppgave 3 – Opprett spiller
 
-**Hva du skal lære:** HTML-skjemaer i React, `useState` for skjematilstand, kontrollerte inputs, sende data til API med `fetch`, og tilgjengelighet i skjemaer.
+**Hva du skal lære:** HTML-skjemaer i React, `useState` for skjematilstand, kontrollerte inputs, sende data til et API med `fetch`, og tilgjengelighet i skjemaer.
 
-> 🚧 Oppgavetekst skrives her.
+Nå som vi kan se alle spillerne, er det på tide å la brukeren legge til nye! I denne oppgaven skal du bygge et skjema for å opprette en ny spiller.
+
+Åpne filen `src/app/spillere/opprett-spiller-skjema.tsx`. Den er allerede satt opp med ett inputfelt for navn. Oppgaven din er å fullføre den.
+
+#### useState og destrukturering
+
+`useState` er en funksjon som returnerer to ting på én gang: den nåværende verdien, og en funksjon for å oppdatere den. Vi henter ut begge ved hjelp av **destrukturering**:
+
+```tsx
+const [navn, setNavn] = useState("");
+//     ^^^^  ^^^^^^^
+//     |     Funksjonen som oppdaterer verdien
+//     Den nåværende verdien
+```
+
+Dette er det samme som å skrive:
+
+```tsx
+const state = useState("");
+const navn = state[0];
+const setNavn = state[1];
+```
+
+Destrukturering er bare en snarvei for å hente ut elementer fra en liste. Navnene `navn` og `setNavn` velger vi selv — konvensjonen er å kalle dem `noe` og `setNoe`.
+
+#### Skjemaer og kontrollerte inputs
+
+I React er det vanlig å bruke det vi kaller **kontrollerte inputs** — det vil si at React holder styr på hva brukeren har skrevet, ikke nettleseren. Vi gjør dette med `useState`:
+
+```tsx
+const [navn, setNavn] = useState("");
+
+<input value={navn} onChange={(e) => setNavn(e.target.value)} />;
+```
+
+Her speiler `navn` alltid det som er i inputfeltet. Når brukeren skriver, kjøres `onChange`, som oppdaterer state, som oppdaterer feltet. Det er en liten sirkel, men det gir deg full kontroll.
+
+Når vi har flere felter, er det praktisk å samle dem i ett objekt:
+
+```tsx
+const [skjema, setSkjema] = useState({
+  navn: "",
+  avdeling: "",
+});
+
+<input
+  value={skjema.navn}
+  onChange={(e) => setSkjema({ ...skjema, navn: e.target.value })}
+/>;
+```
+
+`{ ...skjema, navn: e.target.value }` betyr: «ta alle verdiene fra det gamle skjema-objektet, men bytt ut `navn` med den nye verdien». Dette kalles en **spread** og er en vanlig måte å oppdatere objekter i React på.
+
+#### Tilgjengelighet: label og id
+
+For at skjemaet skal fungere godt for alle — inkludert brukere med skjermleser — er det viktig å knytte hvert inputfelt til en `<label>` med `htmlFor` og `id`:
+
+```tsx
+<label htmlFor="navn">Navn</label>
+<input id="navn" ... />
+```
+
+Dette gjør at klikk på etiketten fokuserer feltet, og at skjermlesere leser opp hva feltet er for.
 
 ---
 
-### Oppgave 4 – Hooks i praksis (UFERDIG)
+#### Oppgave 3a – Legg til de resterende inputfeltene
+
+Skjemaet har allerede et felt for `navn`. Legg til felter for `avdeling`, `kull` og `posisjon`. Bruk samme mønster som `navn`-feltet.
+
+Husk å:
+
+- Gi hvert felt en `label` med `htmlFor`
+- Gi hvert `input` et `id` som matcher `htmlFor`
+- Bruke `required` på felt som er påkrevde
+
+<details class="hint">
+<summary>Hint</summary>
+
+Se på `Spiller`-typen i `lib/types.ts` for å se hvilke felter en spiller har.
+
+</details>
+
+#### Oppgave 3b – Oppdater `SkjemaData`-typen og startverdiene
+
+Øverst i filen er det definert en type `SkjemaData` og en startverdi for `useState`. Disse inneholder foreløpig bare `navn`. Legg til de andre feltene her også.
+
+<details class="hint">
+<summary>Hint</summary>
+
+TypeScript vil gi deg rød understrek hvis du glemmer et felt — la feilmeldingene guide deg.
+
+</details>
+
+#### Oppgave 3c – Legg til valgfrie felter
+
+Spillere kan også ha `styrke` og `svakhet` — men disse er valgfrie. Legg til inputfelter for dem uten `required`.
+
+Husk å også legge dem til i `SkjemaData`-typen. Valgfrie felt markeres med `?` i TypeScript:
+
+```ts
+type SkjemaData = {
+  navn: string;
+  styrke?: string;
+};
+```
+
+#### Oppgave 3d – Send skjemaet til APIet
+
+Når brukeren trykker «Opprett spiller», skal dataen sendes til APIet. Fyll inn `handleSubmit`-funksjonen:
+
+```ts
+async function handleSubmit(data: SkjemaData) {
+  const response = await fetch("http://localhost:3000/api/spillere", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    // Oppgave 3e: Hva bør skje her?
+  }
+}
+```
+
+`handleSubmit` kalles allerede fra `onSubmit` på `<form>`-elementet — du trenger bare å fylle inn kroppen.
+
+#### Oppgave 3e – Vis skjemaet på spillersiden og oppdater listen etterpå
+
+Importer `OpprettSpillerSkjema` i `page.tsx` og vis det på spillersiden.
+
+Når en ny spiller er opprettet, bør listen over spillere oppdateres. Men siden listen hentes av en server component, og skjemaet er en client component, er det ikke like rett frem.
+
+En enkel løsning er å bruke `router.refresh()` fra Next.js:
+
+```tsx
+import { useRouter } from "next/navigation";
+
+const router = useRouter();
+
+// Inne i handleSubmit, etter vellykket POST:
+router.refresh();
+```
+
+Dette ber Next.js om å hente siden på nytt fra serveren, slik at den nye spilleren dukker opp i listen.
+
+<details class="hint">
+<summary>Hint</summary>
+
+Du må importere `useRouter` fra `"next/navigation"` — ikke fra `"next/router"`. Det er to forskjellige!
+
+</details>
+
+---
+
+## Oppgave 4 – Hooks i praksis (UFERDIG)
 
 **Hva du skal lære:** Hva en hook er og reglene for hooks, `useState` til interaktiv tilstand, `useEffect` til sideeffekter, og `useRef` til direkte DOM-tilgang.
 
@@ -482,7 +642,7 @@ Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan
 
 ---
 
-### Oppgave 5 – Opprett spiller med React Hook Form (UFERDIG)
+## Oppgave 5 – Opprett spiller med React Hook Form (UFERDIG)
 
 **Hva du skal lære:** Installere og bruke en tredjeparts React-pakke, fordelen med `react-hook-form` over manuell state, og skjemavalidering.
 
@@ -490,7 +650,7 @@ Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan
 
 ---
 
-### Oppgave 6 – Rediger spiller (UFERDIG)
+## Oppgave 6 – Rediger spiller (UFERDIG)
 
 **Hva du skal lære:** Gjenbruke komponenter, bruke en dialog/modal, forhåndsutfylle skjema med eksisterende data, og sende PATCH-kall til API.
 
@@ -498,7 +658,7 @@ Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan
 
 ---
 
-### Oppgave 7 – Slett spiller (UFERDIG)
+## Oppgave 7 – Slett spiller (UFERDIG)
 
 **Hva du skal lære:** DELETE-kall mot API, bekreftelsesdialog, og oppdatere visningen etter sletting.
 
@@ -506,7 +666,7 @@ Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan
 
 ---
 
-### Oppgave 8 – Filtrering og sortering av spillere (UFERDIG)
+## Oppgave 8 – Filtrering og sortering av spillere (UFERDIG)
 
 **Hva du skal lære:** URL search params til filtrering, forskjellen på lokal og URL-basert tilstand, og server-side sortering.
 
@@ -514,9 +674,7 @@ Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan
 
 ---
 
-## Del 2 – Mer selvstendig
-
-### Oppgave 9 – Kamphistorikk (UFERDIG)
+## Oppgave 9 – Kamphistorikk (UFERDIG)
 
 Lag en ny side som viser kamphistorikk i en tabell med paginering.
 
@@ -524,7 +682,7 @@ Lag en ny side som viser kamphistorikk i en tabell med paginering.
 
 ---
 
-### Oppgave 10 – Registrere en kamp (UFERDIG)
+## Oppgave 10 – Registrere en kamp (UFERDIG)
 
 Lag et skjema for å registrere resultatet av en kamp mellom to spillere.
 
@@ -532,7 +690,7 @@ Lag et skjema for å registrere resultatet av en kamp mellom to spillere.
 
 ---
 
-### Oppgave 11 – Dashboard (UFERDIG)
+## Oppgave 11 – Dashboard (UFERDIG)
 
 Implementer et dashboard i henhold til UX-skissen fra UX-kurset.
 
@@ -540,7 +698,7 @@ Implementer et dashboard i henhold til UX-skissen fra UX-kurset.
 
 ---
 
-### Oppgave – Suspense og loading (UFERDIG)
+## Oppgave – Suspense og loading (UFERDIG)
 
 Legg til `loading.tsx` og `<Suspense>`-grenser med skeleton-komponenter. Gjøres først nøye instruert på spillersiden, deretter selvstendig på kampsiden.
 
@@ -548,7 +706,7 @@ Legg til `loading.tsx` og `<Suspense>`-grenser med skeleton-komponenter. Gjøres
 
 ---
 
-### Oppgave – ELO og plasseringsbadge (UFERDIG)
+## Oppgave – ELO og plasseringsbadge (UFERDIG)
 
 Beregn ELO-rating basert på kamphistorikk og vis gull/sølv/bronse-badge på spillerkortene.
 
@@ -556,7 +714,7 @@ Beregn ELO-rating basert på kamphistorikk og vis gull/sølv/bronse-badge på sp
 
 ---
 
-### Oppgave – Booke kamper (UFERDIG)
+## Oppgave – Booke kamper (UFERDIG)
 
 Lag et system for å planlegge fremtidige kamper med tid og deltakere.
 
@@ -564,7 +722,7 @@ Lag et system for å planlegge fremtidige kamper med tid og deltakere.
 
 ---
 
-### Oppgave – Betting på kamper (UFERDIG)
+## Oppgave – Betting på kamper (UFERDIG)
 
 Legg til mulighet for å tippe utfall på planlagte kamper.
 
@@ -572,7 +730,7 @@ Legg til mulighet for å tippe utfall på planlagte kamper.
 
 ---
 
-### Oppgave – Error og not-found på spillerdetaljer (UFERDIG)
+## Oppgave – Error og not-found på spillerdetaljer (UFERDIG)
 
 Legg til `not-found.tsx` hvis spilleren ikke finnes, og `error.tsx` for generelle feil.
 
@@ -580,7 +738,7 @@ Legg til `not-found.tsx` hvis spilleren ikke finnes, og `error.tsx` for generell
 
 ---
 
-### Oppgave – Tester med Vitest (UFERDIG)
+## Oppgave – Tester med Vitest (UFERDIG)
 
 Noen tester i prosjektet feiler. Få dem til å bli grønne!
 
@@ -588,7 +746,7 @@ Noen tester i prosjektet feiler. Få dem til å bli grønne!
 
 ---
 
-### Oppgave – Innlogging (UFERDIG)
+## Oppgave – Innlogging (UFERDIG)
 
 Legg til autentisering og beskytt sider som krever innlogging.
 
@@ -596,7 +754,7 @@ Legg til autentisering og beskytt sider som krever innlogging.
 
 ---
 
-### Oppgave – Filtrering på kamper med debounce (UFERDIG)
+## Oppgave – Filtrering på kamper med debounce (UFERDIG)
 
 Legg til filtrering på kampsiden med debounce for å unngå for mange API-kall.
 
@@ -604,7 +762,7 @@ Legg til filtrering på kampsiden med debounce for å unngå for mange API-kall.
 
 ---
 
-### Oppgave – Breadcrumbs med usePathname (UFERDIG)
+## Oppgave – Breadcrumbs med usePathname (UFERDIG)
 
 Implementer breadcrumb-navigasjon ved hjelp av `usePathname`.
 
@@ -612,7 +770,7 @@ Implementer breadcrumb-navigasjon ved hjelp av `usePathname`.
 
 ---
 
-### Oppgave – Zod-validering (UFERDIG)
+## Oppgave – Zod-validering (UFERDIG)
 
 Legg til Zod for skjemavalidering i kombinasjon med `react-hook-form`.
 

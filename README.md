@@ -356,16 +356,22 @@ Vi importerer og bruker SpillerCard i spillere-liste.tsx.
 
 </details>
 
-#### Oppgave 1c - Bytt ut const med prop
+#### Oppgave 1c - Bytt ut mockSpiller med en prop
 
-Et komponent som SpillerCard trenger noe data for å vises. Per nå, så har vi konstanten mockSpiller som er definert inni SpillerCard-komponentet. Så lenge vi bruker denne konstanten som data, så vil et SpillerCard alltid vise samme verdier. Hvis du ser litt nærmere på fila, så vil du se en type, "Props", som per nå er ubrukt. En slik type bruker vi vanligvis til å definere hvordan argumentene vi sender inn i en funksjon skal se ut.
+`SpillerCard` har nå en hardkodet `mockSpiller` inni seg. Det betyr at kortet alltid viser samme spiller, uansett hvilken data vi sender inn. Det vil vi endre.
 
-Forsøk å slette konstanten mockSpiller fra SpillerCard, og se om du i stedet klarer å sende data inn til komponentet fra utsiden, og endelig få bruk for typen "Props"
+Øverst i `spiller-card.tsx` ser du at det allerede finnes en `Props`-type med et `spiller`-felt. Målet ditt er å:
+
+1. Slette `mockSpiller`-konstanten
+2. La `SpillerCard` ta imot `spiller` som prop i stedet
+3. Oppdatere kommentaren i `spillere-liste.tsx` til å sende `spiller` inn
+
+Når du er ferdig vil hvert kort vise sin egen spiller i stedet for alltid å vise Ola Nordmann.
 
 <details class="hint">
 <summary>Hint</summary>
 
-Se hvordan Props er brukt til å definere argument/parameter i SpillereListe.
+Se på hvordan `SpillereListe` er satt opp — den tar imot `spillere` som prop på nøyaktig samme måte. Kopier mønsteret.
 
 </details>
 
@@ -394,9 +400,7 @@ Fordi `page.tsx` er en **server component** — en komponent som kjører på ser
 Når du har hentet spillerne, sitter du igjen med en liste. For å vise hvert element i en liste bruker vi `.map()`, som går gjennom hvert element og returnerer JSX:
 
 ```tsx
-spillere.map((spiller) => (
-  <SpillerCard key={spiller.id} spiller={spiller} />
-))
+spillere.map((spiller) => <SpillerCard key={spiller.id} spiller={spiller} />);
 ```
 
 `key` er et spesielt React-attributt som hjelper React å holde styr på hvilket element i listen som er hvilket. Bruk alltid en unik verdi — her passer `id` perfekt.

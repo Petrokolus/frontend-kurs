@@ -1088,10 +1088,30 @@ export default function OpprettSpillerSkjema() {
       onSubmit={form.handleSubmit(opprettSpiller)}
       className="flex flex-col gap-4"
     >
-      <SkjemaFelt id="navn" label="Navn" isRequired="Navn er påkrevd" form={form} />
-      <SkjemaFelt id="avdeling" label="Avdeling" isRequired="Avdeling er påkrevd" form={form} />
-      <SkjemaFelt id="kull" label="Kull" isRequired="Kull er påkrevd" form={form} />
-      <SkjemaFelt id="posisjon" label="Posisjon" isRequired="Posisjon er påkrevd" form={form} />
+      <SkjemaFelt
+        id="navn"
+        label="Navn"
+        isRequired="Navn er påkrevd"
+        form={form}
+      />
+      <SkjemaFelt
+        id="avdeling"
+        label="Avdeling"
+        isRequired="Avdeling er påkrevd"
+        form={form}
+      />
+      <SkjemaFelt
+        id="kull"
+        label="Kull"
+        isRequired="Kull er påkrevd"
+        form={form}
+      />
+      <SkjemaFelt
+        id="posisjon"
+        label="Posisjon"
+        isRequired="Posisjon er påkrevd"
+        form={form}
+      />
       <SkjemaFelt id="styrke" label="Styrke (valgfritt)" form={form} />
       <SkjemaFelt id="svakhet" label="Svakhet (valgfritt)" form={form} />
 

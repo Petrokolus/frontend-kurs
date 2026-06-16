@@ -478,13 +478,13 @@ Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan
 
 **Hva du skal lære:** Hva en hook er og reglene for hooks, `useState` til interaktiv tilstand, `useEffect` til sideeffekter, og `useRef` til direkte DOM-tilgang.
 
-Hooks er funksjoner som lar deg "hekte deg på" React sine innebygde funksjoner. Du har allerede brukt `useState` i forrige oppgave — nå skal vi se på to til.
+Hooks er spesielle funksjoner i React som gir komponentene dine tilgang til tilstand og side effects — det vil si alt som skjer utenfor Reacts renderingssyklus, som å lese fra localStorage, hente data fra en API, eller manipulere DOM-en direkte.
 
-Reglene for hooks er enkle, men viktige:
+Det finnes et par regler for når hooks kan brukes:
 - Hooks skal alltid kalles øverst i komponenten — aldri inne i if-setninger eller løkker
 - Hooks kan bare brukes i React-komponenter (eller i egne custom hooks)
 
-I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil du bruke alle tre hookene til forskjellige ting — og det er poenget. De løser fundamentalt ulike problemer.
+I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil du bruke alle tre hookene til forskjellige ting — og det er poenget, de løser ulike problemer.
 
 #### Oppgave 4a – Legg til et søkefelt med `useState`
 

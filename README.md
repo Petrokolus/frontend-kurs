@@ -268,8 +268,8 @@ function Hilsen({ navn }: Props) {
 }
 
 // Bruk:
-<Hilsen navn="Ola" />
-<Hilsen navn="Kari" />
+<Hilsen navn={"Ola"} />
+<Hilsen navn={"Kari"} />
 ```
 
 Siden vi også skriver i TypeScript, så kan dere se at vi definerer typen på alle props.
@@ -280,10 +280,13 @@ Naviger til mappen src/app/spillere. Der finner dere tre filer som dere skal få
 - spillere-liste.tsx - Liste-komponent som setter sammen SpillerCard-komponenter til en liste/oversikt
 - page.tsx - filen som forteller Next at her er det en side vi vil kunne navigere til. Her er det også naturlig å hente spiller-data fra APIet, som vi deretter sender inn som props til komponentene vi ønsker på siden.
 
-#### Oppgave 1a - Legg til en overskrift
-Hvis dere har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av oppstartsguiden, så kan dere allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser dere det som nå finnes av innhold i page.tsx i spillere-mappen. 
+Men dette^ kommer vi nærmere tilbake til i oppgavene :D
 
- Alle sider trenger en overskrift! Naviger til page.tsx og legg til en passende overskrift. HTML har sitt eget element for overskrifter: 
+#### Oppgave 1a - Legg til en overskrift
+
+Hvis dere har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av oppstartsguiden, så kan dere allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser dere det som nå finnes av innhold i page.tsx i spillere-mappen.
+
+Alle sider trenger en overskrift! Naviger til page.tsx og legg til en passende overskrift. HTML har sitt eget element for overskrifter:
 
 ```typescript
 <h1>Dette er en overskrift</h1>
@@ -294,26 +297,39 @@ Tailwind CSS nullstiller alle nettleserens innebygde styles — inkludert oversk
 ```tsx
 <h1 className="text-3xl font-bold">Dette er en overskrift</h1>
 ```
+
 Dette er hvordan man styler ved hjelp av Tailwind CSS. Det kodesnutten over gjør:
-- *text-3xl*: Setter font-størrelse til XXXL
-- *font-bold*: Setter font-type til bold (fet skrift) 
+
+- _text-3xl_: Setter font-størrelse til XXXL
+- _font-bold_: Setter font-type til bold (fet skrift)
+
 #### Oppgave 1b - Vis et SpillerCard på siden
- Forsøk å vise litt mer enn bare overskriften på siden. Komponenter som vi lager i React kan importeres og deretter legges inn i page.tsx på samme måte som overskrift-taggen du nettopp har lagt til. Klarer du å importere og vise et SpillerCard på siden?
 
-**HINT**: Vi importerer og bruker SpillerCard i spillere-liste.tsx. 
+Forsøk å vise litt mer enn bare overskriften på siden. Komponenter som vi lager i React kan importeres og deretter legges inn i page.tsx på samme måte som overskrift-taggen du nettopp har lagt til. Klarer du å importere og vise et SpillerCard på siden?
 
-Et komponent som SpillerCard trenger noe data for å vises. Øverst i page.tsx vil du finne en konstant som du kan sende inn som prop for å løse denne oppgaven.
+**HINT**: Vi importerer og bruker SpillerCard i spillere-liste.tsx.
 
-#### Oppgave 1c - Fyll på litt fler detaljer
+#### Oppgave 1c - Bytt ut const med prop
 
-Hvis du klarte å vise et SpillerCard på siden i forrige oppgave, så la du kanskje merke til at det ikke var så mye mer spennende informasjon enn navnet som vises. Prøv å vise noe mer informasjon i SpillerCard, basert på prop-typen Spiller.
+Et komponent som SpillerCard trenger noe data for å vises. Per nå, så har vi konstanten mockSpiller som er definert inni SpillerCard-komponentet. Så lenge vi bruker denne konstanten som data, så vil et SpillerCard alltid vise samme verdier. Hvis du ser litt nærmere på fila, så vil du se en type, "Props", som per nå er ubrukt. En slik type bruker vi vanligvis til å definere hvordan argumentene vi sender inn i en funksjon skal se ut. 
 
-#### Oppgave 1d - Hent spillere
+Forsøk å slette konstanten mockSpiller fra SpillerCard, og se om du i stedet klarer å sende data inn til komponentet fra utsiden, og endelig få bruk for typen "Props"
+
+**HINT**: Se hvordan Props er brukt til å definere argument/parameter i SpillereListe
+
+#### Oppgave 1d - Fyll på litt fler detaljer
+
+Hvis du klarte å vise et SpillerCard på siden i forrige oppgave, så la du kanskje merke til at det ikke var så mye mer spennende informasjon enn navnet som vises. Prøv å vise noe mer informasjon i SpillerCard.
+
+**HINT**: Usikker på hva slags informasjon du kan vise? Se hvilke verdier som finnes i et spiller-objekt ved å holde musepekeren over "Spiller" eller ved å bruke crtl + venstreklikk.
+
+#### Oppgave 1e - Hent spillere
+
 Vi har en lokal database med foosball-spillere! Innhold derfra kan hentes gjennom API'et på denne måten:
 
 ```ts
-  const result = await fetch("http://localhost:3000/api/spillere");
-  const spillere = await result.json();
+const result = await fetch("http://localhost:3000/api/spillere");
+const spillere = await result.json();
 ```
 
 Prøv å lime inn koden i page.tsx, og se om du klarer å bruke dataen og komponentene i mappen til å vise en liste med alle spillere!

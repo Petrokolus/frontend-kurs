@@ -6,9 +6,8 @@ type Props = {
 };
 
 export default function SpillerCard() {
-
   const mockSpiller: Spiller = {
-    // Dette er en "dummy"-spiller som vi kan bruke for å teste ut hvordan SpillerCard-komponenten ser ut når vi gir den data.
+    // Dette er en "dummy"-spiller som vi bruker for å teste hvordan SpillerCard ser ut med data.
     id: 1,
     navn: "Ola Nordmann",
     avdeling: "Digital Engineering",
@@ -24,7 +23,7 @@ export default function SpillerCard() {
         <p className="text-muted-foreground text-sm">
           Her kan vi vise mer data fra spiller-objektene
         </p>
-        {/* Legg til flere detaljer her basert på datamodellen */}
+        {/* Oppgave 1d: Legg til flere detaljer her basert på datamodellen */}
       </div>
     </div>
   );

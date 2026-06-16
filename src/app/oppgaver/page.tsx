@@ -9,7 +9,7 @@ export default function OppgaverPage() {
   );
 
   return (
-    <div className="max-w-3xl p-8">
+    <div className="mx-auto max-w-3xl p-8">
       <ReadmeRenderer content={readme} />
     </div>
   );

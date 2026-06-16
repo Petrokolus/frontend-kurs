@@ -8,3 +8,21 @@ export async function GET() {
 
   return NextResponse.json(spillere);
 }
+
+export async function POST(request: Request) {
+  const body = await request.json();
+
+  const spiller = await prisma.spiller.create({
+    data: {
+      navn: body.navn,
+      avdeling: body.avdeling,
+      kull: body.kull,
+      posisjon: body.posisjon,
+      styrke: body.styrke ?? null,
+      svakhet: body.svakhet ?? null,
+      rating: 0,
+    },
+  });
+
+  return NextResponse.json(spiller, { status: 201 });
+}

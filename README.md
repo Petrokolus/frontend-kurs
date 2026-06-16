@@ -9,7 +9,7 @@ Kurset er bygget rundt et realistisk scenario: du har startet i en ny jobb og ha
 <details>
 <summary>Forutsetninger</summary>
 
-Før du begynner må du ha installert følgende på maskinen din. Følg hvert steg nøye, og ikke hopp videre før du har bekreftet at hvert steg fungerer. Sitter du fast, spør kursholder eller personen ved siden av deg.
+Før du begynner må du ha installert følgende på maskinen din. Følg hvert steg nøye, og ikke hopp vidu før du har bekreftet at hvert steg fungerer. Sitter du fast, spør kursholder eller personen ved siden av deg.
 
 ### 1. Git
 
@@ -47,7 +47,7 @@ Hvis du ser en annen versjon eller får en feilmelding, installer Node.js slik:
 
 ![Node js download page with windows installer button highlighted](nodejs_download_page.png)
 
-OBS. Dersom du har Mac endrer du til "macOS i den blå firkanten og trykker på "macOS installer (.pkg)". Stegene videre er de samme.
+OBS. Dersom du har Mac endrer du til "macOS i den blå firkanten og trykker på "macOS installer (.pkg)". Stegene vidu er de samme.
 
 ![Node js download page with macOS installer button highlighted](nodejs_download_page_mac.png)
 
@@ -314,19 +314,19 @@ function Hilsen({ navn }: Props) {
 <Hilsen navn={"Kari"} />
 ```
 
-Siden vi også skriver i TypeScript, så kan dere se at vi definerer typen på alle props.
+Siden vi også skriver i TypeScript, så kan du se at vi definerer typen på alle props.
 
-Naviger til mappen src/app/spillere. Der finner dere tre filer som dere skal få lov til å prøve å fullføre:
+Naviger til mappen `src/app/spillere`. Der finner du tre filer du skal jobbe i:
 
-- spiller-card.tsx - Komponentet som viser informasjon om én spiller
-- spillere-liste.tsx - Liste-komponent som setter sammen SpillerCard-komponenter til en liste/oversikt
-- page.tsx - filen som forteller Next at her er det en side vi vil kunne navigere til. Her er det også naturlig å hente spiller-data fra APIet, som vi deretter sender inn som props til komponentene vi ønsker på siden.
+- `spiller-card.tsx` — komponenten som viser informasjon om én spiller
+- `spillere-liste.tsx` — liste-komponent som setter sammen SpillerCard-komponenter til en oversikt
+- `page.tsx` — filen som definerer selve siden. Her henter vi data fra API-et og sender det videre som props til komponentene vi vil vise.
 
-Men dette^ kommer vi nærmere tilbake til i oppgavene :D
+Vi går gjennom disse steg for steg i oppgavene under.
 
 #### Oppgave 1a - Legg til en overskrift
 
-Hvis dere har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av oppstartsguiden, så kan dere allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser dere det som nå finnes av innhold i page.tsx i spillere-mappen.
+Hvis du har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av oppstartsguiden, så kan du allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser du det som nå finnes av innhold i page.tsx i spillere-mappen.
 
 Alle sider trenger en overskrift! Naviger til page.tsx og legg til en passende overskrift. HTML har sitt eget element for overskrifter:
 
@@ -382,14 +382,26 @@ Usikker på hva slags informasjon du kan vise? Se hvilke verdier som finnes i et
 
 #### Oppgave 1e - Hent spillere
 
-Vi har en lokal database med foosball-spillere! Innhold derfra kan hentes gjennom API'et på denne måten:
+Vi har en lokal database med foosball-spillere! Innhold derfra kan hentes gjennom API-et på denne måten:
 
 ```ts
 const result = await fetch("http://localhost:3000/api/spillere");
 const spillere = await result.json();
 ```
 
-Prøv å lime inn koden i page.tsx, og se om du klarer å bruke dataen og komponentene i mappen til å vise en liste med alle spillere!
+Fordi `page.tsx` er en **server component** — en komponent som kjører på serveren, ikke i nettleseren — kan vi bruke `await` direkte i komponenten uten noe ekstra oppsett. Vi kommer tilbake til hva dette betyr i praksis i oppgave 3.
+
+Når du har hentet spillerne, sitter du igjen med en liste. For å vise hvert element i en liste bruker vi `.map()`, som går gjennom hvert element og returnerer JSX:
+
+```tsx
+spillere.map((spiller) => (
+  <SpillerCard key={spiller.id} spiller={spiller} />
+))
+```
+
+`key` er et spesielt React-attributt som hjelper React å holde styr på hvilket element i listen som er hvilket. Bruk alltid en unik verdi — her passer `id` perfekt.
+
+Prøv å hente spillerne fra API-et og bruk `.map()` til å vise en liste med alle spillerne!
 
 ---
 
@@ -422,7 +434,7 @@ Dette forteller Next.js at dette segmentet av URL-en er dynamisk og kan innehold
 
 I dette tilfellet vil tekststrengen du putter inni klammeparaesene (`id`, `kampNr`, `liga`) være tilgjengelig som en variabel i `page.tsx`-filen gjennom `params`-objektet som Next.js automatisk sender inn i siden.
 
-For å hjelpe dere i gang har vi allerede laget en ferdig fil på `src/app/spillere/[id]/page.tsx`. Naviger til `http://localhost:3000/spillere/1`, `http://localhost:3000/spillere/2`, `http://localhost:3000/spillere/3` i nettleseren. Ser du hvordan tittelen endres basert på `id`-verdien i URL-en?
+For å hjelpe du i gang har vi allerede laget en ferdig fil på `src/app/spillere/[id]/page.tsx`. Naviger til `http://localhost:3000/spillere/1`, `http://localhost:3000/spillere/2`, `http://localhost:3000/spillere/3` i nettleseren. Ser du hvordan tittelen endres basert på `id`-verdien i URL-en?
 
 #### Oppgave 2b – Utforsk API-et i API-dokumentasjonen
 
@@ -481,7 +493,21 @@ Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan
 
 Nå som vi kan se alle spillerne, er det på tide å la brukeren legge til nye! I denne oppgaven skal du bygge et skjema for å opprette en ny spiller.
 
-Åpne filen `src/app/spillere/opprett-spiller-skjema.tsx`. Den er allerede satt opp med ett inputfelt for navn. Oppgaven din er å fullføre den.
+#### Server components og client components
+
+Hittil har vi jobbet med **server components** — komponenter som kjøres på serveren og sender ferdig HTML til nettleseren. De er enkle og raske, men de kan ikke reagere på brukerinteraksjon som klikk eller tastetrykk.
+
+For å håndtere interaksjon trenger vi en **client component** — en komponent som kjøres i nettleseren. Client components markeres med `"use client"` øverst i filen:
+
+```tsx
+"use client";
+
+import { useState } from "react";
+```
+
+Uten `"use client"` kan du ikke bruke `useState`, event handlers som `onClick` eller `onChange`, eller andre ting som avhenger av at koden kjører i nettleseren. Et skjema der brukeren fyller inn data er et typisk eksempel på noe som må være en client component.
+
+Åpne filen `src/app/spillere/opprett-spiller-skjema.tsx`. Du vil se at den allerede har `"use client"` øverst — og ett inputfelt for navn. Oppgaven din er å fullføre den.
 
 #### useState og destrukturering
 

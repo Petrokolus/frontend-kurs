@@ -138,6 +138,7 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 - Bruke en dialog/modal
 - Forhåndsutfylle skjema med eksisterende data
 - PATCH-kall mot API
+- Forstå React context og `FormProvider`/`useFormContext`
 
 **Oppbygning:**
 
@@ -145,8 +146,9 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 2. Åpne en dialog med redigeringsskjemaet — introduserer `Dialog`-komponenten fra komponentbiblioteket
 3. Forhåndsutfyll skjemaet med spillerens nåværende data
 4. Send PATCH-kall og oppdater visningen
+5. Introduser `FormProvider` + `useFormContext` fra react-hook-form som forbedring av skjemaet: fjerner behovet for å proppe `form` inn i `SkjemaFelt`. Forklar React context-begrepet (hva problemet er, hvordan context løser det). Nevn at studenten kan gå tilbake og anvende samme mønster i oppgave 5 om hen ønsker det.
 
-**Teori som introduseres:** Komponentgjenbruk, kontrollerte dialogs, optimistiske oppdateringer (valgfritt)
+**Teori som introduseres:** Komponentgjenbruk, kontrollerte dialogs, React context, `FormProvider`, `useFormContext`, optimistiske oppdateringer (valgfritt)
 
 ---
 

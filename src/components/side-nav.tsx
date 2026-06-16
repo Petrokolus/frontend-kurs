@@ -15,9 +15,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-const pages = [
-  { href: "/spillere", label: "Spillere" },
-];
+const pages = [{ href: "/spillere", label: "Spillere" }];
 
 const resourcePages = [
   { href: "/oppgaver", label: "Oppgaver" },
@@ -26,7 +24,10 @@ const resourcePages = [
 
 const externalLinks = [
   { href: "https://ui.shadcn.com/docs/components", label: "shadcn/ui" },
-  { href: "https://tailwindcss.com/docs/installation/using-vite", label: "Tailwind CSS" },
+  {
+    href: "https://tailwindcss.com/docs/installation/using-vite",
+    label: "Tailwind CSS",
+  },
   { href: "https://nextjs.org/docs", label: "Next.js" },
   { href: "https://react.dev/reference/react", label: "React" },
 ];
@@ -105,7 +106,11 @@ export function SideNav() {
               {externalLinks.map((item) => (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton asChild>
-                    <a href={item.href} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {item.label}
                     </a>
                   </SidebarMenuButton>

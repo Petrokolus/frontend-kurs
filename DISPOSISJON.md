@@ -6,7 +6,7 @@
 
 ## Overordnet mål
 
-Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen av, med progressiv kompleksitet. Kurset følger en *learning by doing*-tilnærming der teori introduseres i direkte tilknytning til praksis.
+Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen av, med progressiv kompleksitet. Kurset følger en _learning by doing_-tilnærming der teori introduseres i direkte tilknytning til praksis.
 
 **Scenario:** Deltakerne har startet i ny jobb og fått i oppgave å bygge et foosball-managementsystem for kontoret. De har tilgang til et ferdig API og et komponentbibliotek — jobben er å koble det hele sammen.
 
@@ -14,10 +14,10 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 
 ## Kursets to deler
 
-| Del | Tilnærming | Innhold |
-|-----|-----------|---------|
-| **Del 1** | Nøye instruert med kodesnippets, forklaringer og teoriforankring | Oppgave 1–8 |
-| **Del 2** | Mer selvstendig, kortere instruksjoner | Oppgave 9 og videre |
+| Del       | Tilnærming                                                       | Innhold             |
+| --------- | ---------------------------------------------------------------- | ------------------- |
+| **Del 1** | Nøye instruert med kodesnippets, forklaringer og teoriforankring | Oppgave 1–8         |
+| **Del 2** | Mer selvstendig, kortere instruksjoner                           | Oppgave 9 og videre |
 
 ---
 
@@ -26,6 +26,7 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 ### Oppgave 1 – Vis alle spillere
 
 **Læringsmål:**
+
 - Forstå HTML-struktur og grunnleggende JSX
 - Lage og bruke React-komponenter
 - Forstå props og typesikkerhet med TypeScript
@@ -33,6 +34,7 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 - Hente data med en ferdigskrevet fetch-funksjon (server component)
 
 **Oppbygning:**
+
 1. Skriv en overskrift — introduserer HTML-tagger i JSX
 2. Style overskriften — introduserer CSS/Tailwind og `className`
 3. Lag en `PlayerCard`-komponent med hardkodet innhold
@@ -48,12 +50,14 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 ### Oppgave 2 – Spillerdetaljer (ny route)
 
 **Læringsmål:**
+
 - Forstå filbasert routing i Next.js
 - Lese dynamiske route-parametere (`params`)
 - Lenke mellom sider med `<Link>`
 - Tilgjengelighet: `alt`-tekst på bilder
 
 **Oppbygning:**
+
 1. Opprett `src/app/spillere/[id]/page.tsx` — introduserer mappestruktur og dynamiske segmenter
 2. Les `params.id` og hent spiller fra API
 3. Vis spillerens detaljer
@@ -66,6 +70,7 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 ### Oppgave 3 – Opprett spiller (manuell form)
 
 **Læringsmål:**
+
 - Lage et HTML-skjema i React
 - Bruke `useState` til å håndtere skjematilstand
 - Forstå kontrollerte inputs
@@ -73,6 +78,7 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 - Tilgjengelighet i skjemaer (labels, aria-attributter)
 
 **Oppbygning:**
+
 1. Opprett route `src/app/spillere/ny/page.tsx`
 2. Lag skjema med navn og bilde-URL
 3. Koble inputs til state med `useState` — introduserer events og kontrollerte inputs
@@ -88,6 +94,7 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 > Nøye beskrevet oppgave dedikert til hooks som konsept.
 
 **Læringsmål:**
+
 - Forstå hva en hook er og reglene for hooks
 - Bruke `useState` til interaktiv tilstand
 - Bruke `useEffect` til sideeffekter
@@ -107,11 +114,13 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 ### Oppgave 5 – Opprett spiller med React Hook Form
 
 **Læringsmål:**
+
 - Installere og bruke en tredjeparts React-pakke
 - Forstå fordelen med `react-hook-form` over manuell state
 - Legge til validering
 
 **Oppbygning:**
+
 1. Installer `react-hook-form` — introduserer pakkehåndtering med pnpm
 2. Refaktorer skjemaet fra oppgave 3 til å bruke `useForm`
 3. Legg til validering (påkrevde felt, min/max lengde)
@@ -124,12 +133,14 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 ### Oppgave 6 – Rediger spiller
 
 **Læringsmål:**
+
 - Gjenbruke komponenter (skjema fra oppgave 5)
 - Bruke en dialog/modal
 - Forhåndsutfylle skjema med eksisterende data
 - PATCH-kall mot API
 
 **Oppbygning:**
+
 1. Legg til en "Rediger"-knapp på spillerkortet
 2. Åpne en dialog med redigeringsskjemaet — introduserer `Dialog`-komponenten fra komponentbiblioteket
 3. Forhåndsutfyll skjemaet med spillerens nåværende data
@@ -142,11 +153,13 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 ### Oppgave 7 – Slett spiller
 
 **Læringsmål:**
+
 - DELETE-kall mot API
 - Bekreftelsesdialog
 - Oppdatere visningen etter sletting
 
 **Oppbygning:**
+
 1. Legg til "Slett"-knapp på spillerkortet
 2. Vis en bekreftelsesdialog — introduserer `AlertDialog`
 3. Send DELETE-kall og fjern spilleren fra visningen
@@ -158,11 +171,13 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 ### Oppgave 8 – Filtrering og sortering av spillere
 
 **Læringsmål:**
+
 - Bruke URL search params til filtrering (i stedet for lokal state)
 - Forstå forskjellen på lokal og URL-basert tilstand
 - Sortere data
 
 **Oppbygning:**
+
 1. Legg til filtreringsinput og sorteringsvalg
 2. Synkroniser tilstand med URL via `useSearchParams` og `useRouter`
 3. Les search params i server component og filtrer/sorter data
@@ -289,20 +304,20 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 
 ## Læringsplan – teori per del
 
-| Tema | Del 1 | Del 2 |
-|------|-------|-------|
-| HTML/JSX | Oppgave 1 | — |
-| Komponenter og props | Oppgave 1 | — |
-| TypeScript | Oppgave 1–2 | Løpende |
-| Routing (Next.js) | Oppgave 2 | Løpende |
-| useState / kontrollerte inputs | Oppgave 3 | — |
-| useEffect / useRef | Oppgave 4 | — |
-| Tredjeparts biblioteker | Oppgave 5 | — |
-| Dialog/Modal | Oppgave 6 | — |
-| CRUD | Oppgave 6–7 | — |
-| Search params / URL-tilstand | Oppgave 8 | Løpende |
-| Paginering | — | Oppgave 9 |
-| Suspense / Streaming | — | Separat oppgave |
-| Error/Not-found | — | Separat oppgave |
-| Testing | — | Separat oppgave |
-| Autentisering | — | Separat oppgave |
+| Tema                           | Del 1       | Del 2           |
+| ------------------------------ | ----------- | --------------- |
+| HTML/JSX                       | Oppgave 1   | —               |
+| Komponenter og props           | Oppgave 1   | —               |
+| TypeScript                     | Oppgave 1–2 | Løpende         |
+| Routing (Next.js)              | Oppgave 2   | Løpende         |
+| useState / kontrollerte inputs | Oppgave 3   | —               |
+| useEffect / useRef             | Oppgave 4   | —               |
+| Tredjeparts biblioteker        | Oppgave 5   | —               |
+| Dialog/Modal                   | Oppgave 6   | —               |
+| CRUD                           | Oppgave 6–7 | —               |
+| Search params / URL-tilstand   | Oppgave 8   | Løpende         |
+| Paginering                     | —           | Oppgave 9       |
+| Suspense / Streaming           | —           | Separat oppgave |
+| Error/Not-found                | —           | Separat oppgave |
+| Testing                        | —           | Separat oppgave |
+| Autentisering                  | —           | Separat oppgave |

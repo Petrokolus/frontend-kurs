@@ -8,7 +8,9 @@ export default function VelkommenPage() {
         på bordet.
       </p>
       <div className="text-muted-foreground text-sm">
-        <p className="mb-2">Bruk navigasjonen til venstre for å komme i gang.</p>
+        <p className="mb-2">
+          Bruk navigasjonen til venstre for å komme i gang.
+        </p>
         <ul className="space-y-1">
           <li>
             <strong>Spillere</strong> — oversikt over alle registrerte spillere
@@ -17,7 +19,8 @@ export default function VelkommenPage() {
             <strong>Oppgaver</strong> — kursets oppgavebeskrivelser
           </li>
           <li>
-            <strong>API-dokumentasjon</strong> — referanse for tilgjengelige endepunkter
+            <strong>API-dokumentasjon</strong> — referanse for tilgjengelige
+            endepunkter
           </li>
         </ul>
       </div>

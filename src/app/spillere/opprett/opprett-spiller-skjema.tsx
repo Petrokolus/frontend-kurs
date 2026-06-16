@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 // Oppgave 3b: Legg til de resterende feltene i dette objektet
 type SkjemaData = {
@@ -8,14 +9,23 @@ type SkjemaData = {
 };
 
 export default function OpprettSpillerSkjema() {
+  const router = useRouter();
+
   // Oppgave 3b: Legg til de resterende feltene i startverdiene
   const [skjema, setSkjema] = useState<SkjemaData>({
     navn: "",
   });
 
-  // Oppgave 3d: Fyll inn denne funksjonen slik at den sender skjema-dataen til APIet
   async function handleSubmit(data: SkjemaData) {
-    console.log(data);
+    const response = await fetch("http://localhost:3000/api/spillere", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      // Oppgave 3e: Naviger til den nye spillerens detaljside
+    }
   }
 
   return (
@@ -26,7 +36,7 @@ export default function OpprettSpillerSkjema() {
       }}
       className="flex flex-col gap-4"
     >
-      {/* Oppgave 3a: Her er ett eksempel-felt. Kopier mønsteret for de andre feltene. */}
+      {/* Oppgave 3b: Her er ett eksempel-felt. Kopier mønsteret for de andre feltene. */}
       <div className="flex flex-col gap-1">
         <label htmlFor="navn">Navn</label>
         <input
@@ -39,9 +49,9 @@ export default function OpprettSpillerSkjema() {
         />
       </div>
 
-      {/* Oppgave 3a: Legg til inputfelter for avdeling, kull og posisjon her */}
+      {/* Oppgave 3b: Legg til inputfelter for avdeling, kull og posisjon her */}
 
-      {/* Oppgave 3c: Legg til valgfrie felter for styrke og svakhet */}
+      {/* Oppgave 3d: Legg til valgfrie felter for styrke og svakhet */}
 
       <button
         type="submit"

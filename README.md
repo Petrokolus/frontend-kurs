@@ -509,13 +509,13 @@ For å håndtere interaksjon trenger vi en **client component** — en komponent
 import { useState } from "react";
 ```
 
-Uten `"use client"` kan du ikke bruke `useState`, event handlers som `onClick` eller `onChange`, eller andre ting som avhenger av at koden kjører i nettleseren. Et skjema der brukeren fyller inn data er et typisk eksempel på noe som må være en client component.
+Uten `"use client"` kan du ikke bruke `useState`-hooken, event handlers som `onClick` eller `onChange`, eller andre ting som avhenger av at koden kjører i nettleseren. Et skjema der brukeren fyller inn data er et typisk eksempel på noe som må være en client component. Du kommer til å lære mer om hooks i oppgave 4.
 
-Åpne filen `src/app/spillere/opprett-spiller-skjema.tsx`. Du vil se at den allerede har `"use client"` øverst — og ett inputfelt for navn. Oppgaven din er å fullføre den.
+Åpne filen `src/app/spillere/opprett-spiller-skjema.tsx`. Du vil se at den allerede har `"use client"` øverst og ett inputfelt for navn. Oppgaven din blir å fullføre skjemaet, men først skal du få en rask innføring i hvordan å bruke useState og event-handlers brukes i skjemaer.
 
 #### useState og destrukturering
 
-`useState` er en funksjon som returnerer to ting på én gang: den nåværende verdien, og en funksjon for å oppdatere den. Vi henter ut begge ved hjelp av **destrukturering**:
+`useState` er en funksjon som returnerer en liste med én variabel og én funksjon for å oppdatere den. Vi henter ut begge ved hjelp av **destrukturering**:
 
 ```tsx
 const [navn, setNavn] = useState("");
@@ -532,7 +532,7 @@ const navn = state[0];
 const setNavn = state[1];
 ```
 
-Destrukturering er bare en snarvei for å hente ut elementer fra en liste. Navnene `navn` og `setNavn` velger vi selv — konvensjonen er å kalle dem `noe` og `setNoe`.
+Destrukturering er bare en snarvei for å hente ut elementer fra en liste. Navnene `navn` og `setNavn` velger vi selv, men konvensjonen er å kalle dem `noe` og `setNoe`.
 
 #### Skjemaer og kontrollerte inputs
 
@@ -575,7 +575,29 @@ Dette gjør at klikk på etiketten fokuserer feltet, og at skjermlesere leser op
 
 ---
 
-#### Oppgave 3a – Legg til de resterende inputfeltene
+#### Oppgave 3a – Legg til lenke til opprett-siden
+
+Skjemaet bor på sin egen side: `/spillere/opprett`. Legg til en `<Link>` på spillersiden som tar brukeren dit, slik at de enkelt kan navigere til skjemaet.
+
+Du har brukt `<Link>` fra `next/link` i oppgave 2 — bruk det samme mønsteret her.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 3a</summary>
+
+```tsx
+import Link from "next/link";
+
+<Link
+  href="/spillere/opprett"
+  className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+>
+  Opprett spiller
+</Link>;
+```
+
+</details>
+
+#### Oppgave 3b – Legg til inputfeltene
 
 Skjemaet har allerede et felt for `navn`. Legg til felter for `avdeling`, `kull` og `posisjon`. Bruk samme mønster som `navn`-feltet.
 
@@ -585,6 +607,10 @@ Husk å:
 - Gi hvert `input` et `id` som matcher `htmlFor`
 - Bruke `required` på felt som er påkrevde
 
+`required` er et HTML-attributt som gjør at nettleseren nekter å sende skjemaet hvis feltet er tomt. Brukeren får en feilmelding direkte i nettleseren uten at du trenger å skrive noe ekstra kode.
+
+Legg merke til at dette henger sammen med TypeScript-typen: Felt med `?` i `SkjemaData` kan være udefinerte. De er dermed valgfrie, og skal ikke ha `required`.
+
 <details class="hint">
 <summary>Hint</summary>
 
@@ -592,20 +618,64 @@ Se på `Spiller`-typen i `lib/types.ts` for å se hvilke felter en spiller har.
 
 </details>
 
-#### Oppgave 3b – Oppdater `SkjemaData`-typen og startverdiene
+<details class="losningsforslag">
+<summary>Løsningsforslag 3b</summary>
+
+Legg til ett felt per egenskap. Her er `avdeling` som eksempel — kopier mønsteret for `kull` og `posisjon`:
+
+```tsx
+<div className="flex flex-col gap-1">
+  <label htmlFor="avdeling">Avdeling</label>
+  <input
+    id="avdeling"
+    type="text"
+    value={skjema.avdeling}
+    onChange={(e) => setSkjema({ ...skjema, avdeling: e.target.value })}
+    className="rounded border px-3 py-2"
+    required
+  />
+</div>
+```
+
+</details>
+
+#### Oppgave 3c – Oppdater `SkjemaData`-typen og startverdiene
 
 Øverst i filen er det definert en type `SkjemaData` og en startverdi for `useState`. Disse inneholder foreløpig bare `navn`. Legg til de andre feltene her også.
 
 <details class="hint">
 <summary>Hint</summary>
 
-TypeScript vil gi deg rød understrek hvis du glemmer et felt — la feilmeldingene guide deg.
+TypeScript vil gi deg rød understrek hvis du glemmer et felt. Hvis du hoverer over feilmeldingene kan du se hva som forventes.
 
 </details>
 
-#### Oppgave 3c – Legg til valgfrie felter
+<details class="losningsforslag">
+<summary>Løsningsforslag 3c</summary>
 
-Spillere kan også ha `styrke` og `svakhet` — men disse er valgfrie. Legg til inputfelter for dem uten `required`.
+Oppdater typen og startverdiene øverst i filen:
+
+```tsx
+type SkjemaData = {
+  navn: string;
+  avdeling: string;
+  kull: string;
+  posisjon: string;
+};
+
+const [skjema, setSkjema] = useState<SkjemaData>({
+  navn: "",
+  avdeling: "",
+  kull: "",
+  posisjon: "",
+});
+```
+
+</details>
+
+#### Oppgave 3d – Legg til valgfrie felter
+
+Spillere kan også ha `styrke` og `svakhet`, men disse er valgfrie. Legg til inputfelter for dem uten `required`.
 
 Husk å også legge dem til i `SkjemaData`-typen. Valgfrie felt markeres med `?` i TypeScript:
 
@@ -616,11 +686,85 @@ type SkjemaData = {
 };
 ```
 
-#### Oppgave 3d – Send skjemaet til APIet
+<details class="losningsforslag">
+<summary>Løsningsforslag 3d</summary>
 
-Når brukeren trykker «Opprett spiller», skal dataen sendes til APIet. Fyll inn `handleSubmit`-funksjonen:
+Legg til `styrke` og `svakhet` i typen:
 
-```ts
+```tsx
+type SkjemaData = {
+  navn: string;
+  avdeling: string;
+  kull: string;
+  posisjon: string;
+  styrke?: string;
+  svakhet?: string;
+};
+```
+
+Og startverdiene:
+
+```tsx
+const [skjema, setSkjema] = useState<SkjemaData>({
+  navn: "",
+  avdeling: "",
+  kull: "",
+  posisjon: "",
+  styrke: "",
+  svakhet: "",
+});
+```
+
+Legg deretter til feltene i skjemaet uten `required`:
+
+```tsx
+<div className="flex flex-col gap-1">
+  <label htmlFor="styrke">Styrke (valgfritt)</label>
+  <input
+    id="styrke"
+    type="text"
+    value={skjema.styrke}
+    onChange={(e) => setSkjema({ ...skjema, styrke: e.target.value })}
+    className="rounded border px-3 py-2"
+  />
+</div>
+
+<div className="flex flex-col gap-1">
+  <label htmlFor="svakhet">Svakhet (valgfritt)</label>
+  <input
+    id="svakhet"
+    type="text"
+    value={skjema.svakhet}
+    onChange={(e) => setSkjema({ ...skjema, svakhet: e.target.value })}
+    className="rounded border px-3 py-2"
+  />
+</div>
+```
+
+</details>
+
+#### Oppgave 3e – Naviger til den nye spillerens detaljside
+
+Nå som spilleren er opprettet, bør brukeren sendes videre til detaljsiden for den nye spilleren. APIet returnerer den opprettede spilleren som JSON, og vi kan bruke `id`-en til å navigere dit.
+
+Bruk `router.push()` i stedet for `router.refresh()` for å navigere til riktig side etter at skjemaet er sendt inn.
+
+<details class="hint">
+<summary>Hint</summary>
+
+Husk å lese JSON-svaret fra APIet for å få tak i `id`-en til den nye spilleren:
+
+```tsx
+const spiller = await response.json();
+router.push(`/spillere/${spiller.id}`);
+```
+
+</details>
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 3e</summary>
+
+```tsx
 async function handleSubmit(data: SkjemaData) {
   const response = await fetch("http://localhost:3000/api/spillere", {
     method: "POST",
@@ -629,36 +773,11 @@ async function handleSubmit(data: SkjemaData) {
   });
 
   if (response.ok) {
-    // Oppgave 3e: Hva bør skje her?
+    const spiller = await response.json();
+    router.push(`/spillere/${spiller.id}`);
   }
 }
 ```
-
-`handleSubmit` kalles allerede fra `onSubmit` på `<form>`-elementet — du trenger bare å fylle inn kroppen.
-
-#### Oppgave 3e – Vis skjemaet på spillersiden og oppdater listen etterpå
-
-Importer `OpprettSpillerSkjema` i `page.tsx` og vis det på spillersiden.
-
-Når en ny spiller er opprettet, bør listen over spillere oppdateres. Men siden listen hentes av en server component, og skjemaet er en client component, er det ikke like rett frem.
-
-En enkel løsning er å bruke `router.refresh()` fra Next.js:
-
-```tsx
-import { useRouter } from "next/navigation";
-
-const router = useRouter();
-
-// Inne i handleSubmit, etter vellykket POST:
-router.refresh();
-```
-
-Dette ber Next.js om å hente siden på nytt fra serveren, slik at den nye spilleren dukker opp i listen.
-
-<details class="hint">
-<summary>Hint</summary>
-
-Du må importere `useRouter` fra `"next/navigation"` — ikke fra `"next/router"`. Det er to forskjellige!
 
 </details>
 

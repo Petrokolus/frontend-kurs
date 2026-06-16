@@ -384,11 +384,85 @@ Prøv å lime inn koden i page.tsx, og se om du klarer å bruke dataen og kompon
 
 ---
 
-### Oppgave 2 – Spillerdetaljer (UFERDIG)
+### Oppgave 2 – Spillerdetaljer
 
 **Hva du skal lære:** Filbasert routing i Next.js, dynamiske route-parametere, lenking mellom sider med `<Link>`, og tilgjengelighet (`alt`-tekst på bilder).
 
-> 🚧 Oppgavetekst skrives her.
+I oppgave 1 bygde vi en liste over alle spillere. Nå skal vi lage en detaljside for hver enkelt spiller og lenke til den, slik at man kan navigere til detaljsiden ved å klikke på et spillerkort i listen.
+
+I denne oppgaven skal vi også bli kjent med **API-dokumentasjonen**, et verktøy du finner i sidemenyen under "API-dokumentasjon". Der kan du se alle tilgjengelige API-ruter, hva de returnerer, og teste dem direkte i nettleseren. Dette er noe du vil bruke mye på jobb, så det er lurt å bli komfortabel med det tidlig.
+
+#### Oppgave 2a – Besøk detaljsiden
+
+I Next.js er filstrukturen inni `app`-mappen direkte koblet til URL-strukturen. Enhver mappe med en `page.tsx`-fil representerer en side i applikasjonen, og URL-en til siden er basert på mappestrukturen. For eksempel:
+
+| Fil                              | URL                                       |
+| -------------------------------- | ----------------------------------------- |
+| `app/spillere/page.tsx`          | `http://localhost:3000/spillere`          |
+| `app/kamper/page.tsx`            | `http://localhost:3000/kamper`            |
+| `app/kamper/sommerliga/page.tsx` | `http://localhost:3000/kamper/sommerliga` |
+
+Dersom du ønsker å lage en side som tar hensyn til en variabel del av URL-en, som for eksempel en spiller-ID, kan du bruke firkantparenteser i mappenavnet.
+Dette forteller Next.js at dette segmentet av URL-en er dynamisk og kan inneholde forskjellige verdier. For eksempel:
+
+| Fil                            | URL                                                                                        |
+| ------------------------------ | ------------------------------------------------------------------------------------------ |
+| `app/spillere/[id]/page.tsx`   | `http://localhost:3000/spillere/1`, `http://localhost:3000/spillere/2`, osv.               |
+| `app/kamper/[kampNr]/page.tsx` | `http://localhost:3000/kamper/1`, `http://localhost:3000/kamper/2`, osv.                   |
+| `app/kamper/[liga]/page.tsx`   | `http://localhost:3000/kamper/sommerliga`, `http://localhost:3000/kamper/vinterliga`, osv. |
+
+I dette tilfellet vil tekststrengen du putter inni klammeparaesene (`id`, `kampNr`, `liga`) være tilgjengelig som en variabel i `page.tsx`-filen gjennom `params`-objektet som Next.js automatisk sender inn i siden.
+
+For å hjelpe dere i gang har vi allerede laget en ferdig fil på `src/app/spillere/[id]/page.tsx`. Naviger til `http://localhost:3000/spillere/1`, `http://localhost:3000/spillere/2`, `http://localhost:3000/spillere/3` i nettleseren. Ser du hvordan tittelen endres basert på `id`-verdien i URL-en?
+
+#### Oppgave 2b – Utforsk API-et i API-dokumentasjonen
+
+Før vi skriver kode, la oss utforske hva API-et tilbyr. Klikk på **API-dokumentasjon** i sidemenyen.
+
+Her finner du en oversikt over alle tilgjengelige API-ruter. Klikk på ruten `GET /api/spillere/{id}` og deretter på **"Try it out"**. Skriv inn en spiller-ID (f.eks. `1`) og klikk **"Execute"**. Du vil se nøyaktig hva API-et returnerer, og dette er dataen du skal bruke på detaljsiden.
+
+På jobb vil du bruke API-dokumentasjon til å forstå hva som er tilgjengelig og hvordan dataen ser ut, før du begynner å kode. Gjør deg kjent med det!
+
+#### Oppgave 2c – Hent og vis spillerdata
+
+Nå som du vet hvordan API-et ser ut, er det på tide å bruke det i koden.
+
+I oppgave 1 brukte vi fetch til å hente alle spillere. Nå skal vi hente én spiller basert på `id`-en i URL-en.
+
+Prøv å hente spilleren fra API-et og vis detaljene på siden!
+
+**HINT**: For å legge inn en variabel i en streng i JavaScript/TypeScript, kan du bruke template literals, som er tekst omgitt av backticks (` `) i stedet for vanlige anførselstegn. Inne i en template literal kan du sette inn variabler ved å bruke `${variabel}`-syntaksen. For eksempel:
+
+```tsx
+const id = 1;
+const url = `/spiller/${id}`; // Resultatet blir "/spiller/1"
+```
+
+#### Oppgave 2d – Vis spillerens bilde
+
+Hver spiller har et bilde tilgjengelig på `/spiller/{id}.png`. Legg til et bilde av spilleren øverst på detaljsiden.
+
+Alle bilder på nettsider bør ha en `alt`-attributt. `alt`-teksten er en tekstlig beskrivelse av bildet som brukes av skjermlesere (for blinde og svaksynte), og vises dersom bildet ikke kan lastes:
+
+```tsx
+<img src="/spiller/1.png" alt="Profilbilde av Erik Solberg" />
+```
+
+Tenk på hva `alt`-teksten bør si: hva _formidler_ bildet? For et profilbilde er navnet på personen den viktigste informasjonen. Husk at du nå har tilgang til spillerens navn fra API-et!
+
+#### Oppgave 2e – Lenk fra spillerlisten
+
+Detaljsiden er fin, men ingen kommer seg dit uten en lenke! I Next.js bruker vi den ferdiglagde `<Link>`-komponenten fra `next/link` for å navigere mellom sider:
+
+```tsx
+import Link from "next/link";
+
+<Link href="/spillere/1">Gå til Erik Solberg</Link>;
+```
+
+`<Link>` er på mange måter bare en vanlig `<a>`-tag, men den har noen fordeler som gjør navigasjonen raskere, blant annet "pre-fetching". Prefetching er at den begynner å laste inn siden den peker på, før du navigerer dit, slik at navigeringen føles raskere.
+
+Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan klikke på et spillerkort og komme til detaljsiden for den spilleren.
 
 ---
 

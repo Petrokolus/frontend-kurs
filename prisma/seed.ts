@@ -5,6 +5,7 @@ const adapter = new PrismaBetterSqlite3({ url: "file:./dev.db" });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
+  await prisma.kamp.deleteMany();
   await prisma.spiller.deleteMany();
 
   await prisma.spiller.createMany({
@@ -108,7 +109,27 @@ async function main() {
     ],
   });
 
-  console.log("✅ Seeding fullført — 10 spillere lagt til");
+  const spillere = await prisma.spiller.findMany({ orderBy: { id: "asc" } });
+  const [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10] = spillere;
+
+  await prisma.kamp.createMany({
+    data: [
+      { lag1Spiller1Id: s1.id, lag1Spiller2Id: s2.id, lag2Spiller1Id: s3.id, lag2Spiller2Id: s4.id, lagVinner: 1, taperMaal: 7, dato: new Date("2025-05-01T14:00:00") },
+      { lag1Spiller1Id: s5.id, lag1Spiller2Id: s6.id, lag2Spiller1Id: s7.id, lag2Spiller2Id: s8.id, lagVinner: 2, taperMaal: 5, dato: new Date("2025-05-02T11:30:00") },
+      { lag1Spiller1Id: s1.id, lag1Spiller2Id: s9.id, lag2Spiller1Id: s5.id, lag2Spiller2Id: s10.id, lagVinner: 1, taperMaal: 3, dato: new Date("2025-05-05T15:00:00") },
+      { lag1Spiller1Id: s3.id, lag1Spiller2Id: s7.id, lag2Spiller1Id: s2.id, lag2Spiller2Id: s6.id, lagVinner: 2, taperMaal: 8, dato: new Date("2025-05-07T13:00:00") },
+      { lag1Spiller1Id: s4.id, lag1Spiller2Id: s8.id, lag2Spiller1Id: s1.id, lag2Spiller2Id: s3.id, lagVinner: 1, taperMaal: 6, dato: new Date("2025-05-09T10:00:00") },
+      { lag1Spiller1Id: s2.id, lag1Spiller2Id: s5.id, lag2Spiller1Id: s9.id, lag2Spiller2Id: s10.id, lagVinner: 1, taperMaal: 2, dato: new Date("2025-05-12T14:30:00") },
+      { lag1Spiller1Id: s6.id, lag1Spiller2Id: s7.id, lag2Spiller1Id: s4.id, lag2Spiller2Id: s8.id, lagVinner: 2, taperMaal: 9, dato: new Date("2025-05-14T12:00:00") },
+      { lag1Spiller1Id: s1.id, lag1Spiller2Id: s6.id, lag2Spiller1Id: s2.id, lag2Spiller2Id: s7.id, lagVinner: 1, taperMaal: 4, dato: new Date("2025-05-16T15:00:00") },
+      { lag1Spiller1Id: s3.id, lag1Spiller2Id: s10.id, lag2Spiller1Id: s5.id, lag2Spiller2Id: s9.id, lagVinner: 2, taperMaal: 1, dato: new Date("2025-05-19T11:00:00") },
+      { lag1Spiller1Id: s4.id, lag1Spiller2Id: s6.id, lag2Spiller1Id: s1.id, lag2Spiller2Id: s8.id, lagVinner: 2, taperMaal: 0, dato: new Date("2025-05-21T14:00:00") },
+      { lag1Spiller1Id: s2.id, lag1Spiller2Id: s3.id, lag2Spiller1Id: s7.id, lag2Spiller2Id: s10.id, lagVinner: 1, taperMaal: 6, dato: new Date("2025-05-23T13:30:00") },
+      { lag1Spiller1Id: s5.id, lag1Spiller2Id: s8.id, lag2Spiller1Id: s4.id, lag2Spiller2Id: s9.id, lagVinner: 1, taperMaal: 7, dato: new Date("2025-05-26T10:30:00") },
+    ],
+  });
+
+  console.log("✅ Seeding fullført — 10 spillere og 12 kamper lagt til");
 }
 
 main()

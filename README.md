@@ -794,7 +794,7 @@ async function handleSubmit(data: SkjemaData) {
 
 ---
 
-## Oppgave 4 – Hooks i praksis (UFERDIG)
+## Oppgave 4 – Hooks i praksis
 
 **Hva du skal lære:** Hva en hook er og reglene for hooks, `useState` til interaktiv tilstand, `useEffect` til sideeffekter, og `useRef` til direkte DOM-tilgang.
 
@@ -805,7 +805,13 @@ Det finnes et par regler for når hooks kan brukes:
 - Hooks skal alltid kalles øverst i komponenten — aldri inne i if-setninger eller løkker
 - Hooks kan bare brukes i React-komponenter (eller i egne custom hooks)
 
-I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil du bruke alle tre hookene til forskjellige ting — og det er poenget, de løser ulike problemer.
+I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil du bruke alle tre hookene til forskjellige ting — og det er poenget, de løser ulike problemer:
+
+| Hook        | Brukes til                                                                              |
+| ----------- | --------------------------------------------------------------------------------------- |
+| `useState`  | Holde på en verdi som kan endres, og re-rendre komponenten når den gjør det             |
+| `useEffect` | Kjøre kode som reaksjon på at noe har endret seg, eller én gang når komponenten mountes |
+| `useRef`    | Holde en referanse til et DOM-element, uten å trigge re-render                          |
 
 #### Oppgave 4a – Legg til et søkefelt med `useState`
 
@@ -822,6 +828,33 @@ const [sok, setSok] = useState("");
 ```
 
 Importer og vis `SpillerSok` i `page.tsx`. Foreløpig trenger du ikke koble den til spillerlisten — det kommer i neste steg.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 4a</summary>
+
+```tsx
+"use client";
+
+import { useState } from "react";
+
+type Props = {
+  sok: string;
+  setSok: (verdi: string) => void;
+};
+
+export default function SpillerSok({ sok, setSok }: Props) {
+  return (
+    <input
+      value={sok}
+      onChange={(e) => setSok(e.target.value)}
+      placeholder="Søk etter spiller..."
+      className="rounded border px-3 py-2"
+    />
+  );
+}
+```
+
+</details>
 
 #### Oppgave 4b – Filtrer spillerlisten
 
@@ -859,6 +892,41 @@ type Props = {
 
 </details>
 
+<details class="losningsforslag">
+<summary>Løsningsforslag 4b</summary>
+
+`spiller-sok-og-liste.tsx`:
+
+```tsx
+"use client";
+
+import { Spiller } from "@/lib/types";
+import { useState } from "react";
+import SpillereListe from "./spillere-liste";
+import SpillerSok from "./spiller-sok";
+
+type Props = {
+  spillere: Spiller[];
+};
+
+export default function SpillerSokOgListe({ spillere }: Props) {
+  const [sok, setSok] = useState("");
+
+  const filtrerte = spillere.filter((spiller) =>
+    spiller.navn.toLowerCase().includes(sok.toLowerCase())
+  );
+
+  return (
+    <div className="flex flex-col gap-4">
+      <SpillerSok sok={sok} setSok={setSok} />
+      <SpillereListe spillere={filtrerte} />
+    </div>
+  );
+}
+```
+
+</details>
+
 #### Oppgave 4c – Husk søket med `useEffect`
 
 Det er litt irriterende at søket forsvinner hver gang du laster siden på nytt. Vi kan bruke `localStorage` til å huske det.
@@ -885,6 +953,23 @@ Og les den ut som startverdi i `useState`, slik at søket er gjenopprettet neste
 const [sok, setSok] = useState(() => localStorage.getItem("spillerSok") ?? "");
 ```
 
+<details class="losningsforslag">
+<summary>Løsningsforslag 4c</summary>
+
+Legg til disse to linjene i `SpillerSokOgListe`:
+
+```tsx
+import { useState, useEffect } from "react";
+
+const [sok, setSok] = useState(() => localStorage.getItem("spillerSok") ?? "");
+
+useEffect(() => {
+  localStorage.setItem("spillerSok", sok);
+}, [sok]);
+```
+
+</details>
+
 #### Oppgave 4d – Auto-fokus med `useRef`
 
 `useRef` gir deg en direkte referanse til et DOM-element — uten å trigge en re-render. Det brukes når du trenger å gjøre noe med selve elementet i nettleseren, som å fokusere det.
@@ -903,6 +988,29 @@ useEffect(() => {
 ```
 
 `?.` betyr "gjør dette bare hvis verdien ikke er `null`" — trygg tilgang på et element som kanskje ikke finnes ennå.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 4d</summary>
+
+Legg til disse linjene i `SpillerSok`:
+
+```tsx
+import { useState, useEffect, useRef } from "react";
+
+const inputRef = useRef<HTMLInputElement>(null);
+
+useEffect(() => {
+  inputRef.current?.focus();
+}, []);
+```
+
+Og legg til `ref`-attributtet på `<input>`-elementet:
+
+```tsx
+<input ref={inputRef} ... />
+```
+
+</details>
 
 ---
 

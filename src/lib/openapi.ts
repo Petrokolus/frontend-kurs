@@ -131,6 +131,34 @@ export const spec = {
           },
         },
       },
+      delete: {
+        tags: ["spillere"],
+        summary: "Slett en spiller",
+        description: "Sletter en spiller permanent basert på id.",
+        operationId: "deleteSpiller",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            description: "ID-en til spilleren som skal slettes",
+            schema: { type: "integer", example: 1 },
+          },
+        ],
+        responses: {
+          "204": {
+            description: "Spiller slettet",
+          },
+          "404": {
+            description: "Ikke funnet",
+            content: {
+              "application/json": {
+                example: { error: "Spiller ikke funnet" },
+              },
+            },
+          },
+        },
+      },
       put: {
         tags: ["spillere"],
         summary: "Oppdater en spiller",

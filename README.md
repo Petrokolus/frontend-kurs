@@ -801,6 +801,7 @@ async function handleSubmit(data: SkjemaData) {
 Hooks er spesielle funksjoner i React som gir komponentene dine tilgang til tilstand og side effects — det vil si alt som skjer utenfor Reacts renderingssyklus, som å lese fra localStorage, hente data fra en API, eller manipulere DOM-en direkte.
 
 Det finnes et par regler for når hooks kan brukes:
+
 - Hooks skal alltid kalles øverst i komponenten — aldri inne i if-setninger eller løkker
 - Hooks kan bare brukes i React-komponenter (eller i egne custom hooks)
 
@@ -811,6 +812,7 @@ I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil 
 Opprett en ny fil `src/app/spillere/spiller-sok.tsx`. Dette blir en client component, siden den trenger interaktivitet — husk `"use client"` øverst.
 
 Komponenten skal ha:
+
 - Et `<input>`-felt der brukeren kan skrive
 - En `useState` som holder søketeksten
 - En `onChange` på inputen som oppdaterer staten
@@ -823,48 +825,28 @@ Importer og vis `SpillerSok` i `page.tsx`. Foreløpig trenger du ikke koble den 
 
 #### Oppgave 4b – Filtrer spillerlisten
 
-Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvilke spillere som vises — men `page.tsx` er en server component og kan ikke ha `useState`. Løsningen er å lage en ny client component som tar imot hele spillerlisten som prop, håndterer søkestate selv, og viser de filtrerte resultatene.
+Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvilke spillere som vises — men `page.tsx` er en server component og kan ikke ha `useState`. Løsningen er en ny client component som tar imot hele spillerlisten som prop, håndterer søkestate selv, og viser de filtrerte resultatene.
 
-Opprett en ny fil `src/app/spillere/spiller-sok-og-liste.tsx`:
+Vi har laget en halvferdig fil til deg: `src/app/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
 
-```tsx
-"use client";
-
-import { Spiller } from "@/lib/types";
-import { useState } from "react";
-import SpillerListe from "./spillere-liste";
-import SpillerSok from "./spiller-sok";
-
-type Props = {
-  spillere: Spiller[];
-};
-
-export default function SpillerSokOgListe({ spillere }: Props) {
-  const [sok, setSok] = useState("");
-
-  const filtrerte = spillere.filter((spiller) =>
-    spiller.navn.toLowerCase().includes(sok.toLowerCase())
-  );
-
-  return (
-    <div>
-      <SpillerSok sok={sok} setSok={setSok} />
-      <SpillerListe spillere={filtrerte} />
-    </div>
-  );
-}
-```
-
-`page.tsx` sender da spillerne ned som prop — den trenger ikke endres:
+Når den er ferdig, erstatt det du la til i `page.tsx` i forrige oppgave med:
 
 ```tsx
 <SpillerSokOgListe spillere={spillere} />
 ```
 
-Husk å oppdatere `SpillerSok` til å ta imot `sok` og `setSok` som props i stedet for å ha sin egen `useState`.
+Husk også å oppdatere `SpillerSok` til å ta imot `sok` og `setSok` som props i stedet for å ha sin egen `useState`.
 
 <details class="hint">
 <summary>Hint</summary>
+
+Filtreringen kan gjøres slik:
+
+```tsx
+const filtrerte = spillere.filter((spiller) =>
+  spiller.navn.toLowerCase().includes(sok.toLowerCase())
+);
+```
 
 Når `sok` og `setSok` flyttes ut av `SpillerSok` og inn i `SpillerSokOgListe`, trenger `SpillerSok` en ny `Props`-type:
 

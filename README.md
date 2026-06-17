@@ -284,6 +284,17 @@ Du skal nå se velkomstsiden til kurset og du er klar til å begynne på oppgave
 
 Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan ta utgangspunkt i. Etter hvert blir instruksjonene kortere — da forventes det at du bruker det du har lært og slår opp i dokumentasjonen selv.
 
+|     | Oppgave                                                                               |
+| --- | ------------------------------------------------------------------------------------- |
+| 1   | [Vis alle spillere](#oppgave-1-vis-alle-spillere)                                     |
+| 2   | [Spillerdetaljer](#oppgave-2-spillerdetaljer)                                         |
+| 3   | [Opprett spiller](#oppgave-3-opprett-spiller)                                         |
+| 4   | [Hooks i praksis](#oppgave-4-hooks-i-praksis-uferdig)                                 |
+| 5   | [Opprett spiller med React Hook Form](#oppgave-5-opprett-spiller-med-react-hook-form) |
+| 6   | [Rediger spiller](#oppgave-6-rediger-spiller-uferdig)                                 |
+| 7   | [Slett spiller](#oppgave-7-slett-spiller-uferdig)                                     |
+| 8   | [Filtrering og sortering](#oppgave-8-filtrering-og-sortering-av-spillere-uferdig)     |
+
 ---
 
 ## Oppgave 1 – Vis alle spillere
@@ -913,11 +924,394 @@ useEffect(() => {
 
 ---
 
-## Oppgave 5 – Opprett spiller med React Hook Form (UFERDIG)
+## Oppgave 5 – Opprett spiller med React Hook Form
 
 **Hva du skal lære:** Installere og bruke en tredjeparts React-pakke, fordelen med `react-hook-form` over manuell state, og skjemavalidering.
 
-> 🚧 Oppgavetekst skrives her.
+I oppgave 3 bygde vi et skjema med manuell `useState` for hvert felt. Det fungerer, men det er mye kode å vedlikeholde, og jo flere felter, jo mer tungvint blir det. En vanlig løsning i frontend-verdenen er å bruke et skjemabibliotek. Vi skal bruke **React Hook Form**, som er en av de mest utbredte løsningene i React-prosjekter i dag.
+
+React Hook Form er ikke en del av React selv. Det er en separat pakke vi må installere. Dette er et mønster du vil møte hele tiden på prosjekt: du finner et bibliotek som løser problemet du har, og du legger det til i prosjektet.
+
+#### Oppgave 5a: Installer React Hook Form
+
+Pakker installeres med pnpm i terminalen. Åpne terminalen i VS Code og kjør:
+
+```bash
+pnpm add react-hook-form
+```
+
+`pnpm add` henter pakken fra internett og legger den til i `package.json`. Etter at kommandoen er ferdig kan du bekrefte at det gikk bra ved å se at `react-hook-form` dukker opp under `dependencies` i `package.json`.
+
+#### Oppgave 5b: Ta i bruk `useForm`
+
+React Hook Form gir oss en hook som heter `useForm`. Den returnerer alt vi trenger for å håndtere skjemaet: registrering av felt, innsending og feilhåndtering.
+
+Naviger til `src/app/spillere/opprett/opprett-spiller-skjema.tsx`. Filen har et skjema med manuell `useState`. Vi skal nå skrive den om til å bruke `useForm`.
+
+Importer `useForm` og kall den øverst i komponenten. Legg også til de resterende feltene i `SkjemaData`-typen:
+
+```tsx
+import { useForm } from "react-hook-form";
+
+type SkjemaData = {
+  navn: string;
+  avdeling: string;
+  kull: string;
+  posisjon: string;
+  styrke?: string;
+  svakhet?: string;
+};
+
+const form = useForm<SkjemaData>();
+```
+
+Vi lagrer resultatet i en variabel vi kaller `form`. Da er det tydelig at `form.register`, `form.handleSubmit` og så videre alle kommer fra React Hook Form.
+
+Du kan nå fjerne `useState`-importen og `skjema`-konstanten. React Hook Form holder styr på feltene for deg.
+
+#### Oppgave 5c: Konverter ett felt
+
+Med `useState` koblet vi hvert felt til state med `value` og `onChange`. Med React Hook Form sprer vi `form.register()` direkte inn i inputet i stedet:
+
+```tsx
+<input {...form.register("navn", { required: "Navn er påkrevd" })} />
+```
+
+`{ required: "Navn er påkrevd" }` er en valideringsregel. Strengen brukes som feilmelding hvis feltet er tomt når skjemaet sendes inn.
+
+Konverter `navn`-feltet til å bruke `form.register`. Fjern `value`, `onChange` og `required`-attributtene som du ikke lenger trenger.
+
+#### Oppgave 5d: Bytt til shadcn-komponenter
+
+Prosjektet har ferdiglagde komponenter for skjemaelementer som gir deg konsistent styling uten at du trenger å skrive CSS selv. Bytt ut `<label>` og `<input>` i `navn`-feltet med `Label`, `Input` og `FieldError` fra komponentbiblioteket:
+
+```tsx
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { FieldError } from "@/components/ui/field";
+
+<Label htmlFor="navn">Navn</Label>
+<Input id="navn" {...form.register("navn", { required: "Navn er påkrevd" })} />
+<FieldError errors={[form.formState.errors.navn]} />
+```
+
+`FieldError` tar inn en liste med feilobjekter og viser dem for deg. Den viser ingenting når det ikke er noen feil, så du trenger ingen ekstra `if`-sjekk.
+
+Nå har du sett det fulle mønsteret for ett felt: `useForm`, `form.register`, og shadcn-komponenter med feilvisning. Gjenta det for alle de resterende feltene.
+
+#### Oppgave 5e: Fullfør skjemaet
+
+Du har nå alle brikkene. Konverter de resterende feltene (`avdeling`, `kull`, `posisjon`, `styrke`, `svakhet`) til samme mønster. Husk at valgfrie felt ikke trenger valideringsregler.
+
+Til slutt må du oppdatere `onSubmit` til å bruke `form.handleSubmit`. Lag en egen funksjon for logikken og send den inn:
+
+```tsx
+async function opprettSpiller(data: SkjemaData) {
+  // fetch-kallet og navigeringen hit
+}
+
+<form onSubmit={form.handleSubmit(opprettSpiller)}>
+```
+
+`form.handleSubmit` kjører validering først og kaller `opprettSpiller` bare hvis alle feltene er gyldige. Flytt `fetch`-kallet og navigeringen inn i `opprettSpiller`, og fjern den gamle `handleSubmit`-funksjonen.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 5b-5e</summary>
+
+```tsx
+"use client";
+
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { FieldError } from "@/components/ui/field";
+
+type SkjemaData = {
+  navn: string;
+  avdeling: string;
+  kull: string;
+  posisjon: string;
+  styrke?: string;
+  svakhet?: string;
+};
+
+export default function OpprettSpillerSkjema() {
+  const router = useRouter();
+  const form = useForm<SkjemaData>();
+
+  async function opprettSpiller(data: SkjemaData) {
+    const response = await fetch("http://localhost:3000/api/spillere", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      const spiller = await response.json();
+      router.push(`/spillere/${spiller.id}`);
+    }
+  }
+
+  return (
+    <form
+      onSubmit={form.handleSubmit(opprettSpiller)}
+      className="flex flex-col gap-4"
+    >
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="navn">Navn</Label>
+        <Input
+          id="navn"
+          {...form.register("navn", { required: "Navn er påkrevd" })}
+        />
+        <FieldError errors={[form.formState.errors.navn]} />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="avdeling">Avdeling</Label>
+        <Input
+          id="avdeling"
+          {...form.register("avdeling", { required: "Avdeling er påkrevd" })}
+        />
+        <FieldError errors={[form.formState.errors.avdeling]} />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="kull">Kull</Label>
+        <Input
+          id="kull"
+          {...form.register("kull", { required: "Kull er påkrevd" })}
+        />
+        <FieldError errors={[form.formState.errors.kull]} />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="posisjon">Posisjon</Label>
+        <Input
+          id="posisjon"
+          {...form.register("posisjon", { required: "Posisjon er påkrevd" })}
+        />
+        <FieldError errors={[form.formState.errors.posisjon]} />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="styrke">Styrke (valgfritt)</Label>
+        <Input id="styrke" {...form.register("styrke")} />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="svakhet">Svakhet (valgfritt)</Label>
+        <Input id="svakhet" {...form.register("svakhet")} />
+      </div>
+
+      <button
+        type="submit"
+        className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+      >
+        Opprett spiller
+      </button>
+    </form>
+  );
+}
+```
+
+</details>
+
+#### Oppgave 5f: Trekk ut en gjenbrukbar feltkomponent
+
+Se på løsningsforslaget for 5e. Hvert felt følger nøyaktig samme mønster: en `Label`, en `Input` med `form.register`, og en `FieldError`. Det er bare `id`, `label` og feilmeldingsteksten som varierer.
+
+Dette er et klassisk tegn på at koden er klar til å trekkes ut i en egen komponent. Lag en `SkjemaFelt`-komponent øverst i filen som tar inn disse verdiene som props:
+
+```tsx
+import { UseFormReturn } from "react-hook-form";
+
+type SkjemaFeltProps = {
+  id: keyof SkjemaData;
+  label: string;
+  isRequired?: string;
+  form: UseFormReturn<SkjemaData>;
+};
+
+function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
+  return (
+    <div className="flex flex-col gap-1">
+      <Label htmlFor={id}>{label}</Label>
+      <Input id={id} {...form.register(id, { required: isRequired })} />
+      <FieldError errors={[form.formState.errors[id]]} />
+    </div>
+  );
+}
+```
+
+`keyof SkjemaData` er en TypeScript-type som betyr «en av nøklene i `SkjemaData`». Det gjør at TypeScript klager hvis du prøver å sende inn et feltnavn som ikke finnes i skjemaet.
+
+Hvis `isRequired` ikke er satt, vil `{ required: undefined }` sendes inn, noe som er det samme som ingen valideringsregel.
+
+Bruk `SkjemaFelt` i stedet for de seks feltblokkene i skjemaet. Valgfrie felt sender du inn uten `isRequired`-prop.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 5f</summary>
+
+```tsx
+"use client";
+
+import { useForm, UseFormReturn } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { FieldError } from "@/components/ui/field";
+
+type SkjemaData = {
+  navn: string;
+  avdeling: string;
+  kull: string;
+  posisjon: string;
+  styrke?: string;
+  svakhet?: string;
+};
+
+type SkjemaFeltProps = {
+  id: keyof SkjemaData;
+  label: string;
+  isRequired?: string;
+  form: UseFormReturn<SkjemaData>;
+};
+
+function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
+  return (
+    <div className="flex flex-col gap-1">
+      <Label htmlFor={id}>{label}</Label>
+      <Input id={id} {...form.register(id, { required: isRequired })} />
+      <FieldError errors={[form.formState.errors[id]]} />
+    </div>
+  );
+}
+
+export default function OpprettSpillerSkjema() {
+  const router = useRouter();
+  const form = useForm<SkjemaData>();
+
+  async function opprettSpiller(data: SkjemaData) {
+    const response = await fetch("http://localhost:3000/api/spillere", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      const spiller = await response.json();
+      router.push(`/spillere/${spiller.id}`);
+    }
+  }
+
+  return (
+    <form
+      onSubmit={form.handleSubmit(opprettSpiller)}
+      className="flex flex-col gap-4"
+    >
+      <SkjemaFelt
+        id="navn"
+        label="Navn"
+        isRequired="Navn er påkrevd"
+        form={form}
+      />
+      <SkjemaFelt
+        id="avdeling"
+        label="Avdeling"
+        isRequired="Avdeling er påkrevd"
+        form={form}
+      />
+      <SkjemaFelt
+        id="kull"
+        label="Kull"
+        isRequired="Kull er påkrevd"
+        form={form}
+      />
+      <SkjemaFelt
+        id="posisjon"
+        label="Posisjon"
+        isRequired="Posisjon er påkrevd"
+        form={form}
+      />
+      <SkjemaFelt id="styrke" label="Styrke (valgfritt)" form={form} />
+      <SkjemaFelt id="svakhet" label="Svakhet (valgfritt)" form={form} />
+
+      <button
+        type="submit"
+        className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+      >
+        Opprett spiller
+      </button>
+    </form>
+  );
+}
+```
+
+</details>
+
+#### Oppgave 5g: Håndter serverfeil
+
+React Hook Form validerer feltene før skjemaet sendes inn, men serveren kan fortsatt avvise forespørselen. Det kan skje hvis serveren har egne valideringsregler, om noe går galt i databasen, eller om nettverket feiler. I dag ignorerer koden stille om `response.ok` er false. Det betyr at brukeren ikke får noe tilbakemelding og ikke vet hva som gikk galt.
+
+React Hook Form har et eget konsept for dette: en `"root"`-feil. Den er ikke knyttet til et bestemt felt, men til skjemaet som helhet:
+
+```tsx
+if (!response.ok) {
+  form.setError("root", { message: "Noe gikk galt. Prøv igjen." });
+  return;
+}
+```
+
+Feilmeldingen vises med `form.formState.errors.root` på samme måte som feltfeil:
+
+```tsx
+<FieldError errors={[form.formState.errors.root]} />
+```
+
+Legg til feilhåndtering i `opprettSpiller` og vis root-feilen rett over submit-knappen.
+
+For å teste at det fungerer, kan du midlertidig endre URL-en i `fetch`-kallet til noe som ikke finnes:
+
+```tsx
+const response = await fetch("http://localhost:3000/api/finnes-ikke", {
+```
+
+Send inn skjemaet og sjekk at feilmeldingen vises. Husk å bytte URL-en tilbake etterpå.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 5g</summary>
+
+Oppdater `opprettSpiller`:
+
+```tsx
+async function opprettSpiller(data: SkjemaData) {
+  const response = await fetch("http://localhost:3000/api/spillere", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    form.setError("root", { message: "Noe gikk galt. Prøv igjen." });
+    return;
+  }
+
+  const spiller = await response.json();
+  router.push(`/spillere/${spiller.id}`);
+}
+```
+
+Legg til visning av root-feilen rett over submit-knappen:
+
+```tsx
+<FieldError errors={[form.formState.errors.root]} />
+<button type="submit" className="bg-twoday-amber rounded px-4 py-2 font-semibold">
+  Opprett spiller
+</button>
+```
+
+</details>
 
 ---
 

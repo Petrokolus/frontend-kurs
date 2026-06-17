@@ -192,25 +192,17 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 
 > Oppgavene under gis med kortere beskrivelser. Deltakerne forventes å bruke dokumentasjon og det de har lært i del 1.
 
-### Oppgave 9 – Kamphistorikk (tabell med paginering)
+### Oppgave 9 – Kamp-CRUD (repetisjon)
 
-- Ny route: `src/app/kamper/page.tsx`
-- Hent kamphistorikk fra API og vis i tabell
-- Implementer paginering med search params
+Samler kamphistorikk, registrering, redigering og sletting i én oppgave. Deltakerne gjenkjenner mønstrene fra del 1 og anvender dem med mindre instruksjon.
 
-**Introduserer:** `<Table>`, paginering, `<Pagination>`-komponent
+- **9a** Kamphistorikk-siden: `src/app/kamper/page.tsx` med `<Table>`, `<Pagination>` og handlingsknapper per rad
+- **9b** Kampdetaljer: `src/app/kamper/[id]/page.tsx`
+- **9c** Registrer kamp: `src/app/kamper/opprett/page.tsx` med React Hook Form, fire `Select`-dropdowns og filtrering mot allerede valgte spillere
+- **9d** Rediger kamp: `RedigerKampDialog` i tabellen, PUT til API
+- **9e** Slett kamp: `SlettKampKnapp` i tabellen med `AlertDialog`, DELETE til API
 
----
-
-### Oppgave 10 – Registrere en kamp
-
-- Ny route: `src/app/kamper/ny/page.tsx`
-- Skjema for å velge to spillere og registrere score
-- Send POST til API
-
----
-
-### Oppgave 11 – Restende Crud-operasjoner på kamper
+**Introduserer:** `<Table>`, `<Pagination>`, `SpillerVelger` som delt komponent
 
 ---
 
@@ -313,7 +305,7 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 | Dialog/Modal                   | Oppgave 6   | —               |
 | CRUD                           | Oppgave 6–7 | —               |
 | Search params / URL-tilstand   | Oppgave 8   | Løpende         |
-| Paginering                     | —           | Oppgave 9       |
+| Paginering                     | —           | Oppgave 9a      |
 | Suspense / Streaming           | Oppgave 8   | —               |
 | Error/Not-found                | —           | Separat oppgave |
 | Testing                        | —           | Separat oppgave |

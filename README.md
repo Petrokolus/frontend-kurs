@@ -619,7 +619,9 @@ Skyggeratingen beregnes fra de **5 siste kampene**, der nyere kamper teller mer 
 | 4. nyeste | 40% |
 | 5. nyeste | 20% |
 
-I tillegg bruker skyggeratingen en **hogere K-verdi** enn vanlig rating, slik at den svinger raskere nar formen endrer seg. En spiller som ikke har spilt de siste 5 kampene har ingen skyggerating.
+I tillegg bruker skyggeratingen en **hogere K-verdi** enn vanlig rating, slik at den svinger raskere nar formen endrer seg.
+
+Skyggeratingen tar ogsa hensyn til **vinnstreaker og tapstreaker**. Consecutive vinner pa rad gir en bonus, og consecutive tap gir en straff — jo lengre streaken er, jo storre effekt.
 
 </details>
 

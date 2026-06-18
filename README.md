@@ -362,6 +362,27 @@ Vi går gjennom disse steg for steg i oppgavene under.
 
 #### Oppgave 1a - Legg til en overskrift
 
+Før du begynner er det greit å vite om et grunnleggende skille i en React-komponent: hva som hører hjemme før `return`, og hva som hører hjemme inni `return`.
+
+**Før `return`** er JavaScript-land. Her kan du deklarere variabler, kalle hooks, gjøre beregninger og forberede data. Alt som ikke er synlig i nettleseren hører hjemme her.
+
+**Inni `return`** er JSX-land (JavaScript XML). Her beskriver du hva som skal vises. Du kan ikke skrive vanlige `if`-setninger eller `const`-deklarasjoner her, men du kan bruke `{}` til å sette inn verdier og uttrykk fra JavaScript-land.
+
+```tsx
+export default function MinKomponent() {
+  // JavaScript-land: beregninger, variabler, hooks
+  const navn = "Ola";
+  const stor = navn.toUpperCase();
+
+  return (
+    // JSX-land: det som vises i nettleseren
+    <p>{stor}</p>
+  );
+}
+```
+
+Overskriften du skal legge til i denne oppgaven hører hjemme inni `return`.
+
 Hvis du har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av oppstartsguiden, så kan du allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser du det som nå finnes av innhold i page.tsx i spillere-mappen.
 
 Alle sider trenger en overskrift! Naviger til page.tsx og legg til en passende overskrift. HTML har sitt eget element for overskrifter:
@@ -393,27 +414,6 @@ Vi importerer og bruker SpillerCard i spillere-liste.tsx.
 </details>
 
 #### Oppgave 1c - Bytt ut mockSpiller med en prop
-
-Før du løser oppgaven, er det greit å vite om et grunnleggende skille i en React-komponent: hva som hører hjemme før `return`, og hva som hører hjemme inni `return`.
-
-**Før `return`** er JavaScript-land. Her kan du deklarere variabler, kalle hooks, gjøre beregninger og forberede data. Alt som ikke er synlig i nettleseren hører hjemme her.
-
-**Inni `return`** er JSX-land. Her beskriver du hva som skal vises. Du kan ikke skrive vanlige `if`-setninger eller `const`-deklarasjoner her, men du kan bruke `{}` til å sette inn verdier og uttrykk fra JavaScript-land.
-
-```tsx
-export default function MinKomponent() {
-  // JavaScript-land: beregninger, variabler, hooks
-  const navn = "Ola";
-  const stor = navn.toUpperCase();
-
-  return (
-    // JSX-land: det som vises i nettleseren
-    <p>{stor}</p>
-  );
-}
-```
-
-`mockSpiller` i `SpillerCard` er et eksempel på noe som hører hjemme før `return`: det er en variabel som forbereder data som deretter brukes i JSX-en.
 
 `SpillerCard` har nå en hardkodet `mockSpiller` inni seg. Det betyr at kortet alltid viser samme spiller, uansett hvilken data vi sender inn. Det vil vi endre.
 

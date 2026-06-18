@@ -294,8 +294,9 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 | 6   | [Rediger spiller](#oppgave-6-rediger-spiller)                                         |
 | 7   | [Slett spiller](#oppgave-7-slett-spiller)                                             |
 | 8   | [Filtrering og sortering](#oppgave-8-filtrering-og-sortering-av-spillere)             |
-| 9   | [Alt du kan, brukt på nytt](#oppgave-9-alt-du-kan-brukt-på-nytt)                     |
-| 10  | [Dashboard med streaming](#oppgave-10-dashboard-med-streaming)                       |
+| 9   | [Alt du kan, brukt på nytt](#oppgave-9-alt-du-kan-brukt-pa-nytt)                     |
+| 10  | [Dashboard](#oppgave-10-dashboard)                                                    |
+|     | [Veien videre](#veien-videre)                                                         |
 
 ---
 
@@ -3347,7 +3348,7 @@ export default function SlettKampKnapp({ kamp }: Props) {
 
 ---
 
-## Oppgave 10 – Dashboard med streaming
+## Oppgave 10 – Dashboard
 
 **Hva du skal lære:** Streaming med React `Suspense`, parallell datahenting med `Promise.all`, og å bygge en sammensatt side av uavhengige seksjoner.
 
@@ -3434,7 +3435,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
   <CardContent>
     <p className="text-4xl font-bold">{spillere.length}</p>
   </CardContent>
-</Card>
+</Card>;
 ```
 
 <details class="losningsforslag">
@@ -3489,9 +3490,7 @@ Opprett `src/app/dashboard/components/toppliste.tsx`. Komponenten henter alle sp
 <summary>Hint</summary>
 
 ```tsx
-const topp5 = spillere
-  .sort((a, b) => b.rating - a.rating)
-  .slice(0, 5);
+const topp5 = spillere.sort((a, b) => b.rating - a.rating).slice(0, 5);
 ```
 
 </details>
@@ -3509,9 +3508,7 @@ export default async function Toppliste() {
   const res = await fetch("http://localhost:3000/api/spillere");
   const spillere: Spiller[] = await res.json();
 
-  const topp5 = spillere
-    .sort((a, b) => b.rating - a.rating)
-    .slice(0, 5);
+  const topp5 = spillere.sort((a, b) => b.rating - a.rating).slice(0, 5);
 
   return (
     <Card>
@@ -3523,7 +3520,7 @@ export default async function Toppliste() {
           {topp5.map((spiller, index) => (
             <li key={spiller.id} className="flex items-center justify-between">
               <span>
-                <span className="mr-3 text-muted-foreground">{index + 1}.</span>
+                <span className="text-muted-foreground mr-3">{index + 1}.</span>
                 {spiller.navn}
               </span>
               <span className="font-mono font-semibold">{spiller.rating}</span>
@@ -3568,7 +3565,10 @@ export default async function SisteKamper() {
             const lag1Maal = kamp.lagVinner === 1 ? 10 : kamp.taperMaal;
             const lag2Maal = kamp.lagVinner === 2 ? 10 : kamp.taperMaal;
             return (
-              <li key={kamp.id} className="flex items-center justify-between text-sm">
+              <li
+                key={kamp.id}
+                className="flex items-center justify-between text-sm"
+              >
                 <span className="text-muted-foreground">
                   {new Date(kamp.dato).toLocaleDateString("nb-NO")}
                 </span>
@@ -3771,20 +3771,56 @@ export default function DashboardPage() {
 
 ## Veien videre
 
-Du har nå bygget en komplett applikasjon fra bunnen av. Du vet hvordan komponenter fungerer, hvordan du henter og muterer data, hvordan du strukturerer skjemaer, og hvordan Next.js App Router setter alt sammen.
+Gratulerer, du har fullført kurset! Du har bygget en komplett applikasjon fra bunnen av: komponenter, dataflyt, skjemaer, navigasjon, filtrering og et dashboard. Det er mye å være stolt av.
 
-Det neste steget er ditt eget. Nedenfor er en liste over temaer du kan utforske videre — plukk det som interesserer deg mest.
+Hvis du vil fortsette å lære, har vi samlet noen forslag til hva du kan jobbe med videre. Disse er ikke ferdig instruerte oppgaver. Her må du lese deg opp selv, eksperimentere og finne ut av ting på egenhånd. Det er slik det er på jobb, og det er slik man virkelig lærer.
+
+Plukk det som interesserer deg mest.
 
 ---
 
-| Hva du kan bygge | Hva du lærer |
-| --- | --- |
-| Feilhåndtering med `error.tsx` og `not-found.tsx` | Next.js spesialfiler for feil- og 404-tilstander, `notFound()` fra `next/navigation` |
-| Skjemavalidering med Zod | Zod-skjemaer, integrasjon med React Hook Form via `zodResolver`, typeuthenting med `z.infer` |
-| Breadcrumb-navigasjon | `usePathname` fra `next/navigation`, strengmanipulasjon, komponentkomposisjon |
-| Filtrering på kampsiden | Repetisjon av debounce og URL-tilstand fra oppgave 8, nå på en ny side |
-| ELO-rating og plasseringsbadge | Algoritmeimplementasjon i TypeScript, betinget rendering av badges på spillerkort |
-| Booke fremtidige kamper | Datovelger, ny datamodell, nytt API-endepunkt |
-| Tipping på kamper | Optimistisk UI med `useOptimistic`, tilstandsmaskin i client component |
-| Innlogging | Next.js middleware, cookies, beskyttede ruter |
-| Tester med Vitest | Enhetstester, `@testing-library/react` for komponenttester, mocking av fetch |
+#### Feilhåndtering med `error.tsx` og `not-found.tsx`
+
+Hva skjer hvis brukeren navigerer til `/spillere/99999`, en spiller som ikke finnes? I dag krasjer siden. Next.js har to spesialfiler for å håndtere dette pent: `not-found.tsx` vises når du kaller `notFound()` fra `next/navigation`, og `error.tsx` fanger uventede feil og lar brukeren prøve på nytt.
+
+**Start med:** [Error Handling i Next.js-dokumentasjonen](https://nextjs.org/docs/app/building-your-application/routing/error-handling)
+
+---
+
+#### Skjemavalidering med Zod
+
+React Hook Form validerer feltene, men reglene er spredt rundt i koden som strenger og tall. Zod lar deg beskrive hele skjemaet som et TypeScript-objekt på ett sted, og du får automatisk ut den riktige TypeScript-typen. Det er standarden de fleste prosjekter bruker i dag.
+
+**Start med:** [Zod-dokumentasjonen](https://zod.dev) og søk etter `zodResolver` fra pakken `@hookform/resolvers`.
+
+---
+
+#### Breadcrumb-navigasjon
+
+En breadcrumb viser brukeren hvor i applikasjonen de er: `Hjem / Spillere / Erik Solberg`. `usePathname` fra `next/navigation` gir deg den nåværende URL-en som en streng, og du kan dele den opp og bygge en navigasjonskomponent av den.
+
+**Start med:** [`usePathname` i Next.js-dokumentasjonen](https://nextjs.org/docs/app/api-reference/functions/use-pathname)
+
+---
+
+#### Rangeringsbadge på spillerkort
+
+Alle spillere har en rating. Del ratingen inn i nivåer som bronse, sølv, gull, platinum og diamant, og lag en visuell wrapper rundt hvert spillerkort som styler kortet basert på nivået. Dette er en stilfordypning: hvordan bruker du Tailwind og betinget rendering til å lage et system som ser bra ut og er lett å vedlikeholde?
+
+**Start med:** Bestem hvilke ratinggrenser som hører til hvilket nivå, lag en hjelpefunksjon som returnerer nivået for en gitt rating, og bruk den i `SpillerCard` til å sette riktige klasser.
+
+---
+
+#### Innlogging
+
+Akkurat nå kan hvem som helst opprette, redigere og slette spillere. Med autentisering kan du beskytte disse sidene slik at bare innloggede brukere får tilgang. Next.js middleware lar deg sjekke om brukeren er logget inn før siden lastes.
+
+**Start med:** [Better Auth](https://www.better-auth.com) er et moderne autentiseringsbibliotek med god støtte for Next.js App Router.
+
+---
+
+#### Tester med Vitest
+
+Tester gir deg trygghet til å endre kode uten å være redd for å ødelegge noe. Vitest er et raskt testrammeverk som passer godt med Next.js. Start med å skrive enhetstester for rene funksjoner, som `slugify` i `readme-renderer.tsx` eller sorteringslogikken fra oppgave 8.
+
+**Start med:** [Vitest-dokumentasjonen](https://vitest.dev) og [Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for komponenttester.

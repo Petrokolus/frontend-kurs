@@ -11,3 +11,14 @@ export type Spiller = {
   rating: number;
   skyggerating?: number | null;
 };
+
+export type Kamp = {
+  id: number;
+  lagVinner: number;
+  taperMaal: number;
+  dato: string;
+  lag1Spiller1: Spiller;
+  lag1Spiller2: Spiller;
+  lag2Spiller1: Spiller;
+  lag2Spiller2: Spiller;
+};

@@ -17,4 +17,25 @@ model Spiller {
   svakhet      String?
   rating       Int
   skyggerating Int?
+
+  kamperSomLag1Spiller1 Kamp[] @relation("Lag1Spiller1")
+  kamperSomLag1Spiller2 Kamp[] @relation("Lag1Spiller2")
+  kamperSomLag2Spiller1 Kamp[] @relation("Lag2Spiller1")
+  kamperSomLag2Spiller2 Kamp[] @relation("Lag2Spiller2")
+}
+
+model Kamp {
+  id             Int      @id @default(autoincrement())
+  lag1Spiller1Id Int
+  lag1Spiller2Id Int
+  lag2Spiller1Id Int
+  lag2Spiller2Id Int
+  lagVinner      Int
+  taperMaal      Int
+  dato           DateTime @default(now())
+
+  lag1Spiller1 Spiller @relation("Lag1Spiller1", fields: [lag1Spiller1Id], references: [id])
+  lag1Spiller2 Spiller @relation("Lag1Spiller2", fields: [lag1Spiller2Id], references: [id])
+  lag2Spiller1 Spiller @relation("Lag2Spiller1", fields: [lag2Spiller1Id], references: [id])
+  lag2Spiller2 Spiller @relation("Lag2Spiller2", fields: [lag2Spiller2Id], references: [id])
 }

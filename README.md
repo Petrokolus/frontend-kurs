@@ -585,7 +585,61 @@ export default function SpillerCard({ spiller }: Props) {
 
 </details>
 
-#### Oppgave 1e - Hent spillere
+#### Oppgave 1e - Legg til bilde på SpillerCard
+
+Hver spiller har et bilde tilgjengelig på `/spiller/{id}.png` i prosjektet. Legg til et bilde av spilleren i `SpillerCard`.
+
+I Next.js bruker vi `<Image>` fra `next/image` i stedet for en vanlig `<img>`-tag. Den optimaliserer bildene automatisk. Den krever at du oppgir `width` og `height`:
+
+```tsx
+import Image from "next/image";
+
+<Image
+  src="/spiller/1.png"
+  alt="Ola Nordmann"
+  width={100}
+  height={100}
+/>
+```
+
+Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens data. Husk at du kan sette inn variabler i en streng med template literals: `` `/spiller/${spiller.id}.png` ``
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 1e</summary>
+
+```tsx
+import { Spiller } from "@/lib/types";
+import Image from "next/image";
+
+type Props = {
+  spiller: Spiller;
+};
+
+export default function SpillerCard({ spiller }: Props) {
+  return (
+    <div className="flex items-center space-x-4 rounded-lg border p-4">
+      <Image
+        src={`/spiller/${spiller.id}.png`}
+        alt={spiller.navn}
+        width={64}
+        height={64}
+        className="rounded-full object-cover"
+      />
+      <div className="flex-1">
+        <h2 className="text-lg font-semibold">{spiller.navn}</h2>
+        <p className="text-muted-foreground text-sm">{spiller.avdeling}</p>
+        <p className="text-muted-foreground text-sm">{spiller.posisjon}</p>
+        <p className="text-muted-foreground text-sm">Kull: {spiller.kull}</p>
+        <p className="text-muted-foreground text-sm">Rating: {spiller.rating}</p>
+      </div>
+    </div>
+  );
+}
+```
+
+</details>
+
+#### Oppgave 1f - Hent spillere
 
 Vi har en lokal database med foosball-spillere! Innhold derfra kan hentes gjennom API-et på denne måten:
 
@@ -607,7 +661,7 @@ spillere.map((spiller) => <SpillerCard key={spiller.id} spiller={spiller} />);
 Prøv å hente spillerne fra API-et og bruk `.map()` til å vise en liste med alle spillerne!
 
 <details class="losningsforslag">
-<summary>Løsningsforslag 1e</summary>
+<summary>Løsningsforslag 1f</summary>
 
 ```tsx
 import SpillerCard from "@/components/spillere/spiller-card";

@@ -210,22 +210,17 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 
 ---
 
-### Oppgave 11 – Dashboard (etter UX-skisse)
+### Oppgave 11 – Restende Crud-operasjoner på kamper
+
+---
+
+### Oppgave 12 – Dashboard (etter UX-skisse)
 
 - Implementer dashboard i henhold til UX-skissen fra UX-kurset
 - Fri utforming innenfor de komponenter som finnes i biblioteket
 
 ---
 
-### Oppgave – Suspense og loading
-
-> Nøye instruert på spillersiden, deretter selvstendig på kamphistorikk.
-
-- Legg til `loading.tsx` og `<Suspense>`-grenser
-- Lag skeleton-komponenter
-- Introduserer: streaming, Suspense, skeletons
-
----
 
 ### Oppgave – ELO og plasseringsbadge
 
@@ -319,7 +314,7 @@ Deltakerne skal lære å bygge et realistisk React/Next.js-prosjekt fra bunnen a
 | CRUD                           | Oppgave 6–7 | —               |
 | Search params / URL-tilstand   | Oppgave 8   | Løpende         |
 | Paginering                     | —           | Oppgave 9       |
-| Suspense / Streaming           | —           | Separat oppgave |
+| Suspense / Streaming           | Oppgave 8   | —               |
 | Error/Not-found                | —           | Separat oppgave |
 | Testing                        | —           | Separat oppgave |
 | Autentisering                  | —           | Separat oppgave |

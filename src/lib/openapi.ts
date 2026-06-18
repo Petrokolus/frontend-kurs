@@ -48,7 +48,8 @@ export const spec = {
       post: {
         tags: ["spillere"],
         summary: "Opprett en spiller",
-        description: "Oppretter en ny spiller og returnerer den opprettede spilleren.",
+        description:
+          "Oppretter en ny spiller og returnerer den opprettede spilleren.",
         operationId: "createSpiller",
         requestBody: {
           required: true,
@@ -80,8 +81,8 @@ export const spec = {
                   posisjon: "Keeper",
                   styrke: "God posisjonering",
                   svakhet: null,
-                  rating: 0,
-                  skyggerating: null,
+                  rating: 500,
+                  skyggerating: 500,
                 },
               },
             },
@@ -224,12 +225,12 @@ export const spec = {
         },
       },
     },
-  },
     "/api/kamper": {
       get: {
         tags: ["kamper"],
         summary: "Hent alle kamper",
-        description: "Returnerer en paginert liste over kamper, sortert etter dato (nyeste først).",
+        description:
+          "Returnerer en paginert liste over kamper, sortert etter dato (nyeste først).",
         operationId: "getAllKamper",
         parameters: [
           {
@@ -424,7 +425,7 @@ export const spec = {
             example: "Bidrar lite defensivt",
           },
           rating: { type: "integer", example: 90 },
-          skyggerating: { type: "integer", nullable: true, example: 93 },
+          skyggerating: { type: "integer", example: 93 },
         },
       },
       OpprettSpiller: {
@@ -435,20 +436,33 @@ export const spec = {
           avdeling: { type: "string", example: "Design" },
           kull: { type: "string", example: "2023" },
           posisjon: { type: "string", example: "Keeper" },
-          styrke: { type: "string", nullable: true, example: "God posisjonering" },
+          styrke: {
+            type: "string",
+            nullable: true,
+            example: "God posisjonering",
+          },
           svakhet: { type: "string", nullable: true, example: null },
         },
       },
       OppdaterSpiller: {
         type: "object",
-        description: "Alle felt er valgfrie. Kun felt som sendes med blir oppdatert.",
+        description:
+          "Alle felt er valgfrie. Kun felt som sendes med blir oppdatert.",
         properties: {
           navn: { type: "string", example: "Erik Solberg" },
           avdeling: { type: "string", example: "Utvikling" },
           kull: { type: "string", example: "2021" },
           posisjon: { type: "string", example: "Midtbane" },
-          styrke: { type: "string", nullable: true, example: "Klinisk foran mål" },
-          svakhet: { type: "string", nullable: true, example: "Bidrar lite defensivt" },
+          styrke: {
+            type: "string",
+            nullable: true,
+            example: "Klinisk foran mål",
+          },
+          svakhet: {
+            type: "string",
+            nullable: true,
+            example: "Bidrar lite defensivt",
+          },
         },
       },
       Kamp: {
@@ -456,8 +470,16 @@ export const spec = {
         properties: {
           id: { type: "integer", example: 1 },
           lagVinner: { type: "integer", example: 1, description: "1 eller 2" },
-          taperMaal: { type: "integer", example: 7, description: "Antall mål taperlaget scoret (0-9)" },
-          dato: { type: "string", format: "date-time", example: "2025-05-01T14:00:00.000Z" },
+          taperMaal: {
+            type: "integer",
+            example: 7,
+            description: "Antall mål taperlaget scoret (0-9)",
+          },
+          dato: {
+            type: "string",
+            format: "date-time",
+            example: "2025-05-01T14:00:00.000Z",
+          },
           lag1Spiller1: { $ref: "#/components/schemas/Spiller" },
           lag1Spiller2: { $ref: "#/components/schemas/Spiller" },
           lag2Spiller1: { $ref: "#/components/schemas/Spiller" },
@@ -466,14 +488,25 @@ export const spec = {
       },
       OpprettKamp: {
         type: "object",
-        required: ["lag1Spiller1Id", "lag1Spiller2Id", "lag2Spiller1Id", "lag2Spiller2Id", "lagVinner", "taperMaal"],
+        required: [
+          "lag1Spiller1Id",
+          "lag1Spiller2Id",
+          "lag2Spiller1Id",
+          "lag2Spiller2Id",
+          "lagVinner",
+          "taperMaal",
+        ],
         properties: {
           lag1Spiller1Id: { type: "integer", example: 1 },
           lag1Spiller2Id: { type: "integer", example: 2 },
           lag2Spiller1Id: { type: "integer", example: 3 },
           lag2Spiller2Id: { type: "integer", example: 4 },
           lagVinner: { type: "integer", example: 1, description: "1 eller 2" },
-          taperMaal: { type: "integer", example: 7, description: "Antall mål taperlaget scoret (0-9)" },
+          taperMaal: {
+            type: "integer",
+            example: 7,
+            description: "Antall mål taperlaget scoret (0-9)",
+          },
         },
       },
     },

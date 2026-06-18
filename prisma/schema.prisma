@@ -15,8 +15,8 @@ model Spiller {
   posisjon     String
   styrke       String?
   svakhet      String?
-  rating       Int
-  skyggerating Int?
+  rating       Int @default(500)
+  skyggerating Int @default(500)
 
   kamperSomLag1Spiller1 Kamp[] @relation("Lag1Spiller1")
   kamperSomLag1Spiller2 Kamp[] @relation("Lag1Spiller2")
@@ -32,6 +32,7 @@ model Kamp {
   lag2Spiller2Id Int
   lagVinner      Int
   taperMaal      Int
+  ratingDelta    Float    @default(0)
   dato           DateTime @default(now())
 
   lag1Spiller1 Spiller @relation("Lag1Spiller1", fields: [lag1Spiller1Id], references: [id])

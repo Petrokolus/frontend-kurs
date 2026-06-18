@@ -1,5 +1,6 @@
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import { PrismaClient } from "../src/generated/prisma";
+import { beregnEloEndringer, beregnSkyggerating } from "../src/lib/elo";
 
 const adapter = new PrismaBetterSqlite3({ url: "file:./dev.db" });
 const prisma = new PrismaClient({ adapter });
@@ -18,8 +19,6 @@ async function main() {
         posisjon: "Backend",
         styrke: "Distraksjon og hypnose",
         svakhet: "Blir for glad i motstanderen",
-        rating: 88,
-        skyggerating: 91,
       },
       {
         id: 2,
@@ -29,7 +28,6 @@ async function main() {
         posisjon: "Backend",
         styrke: "Når kraft+flaks gjør jobben",
         svakhet: "Når kraft+uflaks gjør jobben",
-        rating: 85,
       },
       {
         id: 3,
@@ -39,8 +37,6 @@ async function main() {
         posisjon: "Backend",
         styrke: "Foosballens Donnarumma",
         svakhet: "Tord",
-        rating: 79,
-        skyggerating: 83,
       },
       {
         id: 4,
@@ -50,7 +46,6 @@ async function main() {
         posisjon: "Backend",
         styrke: "404: Not Found",
         svakhet: "Hjørneskudd",
-        rating: 92,
       },
       {
         id: 5,
@@ -60,8 +55,6 @@ async function main() {
         posisjon: "Fullstack",
         styrke: "Iblant overraskende god",
         svakhet: "Iblant overraskende dårlig",
-        rating: 81,
-        skyggerating: 78,
       },
       {
         id: 6,
@@ -71,8 +64,6 @@ async function main() {
         posisjon: "Frontend",
         styrke: "Ligaens sterkeste offensive blokk (selverklært)",
         svakhet: "Sunil, Ask og Seb som clowner er min kryptonitt",
-        rating: 74,
-        skyggerating: 1337,
       },
       {
         id: 7,
@@ -82,8 +73,6 @@ async function main() {
         posisjon: "?",
         styrke: "Utrolig sterk på benk",
         svakhet: "Utrolig svak i spill",
-        rating: 77,
-        skyggerating: 80,
       },
       {
         id: 8,
@@ -93,7 +82,6 @@ async function main() {
         posisjon: "Frontend",
         styrke: "Alltid rolig under press",
         svakhet: "For snill til å ta det siste målet",
-        rating: 83,
       },
       {
         id: 9,
@@ -103,8 +91,6 @@ async function main() {
         posisjon: "Backend",
         styrke: "Leser spillet som en åpen bok",
         svakhet: "Bruker for lang tid på å lese boken",
-        rating: 86,
-        skyggerating: 84,
       },
       {
         id: 10,
@@ -113,8 +99,7 @@ async function main() {
         kull: "NK19",
         posisjon: "Fullstack",
         styrke: "Kan be de beste konsulentene spille for seg",
-        svakhet: "de beste konsulentene har høy timepris",
-        rating: 74,
+        svakhet: "De beste konsulentene har høy timepris",
       },
       {
         id: 11,
@@ -124,8 +109,6 @@ async function main() {
         posisjon: "Frontend",
         styrke: "Distraksjon",
         svakhet: "Kick-off glitch",
-        rating: 78,
-        skyggerating: 75,
       },
       {
         id: 12,
@@ -135,7 +118,6 @@ async function main() {
         posisjon: "Frontend",
         styrke: "Kan mange strategier fra Lacrosse",
         svakhet: "Lacrosse-strategier fungerer ikke i foosball",
-        rating: 80,
       },
       {
         id: 13,
@@ -145,8 +127,6 @@ async function main() {
         posisjon: "Backend",
         styrke: "Trash talk",
         svakhet: "Putter sjelden ball i mål",
-        rating: 73,
-        skyggerating: 77,
       },
       {
         id: 14,
@@ -156,7 +136,6 @@ async function main() {
         posisjon: "Fullstack",
         styrke: "Rå kraft",
         svakhet: "Treffe mål",
-        rating: 76,
       },
       {
         id: 15,
@@ -166,8 +145,6 @@ async function main() {
         posisjon: "Backend",
         styrke: "Veggspill",
         svakhet: "Skrå-skudd",
-        rating: 82,
-        skyggerating: 79,
       },
       {
         id: 16,
@@ -177,7 +154,6 @@ async function main() {
         posisjon: "Frontend",
         styrke: "Spiss",
         svakhet: "Midtbane",
-        rating: 69,
       },
       {
         id: 17,
@@ -185,10 +161,9 @@ async function main() {
         avdeling: "Digital Engineering",
         kull: "NK19",
         posisjon: "Fullstack",
-        styrke: "Dyp og kraftig stemme som kan forstyrre og forføre motstandere",
+        styrke:
+          "Dyp og kraftig stemme som kan forstyrre og forføre motstandere",
         svakhet: "Medspiller blir også påvirket",
-        rating: 84,
-        skyggerating: 81,
       },
       {
         id: 18,
@@ -197,8 +172,8 @@ async function main() {
         kull: "NK15",
         posisjon: "Backend",
         styrke: "Har lært hemmelige teknikker i Albania",
-        svakhet: "Teknikkene er vurdert som ulovlige av NFF (Norges Foosball Forbund)",
-        rating: 72,
+        svakhet:
+          "Teknikkene er vurdert som ulovlige av NFF (Norges Foosball Forbund)",
       },
       {
         id: 19,
@@ -208,8 +183,6 @@ async function main() {
         posisjon: "Frontend",
         styrke: "Kamper før lunsj",
         svakhet: "Jobber som regel på HDIR sitt kontor",
-        rating: 77,
-        skyggerating: 82,
       },
       {
         id: 20,
@@ -219,7 +192,6 @@ async function main() {
         posisjon: "Backend",
         styrke: "Score med keeper",
         svakhet: "Forsvare med keeper",
-        rating: 85,
       },
       {
         id: 21,
@@ -229,8 +201,6 @@ async function main() {
         posisjon: "Frontend",
         styrke: "Kick-off glitch",
         svakhet: "Alt annet",
-        rating: 70,
-        skyggerating: 73,
       },
       {
         id: 22,
@@ -240,7 +210,6 @@ async function main() {
         posisjon: "Fullstack",
         styrke: "Holder hodet kaldt når det brenner",
         svakhet: "Navnet tar opp for mye av scoretavlen",
-        rating: 79,
       },
       {
         id: 23,
@@ -250,8 +219,6 @@ async function main() {
         posisjon: "Frontend",
         styrke: "Retur-bounce",
         svakhet: "Alt annet",
-        rating: 75,
-        skyggerating: 78,
       },
       {
         id: 24,
@@ -261,7 +228,6 @@ async function main() {
         posisjon: "Backend",
         styrke: "Kan teleportere ballen inn i mål",
         svakhet: "Glemmer at spinning ikke er lov",
-        rating: 81,
       },
       {
         id: 25,
@@ -271,8 +237,6 @@ async function main() {
         posisjon: "Frontend",
         styrke: "Veldig god på løpepassninger",
         svakhet: "Foosball-spillere kan ikke løpe",
-        rating: 68,
-        skyggerating: 72,
       },
       {
         id: 26,
@@ -282,7 +246,6 @@ async function main() {
         posisjon: "Frontend",
         styrke: "Flaks",
         svakhet: "Mandager",
-        rating: 76,
       },
       {
         id: 27,
@@ -291,130 +254,409 @@ async function main() {
         kull: "NK25",
         posisjon: "Backend",
         styrke: "Reaksjonstid og deviousness",
-        svakhet: "Anlegg for kraftig latteranfall med totalt tap av evne som konsekvens",
-        rating: 73,
-        skyggerating: 76,
+        svakhet:
+          "Anlegg for kraftig latteranfall med totalt tap av evne som konsekvens",
       },
     ],
   });
 
   const spillere = await prisma.spiller.findMany({ orderBy: { id: "asc" } });
-  const [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10] = spillere;
+  const [
+    s1,
+    s2,
+    s3,
+    s4,
+    s5,
+    s6,
+    s7,
+    s8,
+    s9,
+    s10,
+    s11,
+    s12,
+    s13,
+    s14,
+    s15,
+    s16,
+    s17,
+    s18,
+    s19,
+    s20,
+    s21,
+    s22,
+    s23,
+    s24,
+    s25,
+    s26,
+    s27,
+  ] = spillere;
 
-  await prisma.kamp.createMany({
-    data: [
-      {
-        lag1Spiller1Id: s1.id,
-        lag1Spiller2Id: s2.id,
-        lag2Spiller1Id: s3.id,
-        lag2Spiller2Id: s4.id,
-        lagVinner: 1,
-        taperMaal: 7,
-        dato: new Date("2025-05-01T14:00:00"),
-      },
-      {
-        lag1Spiller1Id: s5.id,
-        lag1Spiller2Id: s6.id,
-        lag2Spiller1Id: s7.id,
-        lag2Spiller2Id: s8.id,
-        lagVinner: 2,
-        taperMaal: 5,
-        dato: new Date("2025-05-02T11:30:00"),
-      },
-      {
-        lag1Spiller1Id: s1.id,
-        lag1Spiller2Id: s9.id,
-        lag2Spiller1Id: s5.id,
-        lag2Spiller2Id: s10.id,
-        lagVinner: 1,
-        taperMaal: 3,
-        dato: new Date("2025-05-05T15:00:00"),
-      },
-      {
-        lag1Spiller1Id: s3.id,
-        lag1Spiller2Id: s7.id,
-        lag2Spiller1Id: s2.id,
-        lag2Spiller2Id: s6.id,
-        lagVinner: 2,
-        taperMaal: 8,
-        dato: new Date("2025-05-07T13:00:00"),
-      },
-      {
-        lag1Spiller1Id: s4.id,
-        lag1Spiller2Id: s8.id,
-        lag2Spiller1Id: s1.id,
-        lag2Spiller2Id: s3.id,
-        lagVinner: 1,
-        taperMaal: 6,
-        dato: new Date("2025-05-09T10:00:00"),
-      },
-      {
-        lag1Spiller1Id: s2.id,
-        lag1Spiller2Id: s5.id,
-        lag2Spiller1Id: s9.id,
-        lag2Spiller2Id: s10.id,
-        lagVinner: 1,
-        taperMaal: 2,
-        dato: new Date("2025-05-12T14:30:00"),
-      },
-      {
-        lag1Spiller1Id: s6.id,
-        lag1Spiller2Id: s7.id,
-        lag2Spiller1Id: s4.id,
-        lag2Spiller2Id: s8.id,
-        lagVinner: 2,
-        taperMaal: 9,
-        dato: new Date("2025-05-14T12:00:00"),
-      },
-      {
-        lag1Spiller1Id: s1.id,
-        lag1Spiller2Id: s6.id,
-        lag2Spiller1Id: s2.id,
-        lag2Spiller2Id: s7.id,
-        lagVinner: 1,
-        taperMaal: 4,
-        dato: new Date("2025-05-16T15:00:00"),
-      },
-      {
-        lag1Spiller1Id: s3.id,
-        lag1Spiller2Id: s10.id,
-        lag2Spiller1Id: s5.id,
-        lag2Spiller2Id: s9.id,
-        lagVinner: 2,
-        taperMaal: 1,
-        dato: new Date("2025-05-19T11:00:00"),
-      },
-      {
-        lag1Spiller1Id: s4.id,
-        lag1Spiller2Id: s6.id,
-        lag2Spiller1Id: s1.id,
-        lag2Spiller2Id: s8.id,
-        lagVinner: 2,
-        taperMaal: 0,
-        dato: new Date("2025-05-21T14:00:00"),
-      },
-      {
-        lag1Spiller1Id: s2.id,
-        lag1Spiller2Id: s3.id,
-        lag2Spiller1Id: s7.id,
-        lag2Spiller2Id: s10.id,
-        lagVinner: 1,
-        taperMaal: 6,
-        dato: new Date("2025-05-23T13:30:00"),
-      },
-      {
-        lag1Spiller1Id: s5.id,
-        lag1Spiller2Id: s8.id,
-        lag2Spiller1Id: s4.id,
-        lag2Spiller2Id: s9.id,
-        lagVinner: 1,
-        taperMaal: 7,
-        dato: new Date("2025-05-26T10:30:00"),
-      },
-    ],
-  });
+  const kamper = [
+    // Runde 1 — mai
+    {
+      lag1Spiller1Id: s1.id,
+      lag1Spiller2Id: s2.id,
+      lag2Spiller1Id: s3.id,
+      lag2Spiller2Id: s4.id,
+      lagVinner: 1,
+      taperMaal: 7,
+      dato: new Date("2025-05-01T14:00:00"),
+    },
+    {
+      lag1Spiller1Id: s5.id,
+      lag1Spiller2Id: s6.id,
+      lag2Spiller1Id: s7.id,
+      lag2Spiller2Id: s8.id,
+      lagVinner: 2,
+      taperMaal: 5,
+      dato: new Date("2025-05-02T11:30:00"),
+    },
+    {
+      lag1Spiller1Id: s9.id,
+      lag1Spiller2Id: s10.id,
+      lag2Spiller1Id: s11.id,
+      lag2Spiller2Id: s12.id,
+      lagVinner: 1,
+      taperMaal: 4,
+      dato: new Date("2025-05-03T13:00:00"),
+    },
+    {
+      lag1Spiller1Id: s13.id,
+      lag1Spiller2Id: s14.id,
+      lag2Spiller1Id: s15.id,
+      lag2Spiller2Id: s16.id,
+      lagVinner: 2,
+      taperMaal: 6,
+      dato: new Date("2025-05-05T10:00:00"),
+    },
+    {
+      lag1Spiller1Id: s17.id,
+      lag1Spiller2Id: s18.id,
+      lag2Spiller1Id: s19.id,
+      lag2Spiller2Id: s20.id,
+      lagVinner: 1,
+      taperMaal: 3,
+      dato: new Date("2025-05-06T14:00:00"),
+    },
+    {
+      lag1Spiller1Id: s21.id,
+      lag1Spiller2Id: s22.id,
+      lag2Spiller1Id: s23.id,
+      lag2Spiller2Id: s24.id,
+      lagVinner: 2,
+      taperMaal: 8,
+      dato: new Date("2025-05-07T11:00:00"),
+    },
+    {
+      lag1Spiller1Id: s25.id,
+      lag1Spiller2Id: s26.id,
+      lag2Spiller1Id: s27.id,
+      lag2Spiller2Id: s1.id,
+      lagVinner: 1,
+      taperMaal: 2,
+      dato: new Date("2025-05-08T13:30:00"),
+    },
+    // Runde 2
+    {
+      lag1Spiller1Id: s2.id,
+      lag1Spiller2Id: s5.id,
+      lag2Spiller1Id: s9.id,
+      lag2Spiller2Id: s13.id,
+      lagVinner: 1,
+      taperMaal: 5,
+      dato: new Date("2025-05-12T14:00:00"),
+    },
+    {
+      lag1Spiller1Id: s3.id,
+      lag1Spiller2Id: s7.id,
+      lag2Spiller1Id: s11.id,
+      lag2Spiller2Id: s15.id,
+      lagVinner: 2,
+      taperMaal: 7,
+      dato: new Date("2025-05-13T10:30:00"),
+    },
+    {
+      lag1Spiller1Id: s4.id,
+      lag1Spiller2Id: s8.id,
+      lag2Spiller1Id: s12.id,
+      lag2Spiller2Id: s16.id,
+      lagVinner: 1,
+      taperMaal: 6,
+      dato: new Date("2025-05-14T12:00:00"),
+    },
+    {
+      lag1Spiller1Id: s6.id,
+      lag1Spiller2Id: s10.id,
+      lag2Spiller1Id: s14.id,
+      lag2Spiller2Id: s18.id,
+      lagVinner: 2,
+      taperMaal: 4,
+      dato: new Date("2025-05-15T14:30:00"),
+    },
+    {
+      lag1Spiller1Id: s17.id,
+      lag1Spiller2Id: s21.id,
+      lag2Spiller1Id: s19.id,
+      lag2Spiller2Id: s23.id,
+      lagVinner: 1,
+      taperMaal: 9,
+      dato: new Date("2025-05-16T11:00:00"),
+    },
+    {
+      lag1Spiller1Id: s20.id,
+      lag1Spiller2Id: s24.id,
+      lag2Spiller1Id: s22.id,
+      lag2Spiller2Id: s26.id,
+      lagVinner: 2,
+      taperMaal: 3,
+      dato: new Date("2025-05-19T13:00:00"),
+    },
+    {
+      lag1Spiller1Id: s25.id,
+      lag1Spiller2Id: s27.id,
+      lag2Spiller1Id: s2.id,
+      lag2Spiller2Id: s6.id,
+      lagVinner: 1,
+      taperMaal: 5,
+      dato: new Date("2025-05-20T14:00:00"),
+    },
+    // Runde 3
+    {
+      lag1Spiller1Id: s1.id,
+      lag1Spiller2Id: s9.id,
+      lag2Spiller1Id: s5.id,
+      lag2Spiller2Id: s10.id,
+      lagVinner: 1,
+      taperMaal: 3,
+      dato: new Date("2025-05-21T10:00:00"),
+    },
+    {
+      lag1Spiller1Id: s3.id,
+      lag1Spiller2Id: s11.id,
+      lag2Spiller1Id: s7.id,
+      lag2Spiller2Id: s17.id,
+      lagVinner: 2,
+      taperMaal: 6,
+      dato: new Date("2025-05-22T14:00:00"),
+    },
+    {
+      lag1Spiller1Id: s4.id,
+      lag1Spiller2Id: s12.id,
+      lag2Spiller1Id: s8.id,
+      lag2Spiller2Id: s20.id,
+      lagVinner: 1,
+      taperMaal: 7,
+      dato: new Date("2025-05-23T11:30:00"),
+    },
+    {
+      lag1Spiller1Id: s13.id,
+      lag1Spiller2Id: s19.id,
+      lag2Spiller1Id: s15.id,
+      lag2Spiller2Id: s21.id,
+      lagVinner: 2,
+      taperMaal: 4,
+      dato: new Date("2025-05-26T13:00:00"),
+    },
+    {
+      lag1Spiller1Id: s14.id,
+      lag1Spiller2Id: s22.id,
+      lag2Spiller1Id: s16.id,
+      lag2Spiller2Id: s24.id,
+      lagVinner: 1,
+      taperMaal: 8,
+      dato: new Date("2025-05-27T10:00:00"),
+    },
+    {
+      lag1Spiller1Id: s18.id,
+      lag1Spiller2Id: s23.id,
+      lag2Spiller1Id: s25.id,
+      lag2Spiller2Id: s26.id,
+      lagVinner: 2,
+      taperMaal: 5,
+      dato: new Date("2025-05-28T14:30:00"),
+    },
+    {
+      lag1Spiller1Id: s27.id,
+      lag1Spiller2Id: s6.id,
+      lag2Spiller1Id: s2.id,
+      lag2Spiller2Id: s9.id,
+      lagVinner: 1,
+      taperMaal: 6,
+      dato: new Date("2025-05-29T12:00:00"),
+    },
+    // Runde 4 — juni
+    {
+      lag1Spiller1Id: s1.id,
+      lag1Spiller2Id: s4.id,
+      lag2Spiller1Id: s6.id,
+      lag2Spiller2Id: s11.id,
+      lagVinner: 2,
+      taperMaal: 5,
+      dato: new Date("2025-06-02T14:00:00"),
+    },
+    {
+      lag1Spiller1Id: s2.id,
+      lag1Spiller2Id: s8.id,
+      lag2Spiller1Id: s10.id,
+      lag2Spiller2Id: s16.id,
+      lagVinner: 1,
+      taperMaal: 4,
+      dato: new Date("2025-06-03T10:30:00"),
+    },
+    {
+      lag1Spiller1Id: s3.id,
+      lag1Spiller2Id: s13.id,
+      lag2Spiller1Id: s5.id,
+      lag2Spiller2Id: s18.id,
+      lagVinner: 2,
+      taperMaal: 7,
+      dato: new Date("2025-06-04T13:00:00"),
+    },
+    {
+      lag1Spiller1Id: s7.id,
+      lag1Spiller2Id: s14.id,
+      lag2Spiller1Id: s12.id,
+      lag2Spiller2Id: s22.id,
+      lagVinner: 1,
+      taperMaal: 3,
+      dato: new Date("2025-06-05T11:00:00"),
+    },
+    {
+      lag1Spiller1Id: s9.id,
+      lag1Spiller2Id: s15.id,
+      lag2Spiller1Id: s17.id,
+      lag2Spiller2Id: s25.id,
+      lagVinner: 2,
+      taperMaal: 6,
+      dato: new Date("2025-06-06T14:00:00"),
+    },
+    {
+      lag1Spiller1Id: s19.id,
+      lag1Spiller2Id: s23.id,
+      lag2Spiller1Id: s20.id,
+      lag2Spiller2Id: s24.id,
+      lagVinner: 1,
+      taperMaal: 8,
+      dato: new Date("2025-06-09T10:00:00"),
+    },
+    {
+      lag1Spiller1Id: s21.id,
+      lag1Spiller2Id: s26.id,
+      lag2Spiller1Id: s27.id,
+      lag2Spiller2Id: s4.id,
+      lagVinner: 2,
+      taperMaal: 4,
+      dato: new Date("2025-06-10T13:30:00"),
+    },
+    // Runde 5
+    {
+      lag1Spiller1Id: s1.id,
+      lag1Spiller2Id: s11.id,
+      lag2Spiller1Id: s14.id,
+      lag2Spiller2Id: s20.id,
+      lagVinner: 1,
+      taperMaal: 6,
+      dato: new Date("2025-06-11T14:00:00"),
+    },
+    {
+      lag1Spiller1Id: s2.id,
+      lag1Spiller2Id: s12.id,
+      lag2Spiller1Id: s15.id,
+      lag2Spiller2Id: s21.id,
+      lagVinner: 2,
+      taperMaal: 7,
+      dato: new Date("2025-06-12T10:00:00"),
+    },
+    {
+      lag1Spiller1Id: s3.id,
+      lag1Spiller2Id: s16.id,
+      lag2Spiller1Id: s19.id,
+      lag2Spiller2Id: s22.id,
+      lagVinner: 1,
+      taperMaal: 4,
+      dato: new Date("2025-06-13T13:00:00"),
+    },
+    {
+      lag1Spiller1Id: s5.id,
+      lag1Spiller2Id: s17.id,
+      lag2Spiller1Id: s13.id,
+      lag2Spiller2Id: s23.id,
+      lagVinner: 2,
+      taperMaal: 9,
+      dato: new Date("2025-06-16T11:00:00"),
+    },
+    {
+      lag1Spiller1Id: s6.id,
+      lag1Spiller2Id: s18.id,
+      lag2Spiller1Id: s24.id,
+      lag2Spiller2Id: s8.id,
+      lagVinner: 1,
+      taperMaal: 3,
+      dato: new Date("2025-06-17T14:00:00"),
+    },
+    {
+      lag1Spiller1Id: s7.id,
+      lag1Spiller2Id: s25.id,
+      lag2Spiller1Id: s10.id,
+      lag2Spiller2Id: s26.id,
+      lagVinner: 2,
+      taperMaal: 5,
+      dato: new Date("2025-06-18T10:30:00"),
+    },
+    {
+      lag1Spiller1Id: s9.id,
+      lag1Spiller2Id: s27.id,
+      lag2Spiller1Id: s4.id,
+      lag2Spiller2Id: s16.id,
+      lagVinner: 1,
+      taperMaal: 7,
+      dato: new Date("2025-06-19T13:00:00"),
+    },
+  ];
 
-  console.log("✅ Seeding fullført — 10 spillere og 12 kamper lagt til");
+  const ratings: Record<number, number> = {};
+  for (const s of spillere) {
+    ratings[s.id] = 500;
+  }
+
+  const kampDeltaer: Record<number, number[]> = {};
+  for (const s of spillere) {
+    kampDeltaer[s.id] = [];
+  }
+
+  for (const kamp of kamper) {
+    const { lag1Delta, lag2Delta } = beregnEloEndringer(
+      ratings[kamp.lag1Spiller1Id],
+      ratings[kamp.lag1Spiller2Id],
+      ratings[kamp.lag2Spiller1Id],
+      ratings[kamp.lag2Spiller2Id],
+      kamp.lagVinner,
+      kamp.taperMaal
+    );
+
+    await prisma.kamp.create({ data: { ...kamp, ratingDelta: lag1Delta } });
+
+    for (const id of [kamp.lag1Spiller1Id, kamp.lag1Spiller2Id]) {
+      ratings[id] = Math.round(ratings[id] + lag1Delta);
+      kampDeltaer[id].unshift(lag1Delta);
+    }
+    for (const id of [kamp.lag2Spiller1Id, kamp.lag2Spiller2Id]) {
+      ratings[id] = Math.round(ratings[id] + lag2Delta);
+      kampDeltaer[id].unshift(lag2Delta);
+    }
+  }
+
+  for (const [id, rating] of Object.entries(ratings)) {
+    const deltas = kampDeltaer[Number(id)].slice(0, 5);
+    await prisma.spiller.update({
+      where: { id: Number(id) },
+      data: { rating, skyggerating: beregnSkyggerating(deltas) },
+    });
+  }
+
+  console.log(
+    `✅ Seeding fullført — ${spillere.length} spillere og ${kamper.length} kamper lagt til`
+  );
 }
 
 main()

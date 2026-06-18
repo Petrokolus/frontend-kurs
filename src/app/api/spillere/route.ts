@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   const spillere = await prisma.spiller.findMany({
-    orderBy: { rating: "desc" },
+    orderBy: { navn: "asc" },
   });
 
   return NextResponse.json(spillere);
@@ -20,7 +20,6 @@ export async function POST(request: Request) {
       posisjon: body.posisjon,
       styrke: body.styrke ?? null,
       svakhet: body.svakhet ?? null,
-      rating: 0,
     },
   });
 

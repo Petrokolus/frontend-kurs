@@ -9,7 +9,7 @@ export type Spiller = {
   styrke?: string | null;
   svakhet?: string | null;
   rating: number;
-  skyggerating?: number | null;
+  skyggerating: number;
 };
 
 export type Kamp = {

@@ -294,8 +294,8 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 | 6   | [Rediger spiller](#oppgave-6-rediger-spiller)                                         |
 | 7   | [Slett spiller](#oppgave-7-slett-spiller)                                             |
 | 8   | [Filtrering og sortering](#oppgave-8-filtrering-og-sortering-av-spillere)             |
-| 9   | [Alt du kan, brukt på nytt](#oppgave-9--alt-du-kan-brukt-på-nytt)                    |
-| 10  | [Dashboard med streaming](#oppgave-10--dashboard-med-streaming)                      |
+| 9   | [Alt du kan, brukt på nytt](#oppgave-9-alt-du-kan-brukt-på-nytt)                     |
+| 10  | [Dashboard med streaming](#oppgave-10-dashboard-med-streaming)                       |
 
 ---
 
@@ -3769,72 +3769,22 @@ export default function DashboardPage() {
 
 ---
 
-## Oppgave – ELO og plasseringsbadge (UFERDIG)
+## Veien videre
 
-Beregn ELO-rating basert på kamphistorikk og vis gull/sølv/bronse-badge på spillerkortene.
+Du har nå bygget en komplett applikasjon fra bunnen av. Du vet hvordan komponenter fungerer, hvordan du henter og muterer data, hvordan du strukturerer skjemaer, og hvordan Next.js App Router setter alt sammen.
 
-> 🚧 Oppgavetekst skrives her.
-
----
-
-## Oppgave – Booke kamper (UFERDIG)
-
-Lag et system for å planlegge fremtidige kamper med tid og deltakere.
-
-> 🚧 Oppgavetekst skrives her.
+Det neste steget er ditt eget. Nedenfor er en liste over temaer du kan utforske videre — plukk det som interesserer deg mest.
 
 ---
 
-## Oppgave – Betting på kamper (UFERDIG)
-
-Legg til mulighet for å tippe utfall på planlagte kamper.
-
-> 🚧 Oppgavetekst skrives her.
-
----
-
-## Oppgave – Error og not-found på spillerdetaljer (UFERDIG)
-
-Legg til `not-found.tsx` hvis spilleren ikke finnes, og `error.tsx` for generelle feil.
-
-> 🚧 Oppgavetekst skrives her.
-
----
-
-## Oppgave – Tester med Vitest (UFERDIG)
-
-Noen tester i prosjektet feiler. Få dem til å bli grønne!
-
-> 🚧 Oppgavetekst skrives her.
-
----
-
-## Oppgave – Innlogging (UFERDIG)
-
-Legg til autentisering og beskytt sider som krever innlogging.
-
-> 🚧 Oppgavetekst skrives her.
-
----
-
-## Oppgave – Filtrering på kamper med debounce (UFERDIG)
-
-Legg til filtrering på kampsiden med debounce for å unngå for mange API-kall.
-
-> 🚧 Oppgavetekst skrives her.
-
----
-
-## Oppgave – Breadcrumbs med usePathname (UFERDIG)
-
-Implementer breadcrumb-navigasjon ved hjelp av `usePathname`.
-
-> 🚧 Oppgavetekst skrives her.
-
----
-
-## Oppgave – Zod-validering (UFERDIG)
-
-Legg til Zod for skjemavalidering i kombinasjon med `react-hook-form`.
-
-> 🚧 Oppgavetekst skrives her.
+| Hva du kan bygge | Hva du lærer |
+| --- | --- |
+| Feilhåndtering med `error.tsx` og `not-found.tsx` | Next.js spesialfiler for feil- og 404-tilstander, `notFound()` fra `next/navigation` |
+| Skjemavalidering med Zod | Zod-skjemaer, integrasjon med React Hook Form via `zodResolver`, typeuthenting med `z.infer` |
+| Breadcrumb-navigasjon | `usePathname` fra `next/navigation`, strengmanipulasjon, komponentkomposisjon |
+| Filtrering på kampsiden | Repetisjon av debounce og URL-tilstand fra oppgave 8, nå på en ny side |
+| ELO-rating og plasseringsbadge | Algoritmeimplementasjon i TypeScript, betinget rendering av badges på spillerkort |
+| Booke fremtidige kamper | Datovelger, ny datamodell, nytt API-endepunkt |
+| Tipping på kamper | Optimistisk UI med `useOptimistic`, tilstandsmaskin i client component |
+| Innlogging | Next.js middleware, cookies, beskyttede ruter |
+| Tester med Vitest | Enhetstester, `@testing-library/react` for komponenttester, mocking av fetch |

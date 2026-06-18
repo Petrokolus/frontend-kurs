@@ -402,16 +402,25 @@ Dette er hvordan man styler ved hjelp av Tailwind CSS. Det kodesnutten over gjø
 - _text-3xl_: Setter font-størrelse til XXXL
 - _font-bold_: Setter font-type til bold (fet skrift)
 
+Du finner en fullstendig oversikt over alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenket til i sidemenyen.
+
 #### Oppgave 1b - Vis et SpillerCard på siden
 
-Forsøk å vise litt mer enn bare overskriften på siden. Komponenter som vi lager i React kan importeres og deretter legges inn i page.tsx på samme måte som overskrift-taggen du nettopp har lagt til. Klarer du å importere og vise et SpillerCard på siden?
+En stor fordel med React er at man kan dele opp grensesnittet i gjenbrukbare komponenter og importere dem der man trenger dem. Slik ser en typisk import ut:
 
-<details class="hint">
-<summary>Hint</summary>
+```tsx
+import SpillerCard from "@/components/spillere/spiller-card";
+```
 
-Vi importerer og bruker SpillerCard i spillere-liste.tsx.
+`@/` er en snarvei som peker til `src/`-mappen i prosjektet. Etter det følger resten av filstien, uten `.tsx`-endelsen.
 
-</details>
+Når komponenten er importert kan du bruke den i JSX akkurat som en HTML-tag:
+
+```tsx
+<SpillerCard />
+```
+
+Importer `SpillerCard` i `page.tsx` og legg den inn under overskriften.
 
 #### Oppgave 1c - Bytt ut mockSpiller med en prop
 
@@ -673,9 +682,9 @@ Skyggeratingen tar ogsa hensyn til **vinnstreaker og tapstreaker**. Consecutive 
 
 #### Oppgave 3a – Legg til lenke til opprett-siden
 
-Skjemaet bor på sin egen side: `/spillere/opprett`. Legg til en `<Link>` på spillersiden som tar brukeren dit, slik at de enkelt kan navigere til skjemaet.
+Skjemaet bor på sin egen side: `/spillere/opprett`. Legg til en `<Link>` i `src/app/spillere/page.tsx`, rett under overskriften, som tar brukeren dit.
 
-Du har brukt `<Link>` fra `next/link` i oppgave 2 — bruk det samme mønsteret her.
+Du har brukt `<Link>` fra `next/link` i oppgave 2. Bruk det samme mønsteret her.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 3a</summary>

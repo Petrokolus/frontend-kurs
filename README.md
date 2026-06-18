@@ -1,19 +1,19 @@
 # Frontend-kurs
 
-Et introduksjonskurs i frontend-utvikling. Du vil lære hva frontend er, hvordan det henger sammen med et API, og hvordan du bygger et brukergrensesnitt slik du ville gjort det på jobb.
+Dette er et introduksjonskurs i frontend-utvikling. Du vil lære hva frontend er, hvordan det henger sammen med et API, og hvordan du bygger et brukergrensesnitt slik du kommer til å gjøre på prosjekt.
 
-Kurset er bygget rundt et realistisk scenario: du har startet i en ny jobb og har fått i oppgave å bygge et foosball-managementsystem for kontoret. Du har fått tilgang til et ferdig API og et komponentbibliotek — jobben din er å koble det hele sammen i en fungerende applikasjon.
+Kurset er bygget rundt et realistisk scenario: du har startet på et nytt prosjekt og har fått i oppgave å bygge et foosball-managementsystem for kontoret. Du har fått tilgang til et ferdig API og et komponentbibliotek. Jobben din er å koble det hele sammen i en fungerende applikasjon.
 
 ---
 
 <details>
 <summary>Forutsetninger</summary>
 
-Før du begynner må du ha installert følgende på maskinen din. Følg hvert steg nøye, og ikke hopp vidu før du har bekreftet at hvert steg fungerer. Sitter du fast, spør kursholder eller personen ved siden av deg.
+Før du begynner må du ha installert Git, Node.js, pnpm og VS Code. Følg hvert steg nøye, og ikke hopp videre før du har bekreftet at hvert steg fungerer. Sitter du fast, spør kursholder eller personen ved siden av deg.
 
 ### 1. Git
 
-Git er versjonskontrollsystemet vi bruker til å lagre og dele kode. Vi antar at du har git fra tidligere kurs — sjekk med:
+Git er versjonskontrollsystemet vi bruker til å lagre og dele kode. Vi antar at du har installert Git fra tidligere kurs. Du kan sjekke om Git er installert ved å kjøre følgende kommando i terminalen:
 
 ```bash
 git --version
@@ -63,7 +63,7 @@ OBS. Dersom du har Mac endrer du til "macOS i den blå firkanten og trykker på 
 ![Node js tools for Native Modules](nodejs_tools_for_native_modules.png)
 
 PS. Du velger selv om du vil installere "Tools for Native Modules". Det er ikke nødvendig, men da har du det liggende skulle du trenge det senere.
-Dersom du velger å installere "Tools for Native Modules", vil du få opp følgende vindu når du har fullført insstallasjonen av Node.js. Følg instruksjonene i vinduet, til du ser "Type ENTER to exit:" Da er installasjonen fullført.
+Dersom du velger å installere "Tools for Native Modules", vil du få opp følgende vindu når du har fullført installasjonen av Node.js. Følg instruksjonene i vinduet, til du ser "Type ENTER to exit:" Da er installasjonen fullført.
 
 ![Node js tools for native modules install](nodejs_tools_for_native_modules_install.png)
 
@@ -90,11 +90,11 @@ Vi installerer pnpm gjennom **Corepack**, som følger med Node.js og lar deg akt
 
 **Kjør følgende kommando i terminalen:**
 
-> **Windows:** Du må kanskje åpne terminalen som administrator. Søk etter "Terminal" eller "PowerShell" i startmenyen, høyreklikk og velg **"Kjør som administrator"**.
-
 ```bash
 corepack enable
 ```
+
+> **Windows:** Du må kanskje åpne terminalen som administrator. Søk etter "Terminal" eller "PowerShell" i startmenyen, høyreklikk og velg **"Kjør som administrator"**.
 
 Denne kommandoen gir ingen outout. Det er normalt.
 
@@ -170,9 +170,13 @@ Disse utvidelsene gjør det enklere å skrive React og TypeScript.
 
 Når alle forutsetningene er på plass, følger du disse stegene for å starte prosjektet.
 
-### Steg 1 — Fork prosjektet på GitHub
+### Steg 1 — Hent prosjektet
 
-For at du skal kunne lagre arbeidet ditt, må du lage din egen kopi av dette kurs-repoet på din egen GitHub. Dette kalles å **forke**.
+Du har to alternativer:
+
+**Alternativ A: Fork og klon (anbefalt hvis du vil lagre arbeidet ditt på GitHub)**
+
+En fork er din egen kopi av repoet under din GitHub-bruker.
 
 1. Gå til [github.com/Petrokolus/frontend-kurs](https://github.com/Petrokolus/frontend-kurs)
 2. Logg inn på GitHub (eller opprett en bruker hvis du ikke har en)
@@ -180,26 +184,41 @@ For at du skal kunne lagre arbeidet ditt, må du lage din egen kopi av dette kur
 
 ![github repo fork](github_repo_fork.png)
 
-Du har nå din egen kopi av repoet under din GitHub-bruker.
-
----
-
-### Steg 2 — Klon din fork
-
-1. Åpne terminalen
-2. Naviger til mappen der du vil lagre prosjektet, for eksempel:
+4. Åpne terminalen og naviger til mappen der du vil lagre prosjektet, for eksempel:
 
 ```bash
 cd repos/kurs
 ```
 
-3. Klon **din** fork (bytt ut `<brukernavn>` med ditt GitHub-brukernavn):
+5. Klon **din** fork (bytt ut `<brukernavn>` med ditt GitHub-brukernavn):
 
 ```bash
 git clone https://github.com/<brukernavn>/frontend-kurs.git
 ```
 
-4. Gå inn i prosjektmappen:
+6. Gå inn i prosjektmappen:
+
+```bash
+cd frontend-kurs
+```
+
+---
+
+**Alternativ B: Klon direkte (hvis du ikke trenger GitHub)**
+
+1. Åpne terminalen og naviger til mappen der du vil lagre prosjektet, for eksempel:
+
+```bash
+cd repos/kurs
+```
+
+2. Klon repoet:
+
+```bash
+git clone https://github.com/Petrokolus/frontend-kurs.git
+```
+
+3. Gå inn i prosjektmappen:
 
 ```bash
 cd frontend-kurs
@@ -273,6 +292,9 @@ http://localhost:3000
 
 Du skal nå se velkomstsiden til kurset og du er klar til å begynne på oppgavene!
 
+Mens applikasjonen kjører, kan du også finne oppgavene i sidemenyen under "Oppgaver". Hver oppgave har en beskrivelse av hva du skal gjøre, og noen har også hint og løsningsforslag.
+![oppgaver](oppgaver.png)
+
 > **Viktig:** Utviklingsserveren må kjøre i terminalen mens du jobber. Lukk du terminalen, vil nettsiden slutte å fungere.
 > Trenger du en ny terminal, åpne en ny fane med `+`-ikonet i terminalfeltet i VS Code.
 
@@ -294,7 +316,7 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 | 6   | [Rediger spiller](#oppgave-6-rediger-spiller)                                         |
 | 7   | [Slett spiller](#oppgave-7-slett-spiller)                                             |
 | 8   | [Filtrering og sortering](#oppgave-8-filtrering-og-sortering-av-spillere)             |
-| 9   | [Alt du kan, brukt på nytt](#oppgave-9-alt-du-kan-brukt-pa-nytt)                     |
+| 9   | [Alt du kan, brukt på nytt](#oppgave-9-alt-du-kan-brukt-pa-nytt)                      |
 | 10  | [Dashboard](#oppgave-10-dashboard)                                                    |
 |     | [Veien videre](#veien-videre)                                                         |
 

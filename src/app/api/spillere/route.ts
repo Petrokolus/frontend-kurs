@@ -20,7 +20,6 @@ export async function POST(request: Request) {
       posisjon: body.posisjon,
       styrke: body.styrke ?? null,
       svakhet: body.svakhet ?? null,
-      rating: 0,
     },
   });
 

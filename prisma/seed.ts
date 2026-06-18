@@ -1,5 +1,6 @@
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import { PrismaClient } from "../src/generated/prisma";
+import { beregnEloEndringer, beregnSkyggerating } from "../src/lib/elo";
 
 const adapter = new PrismaBetterSqlite3({ url: "file:./dev.db" });
 const prisma = new PrismaClient({ adapter });
@@ -301,118 +302,61 @@ async function main() {
   const spillere = await prisma.spiller.findMany({ orderBy: { id: "asc" } });
   const [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10] = spillere;
 
-  await prisma.kamp.createMany({
-    data: [
-      {
-        lag1Spiller1Id: s1.id,
-        lag1Spiller2Id: s2.id,
-        lag2Spiller1Id: s3.id,
-        lag2Spiller2Id: s4.id,
-        lagVinner: 1,
-        taperMaal: 7,
-        dato: new Date("2025-05-01T14:00:00"),
-      },
-      {
-        lag1Spiller1Id: s5.id,
-        lag1Spiller2Id: s6.id,
-        lag2Spiller1Id: s7.id,
-        lag2Spiller2Id: s8.id,
-        lagVinner: 2,
-        taperMaal: 5,
-        dato: new Date("2025-05-02T11:30:00"),
-      },
-      {
-        lag1Spiller1Id: s1.id,
-        lag1Spiller2Id: s9.id,
-        lag2Spiller1Id: s5.id,
-        lag2Spiller2Id: s10.id,
-        lagVinner: 1,
-        taperMaal: 3,
-        dato: new Date("2025-05-05T15:00:00"),
-      },
-      {
-        lag1Spiller1Id: s3.id,
-        lag1Spiller2Id: s7.id,
-        lag2Spiller1Id: s2.id,
-        lag2Spiller2Id: s6.id,
-        lagVinner: 2,
-        taperMaal: 8,
-        dato: new Date("2025-05-07T13:00:00"),
-      },
-      {
-        lag1Spiller1Id: s4.id,
-        lag1Spiller2Id: s8.id,
-        lag2Spiller1Id: s1.id,
-        lag2Spiller2Id: s3.id,
-        lagVinner: 1,
-        taperMaal: 6,
-        dato: new Date("2025-05-09T10:00:00"),
-      },
-      {
-        lag1Spiller1Id: s2.id,
-        lag1Spiller2Id: s5.id,
-        lag2Spiller1Id: s9.id,
-        lag2Spiller2Id: s10.id,
-        lagVinner: 1,
-        taperMaal: 2,
-        dato: new Date("2025-05-12T14:30:00"),
-      },
-      {
-        lag1Spiller1Id: s6.id,
-        lag1Spiller2Id: s7.id,
-        lag2Spiller1Id: s4.id,
-        lag2Spiller2Id: s8.id,
-        lagVinner: 2,
-        taperMaal: 9,
-        dato: new Date("2025-05-14T12:00:00"),
-      },
-      {
-        lag1Spiller1Id: s1.id,
-        lag1Spiller2Id: s6.id,
-        lag2Spiller1Id: s2.id,
-        lag2Spiller2Id: s7.id,
-        lagVinner: 1,
-        taperMaal: 4,
-        dato: new Date("2025-05-16T15:00:00"),
-      },
-      {
-        lag1Spiller1Id: s3.id,
-        lag1Spiller2Id: s10.id,
-        lag2Spiller1Id: s5.id,
-        lag2Spiller2Id: s9.id,
-        lagVinner: 2,
-        taperMaal: 1,
-        dato: new Date("2025-05-19T11:00:00"),
-      },
-      {
-        lag1Spiller1Id: s4.id,
-        lag1Spiller2Id: s6.id,
-        lag2Spiller1Id: s1.id,
-        lag2Spiller2Id: s8.id,
-        lagVinner: 2,
-        taperMaal: 0,
-        dato: new Date("2025-05-21T14:00:00"),
-      },
-      {
-        lag1Spiller1Id: s2.id,
-        lag1Spiller2Id: s3.id,
-        lag2Spiller1Id: s7.id,
-        lag2Spiller2Id: s10.id,
-        lagVinner: 1,
-        taperMaal: 6,
-        dato: new Date("2025-05-23T13:30:00"),
-      },
-      {
-        lag1Spiller1Id: s5.id,
-        lag1Spiller2Id: s8.id,
-        lag2Spiller1Id: s4.id,
-        lag2Spiller2Id: s9.id,
-        lagVinner: 1,
-        taperMaal: 7,
-        dato: new Date("2025-05-26T10:30:00"),
-      },
-    ],
-  });
+  const kamper = [
+    { lag1Spiller1Id: s1.id, lag1Spiller2Id: s2.id, lag2Spiller1Id: s3.id, lag2Spiller2Id: s4.id, lagVinner: 1, taperMaal: 7, dato: new Date("2025-05-01T14:00:00") },
+    { lag1Spiller1Id: s5.id, lag1Spiller2Id: s6.id, lag2Spiller1Id: s7.id, lag2Spiller2Id: s8.id, lagVinner: 2, taperMaal: 5, dato: new Date("2025-05-02T11:30:00") },
+    { lag1Spiller1Id: s1.id, lag1Spiller2Id: s9.id, lag2Spiller1Id: s5.id, lag2Spiller2Id: s10.id, lagVinner: 1, taperMaal: 3, dato: new Date("2025-05-05T15:00:00") },
+    { lag1Spiller1Id: s3.id, lag1Spiller2Id: s7.id, lag2Spiller1Id: s2.id, lag2Spiller2Id: s6.id, lagVinner: 2, taperMaal: 8, dato: new Date("2025-05-07T13:00:00") },
+    { lag1Spiller1Id: s4.id, lag1Spiller2Id: s8.id, lag2Spiller1Id: s1.id, lag2Spiller2Id: s3.id, lagVinner: 1, taperMaal: 6, dato: new Date("2025-05-09T10:00:00") },
+    { lag1Spiller1Id: s2.id, lag1Spiller2Id: s5.id, lag2Spiller1Id: s9.id, lag2Spiller2Id: s10.id, lagVinner: 1, taperMaal: 2, dato: new Date("2025-05-12T14:30:00") },
+    { lag1Spiller1Id: s6.id, lag1Spiller2Id: s7.id, lag2Spiller1Id: s4.id, lag2Spiller2Id: s8.id, lagVinner: 2, taperMaal: 9, dato: new Date("2025-05-14T12:00:00") },
+    { lag1Spiller1Id: s1.id, lag1Spiller2Id: s6.id, lag2Spiller1Id: s2.id, lag2Spiller2Id: s7.id, lagVinner: 1, taperMaal: 4, dato: new Date("2025-05-16T15:00:00") },
+    { lag1Spiller1Id: s3.id, lag1Spiller2Id: s10.id, lag2Spiller1Id: s5.id, lag2Spiller2Id: s9.id, lagVinner: 2, taperMaal: 1, dato: new Date("2025-05-19T11:00:00") },
+    { lag1Spiller1Id: s4.id, lag1Spiller2Id: s6.id, lag2Spiller1Id: s1.id, lag2Spiller2Id: s8.id, lagVinner: 2, taperMaal: 0, dato: new Date("2025-05-21T14:00:00") },
+    { lag1Spiller1Id: s2.id, lag1Spiller2Id: s3.id, lag2Spiller1Id: s7.id, lag2Spiller2Id: s10.id, lagVinner: 1, taperMaal: 6, dato: new Date("2025-05-23T13:30:00") },
+    { lag1Spiller1Id: s5.id, lag1Spiller2Id: s8.id, lag2Spiller1Id: s4.id, lag2Spiller2Id: s9.id, lagVinner: 1, taperMaal: 7, dato: new Date("2025-05-26T10:30:00") },
+  ];
+
+  const ratings: Record<number, number> = {};
+  for (const s of spillere) {
+    ratings[s.id] = s.rating;
+  }
+
+  // kampDeltaer[spillerId] = liste over individuelle deltas, nyeste forst
+  const kampDeltaer: Record<number, number[]> = {};
+  for (const s of spillere) {
+    kampDeltaer[s.id] = [];
+  }
+
+  for (const kamp of kamper) {
+    const { lag1Delta, lag2Delta } = beregnEloEndringer(
+      ratings[kamp.lag1Spiller1Id],
+      ratings[kamp.lag1Spiller2Id],
+      ratings[kamp.lag2Spiller1Id],
+      ratings[kamp.lag2Spiller2Id],
+      kamp.lagVinner,
+      kamp.taperMaal
+    );
+
+    await prisma.kamp.create({ data: { ...kamp, ratingDelta: lag1Delta } });
+
+    for (const id of [kamp.lag1Spiller1Id, kamp.lag1Spiller2Id]) {
+      ratings[id] = Math.round(ratings[id] + lag1Delta);
+      kampDeltaer[id].unshift(lag1Delta);
+    }
+    for (const id of [kamp.lag2Spiller1Id, kamp.lag2Spiller2Id]) {
+      ratings[id] = Math.round(ratings[id] + lag2Delta);
+      kampDeltaer[id].unshift(lag2Delta);
+    }
+  }
+
+  for (const [id, rating] of Object.entries(ratings)) {
+    const deltas = kampDeltaer[Number(id)].slice(0, 5);
+    await prisma.spiller.update({
+      where: { id: Number(id) },
+      data: { rating, skyggerating: beregnSkyggerating(deltas) },
+    });
+  }
 
   console.log("✅ Seeding fullført — 10 spillere og 12 kamper lagt til");
 }

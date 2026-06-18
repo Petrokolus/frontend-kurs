@@ -588,6 +588,41 @@ Dette gjør at klikk på etiketten fokuserer feltet, og at skjermlesere leser op
 
 ---
 
+<details>
+<summary>Hva skjer med ratingen til en ny spiller?</summary>
+
+Alle nye spillere starter automatisk med **500 i rating**. Du trenger ikke tenke på det i skjemaet — det settes av serveren og kan ikke overstyres.
+
+Ratingen oppdateres automatisk etter hver registrerte kamp, basert pa et tilpasset ELO-system:
+
+- **Lagrating** = gjennomsnittet av de to spillernes rating
+- **Forventet resultat** beregnes fra ratingdifferansen mellom lagene: jo storre forskjell, jo lavere forventning til det svakere laget
+- **Maldifferansen** veier inn: en stor seier gir storre ratingendring enn en knepen
+- **Endringen fordeles likt** mellom de to spillerne pa laget
+
+</details>
+
+<details>
+<summary>Hva er skyggerating?</summary>
+
+**Skyggerating** viser formen til en spiller pa kort sikt — ikke hvem de er totalt sett, men hvem de *har vaert* de siste kampene.
+
+En spiller kan ha en solid langsiktig rating pa 550, men skyggeratingen kan vise 620 hvis de har hatt en sterk periode, eller 480 hvis formen har sviktet.
+
+Skyggeratingen beregnes fra de **5 siste kampene**, der nyere kamper teller mer enn eldre:
+
+| Kamp | Vekting |
+| ---- | ------- |
+| Nyeste | 100% |
+| 2. nyeste | 80% |
+| 3. nyeste | 60% |
+| 4. nyeste | 40% |
+| 5. nyeste | 20% |
+
+I tillegg bruker skyggeratingen en **hogere K-verdi** enn vanlig rating, slik at den svinger raskere nar formen endrer seg. En spiller som ikke har spilt de siste 5 kampene har ingen skyggerating.
+
+</details>
+
 #### Oppgave 3a – Legg til lenke til opprett-siden
 
 Skjemaet bor på sin egen side: `/spillere/opprett`. Legg til en `<Link>` på spillersiden som tar brukeren dit, slik at de enkelt kan navigere til skjemaet.
@@ -1540,6 +1575,22 @@ I oppgave 5 lagde du en `SkjemaFelt`-komponent som tok inn `form` som prop. Det 
 React Hook Form har innebygd støtte for dette gjennom `FormProvider` og `useFormContext`. `FormProvider` er provideren som legger `form`-objektet i kontekst, og `useFormContext()` er hooken som lar deg lese det fra hvilken som helst komponent inni provideren.
 
 Nå skal du erstatte plassholderen i `DialogContent` med et ekte skjema. Legg til følgende i `components/rediger-spiller-dialog.tsx`:
+
+<details>
+<summary>Hvorfor er ikke rating med i skjemaet?</summary>
+
+Rating redigeres ikke manuelt — den regnes ut automatisk av serveren etter hver registrerte kamp.
+
+ELO-systemet fungerer slik:
+
+- **Lagrating** = gjennomsnittet av de to spillernes rating
+- **Forventet resultat** beregnes fra ratingdifferansen mellom lagene
+- **Maldifferansen** veier inn: en stor seier gir storre ratingendring enn en knepen
+- **Endringen fordeles likt** mellom de to spillerne pa laget
+
+`rating` er derfor bevisst utelatt fra `SkjemaData` — det er ikke et felt brukeren skal kunne endre.
+
+</details>
 
 1. En `SkjemaData`-type, identisk med den i `opprett-spiller-skjema.tsx`
 2. En `SkjemaFelt`-komponent som bruker `useFormContext()` i stedet for å ta inn `form` som prop

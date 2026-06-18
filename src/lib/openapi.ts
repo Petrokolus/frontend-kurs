@@ -80,8 +80,8 @@ export const spec = {
                   posisjon: "Keeper",
                   styrke: "God posisjonering",
                   svakhet: null,
-                  rating: 0,
-                  skyggerating: null,
+                  rating: 500,
+                  skyggerating: 500,
                 },
               },
             },
@@ -224,7 +224,6 @@ export const spec = {
         },
       },
     },
-  },
     "/api/kamper": {
       get: {
         tags: ["kamper"],
@@ -424,7 +423,7 @@ export const spec = {
             example: "Bidrar lite defensivt",
           },
           rating: { type: "integer", example: 90 },
-          skyggerating: { type: "integer", nullable: true, example: 93 },
+          skyggerating: { type: "integer", example: 93 },
         },
       },
       OpprettSpiller: {

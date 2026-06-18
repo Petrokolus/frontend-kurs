@@ -3,6 +3,7 @@ const K_SKYGGE = 80;
 const D = 500;
 const VINNER_MAAL = 10;
 const SKYGGE_VEKTER = [1.0, 0.8, 0.6, 0.4, 0.2];
+const STREAK_BONUS = 25;
 
 function forventetResultat(ratingA: number, ratingB: number): number {
   return 1 / (1 + Math.pow(10, (ratingB - ratingA) / D));
@@ -36,12 +37,24 @@ export function beregnEloEndringer(
   };
 }
 
+function beregnStreak(deltas: number[]): number {
+  if (deltas.length === 0) return 0;
+  const retning = Math.sign(deltas[0]);
+  let streak = 0;
+  for (const delta of deltas) {
+    if (Math.sign(delta) === retning) streak++;
+    else break;
+  }
+  return retning * streak;
+}
+
 // deltas: individuelle ELO-endringer for spilleren, nyeste kamp forst (maks 5)
 export function beregnSkyggerating(deltas: number[]): number {
   const skalering = K_SKYGGE / K;
-  const sum = deltas.reduce(
+  const vektetSum = deltas.reduce(
     (acc, delta, i) => acc + SKYGGE_VEKTER[i] * skalering * delta,
     0
   );
-  return Math.round(500 + sum);
+  const streak = beregnStreak(deltas);
+  return Math.round(500 + vektetSum + streak * STREAK_BONUS);
 }

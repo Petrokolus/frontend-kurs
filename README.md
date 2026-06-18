@@ -589,7 +589,9 @@ export default function SpillerCard({ spiller }: Props) {
 
 Hver spiller har et bilde tilgjengelig på `/spiller/{id}.png` i prosjektet. Legg til et bilde av spilleren i `SpillerCard`.
 
-I Next.js bruker vi `<Image>` fra `next/image` i stedet for en vanlig `<img>`-tag. Den optimaliserer bildene automatisk. Den krever at du oppgir `width` og `height`:
+I Next.js bruker vi `<Image>` fra `next/image` i stedet for en vanlig `<img>`-tag. Den optimaliserer bildene automatisk og krever at du oppgir `width` og `height`.
+
+`alt` er en tekstlig beskrivelse av bildet. Den brukes av skjermlesere for blinde og svaksynte, og vises dersom bildet ikke kan lastes. For et profilbilde er spillerens navn en god `alt`-tekst:
 
 ```tsx
 import Image from "next/image";
@@ -737,13 +739,12 @@ I oppgave 1 brukte vi fetch til å hente alle spillere. Nå skal vi hente én sp
 
 Prøv å hente spilleren fra API-et og vis detaljene på siden!
 
-**HINT**:
- For å legge inn en variabel i en streng i JavaScript/TypeScript, kan du bruke template literals, som er tekst omgitt av backticks (` `) i stedet for vanlige anførselstegn. Inne i en template literal kan du sette inn variabler ved å bruke `${variabel}`-syntaksen. For eksempel:
+<details class="hint">
+<summary>Hint</summary>
 
-```tsx
-const id = 1;
-const url = `/spiller/${id}`; // Resultatet blir "/spiller/1"
-```
+Du trenger `id`-en fra URL-en for å bygge opp riktig API-URL. Bruk template literals akkurat som du gjorde for bildesrc i oppgave 1e.
+
+</details>
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 2c</summary>
@@ -777,30 +778,69 @@ export default async function SpillerPage({ params }: Props) {
 
 #### Oppgave 2d – Vis spillerens bilde
 
-Hver spiller har et bilde tilgjengelig på `/spiller/{id}.png`. Legg til et bilde av spilleren øverst på detaljsiden.
+Du brukte `<Image>` fra `next/image` til å vise spillerbilder i oppgave 1e. Gjør det samme her, men gjør bildet større siden dette er en detaljside. Bildene ligger på `/spiller/{id}.png` akkurat som før.
 
-Alle bilder på nettsider bør ha en `alt`-attributt. `alt`-teksten er en tekstlig beskrivelse av bildet som brukes av skjermlesere (for blinde og svaksynte), og vises dersom bildet ikke kan lastes:
-
-```tsx
-<img src="/spiller/1.png" alt="Profilbilde av Erik Solberg" />
-```
-
-Tenk på hva `alt`-teksten bør si: hva _formidler_ bildet? For et profilbilde er navnet på personen den viktigste informasjonen. Husk at du nå har tilgang til spillerens navn fra API-et!
+Tenk også på `alt`-teksten: hva _formidler_ bildet? For et profilbilde er navnet på personen den viktigste informasjonen.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 2d</summary>
 
 ```tsx
-<img
+import Image from "next/image";
+
+<Image
   src={`/spiller/${id}.png`}
   alt={`Profilbilde av ${spiller.navn}`}
-  className="mb-6 h-32 w-32 rounded-full object-cover"
+  width={128}
+  height={128}
+  className="rounded-full object-cover"
 />
 ```
 
 </details>
 
-#### Oppgave 2e – Lenk fra spillerlisten
+#### Oppgave 2e – Gi detaljsiden en fin layout
+
+Nå som du har bilde og spillerdata på plass, kan vi gjøre siden litt penere. Prøv å sentrere innholdet og gi feltene fin avstand fra hverandre.
+
+Her er noen Tailwind-klasser som kan hjelpe:
+
+| Klasse | Hva den gjør |
+| --- | --- |
+| `flex flex-col items-center` | Stabeler innhold vertikalt og sentrerer det |
+| `gap-4` | Setter jevn avstand mellom barna i en flex-container |
+| `text-center` | Sentrerer tekst |
+| `text-muted-foreground` | Gjør teksten litt grå og nedtonet |
+
+Du finner alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenket til i sidemenyen.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 2e</summary>
+
+```tsx
+<div className="flex min-h-screen items-start justify-center p-8">
+  <div className="flex w-full max-w-lg flex-col items-center gap-6 rounded-xl border p-8">
+    <Image
+      src={`/spiller/${id}.png`}
+      alt={`Profilbilde av ${spiller.navn}`}
+      width={128}
+      height={128}
+      className="rounded-full object-cover"
+    />
+    <div className="flex flex-col items-center gap-2 text-center">
+      <h1 className="text-3xl font-bold">{spiller.navn}</h1>
+      <p className="text-muted-foreground">{spiller.avdeling}</p>
+      <p>{spiller.posisjon}</p>
+      <p>Kull: {spiller.kull}</p>
+      <p>Rating: {spiller.rating}</p>
+    </div>
+  </div>
+</div>
+```
+
+</details>
+
+#### Oppgave 2f – Lenk fra spillerlisten
 
 Detaljsiden er fin, men ingen kommer seg dit uten en lenke! I Next.js bruker vi den ferdiglagde `<Link>`-komponenten fra `next/link` for å navigere mellom sider:
 
@@ -815,7 +855,7 @@ import Link from "next/link";
 Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan klikke på et spillerkort og komme til detaljsiden for den spilleren.
 
 <details class="losningsforslag">
-<summary>Løsningsforslag 2e</summary>
+<summary>Løsningsforslag 2f</summary>
 
 ```tsx
 import Link from "next/link";

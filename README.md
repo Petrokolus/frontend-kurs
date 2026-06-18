@@ -2064,14 +2064,14 @@ export default async function SpillerePage({ searchParams }: Props) {
 Hent alle spillere fra API-et og filtrer basert på `sok`. `&&` betyr "og": uttrykket er sant bare hvis begge sider er sanne. For å vise spillere som matcher søket kan du skrive:
 
 ```tsx
-sok && spiller.navn.toLowerCase().includes(sok.toLowerCase())
+sok && spiller.navn.toLowerCase().includes(sok.toLowerCase());
 ```
 
 Dette er sant hvis søket ikke er tomt OG spillerens navn inneholder søketeksten. Men når søket er tomt vil ingen spillere vises. Vi vil heller vise alle spillere som standard, så vi snur logikken med `!` (ikke) og `||` (eller):
 
 ```tsx
-const spillereListe = spillere.filter((spiller) =>
-  !sok || spiller.navn.toLowerCase().includes(sok.toLowerCase())
+const spillereListe = spillere.filter(
+  (spiller) => !sok || spiller.navn.toLowerCase().includes(sok.toLowerCase())
 );
 ```
 
@@ -2136,8 +2136,8 @@ export default async function SpillerePage({ searchParams }: Props) {
   const response = await fetch("http://localhost:3000/api/spillere");
   const spillere: Spiller[] = await response.json();
 
-  const spillereListe = spillere.filter((spiller) =>
-    !sok || spiller.navn.toLowerCase().includes(sok.toLowerCase())
+  const spillereListe = spillere.filter(
+    (spiller) => !sok || spiller.navn.toLowerCase().includes(sok.toLowerCase())
   );
 
   return (
@@ -2212,7 +2212,9 @@ I `page.tsx` leser du `sorter` fra `searchParams` og kjeder filtrering og sorter
 
 ```tsx
 const spillereListe = spillere
-  .filter((spiller) => !sok || spiller.navn.toLowerCase().includes(sok.toLowerCase()))
+  .filter(
+    (spiller) => !sok || spiller.navn.toLowerCase().includes(sok.toLowerCase())
+  )
   .sort((a, b) => {
     if (sorter === "rating-asc") return a.rating - b.rating;
     if (sorter === "navn-asc") return a.navn.localeCompare(b.navn);
@@ -2307,7 +2309,10 @@ export default async function SpillerePage({ searchParams }: Props) {
   const spillere: Spiller[] = await response.json();
 
   const spillereListe = spillere
-    .filter((spiller) => !sok || spiller.navn.toLowerCase().includes(sok.toLowerCase()))
+    .filter(
+      (spiller) =>
+        !sok || spiller.navn.toLowerCase().includes(sok.toLowerCase())
+    )
     .sort((a, b) => {
       if (sorter === "rating-asc") return a.rating - b.rating;
       if (sorter === "navn-asc") return a.navn.localeCompare(b.navn);
@@ -2507,13 +2512,13 @@ Legg til den kunstige forsinkelsen i `page.tsx`, søk i feltet, og observer at s
 
 Denne oppgaven er en repetisjon. Du skal bygge kamphistorikk-siden fra bunnen av, og alt du trenger har du gjort i tidligere oppgaver:
 
-| Hva | Lært i |
-|-----|--------|
-| Hente data fra et API i en Server Component | Oppgave 2 |
-| Lese `searchParams` og `params` | Oppgave 3 og 8 |
-| Registreringsskjema med React Hook Form og Select | Oppgave 5 |
-| Redigeringsdialog med Dialog og forhåndsutfylte verdier | Oppgave 6 |
-| Slettebekreftelse med AlertDialog | Oppgave 7 |
+| Hva                                                     | Lært i         |
+| ------------------------------------------------------- | -------------- |
+| Hente data fra et API i en Server Component             | Oppgave 2      |
+| Lese `searchParams` og `params`                         | Oppgave 3 og 8 |
+| Registreringsskjema med React Hook Form og Select       | Oppgave 5      |
+| Redigeringsdialog med Dialog og forhåndsutfylte verdier | Oppgave 6      |
+| Slettebekreftelse med AlertDialog                       | Oppgave 7      |
 
 Det eneste som er nytt er `Table`- og `Pagination`-komponentene, som du får instruksjoner for i 9a.
 
@@ -2524,8 +2529,8 @@ Datamodellen for en kamp ser slik ut:
 ```ts
 type Kamp = {
   id: number;
-  lagVinner: number;   // 1 eller 2
-  taperMaal: number;   // 0–9, vinnerlaget scorer alltid 10
+  lagVinner: number; // 1 eller 2
+  taperMaal: number; // 0–9, vinnerlaget scorer alltid 10
   dato: string;
   lag1Spiller1: Spiller;
   lag1Spiller2: Spiller;
@@ -2698,7 +2703,10 @@ export default async function KamperPage({ searchParams }: Props) {
         <PaginationContent>
           <PaginationItem>
             {side > 1 && (
-              <PaginationPrevious href={`/kamper?side=${side - 1}`} text="Forrige" />
+              <PaginationPrevious
+                href={`/kamper?side=${side - 1}`}
+                text="Forrige"
+              />
             )}
           </PaginationItem>
           <PaginationItem>
@@ -2749,7 +2757,7 @@ export default async function KampPage({ params }: Props) {
 
   return (
     <div className="max-w-2xl p-8">
-      <Link href="/kamper" className="text-sm text-muted-foreground">
+      <Link href="/kamper" className="text-muted-foreground text-sm">
         Tilbake til kamphistorikk
       </Link>
       <h1 className="mt-4 text-3xl font-bold">Kamp</h1>
@@ -2792,8 +2800,8 @@ Request body-en til `POST /api/kamper` ser slik ut:
   lag1Spiller2Id: number;
   lag2Spiller1Id: number;
   lag2Spiller2Id: number;
-  lagVinner: number;   // 1 eller 2
-  taperMaal: number;   // 0–9
+  lagVinner: number; // 1 eller 2
+  taperMaal: number; // 0–9
 }
 ```
 
@@ -2831,7 +2839,12 @@ type Props = {
   onChange: (val: string) => void;
 };
 
-export default function SpillerVelger({ label, spillere, value, onChange }: Props) {
+export default function SpillerVelger({
+  label,
+  spillere,
+  value,
+  onChange,
+}: Props) {
   return (
     <div className="flex flex-col gap-1">
       <label className="text-sm font-medium">{label}</label>
@@ -2937,7 +2950,10 @@ export default function OpprettKampSkjema({ spillere }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit(registrerKampResultat)} className="flex flex-col gap-6">
+    <form
+      onSubmit={handleSubmit(registrerKampResultat)}
+      className="flex flex-col gap-6"
+    >
       <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-3">
           <p className="font-semibold">Lag 1</p>
@@ -3114,13 +3130,18 @@ export default function RedigerKampDialog({ kamp, spillere }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">Rediger</Button>
+        <Button variant="outline" size="sm">
+          Rediger
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Rediger kamp</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(registrerKampResultat)} className="flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit(registrerKampResultat)}
+          className="flex flex-col gap-4"
+        >
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-3">
               <p className="font-semibold">Lag 1</p>

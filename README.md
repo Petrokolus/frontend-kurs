@@ -605,19 +605,19 @@ Ratingen oppdateres automatisk etter hver registrerte kamp, basert pa et tilpass
 <details>
 <summary>Hva er skyggerating?</summary>
 
-**Skyggerating** viser formen til en spiller pa kort sikt — ikke hvem de er totalt sett, men hvem de *har vaert* de siste kampene.
+**Skyggerating** viser formen til en spiller pa kort sikt — ikke hvem de er totalt sett, men hvem de _har vaert_ de siste kampene.
 
 En spiller kan ha en solid langsiktig rating pa 550, men skyggeratingen kan vise 620 hvis de har hatt en sterk periode, eller 480 hvis formen har sviktet.
 
 Skyggeratingen beregnes fra de **5 siste kampene**, der nyere kamper teller mer enn eldre:
 
-| Kamp | Vekting |
-| ---- | ------- |
-| Nyeste | 100% |
-| 2. nyeste | 80% |
-| 3. nyeste | 60% |
-| 4. nyeste | 40% |
-| 5. nyeste | 20% |
+| Kamp      | Vekting |
+| --------- | ------- |
+| Nyeste    | 100%    |
+| 2. nyeste | 80%     |
+| 3. nyeste | 60%     |
+| 4. nyeste | 40%     |
+| 5. nyeste | 20%     |
 
 I tillegg bruker skyggeratingen en **hogere K-verdi** enn vanlig rating, slik at den svinger raskere nar formen endrer seg.
 

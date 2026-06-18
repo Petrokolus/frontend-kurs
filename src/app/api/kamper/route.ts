@@ -113,10 +113,22 @@ export async function POST(request: Request) {
   ]);
 
   await prisma.$transaction([
-    prisma.spiller.update({ where: { id: s1.id }, data: { skyggerating: sky1 } }),
-    prisma.spiller.update({ where: { id: s2.id }, data: { skyggerating: sky2 } }),
-    prisma.spiller.update({ where: { id: s3.id }, data: { skyggerating: sky3 } }),
-    prisma.spiller.update({ where: { id: s4.id }, data: { skyggerating: sky4 } }),
+    prisma.spiller.update({
+      where: { id: s1.id },
+      data: { skyggerating: sky1 },
+    }),
+    prisma.spiller.update({
+      where: { id: s2.id },
+      data: { skyggerating: sky2 },
+    }),
+    prisma.spiller.update({
+      where: { id: s3.id },
+      data: { skyggerating: sky3 },
+    }),
+    prisma.spiller.update({
+      where: { id: s4.id },
+      data: { skyggerating: sky4 },
+    }),
   ]);
 
   return NextResponse.json(kamp, { status: 201 });

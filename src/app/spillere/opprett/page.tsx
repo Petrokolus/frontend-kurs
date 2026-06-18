@@ -1,4 +1,4 @@
-import OpprettSpillerSkjema from "./opprett-spiller-skjema";
+import OpprettSpillerSkjema from "@/components/spillere/opprett-spiller-skjema";
 
 export default function OpprettSpillerPage() {
   return (

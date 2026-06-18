@@ -352,11 +352,11 @@ function Hilsen({ navn }: Props) {
 
 Siden vi også skriver i TypeScript, så kan du se at vi definerer typen på alle props.
 
-Naviger til mappen `src/app/spillere`. Der finner du tre filer du skal jobbe i:
+Du skal jobbe i disse filene:
 
-- `spiller-card.tsx` — komponenten som viser informasjon om én spiller
-- `spillere-liste.tsx` — liste-komponent som setter sammen SpillerCard-komponenter til en oversikt
-- `page.tsx` — filen som definerer selve siden. Her henter vi data fra API-et og sender det videre som props til komponentene vi vil vise.
+- `src/components/spillere/spiller-card.tsx` — komponenten som viser informasjon om én spiller
+- `src/components/spillere/spillere-liste.tsx` — liste-komponent som setter sammen SpillerCard-komponenter til en oversikt
+- `src/app/spillere/page.tsx` — filen som definerer selve siden. Her henter vi data fra API-et og sender det videre som props til komponentene vi vil vise.
 
 Vi går gjennom disse steg for steg i oppgavene under.
 
@@ -393,6 +393,27 @@ Vi importerer og bruker SpillerCard i spillere-liste.tsx.
 </details>
 
 #### Oppgave 1c - Bytt ut mockSpiller med en prop
+
+Før du løser oppgaven, er det greit å vite om et grunnleggende skille i en React-komponent: hva som hører hjemme før `return`, og hva som hører hjemme inni `return`.
+
+**Før `return`** er JavaScript-land. Her kan du deklarere variabler, kalle hooks, gjøre beregninger og forberede data. Alt som ikke er synlig i nettleseren hører hjemme her.
+
+**Inni `return`** er JSX-land. Her beskriver du hva som skal vises. Du kan ikke skrive vanlige `if`-setninger eller `const`-deklarasjoner her, men du kan bruke `{}` til å sette inn verdier og uttrykk fra JavaScript-land.
+
+```tsx
+export default function MinKomponent() {
+  // JavaScript-land: beregninger, variabler, hooks
+  const navn = "Ola";
+  const stor = navn.toUpperCase();
+
+  return (
+    // JSX-land: det som vises i nettleseren
+    <p>{stor}</p>
+  );
+}
+```
+
+`mockSpiller` i `SpillerCard` er et eksempel på noe som hører hjemme før `return`: det er en variabel som forbereder data som deretter brukes i JSX-en.
 
 `SpillerCard` har nå en hardkodet `mockSpiller` inni seg. Det betyr at kortet alltid viser samme spiller, uansett hvilken data vi sender inn. Det vil vi endre.
 
@@ -549,7 +570,7 @@ import { useState } from "react";
 
 Uten `"use client"` kan du ikke bruke `useState`-hooken, event handlers som `onClick` eller `onChange`, eller andre ting som avhenger av at koden kjører i nettleseren. Et skjema der brukeren fyller inn data er et typisk eksempel på noe som må være en client component. Du kommer til å lære mer om hooks i oppgave 4.
 
-Åpne filen `src/app/spillere/opprett-spiller-skjema.tsx`. Du vil se at den allerede har `"use client"` øverst og ett inputfelt for navn. Oppgaven din blir å fullføre skjemaet, men først skal du få en rask innføring i hvordan å bruke useState og event-handlers brukes i skjemaer.
+Åpne filen `src/components/spillere/opprett-spiller-skjema.tsx`. Du vil se at den allerede har `"use client"` øverst og ett inputfelt for navn. Oppgaven din blir å fullføre skjemaet, men først skal du få en rask innføring i hvordan å bruke useState og event-handlers brukes i skjemaer.
 
 #### useState og destrukturering
 
@@ -879,7 +900,7 @@ I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil 
 
 #### Oppgave 4a – Legg til et søkefelt med `useState`
 
-Opprett en ny fil `src/app/spillere/spiller-sok.tsx`. Dette blir en client component, siden den trenger interaktivitet — husk `"use client"` øverst.
+Opprett en ny fil `src/components/spillere/spiller-sok.tsx`. Dette blir en client component, siden den trenger interaktivitet — husk `"use client"` øverst.
 
 Komponenten skal ha:
 
@@ -924,7 +945,7 @@ export default function SpillerSok({ sok, setSok }: Props) {
 
 Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvilke spillere som vises — men `page.tsx` er en server component og kan ikke ha `useState`. Løsningen er en ny client component som tar imot hele spillerlisten som prop, håndterer søkestate selv, og viser de filtrerte resultatene.
 
-Vi har laget en halvferdig fil til deg: `src/app/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
+Vi har laget en halvferdig fil til deg: `src/components/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
 
 Når den er ferdig, erstatt det du la til i `page.tsx` i forrige oppgave med:
 
@@ -1100,7 +1121,7 @@ pnpm add react-hook-form
 
 React Hook Form gir oss en hook som heter `useForm`. Den returnerer alt vi trenger for å håndtere skjemaet: registrering av felt, innsending og feilhåndtering.
 
-Naviger til `src/app/spillere/opprett/opprett-spiller-skjema.tsx`. Filen har et skjema med manuell `useState`. Vi skal nå skrive den om til å bruke `useForm`.
+Naviger til `src/components/spillere/opprett-spiller-skjema.tsx`. Filen har et skjema med manuell `useState`. Vi skal nå skrive den om til å bruke `useForm`.
 
 Importer `useForm` og kall den øverst i komponenten. Legg også til de resterende feltene i `SkjemaData`-typen:
 
@@ -2090,7 +2111,7 @@ I denne oppgaven bytter vi til URL-tilstand og rydder opp i komponentstrukturen 
 Nå skal du gjøre tre ting:
 
 1. Gjøre `SpillerSok` om til en selvstendig komponent som skriver søket til URL-en
-2. Slette `spiller-sok-og-liste.tsx`, siden vi ikke trenger wrapperen lenger
+2. Slette `src/components/spillere/spiller-sok-og-liste.tsx`, siden vi ikke trenger wrapperen lenger
 3. Flytte filtrering til `page.tsx`, som leser søket fra URL-en via `searchParams`
 
 **Steg 1: Oppdater `SpillerSok`**
@@ -2120,7 +2141,7 @@ function handleChange(verdi: string) {
 
 `useSearchParams()` returnerer et read-only objekt, så du kan ikke kalle `.set()` eller `.delete()` på det direkte. `new URLSearchParams(searchParams.toString())` lager en muterbar kopi du kan redigere.
 
-**Steg 2: Slett `spiller-sok-og-liste.tsx`**
+**Steg 2: Slett `src/components/spillere/spiller-sok-og-liste.tsx`**
 
 Wrapperen trenger du ikke lenger. Slett filen.
 

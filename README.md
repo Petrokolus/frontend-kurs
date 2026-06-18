@@ -404,6 +404,22 @@ Dette er hvordan man styler ved hjelp av Tailwind CSS. Det kodesnutten over gjø
 
 Du finner en fullstendig oversikt over alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenket til i sidemenyen.
 
+<details class="losningsforslag">
+<summary>Løsningsforslag 1a</summary>
+
+```tsx
+export default async function SpillerePage() {
+  return (
+    <div className="max-w-4xl p-8">
+      <h1 className="text-3xl font-bold">Spillere</h1>
+      <p>Her var det ganske tomt foreløpig!</p>
+    </div>
+  );
+}
+```
+
+</details>
+
 #### Oppgave 1b - Vis et SpillerCard på siden
 
 En stor fordel med React er at man kan dele opp grensesnittet i gjenbrukbare komponenter og importere dem der man trenger dem. Slik ser en typisk import ut:
@@ -421,6 +437,24 @@ Når komponenten er importert kan du bruke den i JSX akkurat som en HTML-tag:
 ```
 
 Importer `SpillerCard` i `page.tsx` og legg den inn under overskriften.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 1b</summary>
+
+```tsx
+import SpillerCard from "@/components/spillere/spiller-card";
+
+export default async function SpillerePage() {
+  return (
+    <div className="max-w-4xl p-8">
+      <h1 className="text-3xl font-bold">Spillere</h1>
+      <SpillerCard />
+    </div>
+  );
+}
+```
+
+</details>
 
 #### Oppgave 1c - Bytt ut mockSpiller med en prop
 
@@ -441,6 +475,40 @@ Se på hvordan `SpillereListe` er satt opp — den tar imot `spillere` som prop 
 
 </details>
 
+<details class="losningsforslag">
+<summary>Løsningsforslag 1c</summary>
+
+`src/components/spillere/spiller-card.tsx`:
+
+```tsx
+import { Spiller } from "@/lib/types";
+
+type Props = {
+  spiller: Spiller;
+};
+
+export default function SpillerCard({ spiller }: Props) {
+  return (
+    <div className="flex items-center space-x-4 rounded-lg border p-4">
+      <div className="flex-1">
+        <h2 className="text-lg font-semibold">{spiller.navn}</h2>
+        <p className="text-muted-foreground text-sm">
+          Her kan vi vise mer data fra spiller-objektene
+        </p>
+      </div>
+    </div>
+  );
+}
+```
+
+`src/components/spillere/spillere-liste.tsx` (oppdater linje med `SpillerCard`):
+
+```tsx
+<SpillerCard key={spiller.id} spiller={spiller} />
+```
+
+</details>
+
 #### Oppgave 1d - Fyll på litt fler detaljer
 
 Hvis du klarte å vise et SpillerCard på siden i forrige oppgave, så la du kanskje merke til at det ikke var så mye mer spennende informasjon enn navnet som vises. Prøv å vise noe mer informasjon i SpillerCard.
@@ -449,6 +517,27 @@ Hvis du klarte å vise et SpillerCard på siden i forrige oppgave, så la du kan
 <summary>Hint</summary>
 
 Usikker på hva slags informasjon du kan vise? Se hvilke verdier som finnes i et spiller-objekt ved å holde musepekeren over "Spiller" eller ved å bruke `Ctrl + venstreklikk`.
+
+</details>
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 1d</summary>
+
+```tsx
+export default function SpillerCard({ spiller }: Props) {
+  return (
+    <div className="flex items-center space-x-4 rounded-lg border p-4">
+      <div className="flex-1">
+        <h2 className="text-lg font-semibold">{spiller.navn}</h2>
+        <p className="text-muted-foreground text-sm">{spiller.avdeling}</p>
+        <p className="text-muted-foreground text-sm">{spiller.posisjon}</p>
+        <p className="text-muted-foreground text-sm">Kull: {spiller.kull}</p>
+        <p className="text-muted-foreground text-sm">Rating: {spiller.rating}</p>
+      </div>
+    </div>
+  );
+}
+```
 
 </details>
 
@@ -472,6 +561,32 @@ spillere.map((spiller) => <SpillerCard key={spiller.id} spiller={spiller} />);
 `key` er et spesielt React-attributt som hjelper React å holde styr på hvilket element i listen som er hvilket. Bruk alltid en unik verdi — her passer `id` perfekt.
 
 Prøv å hente spillerne fra API-et og bruk `.map()` til å vise en liste med alle spillerne!
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 1e</summary>
+
+```tsx
+import SpillerCard from "@/components/spillere/spiller-card";
+import { Spiller } from "@/lib/types";
+
+export default async function SpillerePage() {
+  const result = await fetch("http://localhost:3000/api/spillere");
+  const spillere: Spiller[] = await result.json();
+
+  return (
+    <div className="max-w-4xl p-8">
+      <h1 className="text-3xl font-bold">Spillere</h1>
+      <div className="grid grid-cols-2 gap-4">
+        {spillere.map((spiller) => (
+          <SpillerCard key={spiller.id} spiller={spiller} />
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+</details>
 
 ---
 
@@ -524,12 +639,43 @@ I oppgave 1 brukte vi fetch til å hente alle spillere. Nå skal vi hente én sp
 
 Prøv å hente spilleren fra API-et og vis detaljene på siden!
 
-**HINT**: For å legge inn en variabel i en streng i JavaScript/TypeScript, kan du bruke template literals, som er tekst omgitt av backticks (` `) i stedet for vanlige anførselstegn. Inne i en template literal kan du sette inn variabler ved å bruke `${variabel}`-syntaksen. For eksempel:
+**HINT**:
+ For å legge inn en variabel i en streng i JavaScript/TypeScript, kan du bruke template literals, som er tekst omgitt av backticks (` `) i stedet for vanlige anførselstegn. Inne i en template literal kan du sette inn variabler ved å bruke `${variabel}`-syntaksen. For eksempel:
 
 ```tsx
 const id = 1;
 const url = `/spiller/${id}`; // Resultatet blir "/spiller/1"
 ```
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 2c</summary>
+
+```tsx
+import { Spiller } from "@/lib/types";
+
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function SpillerPage({ params }: Props) {
+  const { id } = await params;
+
+  const result = await fetch(`http://localhost:3000/api/spillere/${id}`);
+  const spiller: Spiller = await result.json();
+
+  return (
+    <div className="max-w-2xl p-8">
+      <h1 className="text-3xl font-bold">{spiller.navn}</h1>
+      <p>{spiller.avdeling}</p>
+      <p>{spiller.posisjon}</p>
+      <p>Kull: {spiller.kull}</p>
+      <p>Rating: {spiller.rating}</p>
+    </div>
+  );
+}
+```
+
+</details>
 
 #### Oppgave 2d – Vis spillerens bilde
 
@@ -542,6 +688,19 @@ Alle bilder på nettsider bør ha en `alt`-attributt. `alt`-teksten er en tekstl
 ```
 
 Tenk på hva `alt`-teksten bør si: hva _formidler_ bildet? For et profilbilde er navnet på personen den viktigste informasjonen. Husk at du nå har tilgang til spillerens navn fra API-et!
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 2d</summary>
+
+```tsx
+<img
+  src={`/spiller/${id}.png`}
+  alt={`Profilbilde av ${spiller.navn}`}
+  className="mb-6 h-32 w-32 rounded-full object-cover"
+/>
+```
+
+</details>
 
 #### Oppgave 2e – Lenk fra spillerlisten
 
@@ -556,6 +715,36 @@ import Link from "next/link";
 `<Link>` er på mange måter bare en vanlig `<a>`-tag, men den har noen fordeler som gjør navigasjonen raskere, blant annet "pre-fetching". Prefetching er at den begynner å laste inn siden den peker på, før du navigerer dit, slik at navigeringen føles raskere.
 
 Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan klikke på et spillerkort og komme til detaljsiden for den spilleren.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 2e</summary>
+
+```tsx
+import Link from "next/link";
+import { Spiller } from "@/lib/types";
+
+type Props = {
+  spiller: Spiller;
+};
+
+export default function SpillerCard({ spiller }: Props) {
+  return (
+    <Link href={`/spillere/${spiller.id}`}>
+      <div className="flex items-center space-x-4 rounded-lg border p-4">
+        <div className="flex-1">
+          <h2 className="text-lg font-semibold">{spiller.navn}</h2>
+          <p className="text-muted-foreground text-sm">{spiller.avdeling}</p>
+          <p className="text-muted-foreground text-sm">{spiller.posisjon}</p>
+          <p className="text-muted-foreground text-sm">Kull: {spiller.kull}</p>
+          <p className="text-muted-foreground text-sm">Rating: {spiller.rating}</p>
+        </div>
+      </div>
+    </Link>
+  );
+}
+```
+
+</details>
 
 ---
 

@@ -385,7 +385,7 @@ Overskriften du skal legge til i denne oppgaven hører hjemme inni `return`.
 
 Hvis du har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av oppstartsguiden, så kan du allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser du det som nå finnes av innhold i page.tsx i spillere-mappen.
 
-Alle sider trenger en overskrift! Naviger til page.tsx og legg til en passende overskrift. HTML har sitt eget element for overskrifter:
+Alle sider trenger en overskrift! Naviger til `page.tsx` og legg til overskriften "Spillere". HTML har sitt eget element for overskrifter:
 
 ```typescript
 <h1>Dette er en overskrift</h1>
@@ -456,27 +456,71 @@ export default async function SpillerePage() {
 
 </details>
 
-#### Oppgave 1c - Bytt ut mockSpiller med en prop
+#### Oppgave 1c - Vis en liste med spillere
 
-`SpillerCard` har nå en hardkodet `mockSpiller` inni seg. Det betyr at kortet alltid viser samme spiller, uansett hvilken data vi sender inn. Det vil vi endre.
+Nå som vi kan vise ett kort, er målet å vise flere. Til det har vi `SpillereListe` — en komponent som tar imot en liste med spillere og viser et `SpillerCard` for hver av dem.
 
-Øverst i `spiller-card.tsx` ser du at det allerede finnes en `Props`-type med et `spiller`-felt. Målet ditt er å:
+**Steg 1: Bytt ut `SpillerCard` i `page.tsx` med `SpillereListe`**
+
+`SpillereListe` forventer en prop som heter `spillere` — et array av `Spiller`-objekter. Siden vi ikke henter ekte data fra API-et enda, lager vi en mock-liste for å teste at det fungerer.
+
+Erstatt `<SpillerCard />` i `page.tsx` med dette:
+
+```tsx
+import SpillereListe from "@/components/spillere/spillere-liste";
+import { Spiller } from "@/lib/types";
+
+const mockSpillere: Spiller[] = [
+  { id: 1, navn: "Ola Nordmann", avdeling: "Digital Engineering", kull: "NK20", posisjon: "Angrep", rating: 100, skyggerating: 100 },
+  { id: 2, navn: "Kari Nordmann", avdeling: "Design", kull: "NK21", posisjon: "Forsvar", rating: 90, skyggerating: 85 },
+];
+
+// I return:
+<SpillereListe spillere={mockSpillere} />
+```
+
+**Steg 2: La `SpillerCard` ta imot `spiller` som prop**
+
+Åpne `spiller-card.tsx`. Øverst ser du en `Props`-type med et `spiller`-felt — men komponenten bruker den ikke enda. Du skal nå:
 
 1. Slette `mockSpiller`-konstanten
-2. La `SpillerCard` ta imot `spiller` som prop i stedet
-3. Oppdatere kommentaren i `spillere-liste.tsx` til å sende `spiller` inn
+2. Ta imot `spiller` som prop i stedet
+3. Bruke `spiller.navn` (og eventuelt andre felt) i JSX-en
 
-Når du er ferdig vil hvert kort vise sin egen spiller i stedet for alltid å vise Ola Nordmann.
+**Steg 3: Send `spiller` videre fra `SpillereListe`**
+
+Åpne `spillere-liste.tsx`. I `.map()`-løkken ser du at `SpillerCard` ikke mottar noen props enda. Legg til `spiller={spiller}` slik at hvert kort får sin spiller.
 
 <details class="hint">
 <summary>Hint</summary>
 
-Se på hvordan `SpillereListe` er satt opp — den tar imot `spillere` som prop på nøyaktig samme måte. Kopier mønsteret.
+Se på hvordan `SpillereListe` tar imot `spillere` som prop. `SpillerCard` skal ta imot `spiller` (entall) på nøyaktig samme måte. Kopier mønsteret.
 
 </details>
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 1c</summary>
+
+`src/app/spillere/page.tsx`:
+
+```tsx
+import SpillereListe from "@/components/spillere/spillere-liste";
+import { Spiller } from "@/lib/types";
+
+const mockSpillere: Spiller[] = [
+  { id: 1, navn: "Ola Nordmann", avdeling: "Digital Engineering", kull: "NK20", posisjon: "Angrep", rating: 100, skyggerating: 100 },
+  { id: 2, navn: "Kari Nordmann", avdeling: "Design", kull: "NK21", posisjon: "Forsvar", rating: 90, skyggerating: 85 },
+];
+
+export default async function SpillerePage() {
+  return (
+    <div className="max-w-4xl p-8">
+      <h1 className="text-3xl font-bold">Spillere</h1>
+      <SpillereListe spillere={mockSpillere} />
+    </div>
+  );
+}
+```
 
 `src/components/spillere/spiller-card.tsx`:
 
@@ -501,7 +545,7 @@ export default function SpillerCard({ spiller }: Props) {
 }
 ```
 
-`src/components/spillere/spillere-liste.tsx` (oppdater linje med `SpillerCard`):
+`src/components/spillere/spillere-liste.tsx` (oppdater linjen med `SpillerCard`):
 
 ```tsx
 <SpillerCard key={spiller.id} spiller={spiller} />

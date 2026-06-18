@@ -213,7 +213,6 @@ Samler kamphistorikk, registrering, redigering og sletting i én oppgave. Deltak
 
 ---
 
-
 ### Oppgave – ELO og plasseringsbadge
 
 - Beregn ELO-rating basert på kamphistorikk

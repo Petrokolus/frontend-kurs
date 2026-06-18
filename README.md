@@ -411,7 +411,9 @@ Du finner en fullstendig oversikt over alle tilgjengelige klasser i Tailwind CSS
 export default async function SpillerePage() {
   return (
     <div className="max-w-4xl p-8">
-      <h1 className="text-3xl font-bold">Spillere</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+      </div>
       <p>Her var det ganske tomt foreløpig!</p>
     </div>
   );
@@ -471,12 +473,28 @@ import SpillereListe from "@/components/spillere/spillere-liste";
 import { Spiller } from "@/lib/types";
 
 const mockSpillere: Spiller[] = [
-  { id: 1, navn: "Ola Nordmann", avdeling: "Digital Engineering", kull: "NK20", posisjon: "Angrep", rating: 100, skyggerating: 100 },
-  { id: 2, navn: "Kari Nordmann", avdeling: "Design", kull: "NK21", posisjon: "Forsvar", rating: 90, skyggerating: 85 },
+  {
+    id: 1,
+    navn: "Ola Nordmann",
+    avdeling: "Digital Engineering",
+    kull: "NK20",
+    posisjon: "Angrep",
+    rating: 100,
+    skyggerating: 100,
+  },
+  {
+    id: 2,
+    navn: "Kari Nordmann",
+    avdeling: "Design",
+    kull: "NK21",
+    posisjon: "Forsvar",
+    rating: 90,
+    skyggerating: 85,
+  },
 ];
 
 // I return:
-<SpillereListe spillere={mockSpillere} />
+<SpillereListe spillere={mockSpillere} />;
 ```
 
 **Steg 2: La `SpillerCard` ta imot `spiller` som prop**
@@ -508,8 +526,24 @@ import SpillereListe from "@/components/spillere/spillere-liste";
 import { Spiller } from "@/lib/types";
 
 const mockSpillere: Spiller[] = [
-  { id: 1, navn: "Ola Nordmann", avdeling: "Digital Engineering", kull: "NK20", posisjon: "Angrep", rating: 100, skyggerating: 100 },
-  { id: 2, navn: "Kari Nordmann", avdeling: "Design", kull: "NK21", posisjon: "Forsvar", rating: 90, skyggerating: 85 },
+  {
+    id: 1,
+    navn: "Ola Nordmann",
+    avdeling: "Digital Engineering",
+    kull: "NK20",
+    posisjon: "Angrep",
+    rating: 100,
+    skyggerating: 100,
+  },
+  {
+    id: 2,
+    navn: "Kari Nordmann",
+    avdeling: "Design",
+    kull: "NK21",
+    posisjon: "Forsvar",
+    rating: 90,
+    skyggerating: 85,
+  },
 ];
 
 export default async function SpillerePage() {
@@ -573,10 +607,10 @@ export default function SpillerCard({ spiller }: Props) {
     <div className="flex items-center space-x-4 rounded-lg border p-4">
       <div className="flex-1">
         <h2 className="text-lg font-semibold">{spiller.navn}</h2>
-        <p className="text-muted-foreground text-sm">{spiller.avdeling}</p>
         <p className="text-muted-foreground text-sm">{spiller.posisjon}</p>
-        <p className="text-muted-foreground text-sm">Kull: {spiller.kull}</p>
-        <p className="text-muted-foreground text-sm">Rating: {spiller.rating}</p>
+        <p className="text-muted-foreground text-sm">
+          Rating: {spiller.rating}
+        </p>
       </div>
     </div>
   );
@@ -596,12 +630,7 @@ I Next.js bruker vi `<Image>` fra `next/image` i stedet for en vanlig `<img>`-ta
 ```tsx
 import Image from "next/image";
 
-<Image
-  src="/spiller/1.png"
-  alt="Ola Nordmann"
-  width={100}
-  height={100}
-/>
+<Image src="/spiller/1.png" alt="Ola Nordmann" width={100} height={100} />;
 ```
 
 Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens data. Husk at du kan sette inn variabler i en streng med template literals: `` `/spiller/${spiller.id}.png` ``
@@ -625,14 +654,14 @@ export default function SpillerCard({ spiller }: Props) {
         alt={spiller.navn}
         width={64}
         height={64}
-        className="rounded-full object-cover"
+        className="aspect-square rounded-full object-cover"
       />
       <div className="flex-1">
         <h2 className="text-lg font-semibold">{spiller.navn}</h2>
-        <p className="text-muted-foreground text-sm">{spiller.avdeling}</p>
         <p className="text-muted-foreground text-sm">{spiller.posisjon}</p>
-        <p className="text-muted-foreground text-sm">Kull: {spiller.kull}</p>
-        <p className="text-muted-foreground text-sm">Rating: {spiller.rating}</p>
+        <p className="text-muted-foreground text-sm">
+          Rating: {spiller.rating}
+        </p>
       </div>
     </div>
   );
@@ -675,7 +704,9 @@ export default async function SpillerePage() {
 
   return (
     <div className="max-w-4xl p-8">
-      <h1 className="text-3xl font-bold">Spillere</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+      </div>
       <div className="grid grid-cols-2 gap-4">
         {spillere.map((spiller) => (
           <SpillerCard key={spiller.id} spiller={spiller} />
@@ -793,8 +824,8 @@ import Image from "next/image";
   alt={`Profilbilde av ${spiller.navn}`}
   width={128}
   height={128}
-  className="rounded-full object-cover"
-/>
+  className="aspect-square rounded-full object-cover"
+/>;
 ```
 
 </details>
@@ -805,12 +836,12 @@ Nå som du har bilde og spillerdata på plass, kan vi gjøre siden litt penere. 
 
 Her er noen Tailwind-klasser som kan hjelpe:
 
-| Klasse | Hva den gjør |
-| --- | --- |
-| `flex flex-col items-center` | Stabeler innhold vertikalt og sentrerer det |
-| `gap-4` | Setter jevn avstand mellom barna i en flex-container |
-| `text-center` | Sentrerer tekst |
-| `text-muted-foreground` | Gjør teksten litt grå og nedtonet |
+| Klasse                       | Hva den gjør                                         |
+| ---------------------------- | ---------------------------------------------------- |
+| `flex flex-col items-center` | Stabeler innhold vertikalt og sentrerer det          |
+| `gap-4`                      | Setter jevn avstand mellom barna i en flex-container |
+| `text-center`                | Sentrerer tekst                                      |
+| `text-muted-foreground`      | Gjør teksten litt grå og nedtonet                    |
 
 Du finner alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenket til i sidemenyen.
 
@@ -825,7 +856,7 @@ Du finner alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenk
       alt={`Profilbilde av ${spiller.navn}`}
       width={128}
       height={128}
-      className="rounded-full object-cover"
+      className="aspect-square rounded-full object-cover"
     />
     <div className="flex flex-col items-center gap-2 text-center">
       <h1 className="text-3xl font-bold">{spiller.navn}</h1>
@@ -833,6 +864,8 @@ Du finner alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenk
       <p>{spiller.posisjon}</p>
       <p>Kull: {spiller.kull}</p>
       <p>Rating: {spiller.rating}</p>
+      {spiller.styrke && <p>Styrke: {spiller.styrke}</p>}
+      {spiller.svakhet && <p>Svakhet: {spiller.svakhet}</p>}
     </div>
   </div>
 </div>
@@ -871,10 +904,10 @@ export default function SpillerCard({ spiller }: Props) {
       <div className="flex items-center space-x-4 rounded-lg border p-4">
         <div className="flex-1">
           <h2 className="text-lg font-semibold">{spiller.navn}</h2>
-          <p className="text-muted-foreground text-sm">{spiller.avdeling}</p>
           <p className="text-muted-foreground text-sm">{spiller.posisjon}</p>
-          <p className="text-muted-foreground text-sm">Kull: {spiller.kull}</p>
-          <p className="text-muted-foreground text-sm">Rating: {spiller.rating}</p>
+          <p className="text-muted-foreground text-sm">
+            Rating: {spiller.rating}
+          </p>
         </div>
       </div>
     </Link>
@@ -975,21 +1008,21 @@ Dette gjør at klikk på etiketten fokuserer feltet, og at skjermlesere leser op
 
 Alle nye spillere starter automatisk med **500 i rating**. Du trenger ikke tenke på det i skjemaet, det settes av serveren og kan ikke overstyres.
 
-Ratingen oppdateres automatisk etter hver registrerte kamp, basert pa et tilpasset ELO-system:
+Ratingen oppdateres automatisk etter hver registrerte kamp, basert på et tilpasset ELO-system:
 
-- **Lagrating** = gjennomsnittet av de to spillernes rating
-- **Forventet resultat** beregnes fra ratingdifferansen mellom lagene: jo storre forskjell, jo lavere forventning til det svakere laget
-- **Maldifferansen** veier inn: en stor seier gir storre ratingendring enn en knepen
-- **Endringen fordeles likt** mellom de to spillerne pa laget
+- **Lag-rating** = gjennomsnittet av de to spillernes rating
+- **Forventet resultat** beregnes fra ratingdifferansen mellom lagene: jo større forskjell, jo lavere forventning til det svakere laget
+- **Måldifferansen** veier inn: en stor seier gir større ratingendring enn en jevn
+- **Endringen fordeles likt** mellom de to spillerne på laget
 
 </details>
 
 <details>
 <summary>Hva er skyggerating?</summary>
 
-**Skyggerating** viser formen til en spiller pa kort sikt, ikke hvem de er totalt sett, men hvem de _har vaert_ de siste kampene.
+**Skyggerating** viser formen til en spiller på kort sikt, ikke hvem de er totalt sett, men hvem de _har vært_ de siste kampene.
 
-En spiller kan ha en solid langsiktig rating pa 550, men skyggeratingen kan vise 620 hvis de har hatt en sterk periode, eller 480 hvis formen har sviktet.
+En spiller kan ha en solid langsiktig rating på 550, men skyggeratingen kan vise 620 hvis de har hatt en sterk periode, eller 480 hvis formen har sviktet.
 
 Skyggeratingen beregnes fra de **5 siste kampene**, der nyere kamper teller mer enn eldre:
 
@@ -1001,9 +1034,9 @@ Skyggeratingen beregnes fra de **5 siste kampene**, der nyere kamper teller mer 
 | 4. nyeste | 40%     |
 | 5. nyeste | 20%     |
 
-I tillegg bruker skyggeratingen en **hogere K-verdi** enn vanlig rating, slik at den svinger raskere nar formen endrer seg.
+I tillegg bruker skyggeratingen en **høyere K-verdi** enn vanlig rating, slik at den svinger raskere når formen endrer seg.
 
-Skyggeratingen tar ogsa hensyn til **vinnstreaker og tapstreaker**. Consecutive vinner pa rad gir en bonus, og consecutive tap gir en straff, jo lengre streaken er, jo storre effekt.
+Skyggeratingen tar også hensyn til **vinnstreaker og tapstreaker**. Flere seiere på rad gir en bonus, og flere tap på rad gir en straff, jo lengre streaken er, jo større effekt.
 
 </details>
 
@@ -1019,12 +1052,13 @@ Du har brukt `<Link>` fra `next/link` i oppgave 2. Bruk det samme mønsteret her
 ```tsx
 import Link from "next/link";
 
+// I flex-diven ved siden av overskriften:
 <Link
   href="/spillere/opprett"
   className="bg-twoday-amber rounded px-4 py-2 font-semibold"
 >
   Opprett spiller
-</Link>;
+</Link>
 ```
 
 </details>
@@ -1967,10 +2001,10 @@ Rating redigeres ikke manuelt, den regnes ut automatisk av serveren etter hver r
 
 ELO-systemet fungerer slik:
 
-- **Lagrating** = gjennomsnittet av de to spillernes rating
+- **Lag-rating** = gjennomsnittet av de to spillernes rating
 - **Forventet resultat** beregnes fra ratingdifferansen mellom lagene
-- **Maldifferansen** veier inn: en stor seier gir storre ratingendring enn en knepen
-- **Endringen fordeles likt** mellom de to spillerne pa laget
+- **Måldifferansen** veier inn: en stor seier gir større ratingendring enn en jevn kamp
+- **Endringen fordeles likt** mellom de to spillerne på laget
 
 `rating` er derfor bevisst utelatt fra `SkjemaData`, det er ikke et felt brukeren skal kunne endre.
 

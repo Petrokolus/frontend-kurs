@@ -14,6 +14,9 @@ type Props = {
 function slugify(text: string): string {
   return text
     .toLowerCase()
+    .replaceAll("æ", "e")
+    .replaceAll("å", "a")
+    .replaceAll("ø", "o")
     .replace(/[^\w\s-]/g, "")
     .trim()
     .replace(/\s+/g, "-");

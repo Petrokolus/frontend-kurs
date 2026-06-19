@@ -1,19 +1,19 @@
 # Frontend-kurs
 
-Et introduksjonskurs i frontend-utvikling. Du vil lære hva frontend er, hvordan det henger sammen med et API, og hvordan du bygger et brukergrensesnitt slik du ville gjort det på jobb.
+Dette er et introduksjonskurs i frontend-utvikling. Du vil lære hva frontend er, hvordan det henger sammen med et API, og hvordan du bygger et brukergrensesnitt slik du kommer til å gjøre på prosjekt.
 
-Kurset er bygget rundt et realistisk scenario: du har startet i en ny jobb og har fått i oppgave å bygge et foosball-managementsystem for kontoret. Du har fått tilgang til et ferdig API og et komponentbibliotek — jobben din er å koble det hele sammen i en fungerende applikasjon.
+Kurset er bygget rundt et realistisk scenario: du har startet på et nytt prosjekt og har fått i oppgave å bygge et foosball-managementsystem for kontoret. Du har fått tilgang til et ferdig API og et komponentbibliotek. Jobben din er å koble det hele sammen i en fungerende applikasjon.
 
 ---
 
 <details>
 <summary>Forutsetninger</summary>
 
-Før du begynner må du ha installert følgende på maskinen din. Følg hvert steg nøye, og ikke hopp vidu før du har bekreftet at hvert steg fungerer. Sitter du fast, spør kursholder eller personen ved siden av deg.
+Før du begynner må du ha installert Git, Node.js, pnpm og VS Code. Følg hvert steg nøye, og ikke hopp videre før du har bekreftet at hvert steg fungerer. Sitter du fast, spør kursholder eller personen ved siden av deg.
 
 ### 1. Git
 
-Git er versjonskontrollsystemet vi bruker til å lagre og dele kode. Vi antar at du har git fra tidligere kurs — sjekk med:
+Git er versjonskontrollsystemet vi bruker til å lagre og dele kode. Vi antar at du har installert Git fra tidligere kurs. Du kan sjekke om Git er installert ved å kjøre følgende kommando i terminalen:
 
 ```bash
 git --version
@@ -55,7 +55,7 @@ OBS. Dersom du har Mac endrer du til "macOS i den blå firkanten og trykker på 
 
 ![Node js setup wizard with "Next" button highlighted](nodejs_setup_wizard_homepage.png)
 
-4. Godta lisensvilkårene og klikk **Next** gjennom alle stegene. Ikke endre noe — standardvalgene er riktige.
+4. Godta lisensvilkårene og klikk **Next** gjennom alle stegene. Ikke endre noe, standardvalgene er riktige.
 
 ![License agreement with "Next" button highlighted](nodejs_license_agreement.png)
 ![Destination folder for node.js](nodejs_destination_folder.png)
@@ -63,7 +63,7 @@ OBS. Dersom du har Mac endrer du til "macOS i den blå firkanten og trykker på 
 ![Node js tools for Native Modules](nodejs_tools_for_native_modules.png)
 
 PS. Du velger selv om du vil installere "Tools for Native Modules". Det er ikke nødvendig, men da har du det liggende skulle du trenge det senere.
-Dersom du velger å installere "Tools for Native Modules", vil du få opp følgende vindu når du har fullført insstallasjonen av Node.js. Følg instruksjonene i vinduet, til du ser "Type ENTER to exit:" Da er installasjonen fullført.
+Dersom du velger å installere "Tools for Native Modules", vil du få opp følgende vindu når du har fullført installasjonen av Node.js. Følg instruksjonene i vinduet, til du ser "Type ENTER to exit:" Da er installasjonen fullført.
 
 ![Node js tools for native modules install](nodejs_tools_for_native_modules_install.png)
 
@@ -90,11 +90,11 @@ Vi installerer pnpm gjennom **Corepack**, som følger med Node.js og lar deg akt
 
 **Kjør følgende kommando i terminalen:**
 
-> **Windows:** Du må kanskje åpne terminalen som administrator. Søk etter "Terminal" eller "PowerShell" i startmenyen, høyreklikk og velg **"Kjør som administrator"**.
-
 ```bash
 corepack enable
 ```
+
+> **Windows:** Du må kanskje åpne terminalen som administrator. Søk etter "Terminal" eller "PowerShell" i startmenyen, høyreklikk og velg **"Kjør som administrator"**.
 
 Denne kommandoen gir ingen outout. Det er normalt.
 
@@ -170,9 +170,13 @@ Disse utvidelsene gjør det enklere å skrive React og TypeScript.
 
 Når alle forutsetningene er på plass, følger du disse stegene for å starte prosjektet.
 
-### Steg 1 — Fork prosjektet på GitHub
+### Steg 1, Hent prosjektet
 
-For at du skal kunne lagre arbeidet ditt, må du lage din egen kopi av dette kurs-repoet på din egen GitHub. Dette kalles å **forke**.
+Du har to alternativer:
+
+**Alternativ A: Fork og klon (anbefalt hvis du vil lagre arbeidet ditt på GitHub)**
+
+En fork er din egen kopi av repoet under din GitHub-bruker.
 
 1. Gå til [github.com/Petrokolus/frontend-kurs](https://github.com/Petrokolus/frontend-kurs)
 2. Logg inn på GitHub (eller opprett en bruker hvis du ikke har en)
@@ -180,26 +184,19 @@ For at du skal kunne lagre arbeidet ditt, må du lage din egen kopi av dette kur
 
 ![github repo fork](github_repo_fork.png)
 
-Du har nå din egen kopi av repoet under din GitHub-bruker.
-
----
-
-### Steg 2 — Klon din fork
-
-1. Åpne terminalen
-2. Naviger til mappen der du vil lagre prosjektet, for eksempel:
+4. Åpne terminalen og naviger til mappen der du vil lagre prosjektet, for eksempel:
 
 ```bash
 cd repos/kurs
 ```
 
-3. Klon **din** fork (bytt ut `<brukernavn>` med ditt GitHub-brukernavn):
+5. Klon **din** fork (bytt ut `<brukernavn>` med ditt GitHub-brukernavn):
 
 ```bash
 git clone https://github.com/<brukernavn>/frontend-kurs.git
 ```
 
-4. Gå inn i prosjektmappen:
+6. Gå inn i prosjektmappen:
 
 ```bash
 cd frontend-kurs
@@ -207,7 +204,29 @@ cd frontend-kurs
 
 ---
 
-### Steg 3 — Åpne prosjektet i VS Code
+**Alternativ B: Klon direkte (hvis du ikke trenger GitHub)**
+
+1. Åpne terminalen og naviger til mappen der du vil lagre prosjektet, for eksempel:
+
+```bash
+cd repos/kurs
+```
+
+2. Klon repoet:
+
+```bash
+git clone https://github.com/Petrokolus/frontend-kurs.git
+```
+
+3. Gå inn i prosjektmappen:
+
+```bash
+cd frontend-kurs
+```
+
+---
+
+### Steg 3, Åpne prosjektet i VS Code
 
 ```bash
 code .
@@ -217,7 +236,7 @@ VS Code åpner seg med prosjektmappen. Hvis kommandoen ikke fungerer, åpne VS C
 
 ---
 
-### Steg 4 — Åpne terminalen i VS Code
+### Steg 4, Åpne terminalen i VS Code
 
 Klikk på **Terminal** i menyen øverst → **New Terminal**.
 
@@ -233,7 +252,7 @@ Du skal se en filsti som slutter på `frontend-kurs`. Hvis ikke, spør kursholde
 
 ---
 
-### Steg 5 — Installer avhengigheter
+### Steg 5, Installer avhengigheter
 
 ```bash
 pnpm install
@@ -247,7 +266,7 @@ Done in Xs
 
 ---
 
-### Steg 6 — Start utviklingsserveren
+### Steg 6, Start utviklingsserveren
 
 ```bash
 pnpm dev
@@ -263,7 +282,7 @@ Du skal se noe som ligner på dette:
 
 ---
 
-### Steg 7 — Åpne applikasjonen
+### Steg 7, Åpne applikasjonen
 
 Åpne nettleseren og gå til:
 
@@ -272,6 +291,9 @@ http://localhost:3000
 ```
 
 Du skal nå se velkomstsiden til kurset og du er klar til å begynne på oppgavene!
+
+Mens applikasjonen kjører, kan du også finne oppgavene i sidemenyen under "Oppgaver". Hver oppgave har en beskrivelse av hva du skal gjøre, og noen har også hint og løsningsforslag.
+![oppgaver](oppgaver.png)
 
 > **Viktig:** Utviklingsserveren må kjøre i terminalen mens du jobber. Lukk du terminalen, vil nettsiden slutte å fungere.
 > Trenger du en ny terminal, åpne en ny fane med `+`-ikonet i terminalfeltet i VS Code.
@@ -282,7 +304,7 @@ Du skal nå se velkomstsiden til kurset og du er klar til å begynne på oppgave
 
 ## Oppgaver
 
-Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan ta utgangspunkt i. Etter hvert blir instruksjonene kortere — da forventes det at du bruker det du har lært og slår opp i dokumentasjonen selv.
+Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan ta utgangspunkt i. Etter hvert blir instruksjonene kortere, da forventes det at du bruker det du har lært og slår opp i dokumentasjonen selv.
 
 |     | Oppgave                                                                               |
 | --- | ------------------------------------------------------------------------------------- |
@@ -294,7 +316,7 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 | 6   | [Rediger spiller](#oppgave-6-rediger-spiller)                                         |
 | 7   | [Slett spiller](#oppgave-7-slett-spiller)                                             |
 | 8   | [Filtrering og sortering](#oppgave-8-filtrering-og-sortering-av-spillere)             |
-| 9   | [Alt du kan, brukt på nytt](#oppgave-9-alt-du-kan-brukt-pa-nytt)                     |
+| 9   | [Alt du kan, brukt på nytt](#oppgave-9-alt-du-kan-brukt-pa-nytt)                      |
 | 10  | [Dashboard](#oppgave-10-dashboard)                                                    |
 |     | [Veien videre](#veien-videre)                                                         |
 
@@ -304,7 +326,7 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 
 **Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
 
-I React bygger vi brukergrensesnitt av komponenter — gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode):
+I React bygger vi brukergrensesnitt av komponenter, gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode):
 
 ```typescript
 function Hilsen() {
@@ -330,25 +352,46 @@ function Hilsen({ navn }: Props) {
 
 Siden vi også skriver i TypeScript, så kan du se at vi definerer typen på alle props.
 
-Naviger til mappen `src/app/spillere`. Der finner du tre filer du skal jobbe i:
+Du skal jobbe i disse filene:
 
-- `spiller-card.tsx` — komponenten som viser informasjon om én spiller
-- `spillere-liste.tsx` — liste-komponent som setter sammen SpillerCard-komponenter til en oversikt
-- `page.tsx` — filen som definerer selve siden. Her henter vi data fra API-et og sender det videre som props til komponentene vi vil vise.
+- `src/components/spillere/spiller-card.tsx`, komponenten som viser informasjon om én spiller
+- `src/components/spillere/spillere-liste.tsx`, liste-komponent som setter sammen SpillerCard-komponenter til en oversikt
+- `src/app/spillere/page.tsx`, filen som definerer selve siden. Her henter vi data fra API-et og sender det videre som props til komponentene vi vil vise.
 
 Vi går gjennom disse steg for steg i oppgavene under.
 
 #### Oppgave 1a - Legg til en overskrift
 
+Før du begynner er det greit å vite om et grunnleggende skille i en React-komponent: hva som hører hjemme før `return`, og hva som hører hjemme inni `return`.
+
+**Før `return`** er JavaScript-land. Her kan du deklarere variabler, kalle hooks, gjøre beregninger og forberede data. Alt som ikke er synlig i nettleseren hører hjemme her.
+
+**Inni `return`** er JSX-land (JavaScript XML). Her beskriver du hva som skal vises. Du kan ikke skrive vanlige `if`-setninger eller `const`-deklarasjoner her, men du kan bruke `{}` til å sette inn verdier og uttrykk fra JavaScript-land.
+
+```tsx
+export default function MinKomponent() {
+  // JavaScript-land: beregninger, variabler, hooks
+  const navn = "Ola";
+  const stor = navn.toUpperCase();
+
+  return (
+    // JSX-land: det som vises i nettleseren
+    <p>{stor}</p>
+  );
+}
+```
+
+Overskriften du skal legge til i denne oppgaven hører hjemme inni `return`.
+
 Hvis du har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av oppstartsguiden, så kan du allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser du det som nå finnes av innhold i page.tsx i spillere-mappen.
 
-Alle sider trenger en overskrift! Naviger til page.tsx og legg til en passende overskrift. HTML har sitt eget element for overskrifter:
+Alle sider trenger en overskrift! Naviger til `page.tsx` og legg til overskriften "Spillere". HTML har sitt eget element for overskrifter:
 
 ```typescript
 <h1>Dette er en overskrift</h1>
 ```
 
-Tailwind CSS nullstiller alle nettleserens innebygde styles — inkludert overskrifter. Det betyr at `<h1>` ikke automatisk ser stor og fet ut, slik den gjør når man bruker vanlig CSS. Du må legge til stilene selv via `className`:
+Tailwind CSS nullstiller alle nettleserens innebygde styles, inkludert overskrifter. Det betyr at `<h1>` ikke automatisk ser stor og fet ut, slik den gjør når man bruker vanlig CSS. Du må legge til stilene selv via `className`:
 
 ```tsx
 <h1 className="text-3xl font-bold">Dette er en overskrift</h1>
@@ -359,33 +402,188 @@ Dette er hvordan man styler ved hjelp av Tailwind CSS. Det kodesnutten over gjø
 - _text-3xl_: Setter font-størrelse til XXXL
 - _font-bold_: Setter font-type til bold (fet skrift)
 
-#### Oppgave 1b - Vis et SpillerCard på siden
+Du finner en fullstendig oversikt over alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenket til i sidemenyen.
 
-Forsøk å vise litt mer enn bare overskriften på siden. Komponenter som vi lager i React kan importeres og deretter legges inn i page.tsx på samme måte som overskrift-taggen du nettopp har lagt til. Klarer du å importere og vise et SpillerCard på siden?
+<details class="losningsforslag">
+<summary>Løsningsforslag 1a</summary>
 
-<details class="hint">
-<summary>Hint</summary>
-
-Vi importerer og bruker SpillerCard i spillere-liste.tsx.
+```tsx
+export default async function SpillerePage() {
+  return (
+    <div className="max-w-4xl p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+      </div>
+      <p>Her var det ganske tomt foreløpig!</p>
+    </div>
+  );
+}
+```
 
 </details>
 
-#### Oppgave 1c - Bytt ut mockSpiller med en prop
+#### Oppgave 1b - Vis et SpillerCard på siden
 
-`SpillerCard` har nå en hardkodet `mockSpiller` inni seg. Det betyr at kortet alltid viser samme spiller, uansett hvilken data vi sender inn. Det vil vi endre.
+En stor fordel med React er at man kan dele opp grensesnittet i gjenbrukbare komponenter og importere dem der man trenger dem. Slik ser en typisk import ut:
 
-Øverst i `spiller-card.tsx` ser du at det allerede finnes en `Props`-type med et `spiller`-felt. Målet ditt er å:
+```tsx
+import SpillerCard from "@/components/spillere/spiller-card";
+```
+
+`@/` er en snarvei som peker til `src/`-mappen i prosjektet. Etter det følger resten av filstien, uten `.tsx`-endelsen.
+
+Når komponenten er importert kan du bruke den i JSX akkurat som en HTML-tag:
+
+```tsx
+<SpillerCard />
+```
+
+Importer `SpillerCard` i `page.tsx` og legg den inn under overskriften.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 1b</summary>
+
+```tsx
+import SpillerCard from "@/components/spillere/spiller-card";
+
+export default async function SpillerePage() {
+  return (
+    <div className="max-w-4xl p-8">
+      <h1 className="text-3xl font-bold">Spillere</h1>
+      <SpillerCard />
+    </div>
+  );
+}
+```
+
+</details>
+
+#### Oppgave 1c - Vis en liste med spillere
+
+Nå som vi kan vise ett kort, er målet å vise flere. Til det har vi `SpillereListe`, en komponent som tar imot en liste med spillere og viser et `SpillerCard` for hver av dem.
+
+**Steg 1: Bytt ut `SpillerCard` i `page.tsx` med `SpillereListe`**
+
+`SpillereListe` forventer en prop som heter `spillere`, et array av `Spiller`-objekter. Siden vi ikke henter ekte data fra API-et enda, lager vi en mock-liste for å teste at det fungerer.
+
+Erstatt `<SpillerCard />` i `page.tsx` med dette:
+
+```tsx
+import SpillereListe from "@/components/spillere/spillere-liste";
+import { Spiller } from "@/lib/types";
+
+const mockSpillere: Spiller[] = [
+  {
+    id: 1,
+    navn: "Ola Nordmann",
+    avdeling: "Digital Engineering",
+    kull: "NK20",
+    posisjon: "Angrep",
+    rating: 100,
+    skyggerating: 100,
+  },
+  {
+    id: 2,
+    navn: "Kari Nordmann",
+    avdeling: "Design",
+    kull: "NK21",
+    posisjon: "Forsvar",
+    rating: 90,
+    skyggerating: 85,
+  },
+];
+
+// I return:
+<SpillereListe spillere={mockSpillere} />;
+```
+
+**Steg 2: La `SpillerCard` ta imot `spiller` som prop**
+
+Åpne `spiller-card.tsx`. Øverst ser du en `Props`-type med et `spiller`-felt, men komponenten bruker den ikke enda. Du skal nå:
 
 1. Slette `mockSpiller`-konstanten
-2. La `SpillerCard` ta imot `spiller` som prop i stedet
-3. Oppdatere kommentaren i `spillere-liste.tsx` til å sende `spiller` inn
+2. Ta imot `spiller` som prop i stedet
+3. Bruke `spiller.navn` (og eventuelt andre felt) i JSX-en
 
-Når du er ferdig vil hvert kort vise sin egen spiller i stedet for alltid å vise Ola Nordmann.
+**Steg 3: Send `spiller` videre fra `SpillereListe`**
+
+Åpne `spillere-liste.tsx`. I `.map()`-løkken ser du at `SpillerCard` ikke mottar noen props enda. Legg til `spiller={spiller}` slik at hvert kort får sin spiller.
 
 <details class="hint">
 <summary>Hint</summary>
 
-Se på hvordan `SpillereListe` er satt opp — den tar imot `spillere` som prop på nøyaktig samme måte. Kopier mønsteret.
+Se på hvordan `SpillereListe` tar imot `spillere` som prop. `SpillerCard` skal ta imot `spiller` (entall) på nøyaktig samme måte. Kopier mønsteret.
+
+</details>
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 1c</summary>
+
+`src/app/spillere/page.tsx`:
+
+```tsx
+import SpillereListe from "@/components/spillere/spillere-liste";
+import { Spiller } from "@/lib/types";
+
+const mockSpillere: Spiller[] = [
+  {
+    id: 1,
+    navn: "Ola Nordmann",
+    avdeling: "Digital Engineering",
+    kull: "NK20",
+    posisjon: "Angrep",
+    rating: 100,
+    skyggerating: 100,
+  },
+  {
+    id: 2,
+    navn: "Kari Nordmann",
+    avdeling: "Design",
+    kull: "NK21",
+    posisjon: "Forsvar",
+    rating: 90,
+    skyggerating: 85,
+  },
+];
+
+export default async function SpillerePage() {
+  return (
+    <div className="max-w-4xl p-8">
+      <h1 className="text-3xl font-bold">Spillere</h1>
+      <SpillereListe spillere={mockSpillere} />
+    </div>
+  );
+}
+```
+
+`src/components/spillere/spiller-card.tsx`:
+
+```tsx
+import { Spiller } from "@/lib/types";
+
+type Props = {
+  spiller: Spiller;
+};
+
+export default function SpillerCard({ spiller }: Props) {
+  return (
+    <div className="flex items-center space-x-4 rounded-lg border p-4">
+      <div className="flex-1">
+        <h2 className="text-lg font-semibold">{spiller.navn}</h2>
+        <p className="text-muted-foreground text-sm">
+          Her kan vi vise mer data fra spiller-objektene
+        </p>
+      </div>
+    </div>
+  );
+}
+```
+
+`src/components/spillere/spillere-liste.tsx` (oppdater linjen med `SpillerCard`):
+
+```tsx
+<SpillerCard key={spiller.id} spiller={spiller} />
+```
 
 </details>
 
@@ -400,7 +598,79 @@ Usikker på hva slags informasjon du kan vise? Se hvilke verdier som finnes i et
 
 </details>
 
-#### Oppgave 1e - Hent spillere
+<details class="losningsforslag">
+<summary>Løsningsforslag 1d</summary>
+
+```tsx
+export default function SpillerCard({ spiller }: Props) {
+  return (
+    <div className="flex items-center space-x-4 rounded-lg border p-4">
+      <div className="flex-1">
+        <h2 className="text-lg font-semibold">{spiller.navn}</h2>
+        <p className="text-muted-foreground text-sm">{spiller.posisjon}</p>
+        <p className="text-muted-foreground text-sm">
+          Rating: {spiller.rating}
+        </p>
+      </div>
+    </div>
+  );
+}
+```
+
+</details>
+
+#### Oppgave 1e - Legg til bilde på SpillerCard
+
+Hver spiller har et bilde tilgjengelig på `/spiller/{id}.png` i prosjektet. Legg til et bilde av spilleren i `SpillerCard`.
+
+I Next.js bruker vi `<Image>` fra `next/image` i stedet for en vanlig `<img>`-tag. Den optimaliserer bildene automatisk og krever at du oppgir `width` og `height`.
+
+`alt` er en tekstlig beskrivelse av bildet. Den brukes av skjermlesere for blinde og svaksynte, og vises dersom bildet ikke kan lastes. For et profilbilde er spillerens navn en god `alt`-tekst:
+
+```tsx
+import Image from "next/image";
+
+<Image src="/spiller/1.png" alt="Ola Nordmann" width={100} height={100} />;
+```
+
+Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens data. Husk at du kan sette inn variabler i en streng med template literals: `` `/spiller/${spiller.id}.png` ``
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 1e</summary>
+
+```tsx
+import { Spiller } from "@/lib/types";
+import Image from "next/image";
+
+type Props = {
+  spiller: Spiller;
+};
+
+export default function SpillerCard({ spiller }: Props) {
+  return (
+    <div className="flex items-center space-x-4 rounded-lg border p-4">
+      <Image
+        src={`/spiller/${spiller.id}.png`}
+        alt={spiller.navn}
+        width={64}
+        height={64}
+        className="aspect-square rounded-full object-cover"
+      />
+      <div className="flex-1">
+        <h2 className="text-lg font-semibold">{spiller.navn}</h2>
+        <p className="text-muted-foreground text-sm">{spiller.posisjon}</p>
+        <p className="text-muted-foreground text-sm">
+          Rating: {spiller.rating}
+        </p>
+      </div>
+    </div>
+  );
+}
+```
+
+</details>
+
+#### Oppgave 1f - Hent spillere
 
 Vi har en lokal database med foosball-spillere! Innhold derfra kan hentes gjennom API-et på denne måten:
 
@@ -409,7 +679,7 @@ const result = await fetch("http://localhost:3000/api/spillere");
 const spillere = await result.json();
 ```
 
-Fordi `page.tsx` er en **server component** — en komponent som kjører på serveren, ikke i nettleseren — kan vi bruke `await` direkte i komponenten uten noe ekstra oppsett. Vi kommer tilbake til hva dette betyr i praksis i oppgave 3.
+Fordi `page.tsx` er en **server component**, en komponent som kjører på serveren, ikke i nettleseren, kan vi bruke `await` direkte i komponenten uten noe ekstra oppsett. Vi kommer tilbake til hva dette betyr i praksis i oppgave 3.
 
 Når du har hentet spillerne, sitter du igjen med en liste. For å vise hvert element i en liste bruker vi `.map()`, som går gjennom hvert element og returnerer JSX:
 
@@ -417,9 +687,37 @@ Når du har hentet spillerne, sitter du igjen med en liste. For å vise hvert el
 spillere.map((spiller) => <SpillerCard key={spiller.id} spiller={spiller} />);
 ```
 
-`key` er et spesielt React-attributt som hjelper React å holde styr på hvilket element i listen som er hvilket. Bruk alltid en unik verdi — her passer `id` perfekt.
+`key` er et spesielt React-attributt som hjelper React å holde styr på hvilket element i listen som er hvilket. Bruk alltid en unik verdi, her passer `id` perfekt.
 
 Prøv å hente spillerne fra API-et og bruk `.map()` til å vise en liste med alle spillerne!
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 1f</summary>
+
+```tsx
+import SpillerCard from "@/components/spillere/spiller-card";
+import { Spiller } from "@/lib/types";
+
+export default async function SpillerePage() {
+  const result = await fetch("http://localhost:3000/api/spillere");
+  const spillere: Spiller[] = await result.json();
+
+  return (
+    <div className="max-w-4xl p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        {spillere.map((spiller) => (
+          <SpillerCard key={spiller.id} spiller={spiller} />
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+</details>
 
 ---
 
@@ -472,26 +770,110 @@ I oppgave 1 brukte vi fetch til å hente alle spillere. Nå skal vi hente én sp
 
 Prøv å hente spilleren fra API-et og vis detaljene på siden!
 
-**HINT**: For å legge inn en variabel i en streng i JavaScript/TypeScript, kan du bruke template literals, som er tekst omgitt av backticks (` `) i stedet for vanlige anførselstegn. Inne i en template literal kan du sette inn variabler ved å bruke `${variabel}`-syntaksen. For eksempel:
+<details class="hint">
+<summary>Hint</summary>
+
+Du trenger `id`-en fra URL-en for å bygge opp riktig API-URL. Bruk template literals akkurat som du gjorde for bildesrc i oppgave 1e.
+
+</details>
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 2c</summary>
 
 ```tsx
-const id = 1;
-const url = `/spiller/${id}`; // Resultatet blir "/spiller/1"
+import { Spiller } from "@/lib/types";
+
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function SpillerPage({ params }: Props) {
+  const { id } = await params;
+
+  const result = await fetch(`http://localhost:3000/api/spillere/${id}`);
+  const spiller: Spiller = await result.json();
+
+  return (
+    <div className="max-w-2xl p-8">
+      <h1 className="text-3xl font-bold">{spiller.navn}</h1>
+      <p>{spiller.avdeling}</p>
+      <p>{spiller.posisjon}</p>
+      <p>Kull: {spiller.kull}</p>
+      <p>Rating: {spiller.rating}</p>
+    </div>
+  );
+}
 ```
+
+</details>
 
 #### Oppgave 2d – Vis spillerens bilde
 
-Hver spiller har et bilde tilgjengelig på `/spiller/{id}.png`. Legg til et bilde av spilleren øverst på detaljsiden.
+Du brukte `<Image>` fra `next/image` til å vise spillerbilder i oppgave 1e. Gjør det samme her, men gjør bildet større siden dette er en detaljside. Bildene ligger på `/spiller/{id}.png` akkurat som før.
 
-Alle bilder på nettsider bør ha en `alt`-attributt. `alt`-teksten er en tekstlig beskrivelse av bildet som brukes av skjermlesere (for blinde og svaksynte), og vises dersom bildet ikke kan lastes:
+Tenk også på `alt`-teksten: hva _formidler_ bildet? For et profilbilde er navnet på personen den viktigste informasjonen.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 2d</summary>
 
 ```tsx
-<img src="/spiller/1.png" alt="Profilbilde av Erik Solberg" />
+import Image from "next/image";
+
+<Image
+  src={`/spiller/${id}.png`}
+  alt={`Profilbilde av ${spiller.navn}`}
+  width={128}
+  height={128}
+  className="aspect-square rounded-full object-cover"
+/>;
 ```
 
-Tenk på hva `alt`-teksten bør si: hva _formidler_ bildet? For et profilbilde er navnet på personen den viktigste informasjonen. Husk at du nå har tilgang til spillerens navn fra API-et!
+</details>
 
-#### Oppgave 2e – Lenk fra spillerlisten
+#### Oppgave 2e – Gi detaljsiden en fin layout
+
+Nå som du har bilde og spillerdata på plass, kan vi gjøre siden litt penere. Prøv å sentrere innholdet og gi feltene fin avstand fra hverandre.
+
+Her er noen Tailwind-klasser som kan hjelpe:
+
+| Klasse                       | Hva den gjør                                         |
+| ---------------------------- | ---------------------------------------------------- |
+| `flex flex-col items-center` | Stabeler innhold vertikalt og sentrerer det          |
+| `gap-4`                      | Setter jevn avstand mellom barna i en flex-container |
+| `text-center`                | Sentrerer tekst                                      |
+| `text-muted-foreground`      | Gjør teksten litt grå og nedtonet                    |
+
+Du finner alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenket til i sidemenyen.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 2e</summary>
+
+```tsx
+<div className="flex min-h-screen items-start justify-center p-8">
+  <div className="flex w-full max-w-lg flex-col items-center gap-6 rounded-xl border p-8">
+    <Image
+      src={`/spiller/${id}.png`}
+      alt={`Profilbilde av ${spiller.navn}`}
+      width={128}
+      height={128}
+      className="aspect-square rounded-full object-cover"
+    />
+    <div className="flex flex-col items-center gap-2 text-center">
+      <h1 className="text-3xl font-bold">{spiller.navn}</h1>
+      <p className="text-muted-foreground">{spiller.avdeling}</p>
+      <p>{spiller.posisjon}</p>
+      <p>Kull: {spiller.kull}</p>
+      <p>Rating: {spiller.rating}</p>
+      {spiller.styrke && <p>Styrke: {spiller.styrke}</p>}
+      {spiller.svakhet && <p>Svakhet: {spiller.svakhet}</p>}
+    </div>
+  </div>
+</div>
+```
+
+</details>
+
+#### Oppgave 2f – Lenk fra spillerlisten
 
 Detaljsiden er fin, men ingen kommer seg dit uten en lenke! I Next.js bruker vi den ferdiglagde `<Link>`-komponenten fra `next/link` for å navigere mellom sider:
 
@@ -505,6 +887,36 @@ import Link from "next/link";
 
 Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan klikke på et spillerkort og komme til detaljsiden for den spilleren.
 
+<details class="losningsforslag">
+<summary>Løsningsforslag 2f</summary>
+
+```tsx
+import Link from "next/link";
+import { Spiller } from "@/lib/types";
+
+type Props = {
+  spiller: Spiller;
+};
+
+export default function SpillerCard({ spiller }: Props) {
+  return (
+    <Link href={`/spillere/${spiller.id}`}>
+      <div className="flex items-center space-x-4 rounded-lg border p-4">
+        <div className="flex-1">
+          <h2 className="text-lg font-semibold">{spiller.navn}</h2>
+          <p className="text-muted-foreground text-sm">{spiller.posisjon}</p>
+          <p className="text-muted-foreground text-sm">
+            Rating: {spiller.rating}
+          </p>
+        </div>
+      </div>
+    </Link>
+  );
+}
+```
+
+</details>
+
 ---
 
 ## Oppgave 3 – Opprett spiller
@@ -515,9 +927,9 @@ Nå som vi kan se alle spillerne, er det på tide å la brukeren legge til nye! 
 
 #### Server components og client components
 
-Hittil har vi jobbet med **server components** — komponenter som kjøres på serveren og sender ferdig HTML til nettleseren. De er enkle og raske, men de kan ikke reagere på brukerinteraksjon som klikk eller tastetrykk.
+Hittil har vi jobbet med **server components**, komponenter som kjøres på serveren og sender ferdig HTML til nettleseren. De er enkle og raske, men de kan ikke reagere på brukerinteraksjon som klikk eller tastetrykk.
 
-For å håndtere interaksjon trenger vi en **client component** — en komponent som kjøres i nettleseren. Client components markeres med `"use client"` øverst i filen:
+For å håndtere interaksjon trenger vi en **client component**, en komponent som kjøres i nettleseren. Client components markeres med `"use client"` øverst i filen:
 
 ```tsx
 "use client";
@@ -527,7 +939,7 @@ import { useState } from "react";
 
 Uten `"use client"` kan du ikke bruke `useState`-hooken, event handlers som `onClick` eller `onChange`, eller andre ting som avhenger av at koden kjører i nettleseren. Et skjema der brukeren fyller inn data er et typisk eksempel på noe som må være en client component. Du kommer til å lære mer om hooks i oppgave 4.
 
-Åpne filen `src/app/spillere/opprett-spiller-skjema.tsx`. Du vil se at den allerede har `"use client"` øverst og ett inputfelt for navn. Oppgaven din blir å fullføre skjemaet, men først skal du få en rask innføring i hvordan å bruke useState og event-handlers brukes i skjemaer.
+Åpne filen `src/components/spillere/opprett-spiller-skjema.tsx`. Du vil se at den allerede har `"use client"` øverst og ett inputfelt for navn. Oppgaven din blir å fullføre skjemaet, men først skal du få en rask innføring i hvordan å bruke useState og event-handlers brukes i skjemaer.
 
 #### useState og destrukturering
 
@@ -552,7 +964,7 @@ Destrukturering er bare en snarvei for å hente ut elementer fra en liste. Navne
 
 #### Skjemaer og kontrollerte inputs
 
-I React er det vanlig å bruke det vi kaller **kontrollerte inputs** — det vil si at React holder styr på hva brukeren har skrevet, ikke nettleseren. Vi gjør dette med `useState`:
+I React er det vanlig å bruke det vi kaller **kontrollerte inputs**, det vil si at React holder styr på hva brukeren har skrevet, ikke nettleseren. Vi gjør dette med `useState`:
 
 ```tsx
 const [navn, setNavn] = useState("");
@@ -580,7 +992,7 @@ const [skjema, setSkjema] = useState({
 
 #### Tilgjengelighet: label og id
 
-For at skjemaet skal fungere godt for alle — inkludert brukere med skjermleser — er det viktig å knytte hvert inputfelt til en `<label>` med `htmlFor` og `id`:
+For at skjemaet skal fungere godt for alle, inkludert brukere med skjermleser, er det viktig å knytte hvert inputfelt til en `<label>` med `htmlFor` og `id`:
 
 ```tsx
 <label htmlFor="navn">Navn</label>
@@ -594,23 +1006,23 @@ Dette gjør at klikk på etiketten fokuserer feltet, og at skjermlesere leser op
 <details>
 <summary>Hva skjer med ratingen til en ny spiller?</summary>
 
-Alle nye spillere starter automatisk med **500 i rating**. Du trenger ikke tenke på det i skjemaet — det settes av serveren og kan ikke overstyres.
+Alle nye spillere starter automatisk med **500 i rating**. Du trenger ikke tenke på det i skjemaet, det settes av serveren og kan ikke overstyres.
 
-Ratingen oppdateres automatisk etter hver registrerte kamp, basert pa et tilpasset ELO-system:
+Ratingen oppdateres automatisk etter hver registrerte kamp, basert på et tilpasset ELO-system:
 
-- **Lagrating** = gjennomsnittet av de to spillernes rating
-- **Forventet resultat** beregnes fra ratingdifferansen mellom lagene: jo storre forskjell, jo lavere forventning til det svakere laget
-- **Maldifferansen** veier inn: en stor seier gir storre ratingendring enn en knepen
-- **Endringen fordeles likt** mellom de to spillerne pa laget
+- **Lag-rating** = gjennomsnittet av de to spillernes rating
+- **Forventet resultat** beregnes fra ratingdifferansen mellom lagene: jo større forskjell, jo lavere forventning til det svakere laget
+- **Måldifferansen** veier inn: en stor seier gir større ratingendring enn en jevn
+- **Endringen fordeles likt** mellom de to spillerne på laget
 
 </details>
 
 <details>
 <summary>Hva er skyggerating?</summary>
 
-**Skyggerating** viser formen til en spiller pa kort sikt — ikke hvem de er totalt sett, men hvem de _har vaert_ de siste kampene.
+**Skyggerating** viser formen til en spiller på kort sikt, ikke hvem de er totalt sett, men hvem de _har vært_ de siste kampene.
 
-En spiller kan ha en solid langsiktig rating pa 550, men skyggeratingen kan vise 620 hvis de har hatt en sterk periode, eller 480 hvis formen har sviktet.
+En spiller kan ha en solid langsiktig rating på 550, men skyggeratingen kan vise 620 hvis de har hatt en sterk periode, eller 480 hvis formen har sviktet.
 
 Skyggeratingen beregnes fra de **5 siste kampene**, der nyere kamper teller mer enn eldre:
 
@@ -622,17 +1034,17 @@ Skyggeratingen beregnes fra de **5 siste kampene**, der nyere kamper teller mer 
 | 4. nyeste | 40%     |
 | 5. nyeste | 20%     |
 
-I tillegg bruker skyggeratingen en **hogere K-verdi** enn vanlig rating, slik at den svinger raskere nar formen endrer seg.
+I tillegg bruker skyggeratingen en **høyere K-verdi** enn vanlig rating, slik at den svinger raskere når formen endrer seg.
 
-Skyggeratingen tar ogsa hensyn til **vinnstreaker og tapstreaker**. Consecutive vinner pa rad gir en bonus, og consecutive tap gir en straff — jo lengre streaken er, jo storre effekt.
+Skyggeratingen tar også hensyn til **vinnstreaker og tapstreaker**. Flere seiere på rad gir en bonus, og flere tap på rad gir en straff, jo lengre streaken er, jo større effekt.
 
 </details>
 
 #### Oppgave 3a – Legg til lenke til opprett-siden
 
-Skjemaet bor på sin egen side: `/spillere/opprett`. Legg til en `<Link>` på spillersiden som tar brukeren dit, slik at de enkelt kan navigere til skjemaet.
+Skjemaet bor på sin egen side: `/spillere/opprett`. Legg til en `<Link>` i `src/app/spillere/page.tsx`, rett under overskriften, som tar brukeren dit.
 
-Du har brukt `<Link>` fra `next/link` i oppgave 2 — bruk det samme mønsteret her.
+Du har brukt `<Link>` fra `next/link` i oppgave 2. Bruk det samme mønsteret her.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 3a</summary>
@@ -640,12 +1052,13 @@ Du har brukt `<Link>` fra `next/link` i oppgave 2 — bruk det samme mønsteret 
 ```tsx
 import Link from "next/link";
 
+// I flex-diven ved siden av overskriften:
 <Link
   href="/spillere/opprett"
   className="bg-twoday-amber rounded px-4 py-2 font-semibold"
 >
   Opprett spiller
-</Link>;
+</Link>
 ```
 
 </details>
@@ -674,7 +1087,7 @@ Se på `Spiller`-typen i `lib/types.ts` for å se hvilke felter en spiller har.
 <details class="losningsforslag">
 <summary>Løsningsforslag 3b</summary>
 
-Legg til ett felt per egenskap. Her er `avdeling` som eksempel — kopier mønsteret for `kull` og `posisjon`:
+Legg til ett felt per egenskap. Her er `avdeling` som eksempel, kopier mønsteret for `kull` og `posisjon`:
 
 ```tsx
 <div className="flex flex-col gap-1">
@@ -840,14 +1253,14 @@ async function handleSubmit(data: SkjemaData) {
 
 **Hva du skal lære:** Hva en hook er og reglene for hooks, `useState` til interaktiv tilstand, `useEffect` til sideeffekter, og `useRef` til direkte DOM-tilgang.
 
-Hooks er spesielle funksjoner i React som gir komponentene dine tilgang til tilstand og side effects — det vil si alt som skjer utenfor Reacts renderingssyklus, som å lese fra localStorage, hente data fra en API, eller manipulere DOM-en direkte.
+Hooks er spesielle funksjoner i React som gir komponentene dine tilgang til tilstand og side effects, det vil si alt som skjer utenfor Reacts renderingssyklus, som å lese fra localStorage, hente data fra en API, eller manipulere DOM-en direkte.
 
 Det finnes et par regler for når hooks kan brukes:
 
-- Hooks skal alltid kalles øverst i komponenten — aldri inne i if-setninger eller løkker
+- Hooks skal alltid kalles øverst i komponenten, aldri inne i if-setninger eller løkker
 - Hooks kan bare brukes i React-komponenter (eller i egne custom hooks)
 
-I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil du bruke alle tre hookene til forskjellige ting — og det er poenget, de løser ulike problemer:
+I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil du bruke alle tre hookene til forskjellige ting, og det er poenget, de løser ulike problemer:
 
 | Hook        | Brukes til                                                                              |
 | ----------- | --------------------------------------------------------------------------------------- |
@@ -857,7 +1270,7 @@ I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil 
 
 #### Oppgave 4a – Legg til et søkefelt med `useState`
 
-Opprett en ny fil `src/app/spillere/spiller-sok.tsx`. Dette blir en client component, siden den trenger interaktivitet — husk `"use client"` øverst.
+Opprett en ny fil `src/components/spillere/spiller-sok.tsx`. Dette blir en client component, siden den trenger interaktivitet, husk `"use client"` øverst.
 
 Komponenten skal ha:
 
@@ -869,7 +1282,7 @@ Komponenten skal ha:
 const [sok, setSok] = useState("");
 ```
 
-Importer og vis `SpillerSok` i `page.tsx`. Foreløpig trenger du ikke koble den til spillerlisten — det kommer i neste steg.
+Importer og vis `SpillerSok` i `page.tsx`. Foreløpig trenger du ikke koble den til spillerlisten, det kommer i neste steg.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 4a</summary>
@@ -900,9 +1313,9 @@ export default function SpillerSok({ sok, setSok }: Props) {
 
 #### Oppgave 4b – Filtrer spillerlisten
 
-Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvilke spillere som vises — men `page.tsx` er en server component og kan ikke ha `useState`. Løsningen er en ny client component som tar imot hele spillerlisten som prop, håndterer søkestate selv, og viser de filtrerte resultatene.
+Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvilke spillere som vises, men `page.tsx` er en server component og kan ikke ha `useState`. Løsningen er en ny client component som tar imot hele spillerlisten som prop, håndterer søkestate selv, og viser de filtrerte resultatene.
 
-Vi har laget en halvferdig fil til deg: `src/app/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
+Vi har laget en halvferdig fil til deg: `src/components/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
 
 Når den er ferdig, erstatt det du la til i `page.tsx` i forrige oppgave med:
 
@@ -973,7 +1386,7 @@ export default function SpillerSokOgListe({ spillere }: Props) {
 
 Det er litt irriterende at søket forsvinner hver gang du laster siden på nytt. Vi kan bruke `localStorage` til å huske det.
 
-`useEffect` brukes til å synkronisere React-tilstand med noe utenfor React — som `localStorage`, en ekstern API, eller DOM-en. Syntaksen ser slik ut:
+`useEffect` brukes til å synkronisere React-tilstand med noe utenfor React, som `localStorage`, en ekstern API, eller DOM-en. Syntaksen ser slik ut:
 
 ```tsx
 useEffect(() => {
@@ -1014,7 +1427,7 @@ useEffect(() => {
 
 #### Oppgave 4d – Auto-fokus med `useRef`
 
-`useRef` gir deg en direkte referanse til et DOM-element — uten å trigge en re-render. Det brukes når du trenger å gjøre noe med selve elementet i nettleseren, som å fokusere det.
+`useRef` gir deg en direkte referanse til et DOM-element, uten å trigge en re-render. Det brukes når du trenger å gjøre noe med selve elementet i nettleseren, som å fokusere det.
 
 Legg til auto-fokus på søkefeltet, slik at det er klart til bruk med en gang siden lastes:
 
@@ -1029,7 +1442,7 @@ useEffect(() => {
 <input ref={inputRef} ... />
 ```
 
-`?.` betyr "gjør dette bare hvis verdien ikke er `null`" — trygg tilgang på et element som kanskje ikke finnes ennå.
+`?.` betyr "gjør dette bare hvis verdien ikke er `null`", trygg tilgang på et element som kanskje ikke finnes ennå.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 4d</summary>
@@ -1078,7 +1491,7 @@ pnpm add react-hook-form
 
 React Hook Form gir oss en hook som heter `useForm`. Den returnerer alt vi trenger for å håndtere skjemaet: registrering av felt, innsending og feilhåndtering.
 
-Naviger til `src/app/spillere/opprett/opprett-spiller-skjema.tsx`. Filen har et skjema med manuell `useState`. Vi skal nå skrive den om til å bruke `useForm`.
+Naviger til `src/components/spillere/opprett-spiller-skjema.tsx`. Filen har et skjema med manuell `useState`. Vi skal nå skrive den om til å bruke `useForm`.
 
 Importer `useForm` og kall den øverst i komponenten. Legg også til de resterende feltene i `SkjemaData`-typen:
 
@@ -1274,7 +1687,7 @@ function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
 }
 ```
 
-`Path<SkjemaData>` er en type fra React Hook Form som beskriver gyldige feltnavn i skjemaet — altså `"navn" | "avdeling" | "kull" | "posisjon" | "styrke" | "svakhet"`. Vi bruker den fordi det er nøyaktig det `form.register` forventer. Med `string` ville TypeScript klage på `form.register(id, ...)`. Med `Path<SkjemaData>` får du i tillegg hjelp av TypeScript til å oppdage skrivefeil — sender du inn `"nvan"` vil du få en feilmelding med én gang.
+`Path<SkjemaData>` er en type fra React Hook Form som beskriver gyldige feltnavn i skjemaet, altså `"navn" | "avdeling" | "kull" | "posisjon" | "styrke" | "svakhet"`. Vi bruker den fordi det er nøyaktig det `form.register` forventer. Med `string` ville TypeScript klage på `form.register(id, ...)`. Med `Path<SkjemaData>` får du i tillegg hjelp av TypeScript til å oppdage skrivefeil, sender du inn `"nvan"` vil du få en feilmelding med én gang.
 
 Hvis `isRequired` ikke er satt, vil `{ required: undefined }` sendes inn, noe som er det samme som ingen valideringsregel.
 
@@ -1451,13 +1864,13 @@ I oppgave 5 bygde vi et skjema for å opprette spillere. Nå skal vi bygge et sk
 
 #### Oppgave 6a – Lag dialogskallet i `rediger-spiller-dialog.tsx`
 
-Opprett filen `src/app/spillere/[id]/components/rediger-spiller-dialog.tsx`. Foreløpig skal den bare inneholde selve dialog-strukturen med en trigger-knapp og et tomt innhold — skjemaet legger vi til i oppgave 6d.
+Opprett filen `src/app/spillere/[id]/components/rediger-spiller-dialog.tsx`. Foreløpig skal den bare inneholde selve dialog-strukturen med en trigger-knapp og et tomt innhold, skjemaet legger vi til i oppgave 6d.
 
 En dialog i shadcn består av tre deler:
 
-- `Dialog` — container som holder på åpen/lukket-tilstanden
-- `DialogTrigger` — elementet som åpner dialogen når man klikker
-- `DialogContent` — innholdet som vises i selve dialogvinduet
+- `Dialog`, container som holder på åpen/lukket-tilstanden
+- `DialogTrigger`, elementet som åpner dialogen når man klikker
+- `DialogContent`, innholdet som vises i selve dialogvinduet
 
 ```tsx
 import {
@@ -1584,16 +1997,16 @@ Nå skal du erstatte plassholderen i `DialogContent` med et ekte skjema. Legg ti
 <details>
 <summary>Hvorfor er ikke rating med i skjemaet?</summary>
 
-Rating redigeres ikke manuelt — den regnes ut automatisk av serveren etter hver registrerte kamp.
+Rating redigeres ikke manuelt, den regnes ut automatisk av serveren etter hver registrerte kamp.
 
 ELO-systemet fungerer slik:
 
-- **Lagrating** = gjennomsnittet av de to spillernes rating
+- **Lag-rating** = gjennomsnittet av de to spillernes rating
 - **Forventet resultat** beregnes fra ratingdifferansen mellom lagene
-- **Maldifferansen** veier inn: en stor seier gir storre ratingendring enn en knepen
-- **Endringen fordeles likt** mellom de to spillerne pa laget
+- **Måldifferansen** veier inn: en stor seier gir større ratingendring enn en jevn kamp
+- **Endringen fordeles likt** mellom de to spillerne på laget
 
-`rating` er derfor bevisst utelatt fra `SkjemaData` — det er ikke et felt brukeren skal kunne endre.
+`rating` er derfor bevisst utelatt fra `SkjemaData`, det er ikke et felt brukeren skal kunne endre.
 
 </details>
 
@@ -1627,7 +2040,7 @@ import { useForm, useFormContext, FormProvider, Path } from "react-hook-form";
 
 Inne i `SkjemaFelt` kaller du `useFormContext` i stedet for å ta `form` som prop. Vi kan også forenkle props-typen: i stedet for å sende inn feilmeldingsteksten som en streng, sender vi bare `required?: boolean` og konstruerer feilmeldingen fra `label`-proppen.
 
-For å gjøre det bruker vi en **ternary-operator** — en kompakt måte å skrive en if/else på som returnerer en verdi:
+For å gjøre det bruker vi en **ternary-operator**, en kompakt måte å skrive en if/else på som returnerer en verdi:
 
 ```ts
 betingelse ? verdi - hvis - sant : verdi - hvis - usant;
@@ -2068,7 +2481,7 @@ I denne oppgaven bytter vi til URL-tilstand og rydder opp i komponentstrukturen 
 Nå skal du gjøre tre ting:
 
 1. Gjøre `SpillerSok` om til en selvstendig komponent som skriver søket til URL-en
-2. Slette `spiller-sok-og-liste.tsx`, siden vi ikke trenger wrapperen lenger
+2. Slette `src/components/spillere/spiller-sok-og-liste.tsx`, siden vi ikke trenger wrapperen lenger
 3. Flytte filtrering til `page.tsx`, som leser søket fra URL-en via `searchParams`
 
 **Steg 1: Oppdater `SpillerSok`**
@@ -2098,7 +2511,7 @@ function handleChange(verdi: string) {
 
 `useSearchParams()` returnerer et read-only objekt, så du kan ikke kalle `.set()` eller `.delete()` på det direkte. `new URLSearchParams(searchParams.toString())` lager en muterbar kopi du kan redigere.
 
-**Steg 2: Slett `spiller-sok-og-liste.tsx`**
+**Steg 2: Slett `src/components/spillere/spiller-sok-og-liste.tsx`**
 
 Wrapperen trenger du ikke lenger. Slett filen.
 
@@ -3358,8 +3771,8 @@ Løsningen er **streaming**: i stedet for å vente på at all data er klar, send
 
 I Next.js App Router er dette innebygd og fungerer gjennom to mekanismer du kjenner igjen:
 
-- **Async Server Components** — en komponent som er `async` vil suspende Reacts renderingssyklus til den er ferdig
-- **`<Suspense>`** — en wrapper som viser et fallback mens den venter, og bytter til innholdet når det er klart
+- **Async Server Components**, en komponent som er `async` vil suspende Reacts renderingssyklus til den er ferdig
+- **`<Suspense>`**, en wrapper som viser et fallback mens den venter, og bytter til innholdet når det er klart
 
 Fordi `page.tsx` selv ikke er async, returnerer den umiddelbart med Suspense-grensene på plass. Nettleseren ser strukturen med det samme, og seksjonene fyller seg inn etter hvert.
 
@@ -3382,7 +3795,7 @@ page.tsx rendrer umiddelbart
 
 Opprett `src/app/dashboard/page.tsx` med en overskrift og en navigasjonslenke i `side-nav.tsx`.
 
-`page.tsx` skal **ikke** være `async` — siden rendrer umiddelbart og overlater datahenteninga til underseksjonene.
+`page.tsx` skal **ikke** være `async`, siden rendrer umiddelbart og overlater datahenteninga til underseksjonene.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 10a</summary>
@@ -3412,7 +3825,7 @@ Opprett `src/app/dashboard/components/statistikk-kort.tsx`. Komponenten skal vis
 - Totalt antall spillere
 - Totalt antall kamper
 
-Begge hentes parallelt med `Promise.all`. Du trenger bare `totalt` fra kamp-responsen — bruk `?side=1&perSide=1` slik at API-et returnerer minst mulig data:
+Begge hentes parallelt med `Promise.all`. Du trenger bare `totalt` fra kamp-responsen, bruk `?side=1&perSide=1` slik at API-et returnerer minst mulig data:
 
 ```tsx
 const [spillereRes, kamperRes] = await Promise.all([

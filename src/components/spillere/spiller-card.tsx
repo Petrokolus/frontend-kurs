@@ -2,7 +2,7 @@ import { Spiller } from "@/lib/types";
 
 type Props = {
   spiller: Spiller; // Her definerer vi at props skal inneholde en spiller av typen Spiller, som vi har definert i types.ts
-  // Prøv å hovre over Spiller for å se hvilke egenskaper den har, og bruk disse til å vise mer informasjon i kortet!
+  // Prøv å holde musepekeren over Spiller for å se hvilke egenskaper den har, og bruk disse til å vise mer informasjon i kortet!
 };
 
 export default function SpillerCard() {
@@ -14,6 +14,7 @@ export default function SpillerCard() {
     kull: "NK20",
     posisjon: "Angrep",
     rating: 0,
+    skyggerating: 0,
   };
 
   return (

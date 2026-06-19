@@ -326,7 +326,7 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 
 **Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
 
-I React bygger vi brukergrensesnitt av komponenter, gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode):
+I React bygger vi brukergrensesnitt av komponenter — gjenbrukbare byggeklosser som hver har sitt eget ansvar. Et komponent (også kalt funksjonelt komponent) er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode). Her er et superenkelt eksempel på et komponent, som vi her kaller "Hilsen":
 
 ```typescript
 function Hilsen() {
@@ -334,7 +334,7 @@ function Hilsen() {
 }
 ```
 
-For å gjøre en komponent gjenbrukbar sender vi inn data via props (properties). Props fungerer som argumenter til funksjonen:
+For å gjøre et komponent gjenbrukbart sender vi inn data via props (properties). Props fungerer som argumenter til funksjonen:
 
 ```typescript
 type Props = {
@@ -397,12 +397,14 @@ Tailwind CSS nullstiller alle nettleserens innebygde styles, inkludert overskrif
 <h1 className="text-3xl font-bold">Dette er en overskrift</h1>
 ```
 
-Dette er hvordan man styler ved hjelp av Tailwind CSS. Det kodesnutten over gjør:
+Dette er hvordan man "styler", altså legger til design, ved hjelp av Tailwind CSS. Det kodesnutten over gjør:
 
 - _text-3xl_: Setter font-størrelse til XXXL
 - _font-bold_: Setter font-type til bold (fet skrift)
 
-Du finner en fullstendig oversikt over alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenket til i sidemenyen.
+Alle HTML-elementer kan styles på mange forskjellige måter ved hjelp av Tailwind. Du kan lære mer om dette, og finne en fullstendig oversikt over alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenket til i sidemenyen.
+
+Hvis du har lagt til overskriften riktig, så skal du allerede nå kunne se den dukke opp i nettleseren under siden "Spillere".
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 1a</summary>
@@ -1058,7 +1060,7 @@ import Link from "next/link";
   className="bg-twoday-amber rounded px-4 py-2 font-semibold"
 >
   Opprett spiller
-</Link>
+</Link>;
 ```
 
 </details>

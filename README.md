@@ -683,21 +683,13 @@ const spillere = await result.json();
 
 Fordi `page.tsx` er en **server component**, en komponent som kjører på serveren, ikke i nettleseren, kan vi bruke `await` direkte i komponenten uten noe ekstra oppsett. Vi kommer tilbake til hva dette betyr i praksis i oppgave 3.
 
-Når du har hentet spillerne, sitter du igjen med en liste. For å vise hvert element i en liste bruker vi `.map()`, som går gjennom hvert element og returnerer JSX:
-
-```tsx
-spillere.map((spiller) => <SpillerCard key={spiller.id} spiller={spiller} />);
-```
-
-`key` er et spesielt React-attributt som hjelper React å holde styr på hvilket element i listen som er hvilket. Bruk alltid en unik verdi, her passer `id` perfekt.
-
-Prøv å hente spillerne fra API-et og bruk `.map()` til å vise en liste med alle spillerne!
+Hent spillerne fra API-et og send dem til `SpillereListe` på samme måte som du sendte `mockSpillere` i oppgave 1c. Fjern `mockSpillere`-konstanten nå som vi har ekte data.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 1f</summary>
 
 ```tsx
-import SpillerCard from "@/components/spillere/spiller-card";
+import SpillereListe from "@/components/spillere/spillere-liste";
 import { Spiller } from "@/lib/types";
 
 export default async function SpillerePage() {
@@ -709,11 +701,7 @@ export default async function SpillerePage() {
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        {spillere.map((spiller) => (
-          <SpillerCard key={spiller.id} spiller={spiller} />
-        ))}
-      </div>
+      <SpillereListe spillere={spillere} />
     </div>
   );
 }
@@ -1053,14 +1041,28 @@ Du har brukt `<Link>` fra `next/link` i oppgave 2. Bruk det samme mønsteret her
 
 ```tsx
 import Link from "next/link";
+import SpillereListe from "@/components/spillere/spillere-liste";
+import { Spiller } from "@/lib/types";
 
-// I flex-diven ved siden av overskriften:
-<Link
-  href="/spillere/opprett"
-  className="bg-twoday-amber rounded px-4 py-2 font-semibold"
->
-  Opprett spiller
-</Link>;
+export default async function SpillerePage() {
+  const result = await fetch("http://localhost:3000/api/spillere");
+  const spillere: Spiller[] = await result.json();
+
+  return (
+    <div className="max-w-4xl p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+        <Link
+          href="/spillere/opprett"
+          className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+        >
+          Opprett spiller
+        </Link>
+      </div>
+      <SpillereListe spillere={spillere} />
+    </div>
+  );
+}
 ```
 
 </details>
@@ -1294,12 +1296,9 @@ Importer og vis `SpillerSok` i `page.tsx`. Foreløpig trenger du ikke koble den 
 
 import { useState } from "react";
 
-type Props = {
-  sok: string;
-  setSok: (verdi: string) => void;
-};
+export default function SpillerSok() {
+  const [sok, setSok] = useState("");
 
-export default function SpillerSok({ sok, setSok }: Props) {
   return (
     <input
       value={sok}

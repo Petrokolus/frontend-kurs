@@ -226,7 +226,7 @@ cd frontend-kurs
 
 ---
 
-### Steg 3, Åpne prosjektet i VS Code
+### Steg 2, Åpne prosjektet i VS Code
 
 ```bash
 code .
@@ -236,7 +236,7 @@ VS Code åpner seg med prosjektmappen. Hvis kommandoen ikke fungerer, åpne VS C
 
 ---
 
-### Steg 4, Åpne terminalen i VS Code
+### Steg 3, Åpne terminalen i VS Code
 
 Klikk på **Terminal** i menyen øverst → **New Terminal**.
 
@@ -252,7 +252,7 @@ Du skal se en filsti som slutter på `frontend-kurs`. Hvis ikke, spør kursholde
 
 ---
 
-### Steg 5, Installer avhengigheter
+### Steg 4, Installer avhengigheter
 
 ```bash
 pnpm install
@@ -266,7 +266,7 @@ Done in Xs
 
 ---
 
-### Steg 6, Start utviklingsserveren
+### Steg 5, Start utviklingsserveren
 
 ```bash
 pnpm dev
@@ -282,7 +282,7 @@ Du skal se noe som ligner på dette:
 
 ---
 
-### Steg 7, Åpne applikasjonen
+### Steg 6, Åpne applikasjonen
 
 Åpne nettleseren og gå til:
 
@@ -326,7 +326,7 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 
 **Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
 
-I React bygger vi brukergrensesnitt av komponenter — gjenbrukbare byggeklosser som hver har sitt eget ansvar. Et komponent (også kalt funksjonelt komponent) er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode). Her er et superenkelt eksempel på et komponent, som vi her kaller "Hilsen":
+I React bygger vi brukergrensesnitt av komponenter, gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent (også kalt funksjonelt komponent) er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode). Her er et superenkelt eksempel på en komponent, som vi her kaller "Hilsen":
 
 ```typescript
 function Hilsen() {
@@ -334,7 +334,7 @@ function Hilsen() {
 }
 ```
 
-For å gjøre et komponent gjenbrukbart sender vi inn data via props (properties). Props fungerer som argumenter til funksjonen:
+For å gjøre en komponent gjenbrukbar sender vi inn data via props (properties). Props fungerer som argumenter til funksjonen:
 
 ```typescript
 type Props = {
@@ -352,13 +352,13 @@ function Hilsen({ navn }: Props) {
 
 Siden vi også skriver i TypeScript, så kan du se at vi definerer typen på alle props.
 
-Du skal jobbe i disse filene:
+I oppgave 1 skal du jobbe i disse filene:
 
 - `src/components/spillere/spiller-card.tsx`, komponenten som viser informasjon om én spiller
 - `src/components/spillere/spillere-liste.tsx`, liste-komponent som setter sammen SpillerCard-komponenter til en oversikt
 - `src/app/spillere/page.tsx`, filen som definerer selve siden. Her henter vi data fra API-et og sender det videre som props til komponentene vi vil vise.
 
-Legg merke til at de to første filene ligger i `src/components/`, mens den siste ligger i `src/app/`. Filer i `app/` definerer sider og ruter man kan navigere til, Next.js behandler dem spesielt. Komponenter som `SpillerCard` og `SpillereListe` er derimot gjenbrukbare byggeklosser som ikke hører til én bestemt side, så de bor i `components/`.
+Legg merke til at de to første filene ligger i `src/components/`, mens den siste ligger i `src/app/`. Filer i `app/` definerer sider og routes man kan navigere til. Next.js behandler dem spesielt. Komponenter som `SpillerCard` og `SpillereListe` er derimot gjenbrukbare byggeklosser som ikke hører til én bestemt side, så de bor i `components/`.
 
 Vi går gjennom disse steg for steg i oppgavene under.
 
@@ -390,13 +390,15 @@ Hvis du har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av o
 Alle sider trenger en overskrift! Naviger til `page.tsx` og legg til overskriften "Spillere". HTML har sitt eget element for overskrifter:
 
 ```typescript
-<h1>Dette er en overskrift</h1>
+<h1>Spillere</h1>
 ```
+
+`h` står for "heading". HTML har seks nivåer, fra `<h1>` (viktigst, størst) til `<h6>` (minst viktig). `<h1>` brukes til sidetittelen, `<h2>` til seksjoner under den, og så videre. En side bør bare ha én `<h1>`.
 
 Tailwind CSS nullstiller alle nettleserens innebygde styles, inkludert overskrifter. Det betyr at `<h1>` ikke automatisk ser stor og fet ut, slik den gjør når man bruker vanlig CSS. Du må legge til stilene selv via `className`:
 
 ```tsx
-<h1 className="text-3xl font-bold">Dette er en overskrift</h1>
+<h1 className="text-3xl font-bold">Spillere</h1>
 ```
 
 Dette er hvordan man "styler", altså legger til design, ved hjelp av Tailwind CSS. Det kodesnutten over gjør:
@@ -417,6 +419,8 @@ export default async function SpillerePage() {
     <div className="max-w-4xl p-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
+        {/* Oppgave 1b - LEGG TIL ET SPILLERCARD HER */}
+        {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
       </div>
       <p>Her var det ganske tomt foreløpig!</p>
     </div>
@@ -453,7 +457,10 @@ import SpillerCard from "@/components/spillere/spiller-card";
 export default async function SpillerePage() {
   return (
     <div className="max-w-4xl p-8">
-      <h1 className="text-3xl font-bold">Spillere</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+        {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
+      </div>
       <SpillerCard />
     </div>
   );
@@ -470,7 +477,7 @@ Nå som vi kan vise ett kort, er målet å vise flere. Til det har vi `SpillereL
 
 `SpillereListe` forventer en prop som heter `spillere`, et array av `Spiller`-objekter. Siden vi ikke henter ekte data fra API-et enda, lager vi en mock-liste for å teste at det fungerer.
 
-Erstatt `<SpillerCard />` i `page.tsx` med dette:
+Erstatt `<SpillerCard />` i `page.tsx` med dette. Husk at `mockSpillere` er en konstant og skal ligge før `return`, ikke inni JSX-en:
 
 ```tsx
 import SpillereListe from "@/components/spillere/spillere-liste";
@@ -529,31 +536,33 @@ Se på hvordan `SpillereListe` tar imot `spillere` som prop. `SpillerCard` skal 
 import SpillereListe from "@/components/spillere/spillere-liste";
 import { Spiller } from "@/lib/types";
 
-const mockSpillere: Spiller[] = [
-  {
-    id: 1,
-    navn: "Ola Nordmann",
-    avdeling: "Digital Engineering",
-    kull: "NK20",
-    posisjon: "Angrep",
-    rating: 100,
-    skyggerating: 100,
-  },
-  {
-    id: 2,
-    navn: "Kari Nordmann",
-    avdeling: "Design",
-    kull: "NK21",
-    posisjon: "Forsvar",
-    rating: 90,
-    skyggerating: 85,
-  },
-];
-
 export default async function SpillerePage() {
+  const mockSpillere: Spiller[] = [
+    {
+      id: 1,
+      navn: "Ola Nordmann",
+      avdeling: "Digital Engineering",
+      kull: "NK20",
+      posisjon: "Angrep",
+      rating: 100,
+      skyggerating: 100,
+    },
+    {
+      id: 2,
+      navn: "Kari Nordmann",
+      avdeling: "Design",
+      kull: "NK21",
+      posisjon: "Forsvar",
+      rating: 90,
+      skyggerating: 85,
+    },
+  ];
   return (
     <div className="max-w-4xl p-8">
-      <h1 className="text-3xl font-bold">Spillere</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+        {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
+      </div>
       <SpillereListe spillere={mockSpillere} />
     </div>
   );
@@ -639,6 +648,12 @@ import Image from "next/image";
 
 Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens data. Husk at du kan sette inn variabler i en streng med template literals: `` `/spiller/${spiller.id}.png` ``
 
+Vi anbefaler også å legge til denne `className` for å få bildet til å se bra ut:
+
+```tsx
+className = "aspect-square rounded-full object-cover";
+```
+
 <details class="losningsforslag">
 <summary>Løsningsforslag 1e</summary>
 
@@ -676,11 +691,11 @@ export default function SpillerCard({ spiller }: Props) {
 
 #### Oppgave 1f - Hent spillere
 
-Vi har en lokal database med foosball-spillere! Innhold derfra kan hentes gjennom API-et på denne måten:
+Vi har en lokal database med foosball-spillere fra Twoday! Innhold derfra kan hentes gjennom API-et på denne måten:
 
 ```ts
 const result = await fetch("http://localhost:3000/api/spillere");
-const spillere = await result.json();
+const spillere: Spiller[] = await result.json();
 ```
 
 Fordi `page.tsx` er en **server component**, en komponent som kjører på serveren, ikke i nettleseren, kan vi bruke `await` direkte i komponenten uten noe ekstra oppsett. Vi kommer tilbake til hva dette betyr i praksis i oppgave 3.
@@ -702,6 +717,7 @@ export default async function SpillerePage() {
     <div className="max-w-4xl p-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
+        {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
       </div>
       <SpillereListe spillere={spillere} />
     </div>
@@ -719,7 +735,7 @@ export default async function SpillerePage() {
 
 I oppgave 1 bygde vi en liste over alle spillere. Nå skal vi lage en detaljside for hver enkelt spiller og lenke til den, slik at man kan navigere til detaljsiden ved å klikke på et spillerkort i listen.
 
-I denne oppgaven skal vi også bli kjent med **API-dokumentasjonen**, et verktøy du finner i sidemenyen under "API-dokumentasjon". Der kan du se alle tilgjengelige API-ruter, hva de returnerer, og teste dem direkte i nettleseren. Dette er noe du vil bruke mye på jobb, så det er lurt å bli komfortabel med det tidlig.
+I denne oppgaven skal vi også bli kjent med **API-dokumentasjonen**, et verktøy du finner i sidemenyen under "API-dokumentasjon". Der kan du se alle tilgjengelige API-routes, hva de returnerer, og teste dem direkte i nettleseren. Dette er noe du vil bruke mye på jobb, så det er lurt å bli komfortabel med det tidlig.
 
 #### Oppgave 2a – Besøk detaljsiden
 
@@ -740,17 +756,17 @@ Dette forteller Next.js at dette segmentet av URL-en er dynamisk og kan innehold
 | `app/kamper/[kampNr]/page.tsx` | `http://localhost:3000/kamper/1`, `http://localhost:3000/kamper/2`, osv.                   |
 | `app/kamper/[liga]/page.tsx`   | `http://localhost:3000/kamper/sommerliga`, `http://localhost:3000/kamper/vinterliga`, osv. |
 
-I dette tilfellet vil tekststrengen du putter inni klammeparaesene (`id`, `kampNr`, `liga`) være tilgjengelig som en variabel i `page.tsx`-filen gjennom `params`-objektet som Next.js automatisk sender inn i siden.
+I dette tilfellet vil tekststrengen du putter inni firkantparentesene (`id`, `kampNr`, `liga`) være tilgjengelig som en variabel i `page.tsx`-filen gjennom `params`-objektet som Next.js automatisk sender inn i siden.
 
 > **OBS:** Next.js tolker visse filnavn i `app`-mappen på en spesiell måte. `page.tsx` er ett av dem, men det finnes flere: `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx` og `template.tsx`. Disse er reservert for Next.js og bør ikke brukes som navn på egne komponenter.
 
-For å hjelpe du i gang har vi allerede laget en ferdig fil på `src/app/spillere/[id]/page.tsx`. Naviger til `http://localhost:3000/spillere/1`, `http://localhost:3000/spillere/2`, `http://localhost:3000/spillere/3` i nettleseren. Ser du hvordan tittelen endres basert på `id`-verdien i URL-en?
+For å hjelpe deg i gang har vi allerede opprettet `src/app/spillere/[id]/page.tsx`. Naviger til `http://localhost:3000/spillere/1`, `http://localhost:3000/spillere/2`, `http://localhost:3000/spillere/3` i nettleseren. Ser du hvordan tittelen endres basert på `id`-verdien i URL-en?
 
 #### Oppgave 2b – Utforsk API-et i API-dokumentasjonen
 
 Før vi skriver kode, la oss utforske hva API-et tilbyr. Klikk på **API-dokumentasjon** i sidemenyen.
 
-Her finner du en oversikt over alle tilgjengelige API-ruter. Klikk på ruten `GET /api/spillere/{id}` og deretter på **"Try it out"**. Skriv inn en spiller-ID (f.eks. `1`) og klikk **"Execute"**. Du vil se nøyaktig hva API-et returnerer, og dette er dataen du skal bruke på detaljsiden.
+Her finner du en oversikt over alle tilgjengelige API-routes. Klikk på routen `GET /api/spillere/{id}`, skriv inn en spiller-ID (f.eks. `1`) og klikk **"Execute"**. Du vil se nøyaktig hva API-et returnerer, og dette er dataen du skal bruke på detaljsiden.
 
 På jobb vil du bruke API-dokumentasjon til å forstå hva som er tilgjengelig og hvordan dataen ser ut, før du begynner å kode. Gjør deg kjent med det!
 
@@ -788,9 +804,10 @@ export default async function SpillerPage({ params }: Props) {
   return (
     <div className="max-w-2xl p-8">
       <h1 className="text-3xl font-bold">{spiller.navn}</h1>
-      <p>{spiller.avdeling}</p>
+      <p>
+        {spiller.avdeling} - {spiller.kull}
+      </p>
       <p>{spiller.posisjon}</p>
-      <p>Kull: {spiller.kull}</p>
       <p>Rating: {spiller.rating}</p>
     </div>
   );
@@ -841,26 +858,48 @@ Du finner alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenk
 <summary>Løsningsforslag 2e</summary>
 
 ```tsx
-<div className="flex min-h-screen items-start justify-center p-8">
-  <div className="flex w-full max-w-lg flex-col items-center gap-6 rounded-xl border p-8">
-    <Image
-      src={`/spiller/${id}.png`}
-      alt={`Profilbilde av ${spiller.navn}`}
-      width={128}
-      height={128}
-      className="aspect-square rounded-full object-cover"
-    />
-    <div className="flex flex-col items-center gap-2 text-center">
-      <h1 className="text-3xl font-bold">{spiller.navn}</h1>
-      <p className="text-muted-foreground">{spiller.avdeling}</p>
-      <p>{spiller.posisjon}</p>
-      <p>Kull: {spiller.kull}</p>
-      <p>Rating: {spiller.rating}</p>
-      {spiller.styrke && <p>Styrke: {spiller.styrke}</p>}
-      {spiller.svakhet && <p>Svakhet: {spiller.svakhet}</p>}
+// Mappenavnet [id] gjør at Next.js fanger opp alle URLer som /spillere/1, /spillere/42 osv.
+
+import { Spiller } from "@/lib/types";
+import Image from "next/image";
+
+// id-en fra URL-en er tilgjengelig via params-objektet nedenfor.
+type Props = {
+  params: Promise<{ id: string }>; // id fra URL-en, f.eks. "1"
+};
+
+export default async function SpillerPage({ params }: Props) {
+  const { id } = await params; // Hent ut id-en
+
+  const result = await fetch(`http://localhost:3000/api/spillere/${id}`);
+  const spiller: Spiller = await result.json();
+
+  return (
+    <div className="flex min-h-screen items-start justify-center p-8">
+      <div className="flex w-full max-w-lg flex-col items-center gap-6 rounded-xl border p-8">
+        <Image
+          src={`/spiller/${id}.png`}
+          alt={`Profilbilde av ${spiller.navn}`}
+          width={200}
+          height={200}
+          className="aspect-square rounded-4xl object-cover"
+        />
+        <div className="flex flex-col items-center gap-2 text-center">
+          <h1 className="text-3xl font-bold">{spiller.navn}</h1>
+          <p className="text-muted-foreground">
+            {spiller.avdeling} - {spiller.kull}
+          </p>
+          <p>{spiller.posisjon}</p>
+          <p>
+            Rating: {spiller.rating} ({spiller.skyggerating})
+          </p>
+          {spiller.styrke && <p>Styrke: {spiller.styrke}</p>}
+          {spiller.svakhet && <p>Svakhet: {spiller.svakhet}</p>}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  );
+}
 ```
 
 </details>
@@ -875,7 +914,7 @@ import Link from "next/link";
 <Link href="/spillere/1">Gå til Erik Solberg</Link>;
 ```
 
-`<Link>` er på mange måter bare en vanlig `<a>`-tag, men den har noen fordeler som gjør navigasjonen raskere, blant annet "pre-fetching". Prefetching er at den begynner å laste inn siden den peker på, før du navigerer dit, slik at navigeringen føles raskere.
+`<Link>` er på mange måter bare en vanlig `<a>`-tag, men den har noen fordeler som gjør navigasjonen raskere, blant annet **pre-fetching**. Prefetching betyr at `<Link>` begynner å laste inn siden den peker på i bakgrunnen, slik at navigeringen føles raskere når du klikker.
 
 Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan klikke på et spillerkort og komme til detaljsiden for den spilleren.
 
@@ -952,7 +991,7 @@ const navn = state[0];
 const setNavn = state[1];
 ```
 
-Destrukturering er bare en snarvei for å hente ut elementer fra en liste. Navnene `navn` og `setNavn` velger vi selv, men konvensjonen er å kalle dem `noe` og `setNoe`.
+Destrukturering er bare en snarvei for å hente ut elementer fra en liste eller et objekt. Navnene `navn` og `setNavn` velger vi selv, men konvensjonen er å kalle dem `noe` og `setNoe`.
 
 #### Skjemaer og kontrollerte inputs
 
@@ -980,7 +1019,7 @@ const [skjema, setSkjema] = useState({
 />;
 ```
 
-`{ ...skjema, navn: e.target.value }` betyr: «ta alle verdiene fra det gamle skjema-objektet, men bytt ut `navn` med den nye verdien». Dette kalles en **spread** og er en vanlig måte å oppdatere objekter i React på.
+`{ ...skjema, navn: e.target.value }` betyr: «ta alle verdiene fra det gamle skjema-objektet, men overskriv `navn` med den nye verdien». Dette kalles en **spread** og er en vanlig måte å oppdatere objekter i React på.
 
 #### Tilgjengelighet: label og id
 
@@ -994,6 +1033,8 @@ For at skjemaet skal fungere godt for alle, inkludert brukere med skjermleser, e
 Dette gjør at klikk på etiketten fokuserer feltet, og at skjermlesere leser opp hva feltet er for.
 
 ---
+
+Vil du lære mer om hvordan ratingsystemet fungerer? Les gjerne mer her:
 
 <details>
 <summary>Hva skjer med ratingen til en ny spiller?</summary>
@@ -1012,7 +1053,7 @@ Ratingen oppdateres automatisk etter hver registrerte kamp, basert på et tilpas
 <details>
 <summary>Hva er skyggerating?</summary>
 
-**Skyggerating** viser formen til en spiller på kort sikt, ikke hvem de er totalt sett, men hvem de _har vært_ de siste kampene.
+**Skyggerating** viser formen til en spiller på kort sikt, ikke hvor gode de er totalt sett, men hvor gode de _har vært_ de siste kampene.
 
 En spiller kan ha en solid langsiktig rating på 550, men skyggeratingen kan vise 620 hvis de har hatt en sterk periode, eller 480 hvis formen har sviktet.
 
@@ -1032,7 +1073,7 @@ Skyggeratingen tar også hensyn til **vinnstreaker og tapstreaker**. Flere seier
 
 </details>
 
-#### Oppgave 3a – Legg til lenke til opprett-siden
+#### Oppgave 3a – Legg til lenke til "Opprett spiller"-siden
 
 Skjemaet bor på sin egen side: `/spillere/opprett`. Legg til en `<Link>` i `src/app/spillere/page.tsx`, rett under overskriften, som tar brukeren dit.
 
@@ -1069,7 +1110,41 @@ export default async function SpillerePage() {
 
 </details>
 
-#### Oppgave 3b – Legg til inputfeltene
+#### Oppgave 3b – Oppdater `SkjemaData`-typen og startverdiene
+
+Øverst i filen er det definert en type `SkjemaData` og en startverdi for `useState`. Disse inneholder foreløpig bare `navn`. Legg til de andre feltene her også.
+
+<details class="hint">
+<summary>Hint</summary>
+
+TypeScript vil gi deg rød understrek hvis du glemmer et felt. Hvis du hoverer over feilmeldingene kan du se hva som forventes.
+
+</details>
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 3b</summary>
+
+Oppdater typen og startverdiene øverst i filen:
+
+```tsx
+type SkjemaData = {
+  navn: string;
+  avdeling: string;
+  kull: string;
+  posisjon: string;
+};
+
+const [skjema, setSkjema] = useState<SkjemaData>({
+  navn: "",
+  avdeling: "",
+  kull: "",
+  posisjon: "",
+});
+```
+
+</details>
+
+#### Oppgave 3c – Legg til inputfeltene
 
 Skjemaet har allerede et felt for `navn`. Legg til felter for `avdeling`, `kull` og `posisjon`. Bruk samme mønster som `navn`-feltet.
 
@@ -1091,43 +1166,14 @@ Se på `Spiller`-typen i `lib/types.ts` for å se hvilke felter en spiller har.
 </details>
 
 <details class="losningsforslag">
-<summary>Løsningsforslag 3b</summary>
-
-Legg til ett felt per egenskap. Her er `avdeling` som eksempel, kopier mønsteret for `kull` og `posisjon`:
-
-```tsx
-<div className="flex flex-col gap-1">
-  <label htmlFor="avdeling">Avdeling</label>
-  <input
-    id="avdeling"
-    type="text"
-    value={skjema.avdeling}
-    onChange={(e) => setSkjema({ ...skjema, avdeling: e.target.value })}
-    className="rounded border px-3 py-2"
-    required
-  />
-</div>
-```
-
-</details>
-
-#### Oppgave 3c – Oppdater `SkjemaData`-typen og startverdiene
-
-Øverst i filen er det definert en type `SkjemaData` og en startverdi for `useState`. Disse inneholder foreløpig bare `navn`. Legg til de andre feltene her også.
-
-<details class="hint">
-<summary>Hint</summary>
-
-TypeScript vil gi deg rød understrek hvis du glemmer et felt. Hvis du hoverer over feilmeldingene kan du se hva som forventes.
-
-</details>
-
-<details class="losningsforslag">
 <summary>Løsningsforslag 3c</summary>
 
-Oppdater typen og startverdiene øverst i filen:
-
 ```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 type SkjemaData = {
   navn: string;
   avdeling: string;
@@ -1135,12 +1181,91 @@ type SkjemaData = {
   posisjon: string;
 };
 
-const [skjema, setSkjema] = useState<SkjemaData>({
-  navn: "",
-  avdeling: "",
-  kull: "",
-  posisjon: "",
-});
+export default function OpprettSpillerSkjema() {
+  const router = useRouter();
+
+  const [skjema, setSkjema] = useState<SkjemaData>({
+    navn: "",
+    avdeling: "",
+    kull: "",
+    posisjon: "",
+  });
+
+  async function handleSubmit(data: SkjemaData) {
+    const response = await fetch("http://localhost:3000/api/spillere", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      // Oppgave 3e: Naviger til den nye spillerens detaljside
+    }
+  }
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(skjema);
+      }}
+      className="flex flex-col gap-4"
+    >
+      <div className="flex flex-col gap-1">
+        <label htmlFor="navn">Navn</label>
+        <input
+          id="navn"
+          type="text"
+          value={skjema.navn}
+          onChange={(e) => setSkjema({ ...skjema, navn: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="avdeling">Avdeling</label>
+        <input
+          id="avdeling"
+          type="text"
+          value={skjema.avdeling}
+          onChange={(e) => setSkjema({ ...skjema, avdeling: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="kull">Kull</label>
+        <input
+          id="kull"
+          type="text"
+          value={skjema.kull}
+          onChange={(e) => setSkjema({ ...skjema, kull: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="posisjon">Posisjon</label>
+        <input
+          id="posisjon"
+          type="text"
+          value={skjema.posisjon}
+          onChange={(e) => setSkjema({ ...skjema, posisjon: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
+      {/* Oppgave 3d: Legg til valgfrie felter for styrke og svakhet */}
+
+      <button
+        type="submit"
+        className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+      >
+        Opprett spiller
+      </button>
+    </form>
+  );
+}
 ```
 
 </details>
@@ -1253,6 +1378,14 @@ async function handleSubmit(data: SkjemaData) {
 
 </details>
 
+#### Oppgave 3f – Test at det fungerer
+
+Fyll inn skjemaet og opprett en spiller. Sjekk at:
+
+1. Du blir sendt videre til detaljsiden for den nye spilleren
+2. Spilleren dukker opp i listen på `/spillere`
+3. Detaljsiden viser riktig informasjon
+
 ---
 
 ## Oppgave 4 – Hooks i praksis
@@ -1263,7 +1396,7 @@ Hooks er spesielle funksjoner i React som gir komponentene dine tilgang til tils
 
 Det finnes et par regler for når hooks kan brukes:
 
-- Hooks skal alltid kalles øverst i komponenten, aldri inne i if-setninger eller løkker
+- Hooks skal alltid kalles øverst i komponenten, aldri inne i, eller etter, if-setninger, løkker eller andre blokker
 - Hooks kan bare brukes i React-komponenter (eller i egne custom hooks)
 
 I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil du bruke alle tre hookene til forskjellige ting, og det er poenget, de løser ulike problemer:
@@ -1288,7 +1421,7 @@ Komponenten skal ha:
 const [sok, setSok] = useState("");
 ```
 
-Importer og vis `SpillerSok` i `page.tsx`. Foreløpig trenger du ikke koble den til spillerlisten, det kommer i neste steg.
+Importer og vis `SpillerSok` i `src/app/spillere/page.tsx`. Foreløpig trenger du ikke koble den til spillerlisten, det kommer i neste steg.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 4a</summary>
@@ -1300,13 +1433,13 @@ import { useState } from "react";
 
 export default function SpillerSok() {
   const [sok, setSok] = useState("");
-
   return (
     <input
+      type="text"
+      placeholder="Søk etter spillere..."
+      className="w-full rounded border px-3 py-2"
       value={sok}
       onChange={(e) => setSok(e.target.value)}
-      placeholder="Søk etter spiller..."
-      className="rounded border px-3 py-2"
     />
   );
 }
@@ -1320,7 +1453,7 @@ Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvil
 
 Vi har laget en halvferdig fil til deg: `src/components/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
 
-Når den er ferdig, erstatt det du la til i `page.tsx` i forrige oppgave med:
+Når den er ferdig, erstatt `SpillerSok` og `SpillereListe` i `page.tsx` med:
 
 ```tsx
 <SpillerSokOgListe spillere={spillere} />
@@ -1405,21 +1538,27 @@ useEffect(() => {
 }, [sok]);
 ```
 
-Og les den ut som startverdi i `useState`, slik at søket er gjenopprettet neste gang siden lastes:
+Og les den ut med en egen `useEffect` som kjører én gang når komponenten mountes, slik at søket er gjenopprettet neste gang siden lastes. Vi kan ikke lese `localStorage` direkte i `useState` fordi komponenten også rendres på serveren, og `localStorage` finnes bare i nettleseren:
 
 ```tsx
-const [sok, setSok] = useState(() => localStorage.getItem("spillerSok") ?? "");
+useEffect(() => {
+  setSok(localStorage.getItem("spillerSok") ?? "");
+}, []);
 ```
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 4c</summary>
 
-Legg til disse to linjene i `SpillerSokOgListe`:
+Legg til disse linjene i `SpillerSokOgListe`:
 
 ```tsx
 import { useState, useEffect } from "react";
 
-const [sok, setSok] = useState(() => localStorage.getItem("spillerSok") ?? "");
+const [sok, setSok] = useState("");
+
+useEffect(() => {
+  setSok(localStorage.getItem("spillerSok") ?? "");
+}, []);
 
 useEffect(() => {
   localStorage.setItem("spillerSok", sok);
@@ -1450,22 +1589,34 @@ useEffect(() => {
 <details class="losningsforslag">
 <summary>Løsningsforslag 4d</summary>
 
-Legg til disse linjene i `SpillerSok`:
-
 ```tsx
-import { useState, useEffect, useRef } from "react";
+"use client";
 
-const inputRef = useRef<HTMLInputElement>(null);
+import { useEffect, useRef } from "react";
 
-useEffect(() => {
-  inputRef.current?.focus();
-}, []);
-```
+type Props = {
+  sok: string;
+  setSok: (sok: string) => void;
+};
 
-Og legg til `ref`-attributtet på `<input>`-elementet:
+export default function SpillerSok({ sok, setSok }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
 
-```tsx
-<input ref={inputRef} ... />
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  return (
+    <input
+      ref={inputRef}
+      type="text"
+      placeholder="Søk etter spillere..."
+      className="w-full rounded border px-3 py-2"
+      value={sok}
+      onChange={(e) => setSok(e.target.value)}
+    />
+  );
+}
 ```
 
 </details>
@@ -1476,13 +1627,13 @@ Og legg til `ref`-attributtet på `<input>`-elementet:
 
 **Hva du skal lære:** Installere og bruke en tredjeparts React-pakke, fordelen med `react-hook-form` over manuell state, og skjemavalidering.
 
-I oppgave 3 bygde vi et skjema med manuell `useState` for hvert felt. Det fungerer, men det er mye kode å vedlikeholde, og jo flere felter, jo mer tungvint blir det. En vanlig løsning i frontend-verdenen er å bruke et skjemabibliotek. Vi skal bruke **React Hook Form**, som er en av de mest utbredte løsningene i React-prosjekter i dag.
+I oppgave 3 bygde vi et skjema med manuell `useState` for å holde styr på alle feltene. Det fungerer, men det er mye kode å vedlikeholde, og jo flere felter, jo mer tungvint blir det. En vanlig løsning i frontend-verdenen er å bruke et skjemabibliotek. Vi skal bruke **React Hook Form**, som er en av de mest utbredte løsningene i React-prosjekter i dag.
 
 React Hook Form er ikke en del av React selv. Det er en separat pakke vi må installere. Dette er et mønster du vil møte hele tiden på prosjekt: du finner et bibliotek som løser problemet du har, og du legger det til i prosjektet.
 
 #### Oppgave 5a: Installer React Hook Form
 
-Pakker installeres med pnpm i terminalen. Åpne terminalen i VS Code og kjør:
+Pakker installeres med pnpm i terminalen. Siden dev-serveren kjører i terminalen din, åpner du en **ny terminal** i VS Code (**Terminal → New Terminal**) og kjører:
 
 ```bash
 pnpm add react-hook-form
@@ -1490,13 +1641,15 @@ pnpm add react-hook-form
 
 `pnpm add` henter pakken fra internett og legger den til i `package.json`. Etter at kommandoen er ferdig kan du bekrefte at det gikk bra ved å se at `react-hook-form` dukker opp under `dependencies` i `package.json`.
 
+> **Tips:** Etter at en ny pakke er installert henger TypeScript-serveren i VS Code noen ganger etter. Hvis intellisense ikke foreslår riktige importer, trykk **Ctrl + Shift + P**, søk etter **"TypeScript: Restart TS Server"** og trykk Enter.
+
 #### Oppgave 5b: Ta i bruk `useForm`
 
 React Hook Form gir oss en hook som heter `useForm`. Den returnerer alt vi trenger for å håndtere skjemaet: registrering av felt, innsending og feilhåndtering.
 
-Naviger til `src/components/spillere/opprett-spiller-skjema.tsx`. Filen har et skjema med manuell `useState`. Vi skal nå skrive den om til å bruke `useForm`.
+Naviger til `src/components/spillere/opprett-spiller-skjema.tsx`, skjemaet du bygde i oppgave 3. Vi skal nå skrive det om til å bruke `useForm`.
 
-Importer `useForm` og kall den øverst i komponenten. Legg også til de resterende feltene i `SkjemaData`-typen:
+Importer `useForm` og kall den øverst i komponenten.
 
 ```tsx
 import { useForm } from "react-hook-form";
@@ -1513,10 +1666,6 @@ type SkjemaData = {
 const form = useForm<SkjemaData>();
 ```
 
-Vi lagrer resultatet i en variabel vi kaller `form`. Da er det tydelig at `form.register`, `form.handleSubmit` og så videre alle kommer fra React Hook Form.
-
-Du kan nå fjerne `useState`-importen og `skjema`-konstanten. React Hook Form holder styr på feltene for deg.
-
 #### Oppgave 5c: Konverter ett felt
 
 Med `useState` koblet vi hvert felt til state med `value` og `onChange`. Med React Hook Form sprer vi `form.register()` direkte inn i inputet i stedet:
@@ -1529,6 +1678,31 @@ Med `useState` koblet vi hvert felt til state med `value` og `onChange`. Med Rea
 
 Konverter `navn`-feltet til å bruke `form.register`. Fjern `value`, `onChange` og `required`-attributtene som du ikke lenger trenger.
 
+<details class="losningsforslag">
+<summary>Løsningsforslag 5c</summary>
+
+```tsx
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(skjema);
+      }}
+      className="flex flex-col gap-4"
+    >
+      <div className="flex flex-col gap-1">
+        <label htmlFor="navn">Navn</label>
+        <input
+          id="navn"
+          type="text"
+          {...form.register("navn", { required: "Navn er påkrevd" })}
+          className="rounded border px-3 py-2"
+        />
+      </div>
+```
+
+</details>
+
 #### Oppgave 5d: Bytt til shadcn-komponenter
 
 Prosjektet har ferdiglagde komponenter for skjemaelementer som gir deg konsistent styling uten at du trenger å skrive CSS selv. Bytt ut `<label>` og `<input>` i `navn`-feltet med `Label`, `Input` og `FieldError` fra komponentbiblioteket:
@@ -1538,18 +1712,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FieldError } from "@/components/ui/field";
 
-<Label htmlFor="navn">Navn</Label>
+<Label htmlFor="navn" className="text-lg">Navn</Label>
 <Input id="navn" {...form.register("navn", { required: "Navn er påkrevd" })} />
 <FieldError errors={[form.formState.errors.navn]} />
 ```
 
 `FieldError` tar inn en liste med feilobjekter og viser dem for deg. Den viser ingenting når det ikke er noen feil, så du trenger ingen ekstra `if`-sjekk.
 
-Nå har du sett det fulle mønsteret for ett felt: `useForm`, `form.register`, og shadcn-komponenter med feilvisning. Gjenta det for alle de resterende feltene.
-
 #### Oppgave 5e: Fullfør skjemaet
 
-Du har nå alle brikkene. Konverter de resterende feltene (`avdeling`, `kull`, `posisjon`, `styrke`, `svakhet`) til samme mønster. Husk at valgfrie felt ikke trenger valideringsregler.
+Nå har du sett det fulle mønsteret for ett felt: `useForm`, `form.register`, og shadcn-komponenter med feilvisning. Du har nå alle brikkene. Konverter de resterende feltene (`avdeling`, `kull`, `posisjon`, `styrke`, `svakhet`) til samme mønster. Husk at valgfrie felt ikke trenger valideringsregler.
 
 Til slutt må du oppdatere `onSubmit` til å bruke `form.handleSubmit`. Lag en egen funksjon for logikken og send den inn:
 
@@ -1564,7 +1736,7 @@ async function opprettSpiller(data: SkjemaData) {
 `form.handleSubmit` kjører validering først og kaller `opprettSpiller` bare hvis alle feltene er gyldige. Flytt `fetch`-kallet og navigeringen inn i `opprettSpiller`, og fjern den gamle `handleSubmit`-funksjonen.
 
 <details class="losningsforslag">
-<summary>Løsningsforslag 5b-5e</summary>
+<summary>Løsningsforslag 5e</summary>
 
 ```tsx
 "use client";
@@ -1608,7 +1780,7 @@ export default function OpprettSpillerSkjema() {
       className="flex flex-col gap-4"
     >
       <div className="flex flex-col gap-1">
-        <Label htmlFor="navn">Navn</Label>
+        <Label htmlFor="navn" className="text-lg">Navn</Label>
         <Input
           id="navn"
           {...form.register("navn", { required: "Navn er påkrevd" })}
@@ -1617,7 +1789,7 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="avdeling">Avdeling</Label>
+        <Label htmlFor="avdeling" className="text-lg">Avdeling</Label>
         <Input
           id="avdeling"
           {...form.register("avdeling", { required: "Avdeling er påkrevd" })}
@@ -1626,7 +1798,7 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="kull">Kull</Label>
+        <Label htmlFor="kull" className="text-lg">Kull</Label>
         <Input
           id="kull"
           {...form.register("kull", { required: "Kull er påkrevd" })}
@@ -1635,7 +1807,7 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="posisjon">Posisjon</Label>
+        <Label htmlFor="posisjon" className="text-lg">Posisjon</Label>
         <Input
           id="posisjon"
           {...form.register("posisjon", { required: "Posisjon er påkrevd" })}
@@ -1644,12 +1816,12 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="styrke">Styrke (valgfritt)</Label>
+        <Label htmlFor="styrke" className="text-lg">Styrke (valgfritt)</Label>
         <Input id="styrke" {...form.register("styrke")} />
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="svakhet">Svakhet (valgfritt)</Label>
+        <Label htmlFor="svakhet" className="text-lg">Svakhet (valgfritt)</Label>
         <Input id="svakhet" {...form.register("svakhet")} />
       </div>
 
@@ -1660,6 +1832,8 @@ export default function OpprettSpillerSkjema() {
   );
 }
 ```
+
+Du kan nå fjerne `useState`-importen og `skjema`-konstanten. React Hook Form holder styr på feltene for deg.
 
 </details>
 
@@ -1675,15 +1849,20 @@ import { UseFormReturn, Path } from "react-hook-form";
 type SkjemaFeltProps = {
   id: Path<SkjemaData>;
   label: string;
-  isRequired?: string;
+  isRequired?: boolean;
   form: UseFormReturn<SkjemaData>;
 };
 
 function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
   return (
     <div className="flex flex-col gap-1">
-      <Label htmlFor={id}>{label}</Label>
-      <Input id={id} {...form.register(id, { required: isRequired })} />
+      <Label className="text-lg" htmlFor={id}>{label}</Label>
+      <Input
+        id={id}
+        {...form.register(id, {
+          required: isRequired ? `${label} er påkrevd` : false,
+        })}
+      />
       <FieldError errors={[form.formState.errors[id]]} />
     </div>
   );
@@ -1692,7 +1871,7 @@ function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
 
 `Path<SkjemaData>` er en type fra React Hook Form som beskriver gyldige feltnavn i skjemaet, altså `"navn" | "avdeling" | "kull" | "posisjon" | "styrke" | "svakhet"`. Vi bruker den fordi det er nøyaktig det `form.register` forventer. Med `string` ville TypeScript klage på `form.register(id, ...)`. Med `Path<SkjemaData>` får du i tillegg hjelp av TypeScript til å oppdage skrivefeil, sender du inn `"nvan"` vil du få en feilmelding med én gang.
 
-Hvis `isRequired` ikke er satt, vil `{ required: undefined }` sendes inn, noe som er det samme som ingen valideringsregel.
+`isRequired` er en boolsk prop. Når den er `true`, bygger komponenten feilmeldingen selv fra `label`-propen, for eksempel `"Navn er påkrevd"`. Valgfrie felt sender du inn uten `isRequired`-prop.
 
 Bruk `SkjemaFelt` i stedet for de seks feltblokkene i skjemaet. Valgfrie felt sender du inn uten `isRequired`-prop.
 
@@ -1721,15 +1900,22 @@ type SkjemaData = {
 type SkjemaFeltProps = {
   id: Path<SkjemaData>;
   label: string;
-  isRequired?: string;
+  isRequired?: boolean;
   form: UseFormReturn<SkjemaData>;
 };
 
 function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
   return (
     <div className="flex flex-col gap-1">
-      <Label htmlFor={id}>{label}</Label>
-      <Input id={id} {...form.register(id, { required: isRequired })} />
+      <Label className="text-lg" htmlFor={id}>
+        {label}
+      </Label>
+      <Input
+        id={id}
+        {...form.register(id, {
+          required: isRequired ? `${label} er påkrevd` : false,
+        })}
+      />
       <FieldError errors={[form.formState.errors[id]]} />
     </div>
   );
@@ -1757,30 +1943,10 @@ export default function OpprettSpillerSkjema() {
       onSubmit={form.handleSubmit(opprettSpiller)}
       className="flex flex-col gap-4"
     >
-      <SkjemaFelt
-        id="navn"
-        label="Navn"
-        isRequired="Navn er påkrevd"
-        form={form}
-      />
-      <SkjemaFelt
-        id="avdeling"
-        label="Avdeling"
-        isRequired="Avdeling er påkrevd"
-        form={form}
-      />
-      <SkjemaFelt
-        id="kull"
-        label="Kull"
-        isRequired="Kull er påkrevd"
-        form={form}
-      />
-      <SkjemaFelt
-        id="posisjon"
-        label="Posisjon"
-        isRequired="Posisjon er påkrevd"
-        form={form}
-      />
+      <SkjemaFelt id="navn" label="Navn" isRequired form={form} />
+      <SkjemaFelt id="avdeling" label="Avdeling" isRequired form={form} />
+      <SkjemaFelt id="kull" label="Kull" isRequired form={form} />
+      <SkjemaFelt id="posisjon" label="Posisjon" isRequired form={form} />
       <SkjemaFelt id="styrke" label="Styrke (valgfritt)" form={form} />
       <SkjemaFelt id="svakhet" label="Svakhet (valgfritt)" form={form} />
 
@@ -1853,6 +2019,85 @@ Legg til visning av root-feilen rett over submit-knappen:
 <Button type="submit" className="bg-twoday-amber">
   Opprett spiller
 </Button>
+```
+
+</details>
+
+#### Oppgave 5h: Last opp bilde av spilleren
+
+Når spilleren er opprettet har vi fått tilbake en id fra serveren. Vi kan bruke den til å laste opp et bilde til `/api/spillere/:id/bilde`.
+
+Legg til en `useRef` for filinputet øverst i komponenten:
+
+```tsx
+const bildeRef = useRef<HTMLInputElement>(null);
+```
+
+Husk å importere `useRef` fra React.
+
+Legg til filinputet i JSX-en, rett over submit-knappen:
+
+```tsx
+<div className="flex flex-col gap-1">
+  <Label className="text-lg" htmlFor="bilde">
+    Bilde (valgfritt)
+  </Label>
+  <input
+    id="bilde"
+    type="file"
+    accept="image/*"
+    ref={bildeRef}
+    className="file:bg-twoday-olive cursor-pointer file:mr-4 file:cursor-pointer file:rounded file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold"
+  />
+</div>
+```
+
+Legg så inn bildeopplastingen i `opprettSpiller`, etter at spilleren er opprettet og før navigeringen:
+
+```tsx
+const fil = bildeRef.current?.files?.[0];
+if (fil) {
+  const formData = new FormData();
+  formData.append("bilde", fil);
+  await fetch(`http://localhost:3000/api/spillere/${spiller.id}/bilde`, {
+    method: "POST",
+    body: formData,
+  });
+}
+```
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 5h</summary>
+
+Den oppdaterte `opprettSpiller`-funksjonen:
+
+```tsx
+async function opprettSpiller(data: SkjemaData) {
+  const response = await fetch("http://localhost:3000/api/spillere", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    form.setError("root", { message: "Noe gikk galt. Prøv igjen." });
+    return;
+  }
+
+  const spiller = await response.json();
+
+  const fil = bildeRef.current?.files?.[0];
+  if (fil) {
+    const formData = new FormData();
+    formData.append("bilde", fil);
+    await fetch(`http://localhost:3000/api/spillere/${spiller.id}/bilde`, {
+      method: "POST",
+      body: formData,
+    });
+  }
+
+  router.push(`/spillere/${spiller.id}`);
+}
 ```
 
 </details>
@@ -2520,7 +2765,7 @@ Wrapperen trenger du ikke lenger. Slett filen.
 
 **Steg 3: Oppdater `page.tsx`**
 
-`page.tsx` får `searchParams` som prop, akkurat som den får `params` for dynamiske ruter. I Next.js 16 er den et Promise som må awaites:
+`page.tsx` får `searchParams` som prop, akkurat som den får `params` for dynamiske routes. I Next.js 16 er den et Promise som må awaites:
 
 ```tsx
 type Props = {

@@ -358,7 +358,7 @@ I oppgave 1 skal du jobbe i disse filene:
 - `src/components/spillere/spillere-liste.tsx`, liste-komponent som setter sammen SpillerCard-komponenter til en oversikt
 - `src/app/spillere/page.tsx`, filen som definerer selve siden. Her henter vi data fra API-et og sender det videre som props til komponentene vi vil vise.
 
-Legg merke til at de to første filene ligger i `src/components/`, mens den siste ligger i `src/app/`. Filer i `app/` definerer sider og ruter man kan navigere til, Next.js behandler dem spesielt. Komponenter som `SpillerCard` og `SpillereListe` er derimot gjenbrukbare byggeklosser som ikke hører til én bestemt side, så de bor i `components/`.
+Legg merke til at de to første filene ligger i `src/components/`, mens den siste ligger i `src/app/`. Filer i `app/` definerer sider og routes man kan navigere til, Next.js behandler dem spesielt. Komponenter som `SpillerCard` og `SpillereListe` er derimot gjenbrukbare byggeklosser som ikke hører til én bestemt side, så de bor i `components/`.
 
 Vi går gjennom disse steg for steg i oppgavene under.
 
@@ -719,7 +719,7 @@ export default async function SpillerePage() {
 
 I oppgave 1 bygde vi en liste over alle spillere. Nå skal vi lage en detaljside for hver enkelt spiller og lenke til den, slik at man kan navigere til detaljsiden ved å klikke på et spillerkort i listen.
 
-I denne oppgaven skal vi også bli kjent med **API-dokumentasjonen**, et verktøy du finner i sidemenyen under "API-dokumentasjon". Der kan du se alle tilgjengelige API-ruter, hva de returnerer, og teste dem direkte i nettleseren. Dette er noe du vil bruke mye på jobb, så det er lurt å bli komfortabel med det tidlig.
+I denne oppgaven skal vi også bli kjent med **API-dokumentasjonen**, et verktøy du finner i sidemenyen under "API-dokumentasjon". Der kan du se alle tilgjengelige API-routes, hva de returnerer, og teste dem direkte i nettleseren. Dette er noe du vil bruke mye på jobb, så det er lurt å bli komfortabel med det tidlig.
 
 #### Oppgave 2a – Besøk detaljsiden
 
@@ -750,7 +750,7 @@ For å hjelpe du i gang har vi allerede laget en ferdig fil på `src/app/spiller
 
 Før vi skriver kode, la oss utforske hva API-et tilbyr. Klikk på **API-dokumentasjon** i sidemenyen.
 
-Her finner du en oversikt over alle tilgjengelige API-ruter. Klikk på ruten `GET /api/spillere/{id}` og deretter på **"Try it out"**. Skriv inn en spiller-ID (f.eks. `1`) og klikk **"Execute"**. Du vil se nøyaktig hva API-et returnerer, og dette er dataen du skal bruke på detaljsiden.
+Her finner du en oversikt over alle tilgjengelige API-routes. Klikk på routen `GET /api/spillere/{id}` og deretter på **"Try it out"**. Skriv inn en spiller-ID (f.eks. `1`) og klikk **"Execute"**. Du vil se nøyaktig hva API-et returnerer, og dette er dataen du skal bruke på detaljsiden.
 
 På jobb vil du bruke API-dokumentasjon til å forstå hva som er tilgjengelig og hvordan dataen ser ut, før du begynner å kode. Gjør deg kjent med det!
 
@@ -2520,7 +2520,7 @@ Wrapperen trenger du ikke lenger. Slett filen.
 
 **Steg 3: Oppdater `page.tsx`**
 
-`page.tsx` får `searchParams` som prop, akkurat som den får `params` for dynamiske ruter. I Next.js 16 er den et Promise som må awaites:
+`page.tsx` får `searchParams` som prop, akkurat som den får `params` for dynamiske routes. I Next.js 16 er den et Promise som må awaites:
 
 ```tsx
 type Props = {

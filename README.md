@@ -1589,22 +1589,34 @@ useEffect(() => {
 <details class="losningsforslag">
 <summary>Løsningsforslag 4d</summary>
 
-Legg til disse linjene i `SpillerSok`:
-
 ```tsx
-import { useState, useEffect, useRef } from "react";
+"use client";
 
-const inputRef = useRef<HTMLInputElement>(null);
+import { useEffect, useRef } from "react";
 
-useEffect(() => {
-  inputRef.current?.focus();
-}, []);
-```
+type Props = {
+  sok: string;
+  setSok: (sok: string) => void;
+};
 
-Og legg til `ref`-attributtet på `<input>`-elementet:
+export default function SpillerSok({ sok, setSok }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
 
-```tsx
-<input ref={inputRef} ... />
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  return (
+    <input
+      ref={inputRef}
+      type="text"
+      placeholder="Søk etter spillere..."
+      className="w-full rounded border px-3 py-2"
+      value={sok}
+      onChange={(e) => setSok(e.target.value)}
+    />
+  );
+}
 ```
 
 </details>

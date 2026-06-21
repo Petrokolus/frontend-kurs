@@ -1736,7 +1736,7 @@ async function opprettSpiller(data: SkjemaData) {
 `form.handleSubmit` kjører validering først og kaller `opprettSpiller` bare hvis alle feltene er gyldige. Flytt `fetch`-kallet og navigeringen inn i `opprettSpiller`, og fjern den gamle `handleSubmit`-funksjonen.
 
 <details class="losningsforslag">
-<summary>Løsningsforslag 5b-5e</summary>
+<summary>Løsningsforslag 5e</summary>
 
 ```tsx
 "use client";

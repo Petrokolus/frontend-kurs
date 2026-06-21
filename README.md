@@ -47,7 +47,7 @@ Hvis du ser en annen versjon eller får en feilmelding, installer Node.js slik:
 
 ![Node js download page with windows installer button highlighted](nodejs_download_page.png)
 
-OBS. Dersom du har Mac endrer du til "macOS i den blå firkanten og trykker på "macOS installer (.pkg)". Stegene vidu er de samme.
+OBS. Dersom du har Mac endrer du til "macOS i den blå firkanten og trykker på "macOS installer (.pkg)". Stegene videre er de samme.
 
 ![Node js download page with macOS installer button highlighted](nodejs_download_page_mac.png)
 
@@ -96,7 +96,7 @@ corepack enable
 
 > **Windows:** Du må kanskje åpne terminalen som administrator. Søk etter "Terminal" eller "PowerShell" i startmenyen, høyreklikk og velg **"Kjør som administrator"**.
 
-Denne kommandoen gir ingen outout. Det er normalt.
+Denne kommandoen gir ingen output. Det er normalt.
 
 Bekreft at pnpm er tilgjengelig:
 

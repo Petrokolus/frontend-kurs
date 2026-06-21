@@ -444,6 +444,11 @@ Når komponenten er importert kan du bruke den i JSX akkurat som en HTML-tag:
 
 Importer `SpillerCard` i `page.tsx` og legg den inn under overskriften.
 
+<details class="default">
+<summary>Tips</summary>
+Du trenger ikke skrive importlinjer manuelt. Sett inn en komponent du ikke har importert ennå, hold musepekeren over navnet (som nå har en rød error-linje), og klikk Quick Fix → Add import from ...". VS Code setter inn importlinjen for deg. Dette fungerer for komponenter, typer og funksjoner.
+</details>
+
 <details class="losningsforslag">
 <summary>Løsningsforslag 1b</summary>
 
@@ -470,12 +475,18 @@ Nå som vi kan vise ett kort, er målet å vise flere. Til det har vi `SpillereL
 
 `SpillereListe` forventer en prop som heter `spillere`, et array av `Spiller`-objekter. Siden vi ikke henter ekte data fra API-et enda, lager vi en mock-liste for å teste at det fungerer.
 
-Erstatt `<SpillerCard />` i `page.tsx` med dette:
+Gjør følgende endringer i `page.tsx`:
+
+1. Legg til disse importene øverst i filen:
 
 ```tsx
 import SpillereListe from "@/components/spillere/spillere-liste";
 import { Spiller } from "@/lib/types";
+```
 
+2. Legg til denne konstanten rett over `return`:
+
+```tsx
 const mockSpillere: Spiller[] = [
   {
     id: 1,
@@ -496,9 +507,12 @@ const mockSpillere: Spiller[] = [
     skyggerating: 85,
   },
 ];
+```
 
-// I return:
-<SpillereListe spillere={mockSpillere} />;
+3. Bytt ut `<SpillerCard />` i `return` med:
+
+```tsx
+<SpillereListe spillere={mockSpillere} />
 ```
 
 **Steg 2: La `SpillerCard` ta imot `spiller` som prop**

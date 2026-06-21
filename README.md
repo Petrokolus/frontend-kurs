@@ -352,7 +352,7 @@ function Hilsen({ navn }: Props) {
 
 Siden vi også skriver i TypeScript, så kan du se at vi definerer typen på alle props.
 
-Du skal jobbe i disse filene:
+I oppgave 1 skal du jobbe i disse filene:
 
 - `src/components/spillere/spiller-card.tsx`, komponenten som viser informasjon om én spiller
 - `src/components/spillere/spillere-liste.tsx`, liste-komponent som setter sammen SpillerCard-komponenter til en oversikt

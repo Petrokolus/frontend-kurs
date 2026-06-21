@@ -1396,7 +1396,7 @@ Hooks er spesielle funksjoner i React som gir komponentene dine tilgang til tils
 
 Det finnes et par regler for når hooks kan brukes:
 
-- Hooks skal alltid kalles øverst i komponenten, aldri inne i if-setninger eller løkker
+- Hooks skal alltid kalles øverst i komponenten, aldri inne i, eller etter, if-setninger, løkker eller andre blokker
 - Hooks kan bare brukes i React-komponenter (eller i egne custom hooks)
 
 I denne oppgaven skal du legge til et søkefelt på spillersiden. Underveis vil du bruke alle tre hookene til forskjellige ting, og det er poenget, de løser ulike problemer:
@@ -1421,7 +1421,7 @@ Komponenten skal ha:
 const [sok, setSok] = useState("");
 ```
 
-Importer og vis `SpillerSok` i `page.tsx`. Foreløpig trenger du ikke koble den til spillerlisten, det kommer i neste steg.
+Importer og vis `SpillerSok` i `src/app/spillere/page.tsx`. Foreløpig trenger du ikke koble den til spillerlisten, det kommer i neste steg.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 4a</summary>
@@ -1431,16 +1431,18 @@ Importer og vis `SpillerSok` i `page.tsx`. Foreløpig trenger du ikke koble den 
 
 import { useState } from "react";
 
-export default function SpillerSok() {
+export default function SpillereSok() {
   const [sok, setSok] = useState("");
-
   return (
-    <input
-      value={sok}
-      onChange={(e) => setSok(e.target.value)}
-      placeholder="Søk etter spiller..."
-      className="rounded border px-3 py-2"
-    />
+    <div className="mb-6">
+      <input
+        type="text"
+        placeholder="Søk etter spillere..."
+        className="w-full rounded border px-3 py-2"
+        value={sok}
+        onChange={(e) => setSok(e.target.value)}
+      />
+    </div>
   );
 }
 ```

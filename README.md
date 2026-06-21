@@ -1291,6 +1291,8 @@ pnpm dev
 
 Hooks er spesielle funksjoner i React som gir komponentene dine tilgang til tilstand og side effects, det vil si alt som skjer utenfor Reacts renderingssyklus, som å lese fra localStorage, hente data fra en API, eller manipulere DOM-en direkte.
 
+**DOM** (Document Object Model) er nettleserens representasjon av siden din som et tre av elementer. Når du skriver `<h1>Hei</h1>` i JSX, lager React et tilsvarende element i DOM-en som nettleseren viser. Normalt lar du React håndtere DOM-en, men av og til trenger du direkte tilgang, for eksempel for å fokusere et inputfelt.
+
 Det finnes et par regler for når hooks kan brukes:
 
 - Hooks skal alltid kalles øverst i komponenten, aldri inne i if-setninger eller løkker

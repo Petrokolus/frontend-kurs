@@ -47,7 +47,7 @@ Hvis du ser en annen versjon eller får en feilmelding, installer Node.js slik:
 
 ![Node js download page with windows installer button highlighted](nodejs_download_page.png)
 
-OBS. Dersom du har Mac endrer du til "macOS i den blå firkanten og trykker på "macOS installer (.pkg)". Stegene vidu er de samme.
+OBS. Dersom du har Mac endrer du til "macOS i den blå firkanten og trykker på "macOS installer (.pkg)". Stegene videre er de samme.
 
 ![Node js download page with macOS installer button highlighted](nodejs_download_page_mac.png)
 
@@ -96,7 +96,7 @@ corepack enable
 
 > **Windows:** Du må kanskje åpne terminalen som administrator. Søk etter "Terminal" eller "PowerShell" i startmenyen, høyreklikk og velg **"Kjør som administrator"**.
 
-Denne kommandoen gir ingen outout. Det er normalt.
+Denne kommandoen gir ingen output. Det er normalt.
 
 Bekreft at pnpm er tilgjengelig:
 
@@ -326,7 +326,7 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 
 **Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
 
-I React bygger vi brukergrensesnitt av komponenter, gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode):
+I React bygger vi brukergrensesnitt av komponenter — gjenbrukbare byggeklosser som hver har sitt eget ansvar. Et komponent (også kalt funksjonelt komponent) er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode). Her er et superenkelt eksempel på et komponent, som vi her kaller "Hilsen":
 
 ```typescript
 function Hilsen() {
@@ -334,7 +334,7 @@ function Hilsen() {
 }
 ```
 
-For å gjøre en komponent gjenbrukbar sender vi inn data via props (properties). Props fungerer som argumenter til funksjonen:
+For å gjøre et komponent gjenbrukbart sender vi inn data via props (properties). Props fungerer som argumenter til funksjonen:
 
 ```typescript
 type Props = {
@@ -357,6 +357,8 @@ Du skal jobbe i disse filene:
 - `src/components/spillere/spiller-card.tsx`, komponenten som viser informasjon om én spiller
 - `src/components/spillere/spillere-liste.tsx`, liste-komponent som setter sammen SpillerCard-komponenter til en oversikt
 - `src/app/spillere/page.tsx`, filen som definerer selve siden. Her henter vi data fra API-et og sender det videre som props til komponentene vi vil vise.
+
+Legg merke til at de to første filene ligger i `src/components/`, mens den siste ligger i `src/app/`. Filer i `app/` definerer sider og ruter man kan navigere til, Next.js behandler dem spesielt. Komponenter som `SpillerCard` og `SpillereListe` er derimot gjenbrukbare byggeklosser som ikke hører til én bestemt side, så de bor i `components/`.
 
 Vi går gjennom disse steg for steg i oppgavene under.
 
@@ -397,12 +399,14 @@ Tailwind CSS nullstiller alle nettleserens innebygde styles, inkludert overskrif
 <h1 className="text-3xl font-bold">Dette er en overskrift</h1>
 ```
 
-Dette er hvordan man styler ved hjelp av Tailwind CSS. Det kodesnutten over gjør:
+Dette er hvordan man "styler", altså legger til design, ved hjelp av Tailwind CSS. Det kodesnutten over gjør:
 
 - _text-3xl_: Setter font-størrelse til XXXL
 - _font-bold_: Setter font-type til bold (fet skrift)
 
-Du finner en fullstendig oversikt over alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenket til i sidemenyen.
+Alle HTML-elementer kan styles på mange forskjellige måter ved hjelp av Tailwind. Du kan lære mer om dette, og finne en fullstendig oversikt over alle tilgjengelige klasser i Tailwind CSS-dokumentasjonen, som er lenket til i sidemenyen.
+
+Hvis du har lagt til overskriften riktig, så skal du allerede nå kunne se den dukke opp i nettleseren under siden "Spillere".
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 1a</summary>
@@ -681,21 +685,13 @@ const spillere = await result.json();
 
 Fordi `page.tsx` er en **server component**, en komponent som kjører på serveren, ikke i nettleseren, kan vi bruke `await` direkte i komponenten uten noe ekstra oppsett. Vi kommer tilbake til hva dette betyr i praksis i oppgave 3.
 
-Når du har hentet spillerne, sitter du igjen med en liste. For å vise hvert element i en liste bruker vi `.map()`, som går gjennom hvert element og returnerer JSX:
-
-```tsx
-spillere.map((spiller) => <SpillerCard key={spiller.id} spiller={spiller} />);
-```
-
-`key` er et spesielt React-attributt som hjelper React å holde styr på hvilket element i listen som er hvilket. Bruk alltid en unik verdi, her passer `id` perfekt.
-
-Prøv å hente spillerne fra API-et og bruk `.map()` til å vise en liste med alle spillerne!
+Hent spillerne fra API-et og send dem til `SpillereListe` på samme måte som du sendte `mockSpillere` i oppgave 1c. Fjern `mockSpillere`-konstanten nå som vi har ekte data.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 1f</summary>
 
 ```tsx
-import SpillerCard from "@/components/spillere/spiller-card";
+import SpillereListe from "@/components/spillere/spillere-liste";
 import { Spiller } from "@/lib/types";
 
 export default async function SpillerePage() {
@@ -707,11 +703,7 @@ export default async function SpillerePage() {
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        {spillere.map((spiller) => (
-          <SpillerCard key={spiller.id} spiller={spiller} />
-        ))}
-      </div>
+      <SpillereListe spillere={spillere} />
     </div>
   );
 }
@@ -1051,14 +1043,28 @@ Du har brukt `<Link>` fra `next/link` i oppgave 2. Bruk det samme mønsteret her
 
 ```tsx
 import Link from "next/link";
+import SpillereListe from "@/components/spillere/spillere-liste";
+import { Spiller } from "@/lib/types";
 
-// I flex-diven ved siden av overskriften:
-<Link
-  href="/spillere/opprett"
-  className="bg-twoday-amber rounded px-4 py-2 font-semibold"
->
-  Opprett spiller
-</Link>
+export default async function SpillerePage() {
+  const result = await fetch("http://localhost:3000/api/spillere");
+  const spillere: Spiller[] = await result.json();
+
+  return (
+    <div className="max-w-4xl p-8">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+        <Link
+          href="/spillere/opprett"
+          className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+        >
+          Opprett spiller
+        </Link>
+      </div>
+      <SpillereListe spillere={spillere} />
+    </div>
+  );
+}
 ```
 
 </details>
@@ -1292,12 +1298,9 @@ Importer og vis `SpillerSok` i `page.tsx`. Foreløpig trenger du ikke koble den 
 
 import { useState } from "react";
 
-type Props = {
-  sok: string;
-  setSok: (verdi: string) => void;
-};
+export default function SpillerSok() {
+  const [sok, setSok] = useState("");
 
-export default function SpillerSok({ sok, setSok }: Props) {
   return (
     <input
       value={sok}

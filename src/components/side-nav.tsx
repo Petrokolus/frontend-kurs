@@ -30,6 +30,7 @@ const externalLinks = [
   },
   { href: "https://nextjs.org/docs", label: "Next.js" },
   { href: "https://react.dev/reference/react", label: "React" },
+  { href: "https://react-hook-form.com/docs", label: "React Hook Form" },
 ];
 
 export function SideNav() {

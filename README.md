@@ -326,7 +326,7 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 
 **Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
 
-I React bygger vi brukergrensesnitt av komponenter — gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent (også kalt funksjonelt komponent) er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode). Her er et superenkelt eksempel på en komponent, som vi her kaller "Hilsen":
+I React bygger vi brukergrensesnitt av komponenter, gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent (også kalt funksjonelt komponent) er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode). Her er et superenkelt eksempel på en komponent, som vi her kaller "Hilsen":
 
 ```typescript
 function Hilsen() {

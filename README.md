@@ -505,7 +505,7 @@ const mockSpillere: Spiller[] = [
 ];
 
 // I return:
-<SpillereListe spillere={mockSpillere} />
+<SpillereListe spillere={mockSpillere} />;
 ```
 
 **Steg 2: La `SpillerCard` ta imot `spiller` som prop**
@@ -643,7 +643,7 @@ I Next.js bruker vi `<Image>` fra `next/image` i stedet for en vanlig `<img>`-ta
 ```tsx
 import Image from "next/image";
 
-<Image src="/spiller/1.png" alt="Ola Nordmann" width={100} height={100} />
+<Image src="/spiller/1.png" alt="Ola Nordmann" width={100} height={100} />;
 ```
 
 Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens data. Husk at du kan sette inn variabler i en streng med template literals: `` `/spiller/${spiller.id}.png` ``
@@ -651,7 +651,7 @@ Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens d
 Vi anbefaler også å legge til denne `className` for å få bildet til å se bra ut:
 
 ```tsx
-className="aspect-square rounded-full object-cover"
+className = "aspect-square rounded-full object-cover";
 ```
 
 <details class="losningsforslag">
@@ -691,11 +691,11 @@ export default function SpillerCard({ spiller }: Props) {
 
 #### Oppgave 1f - Hent spillere
 
-Vi har en lokal database med foosball-spillere! Innhold derfra kan hentes gjennom API-et på denne måten:
+Vi har en lokal database med foosball-spillere fra Twoday! Innhold derfra kan hentes gjennom API-et på denne måten:
 
 ```ts
 const result = await fetch("http://localhost:3000/api/spillere");
-const spillere = await result.json();
+const spillere: Spiller[] = await result.json();
 ```
 
 Fordi `page.tsx` er en **server component**, en komponent som kjører på serveren, ikke i nettleseren, kan vi bruke `await` direkte i komponenten uten noe ekstra oppsett. Vi kommer tilbake til hva dette betyr i praksis i oppgave 3.
@@ -717,6 +717,7 @@ export default async function SpillerePage() {
     <div className="max-w-4xl p-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
+        {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
       </div>
       <SpillereListe spillere={spillere} />
     </div>

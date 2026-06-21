@@ -1453,7 +1453,7 @@ Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvil
 
 Vi har laget en halvferdig fil til deg: `src/components/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
 
-Når den er ferdig, erstatt det du la til i `page.tsx` i forrige oppgave med:
+Når den er ferdig, erstatt `SpillerSok` og `SpillereListe` i `page.tsx` med:
 
 ```tsx
 <SpillerSokOgListe spillere={spillere} />

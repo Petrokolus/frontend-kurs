@@ -1849,15 +1849,20 @@ import { UseFormReturn, Path } from "react-hook-form";
 type SkjemaFeltProps = {
   id: Path<SkjemaData>;
   label: string;
-  isRequired?: string;
+  isRequired?: boolean;
   form: UseFormReturn<SkjemaData>;
 };
 
 function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
   return (
     <div className="flex flex-col gap-1">
-      <Label htmlFor={id}>{label}</Label>
-      <Input id={id} {...form.register(id, { required: isRequired })} />
+      <Label className="text-lg" htmlFor={id}>{label}</Label>
+      <Input
+        id={id}
+        {...form.register(id, {
+          required: isRequired ? `${label} er påkrevd` : false,
+        })}
+      />
       <FieldError errors={[form.formState.errors[id]]} />
     </div>
   );
@@ -1866,7 +1871,7 @@ function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
 
 `Path<SkjemaData>` er en type fra React Hook Form som beskriver gyldige feltnavn i skjemaet, altså `"navn" | "avdeling" | "kull" | "posisjon" | "styrke" | "svakhet"`. Vi bruker den fordi det er nøyaktig det `form.register` forventer. Med `string` ville TypeScript klage på `form.register(id, ...)`. Med `Path<SkjemaData>` får du i tillegg hjelp av TypeScript til å oppdage skrivefeil, sender du inn `"nvan"` vil du få en feilmelding med én gang.
 
-Hvis `isRequired` ikke er satt, vil `{ required: undefined }` sendes inn, noe som er det samme som ingen valideringsregel.
+`isRequired` er en boolsk prop. Når den er `true`, bygger komponenten feilmeldingen selv fra `label`-propen, for eksempel `"Navn er påkrevd"`. Valgfrie felt sender du inn uten `isRequired`-prop.
 
 Bruk `SkjemaFelt` i stedet for de seks feltblokkene i skjemaet. Valgfrie felt sender du inn uten `isRequired`-prop.
 
@@ -1895,15 +1900,22 @@ type SkjemaData = {
 type SkjemaFeltProps = {
   id: Path<SkjemaData>;
   label: string;
-  isRequired?: string;
+  isRequired?: boolean;
   form: UseFormReturn<SkjemaData>;
 };
 
 function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
   return (
     <div className="flex flex-col gap-1">
-      <Label htmlFor={id}>{label}</Label>
-      <Input id={id} {...form.register(id, { required: isRequired })} />
+      <Label className="text-lg" htmlFor={id}>
+        {label}
+      </Label>
+      <Input
+        id={id}
+        {...form.register(id, {
+          required: isRequired ? `${label} er påkrevd` : false,
+        })}
+      />
       <FieldError errors={[form.formState.errors[id]]} />
     </div>
   );
@@ -1931,30 +1943,10 @@ export default function OpprettSpillerSkjema() {
       onSubmit={form.handleSubmit(opprettSpiller)}
       className="flex flex-col gap-4"
     >
-      <SkjemaFelt
-        id="navn"
-        label="Navn"
-        isRequired="Navn er påkrevd"
-        form={form}
-      />
-      <SkjemaFelt
-        id="avdeling"
-        label="Avdeling"
-        isRequired="Avdeling er påkrevd"
-        form={form}
-      />
-      <SkjemaFelt
-        id="kull"
-        label="Kull"
-        isRequired="Kull er påkrevd"
-        form={form}
-      />
-      <SkjemaFelt
-        id="posisjon"
-        label="Posisjon"
-        isRequired="Posisjon er påkrevd"
-        form={form}
-      />
+      <SkjemaFelt id="navn" label="Navn" isRequired form={form} />
+      <SkjemaFelt id="avdeling" label="Avdeling" isRequired form={form} />
+      <SkjemaFelt id="kull" label="Kull" isRequired form={form} />
+      <SkjemaFelt id="posisjon" label="Posisjon" isRequired form={form} />
       <SkjemaFelt id="styrke" label="Styrke (valgfritt)" form={form} />
       <SkjemaFelt id="svakhet" label="Svakhet (valgfritt)" form={form} />
 

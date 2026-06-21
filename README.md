@@ -991,7 +991,7 @@ const navn = state[0];
 const setNavn = state[1];
 ```
 
-Destrukturering er bare en snarvei for å hente ut elementer fra en liste. Navnene `navn` og `setNavn` velger vi selv, men konvensjonen er å kalle dem `noe` og `setNoe`.
+Destrukturering er bare en snarvei for å hente ut elementer fra en liste eller et objekt. Navnene `navn` og `setNavn` velger vi selv, men konvensjonen er å kalle dem `noe` og `setNoe`.
 
 #### Skjemaer og kontrollerte inputs
 
@@ -1019,7 +1019,7 @@ const [skjema, setSkjema] = useState({
 />;
 ```
 
-`{ ...skjema, navn: e.target.value }` betyr: «ta alle verdiene fra det gamle skjema-objektet, men bytt ut `navn` med den nye verdien». Dette kalles en **spread** og er en vanlig måte å oppdatere objekter i React på.
+`{ ...skjema, navn: e.target.value }` betyr: «ta alle verdiene fra det gamle skjema-objektet, men overskriv `navn` med den nye verdien». Dette kalles en **spread** og er en vanlig måte å oppdatere objekter i React på.
 
 #### Tilgjengelighet: label og id
 
@@ -1033,6 +1033,8 @@ For at skjemaet skal fungere godt for alle, inkludert brukere med skjermleser, e
 Dette gjør at klikk på etiketten fokuserer feltet, og at skjermlesere leser opp hva feltet er for.
 
 ---
+
+Vil du lære mer om hvordan ratingsystemet fungerer? Les gjerne mer her:
 
 <details>
 <summary>Hva skjer med ratingen til en ny spiller?</summary>
@@ -1051,7 +1053,7 @@ Ratingen oppdateres automatisk etter hver registrerte kamp, basert på et tilpas
 <details>
 <summary>Hva er skyggerating?</summary>
 
-**Skyggerating** viser formen til en spiller på kort sikt, ikke hvem de er totalt sett, men hvem de _har vært_ de siste kampene.
+**Skyggerating** viser formen til en spiller på kort sikt, ikke hvor gode de er totalt sett, men hvor gode de _har vært_ de siste kampene.
 
 En spiller kan ha en solid langsiktig rating på 550, men skyggeratingen kan vise 620 hvis de har hatt en sterk periode, eller 480 hvis formen har sviktet.
 
@@ -1071,7 +1073,7 @@ Skyggeratingen tar også hensyn til **vinnstreaker og tapstreaker**. Flere seier
 
 </details>
 
-#### Oppgave 3a – Legg til lenke til opprett-siden
+#### Oppgave 3a – Legg til lenke til "Opprett spiller"-siden
 
 Skjemaet bor på sin egen side: `/spillere/opprett`. Legg til en `<Link>` i `src/app/spillere/page.tsx`, rett under overskriften, som tar brukeren dit.
 
@@ -1108,7 +1110,41 @@ export default async function SpillerePage() {
 
 </details>
 
-#### Oppgave 3b – Legg til inputfeltene
+#### Oppgave 3b – Oppdater `SkjemaData`-typen og startverdiene
+
+Øverst i filen er det definert en type `SkjemaData` og en startverdi for `useState`. Disse inneholder foreløpig bare `navn`. Legg til de andre feltene her også.
+
+<details class="hint">
+<summary>Hint</summary>
+
+TypeScript vil gi deg rød understrek hvis du glemmer et felt. Hvis du hoverer over feilmeldingene kan du se hva som forventes.
+
+</details>
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 3b</summary>
+
+Oppdater typen og startverdiene øverst i filen:
+
+```tsx
+type SkjemaData = {
+  navn: string;
+  avdeling: string;
+  kull: string;
+  posisjon: string;
+};
+
+const [skjema, setSkjema] = useState<SkjemaData>({
+  navn: "",
+  avdeling: "",
+  kull: "",
+  posisjon: "",
+});
+```
+
+</details>
+
+#### Oppgave 3c – Legg til inputfeltene
 
 Skjemaet har allerede et felt for `navn`. Legg til felter for `avdeling`, `kull` og `posisjon`. Bruk samme mønster som `navn`-feltet.
 
@@ -1130,43 +1166,14 @@ Se på `Spiller`-typen i `lib/types.ts` for å se hvilke felter en spiller har.
 </details>
 
 <details class="losningsforslag">
-<summary>Løsningsforslag 3b</summary>
-
-Legg til ett felt per egenskap. Her er `avdeling` som eksempel, kopier mønsteret for `kull` og `posisjon`:
-
-```tsx
-<div className="flex flex-col gap-1">
-  <label htmlFor="avdeling">Avdeling</label>
-  <input
-    id="avdeling"
-    type="text"
-    value={skjema.avdeling}
-    onChange={(e) => setSkjema({ ...skjema, avdeling: e.target.value })}
-    className="rounded border px-3 py-2"
-    required
-  />
-</div>
-```
-
-</details>
-
-#### Oppgave 3c – Oppdater `SkjemaData`-typen og startverdiene
-
-Øverst i filen er det definert en type `SkjemaData` og en startverdi for `useState`. Disse inneholder foreløpig bare `navn`. Legg til de andre feltene her også.
-
-<details class="hint">
-<summary>Hint</summary>
-
-TypeScript vil gi deg rød understrek hvis du glemmer et felt. Hvis du hoverer over feilmeldingene kan du se hva som forventes.
-
-</details>
-
-<details class="losningsforslag">
 <summary>Løsningsforslag 3c</summary>
 
-Oppdater typen og startverdiene øverst i filen:
-
 ```tsx
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 type SkjemaData = {
   navn: string;
   avdeling: string;
@@ -1174,12 +1181,92 @@ type SkjemaData = {
   posisjon: string;
 };
 
-const [skjema, setSkjema] = useState<SkjemaData>({
-  navn: "",
-  avdeling: "",
-  kull: "",
-  posisjon: "",
-});
+export default function OpprettSpillerSkjema() {
+  const router = useRouter();
+
+  // Oppgave 3b: Legg til de resterende feltene i startverdiene
+  const [skjema, setSkjema] = useState<SkjemaData>({
+    navn: "",
+    avdeling: "",
+    kull: "",
+    posisjon: "",
+  });
+
+  async function handleSubmit(data: SkjemaData) {
+    const response = await fetch("http://localhost:3000/api/spillere", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      // Oppgave 3e: Naviger til den nye spillerens detaljside
+    }
+  }
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(skjema);
+      }}
+      className="flex flex-col gap-4"
+    >
+      <div className="flex flex-col gap-1">
+        <label htmlFor="navn">Navn</label>
+        <input
+          id="navn"
+          type="text"
+          value={skjema.navn}
+          onChange={(e) => setSkjema({ ...skjema, navn: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="avdeling">Avdeling</label>
+        <input
+          id="avdeling"
+          type="text"
+          value={skjema.avdeling}
+          onChange={(e) => setSkjema({ ...skjema, avdeling: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="kull">Kull</label>
+        <input
+          id="kull"
+          type="text"
+          value={skjema.kull}
+          onChange={(e) => setSkjema({ ...skjema, kull: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="posisjon">Posisjon</label>
+        <input
+          id="posisjon"
+          type="text"
+          value={skjema.posisjon}
+          onChange={(e) => setSkjema({ ...skjema, posisjon: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
+      {/* Oppgave 3d: Legg til valgfrie felter for styrke og svakhet */}
+
+      <button
+        type="submit"
+        className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+      >
+        Opprett spiller
+      </button>
+    </form>
+  );
+}
 ```
 
 </details>

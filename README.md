@@ -2023,6 +2023,85 @@ Legg til visning av root-feilen rett over submit-knappen:
 
 </details>
 
+#### Oppgave 5h: Last opp bilde av spilleren
+
+Når spilleren er opprettet har vi fått tilbake en id fra serveren. Vi kan bruke den til å laste opp et bilde til `/api/spillere/:id/bilde`.
+
+Legg til en `useRef` for filinputet øverst i komponenten:
+
+```tsx
+const bildeRef = useRef<HTMLInputElement>(null);
+```
+
+Husk å importere `useRef` fra React.
+
+Legg til filinputet i JSX-en, rett over submit-knappen:
+
+```tsx
+<div className="flex flex-col gap-1">
+  <Label className="text-lg" htmlFor="bilde">
+    Bilde (valgfritt)
+  </Label>
+  <input
+    id="bilde"
+    type="file"
+    accept="image/*"
+    ref={bildeRef}
+    className="file:bg-twoday-olive cursor-pointer file:mr-4 file:cursor-pointer file:rounded file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold"
+  />
+</div>
+```
+
+Legg så inn bildeopplastingen i `opprettSpiller`, etter at spilleren er opprettet og før navigeringen:
+
+```tsx
+const fil = bildeRef.current?.files?.[0];
+if (fil) {
+  const formData = new FormData();
+  formData.append("bilde", fil);
+  await fetch(`http://localhost:3000/api/spillere/${spiller.id}/bilde`, {
+    method: "POST",
+    body: formData,
+  });
+}
+```
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 5h</summary>
+
+Den oppdaterte `opprettSpiller`-funksjonen:
+
+```tsx
+async function opprettSpiller(data: SkjemaData) {
+  const response = await fetch("http://localhost:3000/api/spillere", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    form.setError("root", { message: "Noe gikk galt. Prøv igjen." });
+    return;
+  }
+
+  const spiller = await response.json();
+
+  const fil = bildeRef.current?.files?.[0];
+  if (fil) {
+    const formData = new FormData();
+    formData.append("bilde", fil);
+    await fetch(`http://localhost:3000/api/spillere/${spiller.id}/bilde`, {
+      method: "POST",
+      body: formData,
+    });
+  }
+
+  router.push(`/spillere/${spiller.id}`);
+}
+```
+
+</details>
+
 ---
 
 ## Oppgave 6 – Rediger spiller

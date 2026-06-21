@@ -1,7 +1,7 @@
 "use client";
 
 import { Spiller } from "@/lib/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SpillereListe from "./spillere-liste";
 import SpillerSok from "./spiller-sok";
 
@@ -10,14 +10,24 @@ type Props = {
 };
 
 export default function SpillerSokOgListe({ spillere }: Props) {
-  // Oppgave 4b: Legg til useState for søketeksten her
+  const [sok, setSok] = useState("");
 
-  // Oppgave 4b: Filtrer spillerlisten basert på søketeksten her
+  useEffect(() => {
+    setSok(localStorage.getItem("spillerSok") ?? "");
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("spillerSok", sok);
+  }, [sok]);
+
+  const filtrerteSpillere = spillere.filter((spiller) =>
+    spiller.navn.toLowerCase().includes(sok.toLowerCase())
+  );
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Oppgave 4b: Vis SpillerSok her og send inn sok og setSok som props */}
-      <SpillereListe spillere={spillere} />
+      <SpillerSok sok={sok} setSok={setSok} />
+      <SpillereListe spillere={filtrerteSpillere} />
     </div>
   );
 }

@@ -1,64 +1,86 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import SkjemaFelt from "./skjema-felt";
+import { Button } from "@/components/ui/button";
+import { FieldError } from "@/components/ui/field";
+import { useRef } from "react";
+import { Label } from "@/components/ui/label";
 
-// Oppgave 3b: Legg til de resterende feltene i dette objektet
 type SkjemaData = {
   navn: string;
+  avdeling: string;
+  kull: string;
+  posisjon: string;
+  styrke?: string;
+  svakhet?: string;
 };
 
 export default function OpprettSpillerSkjema() {
   const router = useRouter();
 
-  // Oppgave 3b: Legg til de resterende feltene i startverdiene
-  const [skjema, setSkjema] = useState<SkjemaData>({
-    navn: "",
-  });
+  const form = useForm<SkjemaData>();
 
-  async function handleSubmit(data: SkjemaData) {
+  const bildeRef = useRef<HTMLInputElement>(null);
+
+  async function opprettSpiller(data: SkjemaData) {
     const response = await fetch("http://localhost:3000/api/spillere", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
-    if (response.ok) {
-      // Oppgave 3e: Naviger til den nye spillerens detaljside
+    if (!response.ok) {
+      form.setError("root", { message: "Noe gikk galt. Prøv igjen." });
+      return;
     }
+    const spiller = await response.json();
+
+    const fil = bildeRef.current?.files?.[0];
+    if (fil) {
+      const formData = new FormData();
+      formData.append("bilde", fil);
+      await fetch(`http://localhost:3000/api/spillere/${spiller.id}/bilde`, {
+        method: "POST",
+        body: formData,
+      });
+    }
+
+    router.push(`/spillere/${spiller.id}`);
   }
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit(skjema);
-      }}
+      onSubmit={form.handleSubmit(opprettSpiller)}
       className="flex flex-col gap-4"
     >
-      {/* Oppgave 3b: Her er ett eksempel-felt. Kopier mønsteret for de andre feltene. */}
+      <SkjemaFelt id="navn" label="Navn" isRequired form={form} />
+      <SkjemaFelt id="avdeling" label="Avdeling" isRequired form={form} />
+      <SkjemaFelt id="avdeling" label="Avdeling" isRequired form={form} />
+      <SkjemaFelt id="kull" label="Kull" isRequired form={form} />
+      <SkjemaFelt id="posisjon" label="Posisjon" isRequired form={form} />
+
+      <SkjemaFelt id="styrke" label="Styrke" form={form} />
+      <SkjemaFelt id="svakhet" label="Svakhet" form={form} />
+
       <div className="flex flex-col gap-1">
-        <label htmlFor="navn">Navn</label>
+        <Label className="text-lg" htmlFor="bilde">
+          Bilde (valgfritt)
+        </Label>
         <input
-          id="navn"
-          type="text"
-          value={skjema.navn}
-          onChange={(e) => setSkjema({ ...skjema, navn: e.target.value })}
-          className="rounded border px-3 py-2"
-          required
+          id="bilde"
+          type="file"
+          accept="image/*"
+          ref={bildeRef}
+          className="file:bg-twoday-olive cursor-pointer file:mr-4 file:cursor-pointer file:rounded file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold"
         />
       </div>
 
-      {/* Oppgave 3b: Legg til inputfelter for avdeling, kull og posisjon her */}
-
-      {/* Oppgave 3d: Legg til valgfrie felter for styrke og svakhet */}
-
-      <button
-        type="submit"
-        className="bg-twoday-amber rounded px-4 py-2 font-semibold"
-      >
+      <FieldError errors={[form.formState.errors.root]} />
+      <Button type="submit" className="bg-twoday-amber">
         Opprett spiller
-      </button>
+      </Button>
     </form>
   );
 }

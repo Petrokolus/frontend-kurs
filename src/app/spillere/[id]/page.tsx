@@ -2,6 +2,7 @@
 
 import { Spiller } from "@/lib/types";
 import Image from "next/image";
+import Link from "next/link";
 
 // id-en fra URL-en er tilgjengelig via params-objektet nedenfor.
 type Props = {

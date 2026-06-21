@@ -1184,7 +1184,6 @@ type SkjemaData = {
 export default function OpprettSpillerSkjema() {
   const router = useRouter();
 
-  // Oppgave 3b: Legg til de resterende feltene i startverdiene
   const [skjema, setSkjema] = useState<SkjemaData>({
     navn: "",
     avdeling: "",
@@ -1378,6 +1377,14 @@ async function handleSubmit(data: SkjemaData) {
 ```
 
 </details>
+
+#### Oppgave 3f – Test at det fungerer
+
+Fyll inn skjemaet og opprett en spiller. Sjekk at:
+
+1. Du blir sendt videre til detaljsiden for den nye spilleren
+2. Spilleren dukker opp i listen på `/spillere`
+3. Detaljsiden viser riktig informasjon
 
 ---
 

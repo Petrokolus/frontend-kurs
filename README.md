@@ -415,9 +415,8 @@ Hvis du har lagt til overskriften riktig, så skal du allerede nå kunne se den 
 export default async function SpillerePage() {
   return (
     <div className="max-w-4xl p-8">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Spillere</h1>
-      </div>
+      <h1 className="text-3xl font-bold">Spillere</h1>
+      <div className="mb-6 flex items-center justify-between"></div>
       <p>Her var det ganske tomt foreløpig!</p>
     </div>
   );
@@ -758,7 +757,7 @@ I dette tilfellet vil tekststrengen du putter inni klammeparaesene (`id`, `kampN
 
 > **OBS:** Next.js tolker visse filnavn i `app`-mappen på en spesiell måte. `page.tsx` er ett av dem, men det finnes flere: `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx` og `template.tsx`. Disse er reservert for Next.js og bør ikke brukes som navn på egne komponenter.
 
-For å hjelpe du i gang har vi allerede laget en ferdig fil på `src/app/spillere/[id]/page.tsx`. Naviger til `http://localhost:3000/spillere/1`, `http://localhost:3000/spillere/2`, `http://localhost:3000/spillere/3` i nettleseren. Ser du hvordan tittelen endres basert på `id`-verdien i URL-en?
+For å hjelpe deg i gang har vi allerede laget en ferdig fil på `src/app/spillere/[id]/page.tsx`. Naviger til `http://localhost:3000/spillere/1`, `http://localhost:3000/spillere/2`, `http://localhost:3000/spillere/3` i nettleseren. Ser du hvordan tittelen endres basert på `id`-verdien i URL-en?
 
 #### Oppgave 2b – Utforsk API-et i API-dokumentasjonen
 
@@ -844,7 +843,7 @@ Her er noen Tailwind-klasser som kan hjelpe:
 
 | Klasse                       | Hva den gjør                                         |
 | ---------------------------- | ---------------------------------------------------- |
-| `flex flex-col items-center` | Stabeler innhold vertikalt og sentrerer det          |
+| `flex flex-col items-center` | Stabler innhold vertikalt og sentrerer det           |
 | `gap-4`                      | Setter jevn avstand mellom barna i en flex-container |
 | `text-center`                | Sentrerer tekst                                      |
 | `text-muted-foreground`      | Gjør teksten litt grå og nedtonet                    |

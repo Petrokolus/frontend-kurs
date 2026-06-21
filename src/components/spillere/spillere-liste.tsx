@@ -13,8 +13,7 @@ export default function SpillereListe({ spillere }: Props) {
           spiller //map()-funksjonen funker som en løkke som går gjennom alle spillerne i arrayet, og for hver spiller kjører den koden som er inni klammeparentesene.
         ) => (
           // Her bruker vi den til å lage et SpillerCard for hver spiller i listen.
-          // Oppgave 1c: Når SpillerCard tar imot props, send inn spiller={spiller} her
-          <SpillerCard key={spiller.id} />
+          <SpillerCard key={spiller.id} spiller={spiller} />
         )
       )}
     </div>

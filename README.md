@@ -1712,18 +1712,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FieldError } from "@/components/ui/field";
 
-<Label htmlFor="navn">Navn</Label>
+<Label htmlFor="navn" className="text-lg">Navn</Label>
 <Input id="navn" {...form.register("navn", { required: "Navn er påkrevd" })} />
 <FieldError errors={[form.formState.errors.navn]} />
 ```
 
 `FieldError` tar inn en liste med feilobjekter og viser dem for deg. Den viser ingenting når det ikke er noen feil, så du trenger ingen ekstra `if`-sjekk.
 
-Nå har du sett det fulle mønsteret for ett felt: `useForm`, `form.register`, og shadcn-komponenter med feilvisning. Gjenta det for alle de resterende feltene.
-
 #### Oppgave 5e: Fullfør skjemaet
 
-Du har nå alle brikkene. Konverter de resterende feltene (`avdeling`, `kull`, `posisjon`, `styrke`, `svakhet`) til samme mønster. Husk at valgfrie felt ikke trenger valideringsregler.
+Nå har du sett det fulle mønsteret for ett felt: `useForm`, `form.register`, og shadcn-komponenter med feilvisning. Du har nå alle brikkene. Konverter de resterende feltene (`avdeling`, `kull`, `posisjon`, `styrke`, `svakhet`) til samme mønster. Husk at valgfrie felt ikke trenger valideringsregler.
 
 Til slutt må du oppdatere `onSubmit` til å bruke `form.handleSubmit`. Lag en egen funksjon for logikken og send den inn:
 

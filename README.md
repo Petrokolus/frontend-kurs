@@ -1627,13 +1627,13 @@ export default function SpillerSok({ sok, setSok }: Props) {
 
 **Hva du skal lære:** Installere og bruke en tredjeparts React-pakke, fordelen med `react-hook-form` over manuell state, og skjemavalidering.
 
-I oppgave 3 bygde vi et skjema med manuell `useState` for hvert felt. Det fungerer, men det er mye kode å vedlikeholde, og jo flere felter, jo mer tungvint blir det. En vanlig løsning i frontend-verdenen er å bruke et skjemabibliotek. Vi skal bruke **React Hook Form**, som er en av de mest utbredte løsningene i React-prosjekter i dag.
+I oppgave 3 bygde vi et skjema med manuell `useState` for å holde styr på alle feltene. Det fungerer, men det er mye kode å vedlikeholde, og jo flere felter, jo mer tungvint blir det. En vanlig løsning i frontend-verdenen er å bruke et skjemabibliotek. Vi skal bruke **React Hook Form**, som er en av de mest utbredte løsningene i React-prosjekter i dag.
 
 React Hook Form er ikke en del av React selv. Det er en separat pakke vi må installere. Dette er et mønster du vil møte hele tiden på prosjekt: du finner et bibliotek som løser problemet du har, og du legger det til i prosjektet.
 
 #### Oppgave 5a: Installer React Hook Form
 
-Pakker installeres med pnpm i terminalen. Åpne terminalen i VS Code og kjør:
+Pakker installeres med pnpm i terminalen. Siden dev-serveren kjører i terminalen din, åpner du en **ny terminal** i VS Code (**Terminal → New Terminal**) og kjører:
 
 ```bash
 pnpm add react-hook-form

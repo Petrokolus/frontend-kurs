@@ -1538,21 +1538,27 @@ useEffect(() => {
 }, [sok]);
 ```
 
-Og les den ut som startverdi i `useState`, slik at søket er gjenopprettet neste gang siden lastes:
+Og les den ut med en egen `useEffect` som kjører én gang når komponenten mountes, slik at søket er gjenopprettet neste gang siden lastes. Vi kan ikke lese `localStorage` direkte i `useState` fordi komponenten også rendres på serveren, og `localStorage` finnes bare i nettleseren:
 
 ```tsx
-const [sok, setSok] = useState(() => localStorage.getItem("spillerSok") ?? "");
+useEffect(() => {
+  setSok(localStorage.getItem("spillerSok") ?? "");
+}, []);
 ```
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 4c</summary>
 
-Legg til disse to linjene i `SpillerSokOgListe`:
+Legg til disse linjene i `SpillerSokOgListe`:
 
 ```tsx
 import { useState, useEffect } from "react";
 
-const [sok, setSok] = useState(() => localStorage.getItem("spillerSok") ?? "");
+const [sok, setSok] = useState("");
+
+useEffect(() => {
+  setSok(localStorage.getItem("spillerSok") ?? "");
+}, []);
 
 useEffect(() => {
   localStorage.setItem("spillerSok", sok);

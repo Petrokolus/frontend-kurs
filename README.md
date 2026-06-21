@@ -390,13 +390,15 @@ Hvis du har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av o
 Alle sider trenger en overskrift! Naviger til `page.tsx` og legg til overskriften "Spillere". HTML har sitt eget element for overskrifter:
 
 ```typescript
-<h1>Dette er en overskrift</h1>
+<h1>Spillere</h1>
 ```
+
+`h` står for "heading". HTML har seks nivåer, fra `<h1>` (viktigst, størst) til `<h6>` (minst viktig). `<h1>` brukes til sidetittelen, `<h2>` til seksjoner under den, og så videre. En side bør bare ha én `<h1>`.
 
 Tailwind CSS nullstiller alle nettleserens innebygde styles, inkludert overskrifter. Det betyr at `<h1>` ikke automatisk ser stor og fet ut, slik den gjør når man bruker vanlig CSS. Du må legge til stilene selv via `className`:
 
 ```tsx
-<h1 className="text-3xl font-bold">Dette er en overskrift</h1>
+<h1 className="text-3xl font-bold">Spillere</h1>
 ```
 
 Dette er hvordan man "styler", altså legger til design, ved hjelp av Tailwind CSS. Det kodesnutten over gjør:
@@ -417,6 +419,8 @@ export default async function SpillerePage() {
     <div className="max-w-4xl p-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
+        {/* Oppgave 1b - LEGG TIL ET SPILLERCARD HER */}
+        {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
       </div>
       <p>Her var det ganske tomt foreløpig!</p>
     </div>

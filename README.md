@@ -536,31 +536,33 @@ Se på hvordan `SpillereListe` tar imot `spillere` som prop. `SpillerCard` skal 
 import SpillereListe from "@/components/spillere/spillere-liste";
 import { Spiller } from "@/lib/types";
 
-const mockSpillere: Spiller[] = [
-  {
-    id: 1,
-    navn: "Ola Nordmann",
-    avdeling: "Digital Engineering",
-    kull: "NK20",
-    posisjon: "Angrep",
-    rating: 100,
-    skyggerating: 100,
-  },
-  {
-    id: 2,
-    navn: "Kari Nordmann",
-    avdeling: "Design",
-    kull: "NK21",
-    posisjon: "Forsvar",
-    rating: 90,
-    skyggerating: 85,
-  },
-];
-
 export default async function SpillerePage() {
+  const mockSpillere: Spiller[] = [
+    {
+      id: 1,
+      navn: "Ola Nordmann",
+      avdeling: "Digital Engineering",
+      kull: "NK20",
+      posisjon: "Angrep",
+      rating: 100,
+      skyggerating: 100,
+    },
+    {
+      id: 2,
+      navn: "Kari Nordmann",
+      avdeling: "Design",
+      kull: "NK21",
+      posisjon: "Forsvar",
+      rating: 90,
+      skyggerating: 85,
+    },
+  ];
   return (
     <div className="max-w-4xl p-8">
-      <h1 className="text-3xl font-bold">Spillere</h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+        {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
+      </div>
       <SpillereListe spillere={mockSpillere} />
     </div>
   );
@@ -641,10 +643,16 @@ I Next.js bruker vi `<Image>` fra `next/image` i stedet for en vanlig `<img>`-ta
 ```tsx
 import Image from "next/image";
 
-<Image src="/spiller/1.png" alt="Ola Nordmann" width={100} height={100} />;
+<Image src="/spiller/1.png" alt="Ola Nordmann" width={100} height={100} />
 ```
 
 Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens data. Husk at du kan sette inn variabler i en streng med template literals: `` `/spiller/${spiller.id}.png` ``
+
+Vi anbefaler også å legge til denne `className` for å få bildet til å se bra ut:
+
+```tsx
+className="aspect-square rounded-full object-cover"
+```
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 1e</summary>

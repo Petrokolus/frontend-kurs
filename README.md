@@ -1232,7 +1232,7 @@ Legg deretter til feltene i skjemaet uten `required`:
 
 Nå som spilleren er opprettet, bør brukeren sendes videre til detaljsiden for den nye spilleren. APIet returnerer den opprettede spilleren som JSON, og vi kan bruke `id`-en til å navigere dit.
 
-Bruk `router.push()` i stedet for `router.refresh()` for å navigere til riktig side etter at skjemaet er sendt inn.
+Bruk `router.push()` for å navigere til riktig side etter at skjemaet er sendt inn.
 
 <details class="hint">
 <summary>Hint</summary>
@@ -1262,6 +1262,23 @@ async function handleSubmit(data: SkjemaData) {
     router.push(`/spillere/${spiller.id}`);
   }
 }
+```
+
+</details>
+
+<details>
+<summary>Får du 500-feil når du oppretter spiller?</summary>
+
+Hvis du ser `Argument 'rating' is missing` i terminalen, er den genererte Prisma-klienten utdatert. Kjør dette i terminalen:
+
+```bash
+pnpm exec prisma generate
+```
+
+Og restart serveren:
+
+```
+pnpm dev
 ```
 
 </details>
@@ -1333,13 +1350,13 @@ Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvil
 
 Vi har laget en halvferdig fil til deg: `src/components/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
 
-Når den er ferdig, erstatt det du la til i `page.tsx` i forrige oppgave med:
+Husk også å oppdatere `SpillerSok` til å ta imot `sok` og `setSok` som props i stedet for å ha sin egen `useState`.
+
+Når `SpillerSokOgListe` er ferdig, oppdater `page.tsx`: fjern `<SpillerSok />` og `<SpillereListe />` og erstatt begge med:
 
 ```tsx
 <SpillerSokOgListe spillere={spillere} />
 ```
-
-Husk også å oppdatere `SpillerSok` til å ta imot `sok` og `setSok` som props i stedet for å ha sin egen `useState`.
 
 <details class="hint">
 <summary>Hint</summary>

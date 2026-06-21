@@ -226,7 +226,7 @@ cd frontend-kurs
 
 ---
 
-### Steg 3, Åpne prosjektet i VS Code
+### Steg 2, Åpne prosjektet i VS Code
 
 ```bash
 code .
@@ -236,7 +236,7 @@ VS Code åpner seg med prosjektmappen. Hvis kommandoen ikke fungerer, åpne VS C
 
 ---
 
-### Steg 4, Åpne terminalen i VS Code
+### Steg 3, Åpne terminalen i VS Code
 
 Klikk på **Terminal** i menyen øverst → **New Terminal**.
 
@@ -252,7 +252,7 @@ Du skal se en filsti som slutter på `frontend-kurs`. Hvis ikke, spør kursholde
 
 ---
 
-### Steg 5, Installer avhengigheter
+### Steg 4, Installer avhengigheter
 
 ```bash
 pnpm install
@@ -266,7 +266,7 @@ Done in Xs
 
 ---
 
-### Steg 6, Start utviklingsserveren
+### Steg 5, Start utviklingsserveren
 
 ```bash
 pnpm dev
@@ -282,7 +282,7 @@ Du skal se noe som ligner på dette:
 
 ---
 
-### Steg 7, Åpne applikasjonen
+### Steg 6, Åpne applikasjonen
 
 Åpne nettleseren og gå til:
 
@@ -326,7 +326,7 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 
 **Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
 
-I React bygger vi brukergrensesnitt av komponenter — gjenbrukbare byggeklosser som hver har sitt eget ansvar. Et komponent (også kalt funksjonelt komponent) er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode). Her er et superenkelt eksempel på et komponent, som vi her kaller "Hilsen":
+I React bygger vi brukergrensesnitt av komponenter — gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent (også kalt funksjonelt komponent) er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode). Her er et superenkelt eksempel på en komponent, som vi her kaller "Hilsen":
 
 ```typescript
 function Hilsen() {
@@ -334,7 +334,7 @@ function Hilsen() {
 }
 ```
 
-For å gjøre et komponent gjenbrukbart sender vi inn data via props (properties). Props fungerer som argumenter til funksjonen:
+For å gjøre en komponent gjenbrukbar sender vi inn data via props (properties). Props fungerer som argumenter til funksjonen:
 
 ```typescript
 type Props = {

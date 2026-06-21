@@ -1431,18 +1431,16 @@ Importer og vis `SpillerSok` i `src/app/spillere/page.tsx`. Foreløpig trenger d
 
 import { useState } from "react";
 
-export default function SpillereSok() {
+export default function SpillerSok() {
   const [sok, setSok] = useState("");
   return (
-    <div className="mb-6">
-      <input
-        type="text"
-        placeholder="Søk etter spillere..."
-        className="w-full rounded border px-3 py-2"
-        value={sok}
-        onChange={(e) => setSok(e.target.value)}
-      />
-    </div>
+    <input
+      type="text"
+      placeholder="Søk etter spillere..."
+      className="w-full rounded border px-3 py-2"
+      value={sok}
+      onChange={(e) => setSok(e.target.value)}
+    />
   );
 }
 ```

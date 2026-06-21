@@ -358,7 +358,7 @@ I oppgave 1 skal du jobbe i disse filene:
 - `src/components/spillere/spillere-liste.tsx`, liste-komponent som setter sammen SpillerCard-komponenter til en oversikt
 - `src/app/spillere/page.tsx`, filen som definerer selve siden. Her henter vi data fra API-et og sender det videre som props til komponentene vi vil vise.
 
-Legg merke til at de to første filene ligger i `src/components/`, mens den siste ligger i `src/app/`. Filer i `app/` definerer sider og routes man kan navigere til, Next.js behandler dem spesielt. Komponenter som `SpillerCard` og `SpillereListe` er derimot gjenbrukbare byggeklosser som ikke hører til én bestemt side, så de bor i `components/`.
+Legg merke til at de to første filene ligger i `src/components/`, mens den siste ligger i `src/app/`. Filer i `app/` definerer sider og routes man kan navigere til. Next.js behandler dem spesielt. Komponenter som `SpillerCard` og `SpillereListe` er derimot gjenbrukbare byggeklosser som ikke hører til én bestemt side, så de bor i `components/`.
 
 Vi går gjennom disse steg for steg i oppgavene under.
 

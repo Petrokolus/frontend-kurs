@@ -844,7 +844,7 @@ import Image from "next/image";
   width={128}
   height={128}
   className="aspect-square rounded-full object-cover"
-/>;
+/>
 ```
 
 </details>

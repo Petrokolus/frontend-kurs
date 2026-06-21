@@ -804,7 +804,9 @@ export default async function SpillerPage({ params }: Props) {
   return (
     <div className="max-w-2xl p-8">
       <h1 className="text-3xl font-bold">{spiller.navn}</h1>
-      <p>{spiller.avdeling} - {spiller.kull}</p>
+      <p>
+        {spiller.avdeling} - {spiller.kull}
+      </p>
       <p>{spiller.posisjon}</p>
       <p>Rating: {spiller.rating}</p>
     </div>
@@ -832,7 +834,7 @@ import Image from "next/image";
   width={128}
   height={128}
   className="aspect-square rounded-full object-cover"
-/>
+/>;
 ```
 
 </details>
@@ -880,7 +882,7 @@ export default async function SpillerPage({ params }: Props) {
           alt={`Profilbilde av ${spiller.navn}`}
           width={200}
           height={200}
-          className="aspect-autosquare rounded-4xl object-cover"
+          className="aspect-square rounded-4xl object-cover"
         />
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-3xl font-bold">{spiller.navn}</h1>
@@ -912,7 +914,7 @@ import Link from "next/link";
 <Link href="/spillere/1">Gå til Erik Solberg</Link>;
 ```
 
-`<Link>` er på mange måter bare en vanlig `<a>`-tag, men den har noen fordeler som gjør navigasjonen raskere, blant annet "pre-fetching". Prefetching er at den begynner å laste inn siden den peker på, før du navigerer dit, slik at navigeringen føles raskere.
+`<Link>` er på mange måter bare en vanlig `<a>`-tag, men den har noen fordeler som gjør navigasjonen raskere, blant annet **pre-fetching**. Prefetching betyr at `<Link>` begynner å laste inn siden den peker på i bakgrunnen, slik at navigeringen føles raskere når du klikker.
 
 Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan klikke på et spillerkort og komme til detaljsiden for den spilleren.
 

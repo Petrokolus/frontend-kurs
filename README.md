@@ -1641,13 +1641,15 @@ pnpm add react-hook-form
 
 `pnpm add` henter pakken fra internett og legger den til i `package.json`. Etter at kommandoen er ferdig kan du bekrefte at det gikk bra ved å se at `react-hook-form` dukker opp under `dependencies` i `package.json`.
 
+> **Tips:** Etter at en ny pakke er installert henger TypeScript-serveren i VS Code noen ganger etter. Hvis intellisense ikke foreslår riktige importer, trykk **Ctrl + Shift + P**, søk etter **"TypeScript: Restart TS Server"** og trykk Enter.
+
 #### Oppgave 5b: Ta i bruk `useForm`
 
 React Hook Form gir oss en hook som heter `useForm`. Den returnerer alt vi trenger for å håndtere skjemaet: registrering av felt, innsending og feilhåndtering.
 
-Naviger til `src/components/spillere/opprett-spiller-skjema.tsx`. Filen har et skjema med manuell `useState`. Vi skal nå skrive den om til å bruke `useForm`.
+Naviger til `src/components/spillere/opprett-spiller-skjema.tsx`, skjemaet du bygde i oppgave 3. Vi skal nå skrive det om til å bruke `useForm`.
 
-Importer `useForm` og kall den øverst i komponenten. Legg også til de resterende feltene i `SkjemaData`-typen:
+Importer `useForm` og kall den øverst i komponenten.
 
 ```tsx
 import { useForm } from "react-hook-form";
@@ -1663,10 +1665,6 @@ type SkjemaData = {
 
 const form = useForm<SkjemaData>();
 ```
-
-Vi lagrer resultatet i en variabel vi kaller `form`. Da er det tydelig at `form.register`, `form.handleSubmit` og så videre alle kommer fra React Hook Form.
-
-Du kan nå fjerne `useState`-importen og `skjema`-konstanten. React Hook Form holder styr på feltene for deg.
 
 #### Oppgave 5c: Konverter ett felt
 
@@ -1811,6 +1809,8 @@ export default function OpprettSpillerSkjema() {
   );
 }
 ```
+
+Du kan nå fjerne `useState`-importen og `skjema`-konstanten. React Hook Form holder styr på feltene for deg.
 
 </details>
 

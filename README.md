@@ -1780,7 +1780,7 @@ export default function OpprettSpillerSkjema() {
       className="flex flex-col gap-4"
     >
       <div className="flex flex-col gap-1">
-        <Label htmlFor="navn">Navn</Label>
+        <Label htmlFor="navn" className="text-lg">Navn</Label>
         <Input
           id="navn"
           {...form.register("navn", { required: "Navn er påkrevd" })}
@@ -1789,7 +1789,7 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="avdeling">Avdeling</Label>
+        <Label htmlFor="avdeling" className="text-lg">Avdeling</Label>
         <Input
           id="avdeling"
           {...form.register("avdeling", { required: "Avdeling er påkrevd" })}
@@ -1798,7 +1798,7 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="kull">Kull</Label>
+        <Label htmlFor="kull" className="text-lg">Kull</Label>
         <Input
           id="kull"
           {...form.register("kull", { required: "Kull er påkrevd" })}
@@ -1807,7 +1807,7 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="posisjon">Posisjon</Label>
+        <Label htmlFor="posisjon" className="text-lg">Posisjon</Label>
         <Input
           id="posisjon"
           {...form.register("posisjon", { required: "Posisjon er påkrevd" })}
@@ -1816,12 +1816,12 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="styrke">Styrke (valgfritt)</Label>
+        <Label htmlFor="styrke" className="text-lg">Styrke (valgfritt)</Label>
         <Input id="styrke" {...form.register("styrke")} />
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="svakhet">Svakhet (valgfritt)</Label>
+        <Label htmlFor="svakhet" className="text-lg">Svakhet (valgfritt)</Label>
         <Input id="svakhet" {...form.register("svakhet")} />
       </div>
 

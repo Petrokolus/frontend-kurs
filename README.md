@@ -1678,6 +1678,31 @@ Med `useState` koblet vi hvert felt til state med `value` og `onChange`. Med Rea
 
 Konverter `navn`-feltet til å bruke `form.register`. Fjern `value`, `onChange` og `required`-attributtene som du ikke lenger trenger.
 
+<details class="losningsforslag">
+<summary>Løsningsforslag 5c</summary>
+
+```tsx
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(skjema);
+      }}
+      className="flex flex-col gap-4"
+    >
+      <div className="flex flex-col gap-1">
+        <label htmlFor="navn">Navn</label>
+        <input
+          id="navn"
+          type="text"
+          {...form.register("navn", { required: "Navn er påkrevd" })}
+          className="rounded border px-3 py-2"
+        />
+      </div>
+```
+
+</details>
+
 #### Oppgave 5d: Bytt til shadcn-komponenter
 
 Prosjektet har ferdiglagde komponenter for skjemaelementer som gir deg konsistent styling uten at du trenger å skrive CSS selv. Bytt ut `<label>` og `<input>` i `navn`-feltet med `Label`, `Input` og `FieldError` fra komponentbiblioteket:

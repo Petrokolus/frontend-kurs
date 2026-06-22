@@ -7,6 +7,7 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     rules: {
+      "react-hooks/set-state-in-effect": "off",
       "no-restricted-globals": [
         "warn",
         {

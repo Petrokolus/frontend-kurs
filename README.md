@@ -448,6 +448,11 @@ Når komponenten er importert kan du bruke den i JSX akkurat som en HTML-tag:
 
 Importer `SpillerCard` i `page.tsx` og legg den inn under overskriften.
 
+<details class="default">
+<summary>Tips</summary>
+Du trenger ikke skrive importlinjer manuelt. Sett inn en komponent du ikke har importert ennå, hold musepekeren over navnet (som nå har en rød error-linje), og klikk Quick Fix → Add import from ...". VS Code setter inn importlinjen for deg. Dette fungerer for komponenter, typer og funksjoner.
+</details>
+
 <details class="losningsforslag">
 <summary>Løsningsforslag 1b</summary>
 
@@ -482,7 +487,11 @@ Erstatt `<SpillerCard />` i `page.tsx` med dette. Husk at `mockSpillere` er en k
 ```tsx
 import SpillereListe from "@/components/spillere/spillere-liste";
 import { Spiller } from "@/lib/types";
+```
 
+2. Legg til denne konstanten rett over `return`:
+
+```tsx
 const mockSpillere: Spiller[] = [
   {
     id: 1,
@@ -503,9 +512,12 @@ const mockSpillere: Spiller[] = [
     skyggerating: 85,
   },
 ];
+```
 
-// I return:
-<SpillereListe spillere={mockSpillere} />;
+3. Bytt ut `<SpillerCard />` i `return` med:
+
+```tsx
+<SpillereListe spillere={mockSpillere} />
 ```
 
 **Steg 2: La `SpillerCard` ta imot `spiller` som prop**
@@ -847,7 +859,7 @@ Her er noen Tailwind-klasser som kan hjelpe:
 
 | Klasse                       | Hva den gjør                                         |
 | ---------------------------- | ---------------------------------------------------- |
-| `flex flex-col items-center` | Stabeler innhold vertikalt og sentrerer det          |
+| `flex flex-col items-center` | Stabler innhold vertikalt og sentrerer det           |
 | `gap-4`                      | Setter jevn avstand mellom barna i en flex-container |
 | `text-center`                | Sentrerer tekst                                      |
 | `text-muted-foreground`      | Gjør teksten litt grå og nedtonet                    |
@@ -1344,7 +1356,7 @@ Legg deretter til feltene i skjemaet uten `required`:
 
 Nå som spilleren er opprettet, bør brukeren sendes videre til detaljsiden for den nye spilleren. APIet returnerer den opprettede spilleren som JSON, og vi kan bruke `id`-en til å navigere dit.
 
-Bruk `router.push()` i stedet for `router.refresh()` for å navigere til riktig side etter at skjemaet er sendt inn.
+Bruk `router.push()` for å navigere til riktig side etter at skjemaet er sendt inn.
 
 <details class="hint">
 <summary>Hint</summary>
@@ -1378,6 +1390,40 @@ async function handleSubmit(data: SkjemaData) {
 
 </details>
 
+<details>
+<summary>Får du 500-feil når du oppretter spiller?</summary>
+
+Hvis du ser `Argument 'rating' is missing` i terminalen, er den genererte Prisma-klienten utdatert. Kjør dette i terminalen:
+
+```bash
+pnpm exec prisma generate
+```
+
+Og restart serveren:
+
+```
+pnpm dev
+```
+
+</details>
+
+<details>
+<summary>Får du 500-feil når du oppretter spiller?</summary>
+
+Hvis du ser `Argument 'rating' is missing` i terminalen, er den genererte Prisma-klienten utdatert. Kjør dette i terminalen:
+
+```bash
+pnpm exec prisma generate
+```
+
+Og restart serveren:
+
+```
+pnpm dev
+```
+
+</details>
+
 #### Oppgave 3f – Test at det fungerer
 
 Fyll inn skjemaet og opprett en spiller. Sjekk at:
@@ -1393,6 +1439,8 @@ Fyll inn skjemaet og opprett en spiller. Sjekk at:
 **Hva du skal lære:** Hva en hook er og reglene for hooks, `useState` til interaktiv tilstand, `useEffect` til sideeffekter, og `useRef` til direkte DOM-tilgang.
 
 Hooks er spesielle funksjoner i React som gir komponentene dine tilgang til tilstand og side effects, det vil si alt som skjer utenfor Reacts renderingssyklus, som å lese fra localStorage, hente data fra en API, eller manipulere DOM-en direkte.
+
+**DOM** (Document Object Model) er nettleserens representasjon av siden din som et tre av elementer. Når du skriver `<h1>Hei</h1>` i JSX, lager React et tilsvarende element i DOM-en som nettleseren viser. Normalt lar du React håndtere DOM-en, men av og til trenger du direkte tilgang, for eksempel for å fokusere et inputfelt.
 
 Det finnes et par regler for når hooks kan brukes:
 
@@ -1453,7 +1501,7 @@ Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvil
 
 Vi har laget en halvferdig fil til deg: `src/components/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
 
-Når den er ferdig, erstatt `SpillerSok` og `SpillereListe` i `page.tsx` med:
+Når `SpillerSokOgListe` er ferdig, oppdater `page.tsx`: fjern `<SpillerSok />` og `<SpillereListe />` og erstatt begge med:
 
 ```tsx
 <SpillerSokOgListe spillere={spillere} />
@@ -1780,7 +1828,9 @@ export default function OpprettSpillerSkjema() {
       className="flex flex-col gap-4"
     >
       <div className="flex flex-col gap-1">
-        <Label htmlFor="navn" className="text-lg">Navn</Label>
+        <Label htmlFor="navn" className="text-lg">
+          Navn
+        </Label>
         <Input
           id="navn"
           {...form.register("navn", { required: "Navn er påkrevd" })}
@@ -1789,7 +1839,9 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="avdeling" className="text-lg">Avdeling</Label>
+        <Label htmlFor="avdeling" className="text-lg">
+          Avdeling
+        </Label>
         <Input
           id="avdeling"
           {...form.register("avdeling", { required: "Avdeling er påkrevd" })}
@@ -1798,7 +1850,9 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="kull" className="text-lg">Kull</Label>
+        <Label htmlFor="kull" className="text-lg">
+          Kull
+        </Label>
         <Input
           id="kull"
           {...form.register("kull", { required: "Kull er påkrevd" })}
@@ -1807,7 +1861,9 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="posisjon" className="text-lg">Posisjon</Label>
+        <Label htmlFor="posisjon" className="text-lg">
+          Posisjon
+        </Label>
         <Input
           id="posisjon"
           {...form.register("posisjon", { required: "Posisjon er påkrevd" })}
@@ -1816,12 +1872,16 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="styrke" className="text-lg">Styrke (valgfritt)</Label>
+        <Label htmlFor="styrke" className="text-lg">
+          Styrke (valgfritt)
+        </Label>
         <Input id="styrke" {...form.register("styrke")} />
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="svakhet" className="text-lg">Svakhet (valgfritt)</Label>
+        <Label htmlFor="svakhet" className="text-lg">
+          Svakhet (valgfritt)
+        </Label>
         <Input id="svakhet" {...form.register("svakhet")} />
       </div>
 
@@ -1856,7 +1916,9 @@ type SkjemaFeltProps = {
 function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
   return (
     <div className="flex flex-col gap-1">
-      <Label className="text-lg" htmlFor={id}>{label}</Label>
+      <Label className="text-lg" htmlFor={id}>
+        {label}
+      </Label>
       <Input
         id={id}
         {...form.register(id, {

@@ -8,6 +8,30 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "react-hooks/set-state-in-effect": "off",
+      "no-restricted-globals": [
+        "warn",
+        {
+          name: "Image",
+          message: "Importer Image fra 'next/image': import Image from 'next/image'",
+        },
+      ],
+      "no-restricted-imports": [
+        "warn",
+        {
+          paths: [
+            {
+              name: "lucide-react",
+              importNames: ["Link"],
+              message: "Importer Link fra 'next/link', ikke lucide-react: import Link from 'next/link'",
+            },
+            {
+              name: "react",
+              importNames: ["Link"],
+              message: "Importer Link fra 'next/link', ikke react: import Link from 'next/link'",
+            },
+          ],
+        },
+      ],
     },
   },
   // Override default ignores of eslint-config-next.

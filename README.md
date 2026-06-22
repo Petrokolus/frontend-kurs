@@ -1501,13 +1501,13 @@ Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvil
 
 Vi har laget en halvferdig fil til deg: `src/components/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
 
-Husk også å oppdatere `SpillerSok` til å ta imot `sok` og `setSok` som props i stedet for å ha sin egen `useState`.
-
 Når `SpillerSokOgListe` er ferdig, oppdater `page.tsx`: fjern `<SpillerSok />` og `<SpillereListe />` og erstatt begge med:
 
 ```tsx
 <SpillerSokOgListe spillere={spillere} />
 ```
+
+Husk også å oppdatere `SpillerSok` til å ta imot `sok` og `setSok` som props i stedet for å ha sin egen `useState`.
 
 <details class="hint">
 <summary>Hint</summary>
@@ -1828,7 +1828,9 @@ export default function OpprettSpillerSkjema() {
       className="flex flex-col gap-4"
     >
       <div className="flex flex-col gap-1">
-        <Label htmlFor="navn" className="text-lg">Navn</Label>
+        <Label htmlFor="navn" className="text-lg">
+          Navn
+        </Label>
         <Input
           id="navn"
           {...form.register("navn", { required: "Navn er påkrevd" })}
@@ -1837,7 +1839,9 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="avdeling" className="text-lg">Avdeling</Label>
+        <Label htmlFor="avdeling" className="text-lg">
+          Avdeling
+        </Label>
         <Input
           id="avdeling"
           {...form.register("avdeling", { required: "Avdeling er påkrevd" })}
@@ -1846,7 +1850,9 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="kull" className="text-lg">Kull</Label>
+        <Label htmlFor="kull" className="text-lg">
+          Kull
+        </Label>
         <Input
           id="kull"
           {...form.register("kull", { required: "Kull er påkrevd" })}
@@ -1855,7 +1861,9 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="posisjon" className="text-lg">Posisjon</Label>
+        <Label htmlFor="posisjon" className="text-lg">
+          Posisjon
+        </Label>
         <Input
           id="posisjon"
           {...form.register("posisjon", { required: "Posisjon er påkrevd" })}
@@ -1864,12 +1872,16 @@ export default function OpprettSpillerSkjema() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="styrke" className="text-lg">Styrke (valgfritt)</Label>
+        <Label htmlFor="styrke" className="text-lg">
+          Styrke (valgfritt)
+        </Label>
         <Input id="styrke" {...form.register("styrke")} />
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="svakhet" className="text-lg">Svakhet (valgfritt)</Label>
+        <Label htmlFor="svakhet" className="text-lg">
+          Svakhet (valgfritt)
+        </Label>
         <Input id="svakhet" {...form.register("svakhet")} />
       </div>
 
@@ -1904,7 +1916,9 @@ type SkjemaFeltProps = {
 function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
   return (
     <div className="flex flex-col gap-1">
-      <Label className="text-lg" htmlFor={id}>{label}</Label>
+      <Label className="text-lg" htmlFor={id}>
+        {label}
+      </Label>
       <Input
         id={id}
         {...form.register(id, {

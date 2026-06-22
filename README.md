@@ -2208,7 +2208,7 @@ import { Button } from "@/components/ui/button";
 `asChild` på `DialogTrigger` gjør at `Button` du skriver inni overtar ansvaret for å åpne dialogen, men beholder sin egen styling. Uten `asChild` ville `DialogTrigger` ha wrappert knappen din i et ekstra element, noe som kan gi uventet oppførsel og gjøre det vanskeligere å style.
 
 <details class="losningsforslag">
-<summary>Løsningsforslag 6b</summary>
+<summary>Løsningsforslag 6a</summary>
 
 ```tsx
 "use client";
@@ -2221,13 +2221,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Spiller } from "@/lib/types";
 
-type Props = {
-  spiller: Spiller;
-};
-
-export default function RedigerSpillerDialog({ spiller }: Props) {
+export default function RedigerSpillerDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -2235,7 +2230,7 @@ export default function RedigerSpillerDialog({ spiller }: Props) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Rediger {spiller.navn}</DialogTitle>
+          <DialogTitle>Rediger spiller</DialogTitle>
         </DialogHeader>
         <p>Skjemaet kommer her.</p>
       </DialogContent>

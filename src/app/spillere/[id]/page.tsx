@@ -2,7 +2,7 @@
 
 import { Spiller } from "@/lib/types";
 import Image from "next/image";
-import Link from "next/link";
+import RedigerSpillerDialog from "./components/rediger-spiller-dialog";
 
 // id-en fra URL-en er tilgjengelig via params-objektet nedenfor.
 type Props = {
@@ -36,6 +36,9 @@ export default async function SpillerPage({ params }: Props) {
           </p>
           {spiller.styrke && <p>Styrke: {spiller.styrke}</p>}
           {spiller.svakhet && <p>Svakhet: {spiller.svakhet}</p>}
+        </div>
+        <div className="rever flex h-full w-full flex-row-reverse border-t pt-2">
+          <RedigerSpillerDialog spiller={spiller} />
         </div>
       </div>
     </div>

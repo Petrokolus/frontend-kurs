@@ -1,0 +1,112 @@
+lockfile_version: '1'
+generated_at: '2026-06-26T07:03:57.489334+00:00'
+apm_version: 0.21.0
+dependencies:
+- repo_url: Petrokolus/ai-config
+  host: github.com
+  virtual_path: primitives/instructions/general.instructions.md
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .claude/rules/general.md
+  - .github/instructions/general.instructions.md
+  deployed_file_hashes:
+    .claude/rules/general.md: sha256:249089aecc1420b34bab636968a627b8737eb980f5b8bb95e4d89a7ee29543e7
+    .github/instructions/general.instructions.md: sha256:23b6a6a9ed5329506002666d4c8d6b86f2e77f746d89982c32ad62112f4f7184
+  content_hash: sha256:28995f89acde98b5388756aa416e5158d48bdebc84e8305e50bf3a9a39930cd1
+- repo_url: Petrokolus/ai-config
+  host: github.com
+  virtual_path: primitives/instructions/frontend.instructions.md
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .claude/rules/frontend.md
+  - .github/instructions/frontend.instructions.md
+  deployed_file_hashes:
+    .claude/rules/frontend.md: sha256:47708c62e32b7b724e2e96dbd77d4e9742a845e1779ce1c1272560d4d1a4adae
+    .github/instructions/frontend.instructions.md: sha256:53ee097f189827da7518323434e03aeff38552ad114a0c21ddd0d196bbc1955c
+  content_hash: sha256:3f68bc9e940605a1d1b1c98b45fb50e693494baa7f031d24c2722e2002e13a99
+- repo_url: Petrokolus/ai-config
+  host: github.com
+  virtual_path: primitives/instructions/lang-typescript.instructions.md
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .claude/rules/lang-typescript.md
+  - .github/instructions/lang-typescript.instructions.md
+  deployed_file_hashes:
+    .claude/rules/lang-typescript.md: sha256:a9ae7e8cbe6f15199e4774005bda528282363266aa74038463cf3ff17a949e36
+    .github/instructions/lang-typescript.instructions.md: sha256:fffef276c4cbf4aa42947bd413240090c204abfe79ca3f5a4f389ba6f86bc694
+  content_hash: sha256:5c04f7baded5754906a42b476eeffcdbf38306f91c82346c4c901443b3f9f653
+- repo_url: Petrokolus/ai-config
+  host: github.com
+  virtual_path: primitives/instructions/lang-react.instructions.md
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .claude/rules/lang-react.md
+  - .github/instructions/lang-react.instructions.md
+  deployed_file_hashes:
+    .claude/rules/lang-react.md: sha256:f9eee9dbb471dbdcb891453e3ef617f1b9a1582f4a4081d8e86e6d9484a0b2ac
+    .github/instructions/lang-react.instructions.md: sha256:63945e4f388eb06ea179840c67675d6e79300d8d6b110ea52eed47ce30e8e2ea
+  content_hash: sha256:8ff7d38857c2a7ff0d3bb061dadf3b2f04f877ced2c519621e49af886c38fd0f
+- repo_url: Petrokolus/ai-config
+  host: github.com
+  virtual_path: primitives/instructions/framework-next.instructions.md
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .claude/rules/framework-next.md
+  - .github/instructions/framework-next.instructions.md
+  deployed_file_hashes:
+    .claude/rules/framework-next.md: sha256:9b2b9f009a5bb7946dd048cad438797cbe79248b169b5ccfbfc52a6db96f4aa4
+    .github/instructions/framework-next.instructions.md: sha256:81b01f97b081afd3642037814024c77d7fa82e7e50a4ed953a4d5fd6e8189790
+  content_hash: sha256:ebd5674f241cc0de1bbf72450eaca22cb886e961d27cd32658dd28fc00aaf41e
+- repo_url: Petrokolus/ai-config
+  host: github.com
+  virtual_path: primitives/instructions/practice-naming.instructions.md
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .claude/rules/practice-naming.md
+  - .github/instructions/practice-naming.instructions.md
+  deployed_file_hashes:
+    .claude/rules/practice-naming.md: sha256:e45cde07274baa4d81a6d136cf0900728c05ab1b99eb7959c29d79539612eb90
+    .github/instructions/practice-naming.instructions.md: sha256:29e5c293e527dab63a83d11f9cb2a3af32acdc912342aca12e3b48cfeaacd002
+  content_hash: sha256:9a49ae90b079a38510f34ccbfb99dafe0e5072133af712ebe4054afbad251f38
+- repo_url: Petrokolus/ai-config
+  host: github.com
+  virtual_path: primitives/instructions/practice-testing.instructions.md
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .claude/rules/practice-testing.md
+  - .github/instructions/practice-testing.instructions.md
+  deployed_file_hashes:
+    .claude/rules/practice-testing.md: sha256:2a2bf0e50b9c3c91f61756bb719bee163b22ad6375ba4b3e666def6cfda69b7d
+    .github/instructions/practice-testing.instructions.md: sha256:b54475acb25cf208bffd31c068efcd5d2ee6e085744c02a746afcfed4ede42e3
+  content_hash: sha256:642366d769eb3565846501bb024cd45e92c7c3287376db2f92472b88a40c15da
+- repo_url: Petrokolus/ai-config
+  host: github.com
+  virtual_path: primitives/instructions/practice-playwright.instructions.md
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .claude/rules/practice-playwright.md
+  - .github/instructions/practice-playwright.instructions.md
+  deployed_file_hashes:
+    .claude/rules/practice-playwright.md: sha256:a7411486c222c78f517e3b954a1a83f17e7a5ed45adf13fdf40184ef01ff5c41
+    .github/instructions/practice-playwright.instructions.md: sha256:7546b95e423ed32f66c6b3a2e3fb565d9eb331b5997232976c87859a2f8db05c
+  content_hash: sha256:83633aaf985acc450b29e8ef4810ba53d71fb96e324ad1bcd4826e0c15169670
+- repo_url: Petrokolus/ai-config
+  host: github.com
+  virtual_path: primitives/instructions/practice-uu.instructions.md
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .claude/rules/practice-uu.md
+  - .github/instructions/practice-uu.instructions.md
+  deployed_file_hashes:
+    .claude/rules/practice-uu.md: sha256:2d908139653a4158cf91fce3727cd063e9e9c548acb0d36575c0047f126882f6
+    .github/instructions/practice-uu.instructions.md: sha256:d92cf77cbabd2ed7b3f1d0ccf30506526698357edd058b3983dd5df33f31552b
+  content_hash: sha256:7e5e31848638efdcbd3acca8a62bdefb2a3c7f5f3e9e274f8f8d8229a17c86c4

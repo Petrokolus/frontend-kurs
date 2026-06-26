@@ -3,20 +3,14 @@ version: 1.0.0
 description: Next.js frontend-kurs med TypeScript. Personlig læringsprosjekt.
 author: Peter Andreas Gisholt
 targets:
-- claude
-- codex
-- copilot
+  - claude
+  - codex
+  - copilot
 dependencies:
   apm:
-  - Petrokolus/ai-config/primitives/instructions/general.instructions.md
-  - Petrokolus/ai-config/primitives/instructions/frontend.instructions.md
-  - Petrokolus/ai-config/primitives/instructions/lang-typescript.instructions.md
-  - Petrokolus/ai-config/primitives/instructions/lang-react.instructions.md
-  - Petrokolus/ai-config/primitives/instructions/framework-next.instructions.md
-  - Petrokolus/ai-config/primitives/instructions/practice-naming.instructions.md
-  - Petrokolus/ai-config/primitives/instructions/practice-testing.instructions.md
-  - Petrokolus/ai-config/primitives/instructions/practice-playwright.instructions.md
-  - Petrokolus/ai-config/primitives/instructions/practice-uu.instructions.md
+    - Petrokolus/ai-config
+    - vercel-labs/agent-skills
+    - next-safe-action/skills
   mcp: []
 includes: auto
 scripts: {}

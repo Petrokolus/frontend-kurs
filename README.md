@@ -492,7 +492,7 @@ Når komponenten er importert kan du bruke den i JSX akkurat som en HTML-tag:
 
 Importer `SpillerCard` i `page.tsx` og legg den inn under overskriften.
 
-<details class="default">
+<details class="tip">
 <summary>Tips</summary>
 Du trenger ikke skrive importlinjer manuelt. Sett inn en komponent du ikke har importert ennå, plasser markøren i eller på navnet (som nå har en rød error-linje), og trykk `Ctrl+.` (`Cmd+.` på Mac) for å åpne Quick Fix. Velg "Add import from ..." fra listen som dukker opp. VS Code setter inn importlinjen for deg. Dette fungerer for komponenter, typer og funksjoner.
 </details>
@@ -572,7 +572,7 @@ const mockSpillere: Spiller[] = [
 2. Ta imot `spiller` som prop i stedet
 3. Bruke `spiller.navn` i JSX-en
 
-<details class="default">
+<details class="tip">
 <summary>Tips</summary>
 Trykk `Ctrl+Space` (`Cmd+Space` på Mac) mens markøren står inni et element for å trigge IntelliSense, VS Code sin autofullfør. Dette er spesielt nyttig her: siden `SpillerCard` og `SpillereListe` har TypeScript-typer på propsene sine, kan editoren foreslå riktige prop-navn og tilgjengelige variabler mens du skriver, i stedet for at du må huske dem selv.
 </details>
@@ -665,10 +665,20 @@ export default function SpillerCard({ spiller }: Props) {
 
 Hvis du klarte å vise et SpillerCard på siden i forrige oppgave, så la du kanskje merke til at det ikke var så mye mer spennende informasjon enn navnet som vises. Prøv å vise noe mer informasjon i SpillerCard.
 
-<details class="hint">
-<summary>Hint</summary>
+Husk `<p>`-taggen fra HTML-introen i Oppgave 1, standardvalget for tekstinnhold. Linjen
 
-Usikker på hva slags informasjon du kan vise? Se hvilke verdier som finnes i et spiller-objekt ved å holde musepekeren over "Spiller" eller ved å bruke `Ctrl + venstreklikk`.
+```tsx
+<p className="text-muted-foreground text-sm">
+  Her kan vi vise mer data fra spiller-objektene
+</p>
+```
+
+er et mønster du kan kopiere og bygge videre på.
+
+<details class="tip">
+<summary>Tips</summary>
+
+Usikker på hva slags informasjon du kan vise? Se hvilke verdier som finnes i et spiller-objekt ved å holde musepekeren over "Spiller" eller ved å trykke på "Spiller"-typen med `Ctrl + venstreklikk`.
 
 </details>
 

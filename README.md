@@ -1407,23 +1407,6 @@ pnpm dev
 
 </details>
 
-<details>
-<summary>Får du 500-feil når du oppretter spiller?</summary>
-
-Hvis du ser `Argument 'rating' is missing` i terminalen, er den genererte Prisma-klienten utdatert. Kjør dette i terminalen:
-
-```bash
-pnpm exec prisma generate
-```
-
-Og restart serveren:
-
-```
-pnpm dev
-```
-
-</details>
-
 #### Oppgave 3f – Test at det fungerer
 
 Fyll inn skjemaet og opprett en spiller. Sjekk at:

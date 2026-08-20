@@ -524,9 +524,9 @@ Nå som vi kan vise ett kort, er målet å vise flere. Til det har vi `SpillereL
 
 **Steg 1: Bytt ut `SpillerCard` i `page.tsx` med `SpillereListe`**
 
-`SpillereListe` forventer en prop som heter `spillere`, et array av `Spiller`-objekter. Siden vi ikke henter ekte data fra API-et enda, lager vi en mock-liste for å teste at det fungerer.
+`SpillereListe` forventer en prop som heter `spillere`, et array (en liste) av `Spiller`-objekter. Siden vi ikke henter ekte data fra API-et enda, lager vi en mock-liste for å teste at det fungerer.
 
-Erstatt `<SpillerCard />` i `page.tsx` med dette. Husk at `mockSpillere` er en konstant og skal ligge før `return`, ikke inni JSX-en:
+Erstatt `<SpillerCard />` i `page.tsx` med kodesnuttene nedenfor. Husk at `mockSpillere` er en konstant og skal ligge før `return`, ikke inni JSX-en:
 
 ```tsx
 import SpillereListe from "@/components/spillere/spillere-liste";
@@ -570,7 +570,12 @@ const mockSpillere: Spiller[] = [
 
 1. Slette `mockSpiller`-konstanten
 2. Ta imot `spiller` som prop i stedet
-3. Bruke `spiller.navn` (og eventuelt andre felt) i JSX-en
+3. Bruke `spiller.navn` i JSX-en
+
+<details class="default">
+<summary>Tips</summary>
+Trykk `Ctrl+Space` (`Cmd+Space` på Mac) mens markøren står inni et element for å trigge IntelliSense, VS Code sin autofullfør. Dette er spesielt nyttig her: siden `SpillerCard` og `SpillereListe` har TypeScript-typer på propsene sine, kan editoren foreslå riktige prop-navn og tilgjengelige variabler mens du skriver, i stedet for at du må huske dem selv.
+</details>
 
 **Steg 3: Send `spiller` videre fra `SpillereListe`**
 

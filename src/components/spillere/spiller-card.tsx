@@ -5,22 +5,11 @@ type Props = {
   // Prøv å holde musepekeren over Spiller for å se hvilke egenskaper den har, og bruk disse til å vise mer informasjon i kortet!
 };
 
-export default function SpillerCard() {
-  const mockSpiller: Spiller = {
-    // Dette er en "dummy"-spiller som vi bruker for å teste hvordan SpillerCard ser ut med data.
-    id: 1,
-    navn: "Ola Nordmann",
-    avdeling: "Digital Engineering",
-    kull: "NK20",
-    posisjon: "Angrep",
-    rating: 0,
-    skyggerating: 0,
-  };
-
+export default function SpillerCard({ spiller }: Props) {
   return (
     <div className="flex items-center space-x-4 rounded-lg border p-4">
       <div className="flex-1">
-        <h2 className="text-lg font-semibold">{mockSpiller.navn}</h2>
+        <h2 className="text-lg font-semibold">{spiller.navn}</h2>
         <p className="text-muted-foreground text-sm">
           Her kan vi vise mer data fra spiller-objektene
         </p>

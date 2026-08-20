@@ -714,15 +714,19 @@ I Next.js bruker vi `<Image>` fra `next/image` i stedet for en vanlig `<img>`-ta
 ```tsx
 import Image from "next/image";
 
-<Image src="/spiller/1.png" alt="Ola Nordmann" width={100} height={100} />;
+<Image src="/spiller/1.png" alt="Ola Nordmann" width={100} height={100} />
 ```
 
-Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens data. Husk at du kan sette inn variabler i en streng med template literals: `` `/spiller/${spiller.id}.png` ``
-
-Vi anbefaler også å legge til denne `className` for å få bildet til å se bra ut:
+Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens data. For `src` trenger du å sette inn en variabel midt i en streng, noe en vanlig streng med anførselstegn ikke kan gjøre. Til det bruker vi en **template literal**, en streng omsluttet av backticks (`` ` ``) i stedet for anførselstegn, der `${...}` setter inn verdien av en variabel eller et uttrykk direkte i teksten:
 
 ```tsx
-className = "aspect-square rounded-full object-cover";
+`/spiller/${spiller.id}.png`
+```
+
+Vi anbefaler også å legge til `className` som et attributt på `<Image>`-taggen for å få bildet til å se bedre ut:
+
+```tsx
+className="aspect-square rounded-full object-cover"
 ```
 
 <details class="losningsforslag">
@@ -742,8 +746,8 @@ export default function SpillerCard({ spiller }: Props) {
       <Image
         src={`/spiller/${spiller.id}.png`}
         alt={spiller.navn}
-        width={64}
-        height={64}
+        width={100}
+        height={100}
         className="aspect-square rounded-full object-cover"
       />
       <div className="flex-1">
@@ -905,7 +909,7 @@ import Image from "next/image";
   width={128}
   height={128}
   className="aspect-square rounded-full object-cover"
-/>;
+/>
 ```
 
 </details>
@@ -982,7 +986,7 @@ Detaljsiden er fin, men ingen kommer seg dit uten en lenke! I Next.js bruker vi 
 ```tsx
 import Link from "next/link";
 
-<Link href="/spillere/1">Gå til Erik Solberg</Link>;
+<Link href="/spillere/1">Gå til Erik Solberg</Link>
 ```
 
 `<Link>` er på mange måter bare en vanlig `<a>`-tag, men den har noen fordeler som gjør navigasjonen raskere, blant annet **pre-fetching**. Prefetching betyr at `<Link>` begynner å laste inn siden den peker på i bakgrunnen, slik at navigeringen føles raskere når du klikker.
@@ -1071,7 +1075,7 @@ I React er det vanlig å bruke det vi kaller **kontrollerte inputs**, det vil si
 ```tsx
 const [navn, setNavn] = useState("");
 
-<input value={navn} onChange={(e) => setNavn(e.target.value)} />;
+<input value={navn} onChange={(e) => setNavn(e.target.value)} />
 ```
 
 Her speiler `navn` alltid det som er i inputfeltet. Når brukeren skriver, kjøres `onChange`, som oppdaterer state, som oppdaterer feltet. Det er en liten sirkel, men det gir deg full kontroll.
@@ -1087,7 +1091,7 @@ const [skjema, setSkjema] = useState({
 <input
   value={skjema.navn}
   onChange={(e) => setSkjema({ ...skjema, navn: e.target.value })}
-/>;
+/>
 ```
 
 `{ ...skjema, navn: e.target.value }` betyr: «ta alle verdiene fra det gamle skjema-objektet, men overskriv `navn` med den nye verdien». Dette kalles en **spread** og er en vanlig måte å oppdatere objekter i React på.
@@ -2244,7 +2248,7 @@ import { Button } from "@/components/ui/button";
     </DialogHeader>
     <p>Skjemaet kommer her.</p>
   </DialogContent>
-</Dialog>;
+</Dialog>
 ```
 
 `asChild` på `DialogTrigger` gjør at `Button` du skriver inni overtar ansvaret for å åpne dialogen, men beholder sin egen styling. Uten `asChild` ville `DialogTrigger` ha wrappert knappen din i et ekstra element, noe som kan gi uventet oppførsel og gjøre det vanskeligere å style.
@@ -2387,7 +2391,7 @@ import { useForm, useFormContext, FormProvider, Path } from "react-hook-form";
   <form onSubmit={form.handleSubmit(redigerSpiller)}>
     <SkjemaFelt id="navn" label="Navn" required />
   </form>
-</FormProvider>;
+</FormProvider>
 ```
 
 Inne i `SkjemaFelt` kaller du `useFormContext` i stedet for å ta `form` som prop. Vi kan også forenkle props-typen: i stedet for å sende inn feilmeldingsteksten som en streng, sender vi bare `required?: boolean` og konstruerer feilmeldingen fra `label`-proppen.
@@ -2658,7 +2662,7 @@ import {
       <AlertDialogAction>Slett</AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
-</AlertDialog>;
+</AlertDialog>
 ```
 
 `variant="destructive"` på `Button` gir knappen en rød farge som signaliserer at dette er en farlig handling.
@@ -4200,7 +4204,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
   <CardContent>
     <p className="text-4xl font-bold">{spillere.length}</p>
   </CardContent>
-</Card>;
+</Card>
 ```
 
 <details class="losningsforslag">

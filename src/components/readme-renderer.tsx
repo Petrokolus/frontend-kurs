@@ -42,7 +42,7 @@ function makeHeading(Tag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6") {
   };
 }
 
-type DetailsVariant = "default" | "hint" | "losningsforslag";
+type DetailsVariant = "default" | "hint" | "losningsforslag" | "tip";
 
 const variantStyles: Record<
   DetailsVariant,
@@ -63,11 +63,17 @@ const variantStyles: Record<
     summary: "text-green-800",
     icon: "✅",
   },
+  tip: {
+    details: "border-sky-200 bg-sky-50 open:bg-sky-50/40",
+    summary: "text-sky-800",
+    icon: "🛠️",
+  },
 };
 
 function getVariant(className?: string): DetailsVariant {
   if (className?.includes("losningsforslag")) return "losningsforslag";
   if (className?.includes("hint")) return "hint";
+  if (className?.includes("tip")) return "tip";
   return "default";
 }
 

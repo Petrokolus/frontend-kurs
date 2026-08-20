@@ -773,6 +773,8 @@ const result = await fetch("http://localhost:3000/api/spillere");
 const spillere: Spiller[] = await result.json();
 ```
 
+Det å hente data over nettverket tar tid. Legg merke til at vi har puttet `await` foran `fetch`. Det er fordi `fetch` er en asynkron funksjon: den returnerer med det samme et **Promise**, et løfte om at dataen kommer etter hvert, og kan derfor kjøres parallelt med andre ting. Når vi skriver `fetch("http://localhost:3000/api/spillere");` ber vi koden begynne å hente dataen. Men siden vi trenger at `result` er ferdig lastet inn før vi kan hente ut alle spillerne med `.json()`, må vi si til koden at den må vente (`await`) til all dataen er kommet før den går videre.
+
 Fordi `page.tsx` er en **server component**, en komponent som kjører på serveren, ikke i nettleseren, kan vi bruke `await` direkte i komponenten uten noe ekstra oppsett. Vi kommer tilbake til hva dette betyr i praksis i oppgave 3.
 
 Hent spillerne fra API-et og send dem til `SpillereListe` på samme måte som du sendte `mockSpillere` i oppgave 1c. Fjern `mockSpillere`-konstanten nå som vi har ekte data.

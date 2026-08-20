@@ -849,7 +849,7 @@ Før vi skriver kode, la oss utforske hva API-et tilbyr. Klikk på **API-dokumen
 
 Her finner du en oversikt over alle tilgjengelige API-routes. Klikk på routen `GET /api/spillere/{id}`, skriv inn en spiller-ID (f.eks. `1`) og klikk **"Execute"**. Du vil se nøyaktig hva API-et returnerer, og dette er dataen du skal bruke på detaljsiden.
 
-På jobb vil du bruke API-dokumentasjon til å forstå hva som er tilgjengelig og hvordan dataen ser ut, før du begynner å kode. Gjør deg kjent med det!
+På jobb vil du bruke API-dokumentasjon til å forstå hva som er tilgjengelig og hvordan dataen ser ut, før du begynner å kode.
 
 #### Oppgave 2c – Hent og vis spillerdata
 

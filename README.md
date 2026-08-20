@@ -476,7 +476,7 @@ export default async function SpillerePage() {
 
 #### Oppgave 1b - Vis et SpillerCard på siden
 
-En stor fordel med React er at man kan dele opp grensesnittet i gjenbrukbare komponenter og importere dem der man trenger dem. Slik ser en typisk import ut:
+En stor fordel med React er at man kan dele opp grensesnittet i gjenbrukbare komponenter. I stedet for å skrive alt i én stor fil, legger vi hver komponent i sin egen fil og henter den inn der vi trenger den. En fil gjør koden sin tilgjengelig for andre filer med `export` (se hvordan det er gjort i `src\components\spillere\spiller-card.tsx`), og andre filer henter den inn igjen med `import`. Slik ser en typisk import ut:
 
 ```tsx
 import SpillerCard from "@/components/spillere/spiller-card";
@@ -494,7 +494,7 @@ Importer `SpillerCard` i `page.tsx` og legg den inn under overskriften.
 
 <details class="default">
 <summary>Tips</summary>
-Du trenger ikke skrive importlinjer manuelt. Sett inn en komponent du ikke har importert ennå, hold musepekeren over navnet (som nå har en rød error-linje), og klikk Quick Fix → Add import from ...". VS Code setter inn importlinjen for deg. Dette fungerer for komponenter, typer og funksjoner.
+Du trenger ikke skrive importlinjer manuelt. Sett inn en komponent du ikke har importert ennå, plasser markøren i eller på navnet (som nå har en rød error-linje), og trykk `Ctrl+.` (`Cmd+.` på Mac) for å åpne Quick Fix. Velg "Add import from ..." fra listen som dukker opp. VS Code setter inn importlinjen for deg. Dette fungerer for komponenter, typer og funksjoner.
 </details>
 
 <details class="losningsforslag">

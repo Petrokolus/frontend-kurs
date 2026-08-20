@@ -326,6 +326,41 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 
 **Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
 
+<details>
+<summary>Kort om HTML</summary>
+
+HTML (HyperText Markup Language) er språket nettlesere bruker til å strukturere innhold på en side. JSX, som vi skal bruke i React, ligner veldig på HTML, så det er greit å kjenne det grunnleggende før vi går videre.
+
+Byggeklossen i HTML kalles et **element**. Et element består vanligvis av en **åpnetag**, noe innhold, og en **lukketag**:
+
+```html
+<p>Dette er et avsnitt</p>
+```
+
+`<p>` er åpnetaggen, `</p>` er lukketaggen (legg merke til skråstreken), og teksten mellom dem er innholdet. Noen elementer, som `<img>`, har ikke noe innhold og trenger derfor ingen lukketag.
+
+Elementer kan ha **attributter**, ekstra informasjon skrevet inni åpnetaggen:
+
+```html
+<img src="/bilde.png" alt="Beskrivelse av bildet" />
+```
+
+Her er `src` og `alt` attributter. `src` sier hvor bildet ligger, `alt` er en tekstlig beskrivelse av bildet.
+
+Noen tags du kommer til å bruke mye i dette kurset:
+
+| Tag                      | Brukes til                                        |
+| ------------------------ | ------------------------------------------------- |
+| `<div>`                  | En generisk beholder for annet innhold, en "boks" |
+| `<p>`                    | Et avsnitt med tekst                              |
+| `<h1>` til og med `<h6>` | Overskrifter, `<h1>` er størst og `<h6>` er minst |
+| `<img>`                  | Vise et bilde                                     |
+| `<a>`                    | En lenke til en annen side                        |
+
+Du kommer til å få nøyere innføring i enkelte elementer senere i kurset der du først skal ta de i bruk.
+
+</details>
+
 I React bygger vi brukergrensesnitt av komponenter, gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent (også kalt funksjonelt komponent) er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode). Her er et superenkelt eksempel på en komponent, som vi her kaller "Hilsen":
 
 ```typescript
@@ -348,6 +383,13 @@ function Hilsen({ navn }: Props) {
 // Bruk:
 <Hilsen navn={"Ola"} />
 <Hilsen navn={"Kari"} />
+```
+
+Når disse rendres i nettleseren, blir resultatet:
+
+```
+Hei, Ola!
+Hei, Kari!
 ```
 
 Siden vi også skriver i TypeScript, så kan du se at vi definerer typen på alle props.
@@ -385,9 +427,9 @@ export default function MinKomponent() {
 
 Overskriften du skal legge til i denne oppgaven hører hjemme inni `return`.
 
-Hvis du har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av oppstartsguiden, så kan du allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser du det som nå finnes av innhold i page.tsx i spillere-mappen.
+Hvis du har startet dev-serveren, slik som beskrevet i slutten av oppstartsguiden, så kan du allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser du det som nå finnes av innhold i page.tsx i spillere-mappen.
 
-Alle sider trenger en overskrift! Naviger til `page.tsx` og legg til overskriften "Spillere". HTML har sitt eget element for overskrifter:
+Alle sider trenger en overskrift! Naviger til `src/app/spillere/page.tsx` i VS code og legg til overskriften "Spillere". HTML har sitt eget element for overskrifter:
 
 ```typescript
 <h1>Spillere</h1>
@@ -410,6 +452,8 @@ Alle HTML-elementer kan styles på mange forskjellige måter ved hjelp av Tailwi
 
 Hvis du har lagt til overskriften riktig, så skal du allerede nå kunne se den dukke opp i nettleseren under siden "Spillere".
 
+La du merke til at du ikke trengte å laste siden på nytt for å se endringen? Dette kalles **hot reload** (eller "Fast Refresh" i Next.js): så snart du lagrer en fil, oppdaterer nettleseren seg automatisk med de nyeste endringene, uten at man må restarte dev-serveren. Det er en av de tingene som gjør frontend-utvikling gøy, du får se resultatet av endringene dine nesten øyeblikkelig.
+
 <details class="losningsforslag">
 <summary>Løsningsforslag 1a</summary>
 
@@ -419,9 +463,9 @@ export default async function SpillerePage() {
     <div className="max-w-4xl p-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
-        {/* Oppgave 1b - LEGG TIL ET SPILLERCARD HER */}
         {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
       </div>
+      {/* Oppgave 1b - LEGG TIL ET SPILLERCARD HER */}
       <p>Her var det ganske tomt foreløpig!</p>
     </div>
   );

@@ -24,6 +24,7 @@ const resourcePages = [
 
 const externalLinks = [
   { href: "https://ui.shadcn.com/docs/components", label: "shadcn/ui" },
+  { href: "https://developer.mozilla.org/en-US/docs/Web/HTML", label: "HTML" },
   {
     href: "https://tailwindcss.com/docs/installation/using-vite",
     label: "Tailwind CSS",

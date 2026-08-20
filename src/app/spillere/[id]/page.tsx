@@ -9,7 +9,7 @@ type Props = {
 export default async function SpillerPage({ params }: Props) {
   const { id } = await params; // Hent ut id-en
 
-  // TODO 2b: Hent spilleren fra API-et med id-en du har tilgjengelig.
+  // TODO 2c: Hent spilleren fra API-et med id-en du har tilgjengelig.
   // API-ruten er /api/spillere/:id — erstatt :id med id-variabelen.
   // Husk å hente ut spilleren fra resultatet med .json(), akkurat som i oppgave 1!
 

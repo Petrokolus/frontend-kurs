@@ -835,9 +835,13 @@ Dette forteller Next.js at dette segmentet av URL-en er dynamisk og kan innehold
 
 I dette tilfellet vil tekststrengen du putter inni firkantparentesene (`id`, `kampNr`, `liga`) være tilgjengelig som en variabel i `page.tsx`-filen gjennom `params`-objektet som Next.js automatisk sender inn i siden.
 
+`params` hentes asynkront, og er derfor typet som et Promise (`Promise<{ id: string }>`) i stedet for et vanlig objekt, samme som du så med `fetch` i oppgave 1f, bare før noen har brukt `await`. Hvis du awaiter `params` vil det du får ut ha typen `{ id: string }`.
+
 > **OBS:** Next.js tolker visse filnavn i `app`-mappen på en spesiell måte. `page.tsx` er ett av dem, men det finnes flere: `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx` og `template.tsx`. Disse er reservert for Next.js og bør ikke brukes som navn på egne komponenter.
 
 For å hjelpe deg i gang har vi allerede opprettet `src/app/spillere/[id]/page.tsx`. Naviger til `http://localhost:3000/spillere/1`, `http://localhost:3000/spillere/2`, `http://localhost:3000/spillere/3` i nettleseren. Ser du hvordan tittelen endres basert på `id`-verdien i URL-en?
+
+Dette er kjernen i dynamisk routing: Next.js bruker `id`-en fra URL-en til å avgjøre hvilken side som vises. Nå som du har sett det i praksis, skal vi bli kjent med API-et vi skal bruke til å hente ekte spillerdata etterpå.
 
 #### Oppgave 2b – Utforsk API-et i API-dokumentasjonen
 

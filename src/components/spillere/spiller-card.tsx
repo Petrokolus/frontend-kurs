@@ -10,10 +10,10 @@ export default function SpillerCard({ spiller }: Props) {
     <div className="flex items-center space-x-4 rounded-lg border p-4">
       <div className="flex-1">
         <h2 className="text-lg font-semibold">{spiller.navn}</h2>
+        <p className="text-muted-foreground text-sm">{spiller.posisjon}</p>
         <p className="text-muted-foreground text-sm">
-          Her kan vi vise mer data fra spiller-objektene
+          Rating: {spiller.rating}
         </p>
-        {/* Oppgave 1d: Legg til flere detaljer her basert på datamodellen */}
       </div>
     </div>
   );

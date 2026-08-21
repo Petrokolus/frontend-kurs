@@ -167,14 +167,7 @@ export default async function SpillerePage() {
 
 #### Oppgave 3b – Oppdater `SkjemaData`-typen og startverdiene
 
-Øverst i filen er det definert en type `SkjemaData` og en startverdi for `useState`. Disse inneholder foreløpig bare `navn`. Legg til de andre feltene her også.
-
-<details class="hint">
-<summary>Hint</summary>
-
-TypeScript vil gi deg rød understrek hvis du glemmer et felt. Hvis du hoverer over feilmeldingene kan du se hva som forventes.
-
-</details>
+Øverst i filen er det definert en type `SkjemaData` og en startverdi for `useState`. Disse inneholder foreløpig bare `navn`. Legg til `avdeling`, `kull` og `posisjon` her også fra `Spiller`-typen i `src/lib/types.ts`. (`styrke` og `svakhet` er valgfrie og kommer i oppgave 3d.)
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 3b</summary>
@@ -217,6 +210,13 @@ Legg merke til at dette henger sammen med TypeScript-typen: Felt med `?` i `Skje
 <summary>Hint</summary>
 
 Se på `Spiller`-typen i `lib/types.ts` for å se hvilke felter en spiller har.
+
+</details>
+
+<details class="hint">
+<summary>Hint</summary>
+
+TypeScript vil gi deg rød understrek på `skjema.avdeling`, `skjema.kull` osv. hvis du glemte et felt i `SkjemaData`-typen i 3b. Hvis du hoverer over feilmeldingene kan du se hva som forventes.
 
 </details>
 

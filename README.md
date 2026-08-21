@@ -996,6 +996,8 @@ import Link from "next/link";
 <Link href="/spillere/1">Gå til Erik Solberg</Link>
 ```
 
+> **OBS:** Bruker du `Ctrl+.` for å autofullføre importen av `Link`, kan VS Code foreslå flere alternativer, blant annet fra `lucide-react` (et ikonbibliotek som også har noe som heter `Link`). Sørg for å velge alternativet fra `next/link`. Velger du feil, vil du se en ESLint-advarsel som ber deg importere fra `next/link` i stedet.
+
 `<Link>` er på mange måter bare en vanlig `<a>`-tag, men den har noen fordeler som gjør navigasjonen raskere, blant annet **pre-fetching**. Prefetching betyr at `<Link>` begynner å laste inn siden den peker på i bakgrunnen, slik at navigeringen føles raskere når du klikker.
 
 Gå til `spiller-card.tsx` og legg til en `<Link>` rundt kortet, slik at man kan klikke på et spillerkort og komme til detaljsiden for den spilleren.

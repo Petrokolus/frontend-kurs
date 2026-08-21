@@ -14,7 +14,7 @@ export default async function SpillerPage({ params }: Props) {
   // Husk å hente ut spilleren fra resultatet med .json(), akkurat som i oppgave 1!
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="max-w-2xl p-8 mx-auto">
       <h1 className="text-3xl font-bold">Spiller {id}</h1>
       {/* Oppgave 2d: Legg til bilde av spilleren her */}
       {/* Oppgave 2c: Erstatt teksten over med spillerens navn, og vis resten av detaljene under */}

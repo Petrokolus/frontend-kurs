@@ -13,7 +13,7 @@ export default async function SpillerPage({ params }: Props) {
   const spiller: Spiller = await result.json();
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="mx-auto max-w-2xl p-8">
       <h1 className="text-3xl font-bold">{spiller.navn}</h1>
       <p>
         {spiller.avdeling} - {spiller.kull}

@@ -460,7 +460,7 @@ La du merke til at du ikke trengte å laste siden på nytt for å se endringen? 
 ```tsx
 export default async function SpillerePage() {
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
         {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
@@ -505,7 +505,7 @@ import SpillerCard from "@/components/spillere/spiller-card";
 
 export default async function SpillerePage() {
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
         {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
@@ -619,7 +619,7 @@ export default async function SpillerePage() {
     },
   ];
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
         {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
@@ -791,7 +791,7 @@ export default async function SpillerePage() {
   const spillere: Spiller[] = await result.json();
 
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
         {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
@@ -883,7 +883,7 @@ export default async function SpillerPage({ params }: Props) {
   const spiller: Spiller = await result.json();
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="max-w-2xl p-8 mx-auto">
       <h1 className="text-3xl font-bold">{spiller.navn}</h1>
       {/* Oppgave 2d: Legg til bilde av spilleren her */}
       <p>
@@ -913,9 +913,9 @@ import Image from "next/image";
 <Image
   src={`/spiller/${id}.png`}
   alt={`Profilbilde av ${spiller.navn}`}
-  width={128}
-  height={128}
-  className="aspect-square rounded-full object-cover"
+  width={200}
+  height={200}
+  className="aspect-square rounded-4xl object-cover"
 />
 ```
 
@@ -1174,7 +1174,7 @@ export default async function SpillerePage() {
   const spillere: Spiller[] = await result.json();
 
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
         <Link
@@ -2323,7 +2323,7 @@ export default async function SpillerPage({ params }: Props) {
   const spiller: Spiller = await result.json();
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="max-w-2xl p-8 mx-auto">
       <img src={`/spiller/${id}.png`} alt={`Profilbilde av ${spiller.navn}`} />
       <h1 className="text-3xl font-bold">{spiller.navn}</h1>
       <p>{spiller.avdeling}</p>
@@ -2973,7 +2973,7 @@ export default async function SpillerePage({ searchParams }: Props) {
   );
 
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <h1 className="mb-4 text-3xl font-bold">Spillere</h1>
       <Link href="/spillere/opprett">Opprett spiller</Link>
       <div className="mt-4 flex flex-col gap-4">
@@ -3152,7 +3152,7 @@ export default async function SpillerePage({ searchParams }: Props) {
     });
 
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <h1 className="mb-4 text-3xl font-bold">Spillere</h1>
       <Link href="/spillere/opprett">Opprett spiller</Link>
       <div className="mt-4 flex flex-col gap-4">
@@ -3490,7 +3490,7 @@ export default async function KamperPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="max-w-5xl p-8">
+    <div className="max-w-5xl p-8 mx-auto">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Kamphistorikk</h1>
         <Button asChild>
@@ -3588,7 +3588,7 @@ export default async function KampPage({ params }: Props) {
   const lag2Maal = kamp.lagVinner === 2 ? 10 : kamp.taperMaal;
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="max-w-2xl p-8 mx-auto">
       <Link href="/kamper" className="text-muted-foreground text-sm">
         Tilbake til kamphistorikk
       </Link>
@@ -3708,7 +3708,7 @@ export default async function OpprettKampPage() {
   const spillere: Spiller[] = await response.json();
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="max-w-2xl p-8 mx-auto">
       <h1 className="mb-6 text-3xl font-bold">Registrer kamp</h1>
       <OpprettKampSkjema spillere={spillere} />
     </div>

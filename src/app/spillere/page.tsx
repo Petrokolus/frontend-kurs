@@ -10,7 +10,12 @@ export default async function SpillerePage() {
     <div className="mx-auto max-w-4xl p-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
-        <Link href={"/spillere/opprett"}>Opprett spiller</Link>
+        <Link
+          href="/spillere/opprett"
+          className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+        >
+          Opprett spiller
+        </Link>
       </div>
       <SpillereListe spillere={spillere} />
     </div>

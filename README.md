@@ -885,6 +885,7 @@ export default async function SpillerPage({ params }: Props) {
   return (
     <div className="max-w-2xl p-8">
       <h1 className="text-3xl font-bold">{spiller.navn}</h1>
+      {/* Oppgave 2d: Legg til bilde av spilleren her */}
       <p>
         {spiller.avdeling} - {spiller.kull}
       </p>

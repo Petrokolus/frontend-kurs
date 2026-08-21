@@ -1,4 +1,5 @@
 <!-- nav:start -->
+
 [← Oppgave 2](./02-spillerdetaljer.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 4 →](./04-hooks-i-praksis.md)
 <!-- nav:end -->
 
@@ -86,7 +87,7 @@ Dette gjør at klikk på etiketten fokuserer feltet, og at skjermlesere leser op
 
 ---
 
-Vil du lære mer om hvordan ratingsystemet fungerer? Les gjerne mer her:
+Ønsker du å vite hvordan rating-systemet fungerer?
 
 <details>
 <summary>Hva skjer med ratingen til en ny spiller?</summary>
@@ -124,6 +125,8 @@ I tillegg bruker skyggeratingen en **høyere K-verdi** enn vanlig rating, slik a
 Skyggeratingen tar også hensyn til **vinnstreaker og tapstreaker**. Flere seiere på rad gir en bonus, og flere tap på rad gir en straff, jo lengre streaken er, jo større effekt.
 
 </details>
+
+---
 
 #### Oppgave 3a – Legg til lenke til "Opprett spiller"-siden
 
@@ -457,7 +460,7 @@ Fyll inn skjemaet og opprett en spiller. Sjekk at:
 
 ---
 
-
 <!-- nav:start -->
+
 [← Oppgave 2](./02-spillerdetaljer.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 4 →](./04-hooks-i-praksis.md)
 <!-- nav:end -->

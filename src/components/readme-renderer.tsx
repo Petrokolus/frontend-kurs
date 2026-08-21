@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark-dimmed.css";
+import Link from "next/link";
 import React, { type ComponentPropsWithoutRef } from "react";
 
 type Props = {
@@ -144,7 +145,41 @@ function Details({
   );
 }
 
+// Lenker mellom docs/oppgaver/*.md og README.md er skrevet som relative
+// filstier, slik at de fungerer direkte på GitHub. I appen finnes ingen slike
+// filruter, så vi oversetter dem til ekte navigasjon via /oppgaver?del=N.
+function oppgaveDelFromHref(href: string): number | null {
+  const match = href.match(/(?:^|\/)(\d+)-[^/]+\.md$/);
+  return match ? Number(match[1]) : null;
+}
+
+function isOversiktHref(href: string): boolean {
+  return /README\.md(#oppgaver)?$/.test(href);
+}
+
+function AnchorLink({
+  href,
+  children,
+  ...props
+}: ComponentPropsWithoutRef<"a">) {
+  if (href) {
+    const del = oppgaveDelFromHref(href);
+    if (del !== null) {
+      return <Link href={`/oppgaver?del=${del}`}>{children}</Link>;
+    }
+    if (isOversiktHref(href)) {
+      return <Link href="/oppgaver">{children}</Link>;
+    }
+  }
+  return (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  );
+}
+
 const components = {
+  a: AnchorLink,
   h1: makeHeading("h1"),
   h2: makeHeading("h2"),
   h3: makeHeading("h3"),

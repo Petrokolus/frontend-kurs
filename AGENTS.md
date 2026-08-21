@@ -14,7 +14,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 A frontend course built on Next.js, 10 oppgaver taking students from JSX basics to a streamed dashboard. Students build a foosball player + match portal. The app is pre-wired with a database, API routes, and component library — students only build the UI layer (pages, components, forms, dialogs).
 
-`README.md` is the authoritative task booklet — it's rendered live at `/oppgaver`. This AGENTS.md is a working reference for whoever (human or agent) is developing the course itself; keep it in sync with README.md and the actual state of `src/`, since both drift as oppgaver are added or revised.
+The task booklet is split across [`docs/oppgaver/`](docs/oppgaver) (one file per oppgave) and rendered live at `/oppgaver`; `README.md` now only holds the course intro/oversikt. This AGENTS.md is a working reference for whoever (human or agent) is developing the course itself; keep it in sync with `docs/oppgaver/` and the actual state of `src/`, since both drift as oppgaver are added or revised.
 
 ---
 
@@ -37,7 +37,7 @@ A frontend course built on Next.js, 10 oppgaver taking students from JSX basics 
 
 ## File structure
 
-Paths marked "not yet created" don't exist in `src/` on `main` — they're built by students during the course. If you're implementing an oppgave end-to-end to test it, create them under these paths so they line up with README's instructions.
+Paths marked "not yet created" don't exist in `src/` on `main` — they're built by students during the course. If you're implementing an oppgave end-to-end to test it, create them under these paths so they line up with the instructions in `docs/oppgaver/`.
 
 ```
 src/
@@ -67,7 +67,8 @@ src/
 ├── components/
 │   ├── ui/                        # shadcn primitives — do not modify
 │   ├── side-nav.tsx               # App navigation — pre-built, students add /kamper + /dashboard links (9a/10a)
-│   ├── readme-renderer.tsx        # Markdown renderer for README — pre-built
+│   ├── readme-renderer.tsx        # Markdown renderer for README/oppgave content — pre-built
+│   ├── oppgave-nav.tsx            # Forrige/neste-navigasjon between oppgaver — pre-built
 │   ├── api-docs/                  # Swagger UI client component — pre-built
 │   └── spillere/
 │       ├── spiller-card.tsx        # Starter stub, oppgave 1
@@ -78,7 +79,8 @@ src/
 ├── lib/
 │   ├── prisma.ts                  # Prisma client singleton (uses better-sqlite3 adapter) — pre-built
 │   ├── types.ts                   # Spiller, Posisjon, Kamp types — pre-built
-│   └── openapi.ts                 # OpenAPI spec for Swagger UI — pre-built
+│   ├── openapi.ts                 # OpenAPI spec for Swagger UI — pre-built
+│   └── oppgaver.ts                # Manifest over docs/oppgaver/*.md + prev/next helpers — pre-built
 └── generated/prisma/               # Auto-generated — never edit
 ```
 
@@ -150,10 +152,17 @@ Use this to find where a given piece of functionality is introduced, or to check
 | 9 | Alt du kan, brukt på nytt | Repetition — same patterns applied to a new resource | Entire `kamper/` module from scratch |
 | 10 | Dashboard | `Suspense`, `Promise.all`, streaming | Entire `dashboard/` module from scratch |
 
-Each oppgave's `<details class="losningsforslag">` block in README.md is the canonical solution — when testing an oppgave or writing a new one, that markup pattern (hint blocks use `class="hint"`, solutions use `class="losningsforslag"`) is what `readme-renderer.tsx` expects; don't invent a different collapsible syntax.
+Each oppgave's `<details class="losningsforslag">` block in its `docs/oppgaver/*.md` file is the canonical solution — when testing an oppgave or writing a new one, that markup pattern (hint blocks use `class="hint"`, solutions use `class="losningsforslag"`) is what `readme-renderer.tsx` expects; don't invent a different collapsible syntax.
 
 ---
 
-## Course README
+## Course content: README.md and docs/oppgaver/
 
-`README.md` serves as the course task booklet. It is rendered at `/oppgaver` in the app. Changes to README are immediately visible in the browser — no rebuild needed. It's long (10 oppgaver, ~4500 lines) and has been edited in pieces over many commits — when adding or revising a section, grep for the surrounding oppgave numbers first to check you're not reintroducing a duplicate block (happened once with the "500-feil" callout after oppgave 3e).
+The task booklet used to be one long `README.md`; it's now split into `docs/oppgaver/01-vis-alle-spillere.md` through `10-dashboard.md`, plus `11-veien-videre.md` as an epilogue. `README.md` keeps only the course intro and oversikt.
+
+- [`src/lib/oppgaver.ts`](src/lib/oppgaver.ts) is the manifest — `del`, `nr`, `navLabel`, `tittel`, and `file` for each oppgave, plus `getOppgaveByDel`/`getPrevOppgave`/`getNextOppgave`.
+- [`src/app/oppgaver/page.tsx`](src/app/oppgaver/page.tsx) reads `?del=` from the URL: no `del` (or one that doesn't resolve) renders `README.md`; otherwise it reads the matching file from `docs/oppgaver/`.
+- Both README.md and the docs/oppgaver files carry `<!-- nav:start --> ... <!-- nav:end -->` markers around a prev/next link block, so navigation still works when reading the raw markdown on GitHub. `stripNavMarkers()` in `oppgaver.ts` strips those markers before rendering in-app, since `/oppgaver` renders its own `<OppgaveNav>` component instead.
+- Changes to any of these files are immediately visible in the browser — no rebuild needed.
+- Adding a new oppgave: create the file under `docs/oppgaver/`, add nav markers, add an entry to the `oppgaver` array in `oppgaver.ts`, and add/update the row in the "Course map" table above.
+- Each oppgave file has been edited in pieces over many commits — when revising one, grep within that file for the surrounding oppgave letters first to check you're not reintroducing a duplicate block (happened once with the "500-feil" callout after oppgave 3e, back when everything lived in one README.md).

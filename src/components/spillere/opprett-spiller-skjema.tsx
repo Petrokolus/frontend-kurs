@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Spiller } from "@/lib/types";
 
 type SkjemaData = {
   navn: string;
@@ -32,7 +33,8 @@ export default function OpprettSpillerSkjema() {
     });
 
     if (response.ok) {
-      // Oppgave 3e: Naviger til den nye spillerens detaljside
+      const spiller: Spiller = await response.json();
+      router.push(`/spillere/${spiller.id}`);
     }
   }
 

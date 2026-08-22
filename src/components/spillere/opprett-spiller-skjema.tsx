@@ -13,7 +13,6 @@ type SkjemaData = {
 export default function OpprettSpillerSkjema() {
   const router = useRouter();
 
-  // Oppgave 3b: Legg til de resterende feltene i startverdiene
   const [skjema, setSkjema] = useState<SkjemaData>({
     navn: "",
     avdeling: "",
@@ -41,7 +40,6 @@ export default function OpprettSpillerSkjema() {
       }}
       className="flex flex-col gap-4"
     >
-      {/* Oppgave 3c: Her er ett eksempel-felt. Kopier mønsteret for de andre feltene. */}
       <div className="flex flex-col gap-1">
         <label htmlFor="navn">Navn</label>
         <input
@@ -53,8 +51,39 @@ export default function OpprettSpillerSkjema() {
           required
         />
       </div>
-
-      {/* Oppgave 3c: Legg til inputfelter for avdeling, kull og posisjon her */}
+      <div className="flex flex-col gap-1">
+        <label htmlFor="avdeling">Avdeling</label>
+        <input
+          id="avdeling"
+          type="text"
+          value={skjema.avdeling}
+          onChange={(e) => setSkjema({ ...skjema, avdeling: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="kull">Kull</label>
+        <input
+          id="kull"
+          type="text"
+          value={skjema.kull}
+          onChange={(e) => setSkjema({ ...skjema, kull: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="posisjon">Posisjon</label>
+        <input
+          id="posisjon"
+          type="text"
+          value={skjema.posisjon}
+          onChange={(e) => setSkjema({ ...skjema, posisjon: e.target.value })}
+          className="rounded border px-3 py-2"
+          required
+        />
+      </div>
 
       {/* Oppgave 3d: Legg til valgfrie felter for styrke og svakhet */}
 

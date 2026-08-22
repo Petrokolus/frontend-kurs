@@ -20,6 +20,8 @@ export default function OpprettSpillerSkjema() {
     avdeling: "",
     kull: "",
     posisjon: "",
+    styrke: "",
+    svakhet: "",
   });
 
   async function handleSubmit(data: SkjemaData) {

@@ -55,7 +55,7 @@ export default function OpprettSpillerSkjema() {
 
       <button
         type="submit"
-        className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+        className="bg-twoday-amber cursor-pointer rounded px-4 py-2 font-semibold"
       >
         Opprett spiller
       </button>

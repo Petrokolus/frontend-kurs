@@ -74,6 +74,28 @@ const [skjema, setSkjema] = useState({
 
 `{ ...skjema, navn: e.target.value }` betyr: «ta alle verdiene fra det gamle skjema-objektet, men overskriv `navn` med den nye verdien». Dette kalles en **spread** og er en vanlig måte å oppdatere objekter i React på.
 
+<details>
+<summary>Kontrollerte vs. ukontrollerte inputs</summary>
+
+Kontrollerte inputs, som vi bruker her, er ikke den eneste måten å håndtere skjemaer i React på. Alternativet er **ukontrollerte inputs**: du gir feltet et `name`-attributt og lar nettleseren holde på verdien selv, i stedet for å styre den med `useState`. Når skjemaet sendes inn, kan du hente ut alle verdiene samlet i ett `FormData`-objekt:
+
+```tsx
+<form
+  onSubmit={(e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    console.log(data.get("navn"));
+  }}
+>
+  <input name="navn" />
+  <button type="submit">Send</button>
+</form>
+```
+
+Ukontrollert er raskere å skrive og gir bedre ytelse (ingen re-render for hvert tastetrykk), men du mister muligheten til å reagere på det brukeren skriver underveis, som live validering. Kontrollert gir deg den funksjonaliteten, men koster mer kode.
+
+</details>
+
 #### Tilgjengelighet: label og id
 
 For at skjemaet skal fungere godt for alle, inkludert brukere med skjermleser, er det viktig å knytte hvert inputfelt til en `<label>` med `htmlFor` og `id`:
@@ -337,6 +359,8 @@ type SkjemaData = {
   styrke?: string;
 };
 ```
+
+Selv om feltene er valgfrie, må vi også huske å sette en startverdi for dem. Det er fordi vi styrer verdien deres manuelt med `useState`, og da må vi gi en startverdi: React tillater ikke at en verdi går fra `undefined` (ukontrollert) til tekst (kontrollert).
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 3d</summary>

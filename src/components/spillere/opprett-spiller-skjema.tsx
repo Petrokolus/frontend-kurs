@@ -41,7 +41,7 @@ export default function OpprettSpillerSkjema() {
       }}
       className="flex flex-col gap-4"
     >
-      {/* Oppgave 3b: Her er ett eksempel-felt. Kopier mønsteret for de andre feltene. */}
+      {/* Oppgave 3c: Her er ett eksempel-felt. Kopier mønsteret for de andre feltene. */}
       <div className="flex flex-col gap-1">
         <label htmlFor="navn">Navn</label>
         <input
@@ -54,7 +54,7 @@ export default function OpprettSpillerSkjema() {
         />
       </div>
 
-      {/* Oppgave 3b: Legg til inputfelter for avdeling, kull og posisjon her */}
+      {/* Oppgave 3c: Legg til inputfelter for avdeling, kull og posisjon her */}
 
       {/* Oppgave 3d: Legg til valgfrie felter for styrke og svakhet */}
 

@@ -431,7 +431,7 @@ Bruk `router.push()` for å navigere til riktig side etter at skjemaet er sendt 
 Husk å lese JSON-svaret fra APIet for å få tak i `id`-en til den nye spilleren:
 
 ```tsx
-const spiller = await response.json();
+const spiller: Spiller = await response.json();
 router.push(`/spillere/${spiller.id}`);
 ```
 
@@ -440,7 +440,11 @@ router.push(`/spillere/${spiller.id}`);
 <details class="losningsforslag">
 <summary>Løsningsforslag 3e</summary>
 
+Legg til `Spiller`-importen og oppdater `handleSubmit`:
+
 ```tsx
+import { Spiller } from "@/lib/types";
+
 async function handleSubmit(data: SkjemaData) {
   const response = await fetch("http://localhost:3000/api/spillere", {
     method: "POST",
@@ -449,7 +453,7 @@ async function handleSubmit(data: SkjemaData) {
   });
 
   if (response.ok) {
-    const spiller = await response.json();
+    const spiller: Spiller = await response.json();
     router.push(`/spillere/${spiller.id}`);
   }
 }

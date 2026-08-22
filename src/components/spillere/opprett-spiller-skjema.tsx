@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-// Oppgave 3b: Legg til de resterende feltene i dette objektet
 type SkjemaData = {
   navn: string;
+  avdeling: string;
+  kull: string;
+  posisjon: string;
 };
 
 export default function OpprettSpillerSkjema() {
@@ -14,6 +16,9 @@ export default function OpprettSpillerSkjema() {
   // Oppgave 3b: Legg til de resterende feltene i startverdiene
   const [skjema, setSkjema] = useState<SkjemaData>({
     navn: "",
+    avdeling: "",
+    kull: "",
+    posisjon: "",
   });
 
   async function handleSubmit(data: SkjemaData) {

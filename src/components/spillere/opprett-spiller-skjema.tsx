@@ -8,6 +8,8 @@ type SkjemaData = {
   avdeling: string;
   kull: string;
   posisjon: string;
+  styrke?: string;
+  svakhet?: string;
 };
 
 export default function OpprettSpillerSkjema() {
@@ -82,6 +84,27 @@ export default function OpprettSpillerSkjema() {
           onChange={(e) => setSkjema({ ...skjema, posisjon: e.target.value })}
           className="rounded border px-3 py-2"
           required
+        />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label htmlFor="styrke">Styrke (valgfritt)</label>
+        <input
+          id="styrke"
+          type="text"
+          value={skjema.styrke}
+          onChange={(e) => setSkjema({ ...skjema, styrke: e.target.value })}
+          className="rounded border px-3 py-2"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="svakhet">Svakhet (valgfritt)</label>
+        <input
+          id="svakhet"
+          type="text"
+          value={skjema.svakhet}
+          onChange={(e) => setSkjema({ ...skjema, svakhet: e.target.value })}
+          className="rounded border px-3 py-2"
         />
       </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 
 type Props = {
   sok: string;
@@ -8,6 +8,12 @@ type Props = {
 };
 
 export default function SpillerSok({ sok, setSok }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setSok(e.target.value);
     localStorage.setItem("spillerSok", e.target.value);
@@ -19,6 +25,7 @@ export default function SpillerSok({ sok, setSok }: Props) {
       </label>
       <input
         id="sok"
+        ref={inputRef}
         type="text"
         placeholder="Søk etter spillere..."
         className="mb-4 w-full rounded border px-3 py-2"

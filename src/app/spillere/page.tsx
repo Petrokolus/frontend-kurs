@@ -1,3 +1,4 @@
+import SpillerSok from "@/components/spillere/spiller-sok";
 import SpillereListe from "@/components/spillere/spillere-liste";
 import { Spiller } from "@/lib/types";
 import Link from "next/link";
@@ -17,6 +18,7 @@ export default async function SpillerePage() {
           Opprett spiller
         </Link>
       </div>
+      <SpillerSok />
       <SpillereListe spillere={spillere} />
     </div>
   );

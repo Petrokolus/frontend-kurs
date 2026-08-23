@@ -135,7 +135,7 @@ Husk også å oppdatere `SpillerSok` til å ta imot `sok` og `setSok` som props 
 Filtreringen kan gjøres slik:
 
 ```tsx
-const filtrerte = spillere.filter((spiller) =>
+const filtrerteSpillere = spillere.filter((spiller) =>
   spiller.navn.toLowerCase().includes(sok.toLowerCase())
 );
 ```
@@ -171,14 +171,14 @@ type Props = {
 export default function SpillereListeMedSok({ spillere }: Props) {
   const [sok, setSok] = useState("");
 
-  const filtrerte = spillere.filter((spiller) =>
+  const filtrerteSpillere = spillere.filter((spiller) =>
     spiller.navn.toLowerCase().includes(sok.toLowerCase())
   );
 
   return (
     <div className="flex flex-col gap-4">
       <SpillerSok sok={sok} setSok={setSok} />
-      <SpillereListe spillere={filtrerte} />
+      <SpillereListe spillere={filtrerteSpillere} />
     </div>
   );
 }

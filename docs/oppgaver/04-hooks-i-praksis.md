@@ -198,20 +198,25 @@ useEffect(() => {
 }, [avhengigheter]); // Kjøres på nytt når avhengighetene endres
 ```
 
-Bruk `useEffect` til å lagre søketeksten i `localStorage` hver gang den endres:
-
-```tsx
-useEffect(() => {
-  localStorage.setItem("spillerSok", sok);
-}, [sok]);
-```
-
-Og les den ut med en egen `useEffect` som kjører én gang når komponenten mountes, slik at søket er gjenopprettet neste gang siden lastes. Vi kan ikke lese `localStorage` direkte i `useState` fordi komponenten også rendres på serveren, og `localStorage` finnes bare i nettleseren:
+Les ut søket fra `localStorage` med en `useEffect` som kjører én gang når komponenten mountes, slik at søket er gjenopprettet når siden lastes. Vi kan ikke lese `localStorage` direkte i `useState` fordi komponenten også rendres på serveren, og `localStorage` finnes bare i nettleseren:
 
 ```tsx
 useEffect(() => {
   setSok(localStorage.getItem("spillerSok") ?? "");
 }, []);
+```
+
+Legg denne useEffect-en til i `SpillereListeMedSok`.
+
+For å lagre søket når brukeren skriver, trenger vi ikke en egen useEffect, fordi vi vet nøyaktig når og hvor verdien endres; når brukeren skriver i feltet. Gå til `SpillerSok` og lag en `handleChange`-funksjon som oppdaterer state OG lagrer til `localStorage` samtidig:
+
+```tsx
+import { ChangeEvent } from "react";
+
+function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  setSok(e.target.value);
+  localStorage.setItem("spillerSok", e.target.value);
+}
 ```
 
 <details class="losningsforslag">
@@ -227,10 +232,42 @@ const [sok, setSok] = useState("");
 useEffect(() => {
   setSok(localStorage.getItem("spillerSok") ?? "");
 }, []);
+```
 
-useEffect(() => {
-  localStorage.setItem("spillerSok", sok);
-}, [sok]);
+Legg til disse linjene i `SpillerSok`:
+
+```tsx
+"use client";
+
+import { ChangeEvent } from "react";
+
+type Props = {
+  sok: string;
+  setSok: (verdi: string) => void;
+};
+
+export default function SpillerSok({ sok, setSok }: Props) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setSok(e.target.value);
+    localStorage.setItem("spillerSok", e.target.value);
+  }
+
+  return (
+    <div>
+      <label htmlFor="sok" className="sr-only">
+        Søk etter spillere
+      </label>
+      <input
+        id="sok"
+        type="text"
+        placeholder="Søk etter spillere..."
+        className="w-full rounded border px-3 py-2 mb-4"
+        value={sok}
+        onChange={handleChange}
+      />
+    </div>
+  );
+}
 ```
 
 </details>
@@ -260,7 +297,7 @@ useEffect(() => {
 ```tsx
 "use client";
 
-import { useEffect, useRef } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 
 type Props = {
   sok: string;
@@ -274,6 +311,11 @@ export default function SpillerSok({ sok, setSok }: Props) {
     inputRef.current?.focus();
   }, []);
 
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setSok(e.target.value);
+    localStorage.setItem("spillerSok", e.target.value);
+  }
+
   return (
     <div>
       <label htmlFor="sok" className="sr-only">
@@ -286,7 +328,7 @@ export default function SpillerSok({ sok, setSok }: Props) {
         placeholder="Søk etter spillere..."
         className="w-full rounded border px-3 py-2"
         value={sok}
-        onChange={(e) => setSok(e.target.value)}
+        onChange={handleChange}
       />
     </div>
   );

@@ -133,6 +133,8 @@ async function opprettSpiller(data: SkjemaData) {
 <form onSubmit={form.handleSubmit(opprettSpiller)}>
 ```
 
+Vi døper om funksjonen `handleSubmit` til `opprettSpiller`, delvis for å unngå navnekollisjon med `form.handleSubmit`, men mest fordi det er god praksis at navnet beskriver hva funksjonen faktisk gjør.
+
 `form.handleSubmit` kjører validering først og kaller `opprettSpiller` bare hvis alle feltene er gyldige. Flytt `fetch`-kallet og navigeringen inn i `opprettSpiller`, og fjern den gamle `handleSubmit`-funksjonen.
 
 <details class="losningsforslag">

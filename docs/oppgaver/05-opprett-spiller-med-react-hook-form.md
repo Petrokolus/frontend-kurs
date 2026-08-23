@@ -456,6 +456,8 @@ if (fil) {
 }
 ```
 
+> **OBS:** Du kan se en feilmelding i nettleseren som sier "Cannot access refs during render", med en henvisning til `opprettSpiller`. Dette er en kjent falsk positiv. Koden er faktisk trygg, siden `bildeRef.current` kun leses inne i en event handler (når skjemaet sendes inn), aldri under selve rendringen. Skjemaet fungerer som det skal til tross for feilmeldingen. Du kan trykke "ctrl + .` og velge "disable react-hooks/refs for this line" for å silcence feilmeldingen.
+
 <details class="losningsforslag">
 <summary>Løsningsforslag 5h</summary>
 

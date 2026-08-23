@@ -1,4 +1,5 @@
 <!-- nav:start -->
+
 [← Oppgave 8](./08-filtrering-og-sortering-av-spillere.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 10 →](./10-dashboard.md)
 <!-- nav:end -->
 
@@ -135,6 +136,7 @@ export default async function KamperPage({ searchParams }: Props) {
   const { side: sideParam } = await searchParams;
   const side = Math.max(1, parseInt(sideParam ?? "1"));
 
+  // Promise.all kjører begge kallene parallelt. Mer om dette i Oppgave 10
   const [kamperResponse, spillereResponse] = await Promise.all([
     fetch(`http://localhost:3000/api/kamper?side=${side}&perSide=${PER_SIDE}`),
     fetch("http://localhost:3000/api/spillere"),
@@ -303,7 +305,7 @@ Legg til en lenke til registreringssiden fra kamphistorikk-siden.
 
 > **Hint:** Del opp i to filer: en Server Component (`page.tsx`) som henter spillerlisten og sender den som prop til en Client Component (`opprett-kamp-skjema.tsx`) som håndterer skjemaet. Du har gjort denne oppdelingen i oppgave 5.
 >
-> `Select`-komponenten fra shadcn fungerer ikke direkte med React Hook Form sin `register`. Bruk `setValue` og `watch` i stedet, slik du lærte i oppgave 6. Lag en gjenbrukbar `SpillerVelger`-komponent i `src/app/kamper/components/spiller-velger.tsx` som tar `spillere`, `value` og `onChange` som props. Samme komponent brukes i 9d.
+> `Select`-komponenten fra shadcn fungerer ikke direkte med React Hook Form sin `register`. Bruk i stedet `setValue(felt, verdi)` for å oppdatere et felt manuelt, og `watch(felt)` for å lese gjeldende verdi og få komponenten til å re-rendre når den endres. Lag en gjenbrukbar `SpillerVelger`-komponent i `src/app/kamper/components/spiller-velger.tsx` som tar `spillere`, `value` og `onChange` som props. Samme komponent brukes i 9d.
 >
 > For å hindre at samme spiller velges to ganger: `watch` alle fire spillerfelt og filtrer bort de som allerede er valgt i andre dropdowns, før du sender listen til `SpillerVelger`.
 >
@@ -786,7 +788,7 @@ export default function SlettKampKnapp({ kamp }: Props) {
 
 ---
 
-
 <!-- nav:start -->
+
 [← Oppgave 8](./08-filtrering-og-sortering-av-spillere.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 10 →](./10-dashboard.md)
 <!-- nav:end -->

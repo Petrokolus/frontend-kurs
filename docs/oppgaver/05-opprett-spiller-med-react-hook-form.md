@@ -78,19 +78,46 @@ Konverter `navn`-feltet til å bruke `form.register`. Fjern `value`, `onChange` 
 
 #### Oppgave 5d: Bytt til shadcn-komponenter
 
-Prosjektet har ferdiglagde komponenter for skjemaelementer som gir deg konsistent styling uten at du trenger å skrive CSS selv. Bytt ut `<label>` og `<input>` i `navn`-feltet med `Label`, `Input` og `FieldError` fra komponentbiblioteket:
+Prosjektet har ferdiglagde komponenter for skjemaelementer som gir deg konsistent styling uten at du trenger å skrive CSS selv. Bytt ut `<label>` og `<input>` for `navn`-feltet med `Label` og `Input` fra komponentbiblioteket (`@/components/ui/input`, `@/components/ui/label`).
+
+Legg på `FieldError` (`@/components/ui/field`) under `Input` for å vise frem feilmeldinger knyttet til feltet. `FieldError` tar inn en liste med feilobjekter og viser dem for deg. Den viser ingenting når det ikke er noen feil, så du trenger ingen ekstra `if`-sjekk.
+
+<details class="tip">
+<summary>Tips</summary>
+
+Hvis VS Code sin autofullfør (`Ctrl+.`) foreslår flere alternativer når du importerer `Label`, pass på at du velger `@/components/ui/label`. `recharts`, et annet bibliotek i prosjektet, eksporterer nemlig også en komponent som heter `Label`, så det er lett å importere fra feil sted ved et uhell. Velger du feil, mister komponenten riktig styling, eller du får en forvirrende TypeScript-feil.
+
+</details>
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 5d</summary>
 
 ```tsx
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FieldError } from "@/components/ui/field";
 
-<Label htmlFor="navn" className="text-lg">Navn</Label>
-<Input id="navn" {...form.register("navn", { required: "Navn er påkrevd" })} />
-<FieldError errors={[form.formState.errors.navn]} />
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(skjema);
+      }}
+      className="flex flex-col gap-4"
+    >
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="navn" className="text-lg">
+          Navn
+        </Label>
+        <Input
+          id="navn"
+          {...form.register("navn", { required: "Navn er påkrevd" })}
+        />
+        <FieldError errors={[form.formState.errors.navn]} />
+      </div>
 ```
 
-`FieldError` tar inn en liste med feilobjekter og viser dem for deg. Den viser ingenting når det ikke er noen feil, så du trenger ingen ekstra `if`-sjekk.
+</details>
 
 #### Oppgave 5e: Fullfør skjemaet
 

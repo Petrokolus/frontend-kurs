@@ -261,7 +261,7 @@ import SisteKamper from "./components/siste-kamper";
 
 export default function DashboardPage() {
   return (
-    <div className="max-w-5xl p-8">
+    <div className="max-w-5xl p-8 mx-auto">
       <h1 className="mb-8 text-3xl font-bold">Dashboard</h1>
       <Suspense fallback={<p>Laster statistikk...</p>}>
         <StatistikkKort />

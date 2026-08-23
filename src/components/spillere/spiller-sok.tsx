@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+type Props = {
+  sok: string;
+  setSok: (verdi: string) => void;
+};
 
-export default function SpillerSok() {
-  const [sok, setSok] = useState("");
+export default function SpillerSok({ sok, setSok }: Props) {
   return (
     <div>
       <label htmlFor="sok" className="sr-only">

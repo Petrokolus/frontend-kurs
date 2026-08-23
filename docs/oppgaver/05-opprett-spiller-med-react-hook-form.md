@@ -255,7 +255,7 @@ Du kan nå fjerne `useState`-importen og `skjema`-konstanten. React Hook Form ho
 
 Se på løsningsforslaget for 5e. Hvert felt følger nøyaktig samme mønster: en `Label`, en `Input` med `form.register`, og en `FieldError`. Det er bare `id`, `label` og feilmeldingsteksten som varierer.
 
-Dette er et klassisk tegn på at koden er klar til å trekkes ut i en egen komponent. Lag en `SkjemaFelt`-komponent øverst i filen (i samme fil som `OpprettSpillerSkjema`, siden den kun brukes her) som tar inn disse verdiene som props: `id`, `label`, en valgfri `isRequired`, og selve `form`-objektet.
+Dette er et klassisk tegn på at koden er klar til å trekkes ut i en egen komponent. Lag en `SkjemaFelt`-komponent nederst i filen (i samme fil som `OpprettSpillerSkjema`, siden den kun brukes her) som tar inn disse verdiene som props: `id`, `label`, en valgfri `isRequired`, og selve `form`-objektet. `OpprettSpillerSkjema` er hovedkomponenten i filen og bør stå øverst; `SkjemaFelt` er en støttekomponent og hører hjemme under den.
 
 `id`-propen bør ha typen `Path<SkjemaData>`, en type fra React Hook Form som beskriver gyldige feltnavn i skjemaet, altså `"navn" | "avdeling" | "kull" | "posisjon" | "styrke" | "svakhet"`. Vi bruker den fordi det er nøyaktig det `form.register` forventer. Med `string` ville TypeScript klage på `form.register(id, ...)`. Med `Path<SkjemaData>` får du i tillegg hjelp av TypeScript til å oppdage skrivefeil, sender du inn `"nvan"` vil du få en feilmelding med én gang.
 
@@ -286,30 +286,6 @@ type SkjemaData = {
   styrke?: string;
   svakhet?: string;
 };
-
-type SkjemaFeltProps = {
-  id: Path<SkjemaData>;
-  label: string;
-  isRequired?: boolean;
-  form: UseFormReturn<SkjemaData>;
-};
-
-function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
-  return (
-    <div className="flex flex-col gap-1">
-      <Label className="text-lg" htmlFor={id}>
-        {label}
-      </Label>
-      <Input
-        id={id}
-        {...form.register(id, {
-          required: isRequired ? `${label} er påkrevd` : false,
-        })}
-      />
-      <FieldError errors={[form.formState.errors[id]]} />
-    </div>
-  );
-}
 
 export default function OpprettSpillerSkjema() {
   const router = useRouter();
@@ -344,6 +320,30 @@ export default function OpprettSpillerSkjema() {
         Opprett spiller
       </Button>
     </form>
+  );
+}
+
+type SkjemaFeltProps = {
+  id: Path<SkjemaData>;
+  label: string;
+  isRequired?: boolean;
+  form: UseFormReturn<SkjemaData>;
+};
+
+function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
+  return (
+    <div className="flex flex-col gap-1">
+      <Label className="text-lg" htmlFor={id}>
+        {label}
+      </Label>
+      <Input
+        id={id}
+        {...form.register(id, {
+          required: isRequired ? `${label} er påkrevd` : false,
+        })}
+      />
+      <FieldError errors={[form.formState.errors[id]]} />
+    </div>
   );
 }
 ```

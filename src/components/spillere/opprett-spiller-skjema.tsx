@@ -27,10 +27,13 @@ export default function OpprettSpillerSkjema() {
       body: JSON.stringify(data),
     });
 
-    if (response.ok) {
-      const spiller = await response.json();
-      router.push(`/spillere/${spiller.id}`);
+    if (!response.ok) {
+      form.setError("root", { message: "Noe gikk galt. Prøv igjen." });
+      return;
     }
+
+    const spiller = await response.json();
+    router.push(`/spillere/${spiller.id}`);
   }
 
   return (
@@ -45,6 +48,7 @@ export default function OpprettSpillerSkjema() {
       <SkjemaFelt id="styrke" label="Styrke (valgfritt)" form={form} />
       <SkjemaFelt id="svakhet" label="Svakhet (valgfritt)" form={form} />
 
+      <FieldError errors={[form.formState.errors.root]} />
       <Button type="submit" className="bg-twoday-amber">
         Opprett spiller
       </Button>

@@ -1,4 +1,5 @@
 <!-- nav:start -->
+
 [← Oppgave 4](./04-hooks-i-praksis.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 6 →](./06-rediger-spiller.md)
 <!-- nav:end -->
 
@@ -33,17 +34,10 @@ Importer `useForm` og kall den øverst i komponenten.
 ```tsx
 import { useForm } from "react-hook-form";
 
-type SkjemaData = {
-  navn: string;
-  avdeling: string;
-  kull: string;
-  posisjon: string;
-  styrke?: string;
-  svakhet?: string;
-};
-
 const form = useForm<SkjemaData>();
 ```
+
+Merk: I steg 5b–5d vil skjemaet midlertidig være i en tilstand der både den gamle `useState`-baserte staten og den nye `useForm`-hooken eksisterer side om side. Skjemaet vil derfor ikke være testbart før du har fullført omskrivingen i oppgave 5e, som fjerner den gamle `useState`-logikken helt.
 
 #### Oppgave 5c: Konverter ett felt
 
@@ -497,7 +491,7 @@ async function opprettSpiller(data: SkjemaData) {
 
 ---
 
-
 <!-- nav:start -->
+
 [← Oppgave 4](./04-hooks-i-praksis.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 6 →](./06-rediger-spiller.md)
 <!-- nav:end -->

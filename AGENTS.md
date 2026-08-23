@@ -74,7 +74,7 @@ src/
 │       ├── spiller-card.tsx        # Starter stub, oppgave 1
 │       ├── spillere-liste.tsx      # Starter stub, oppgave 1
 │       ├── opprett-spiller-skjema.tsx  # Starter stub, oppgave 3 → rewritten with react-hook-form in 5
-│       ├── spiller-sok-og-liste.tsx    # Starter stub, oppgave 4 → deleted in 8a
+│       ├── spillere-liste-med-sok.tsx  # not yet created — oppgave 4b, deleted in 8a
 │       └── spiller-sok.tsx         # not yet created — oppgave 4a, rewritten to URL state in 8a/8b
 ├── lib/
 │   ├── prisma.ts                  # Prisma client singleton (uses better-sqlite3 adapter) — pre-built
@@ -131,7 +131,7 @@ type Kamp = {
 
 ### Starter-stub convention
 
-Files students start from (not files they create from scratch) contain `// Oppgave Na: ...` or `{/* Oppgave Na - ... */}` comments marking exactly what to add and where, e.g. [`opprett-spiller-skjema.tsx`](src/components/spillere/opprett-spiller-skjema.tsx), [`spiller-card.tsx`](src/components/spillere/spiller-card.tsx). When adding a new oppgave that extends an existing starter file, follow that pattern — a TODO comment referencing the oppgave number, left in place until the corresponding task tells the student to remove it. Files students are instructed to create entirely themselves (e.g. `spiller-sok.tsx`, anything under `kamper/` or `dashboard/`) get no starter stub at all — don't pre-create them.
+Files students start from (not files they create from scratch) contain `// Oppgave Na: ...` or `{/* Oppgave Na - ... */}` comments marking exactly what to add and where, e.g. [`opprett-spiller-skjema.tsx`](src/components/spillere/opprett-spiller-skjema.tsx), [`spiller-card.tsx`](src/components/spillere/spiller-card.tsx). When adding a new oppgave that extends an existing starter file, follow that pattern — a TODO comment referencing the oppgave number, left in place until the corresponding task tells the student to remove it. Files students are instructed to create entirely themselves (e.g. `spiller-sok.tsx`, `spillere-liste-med-sok.tsx`, anything under `kamper/` or `dashboard/`) get no starter stub at all — don't pre-create them.
 
 ---
 
@@ -144,11 +144,11 @@ Use this to find where a given piece of functionality is introduced, or to check
 | 1 | Vis alle spillere | JSX, props, `.map()`, server component fetch | `spiller-card.tsx`, `spillere-liste.tsx`, `spillere/page.tsx` |
 | 2 | Spillerdetaljer | Dynamic routes, `<Link>`, `alt` text | `spillere/[id]/page.tsx` |
 | 3 | Opprett spiller | Client components, `useState` forms, `fetch` POST | `opprett-spiller-skjema.tsx`, `spillere/opprett/page.tsx` link |
-| 4 | Hooks i praksis | `useState`, `useEffect`, `useRef` | `spiller-sok.tsx`, `spiller-sok-og-liste.tsx` |
+| 4 | Hooks i praksis | `useState`, `useEffect`, `useRef` | `spiller-sok.tsx`, `spillere-liste-med-sok.tsx` |
 | 5 | React Hook Form | 3rd-party lib, `useForm`, validation, extracted `SkjemaFelt` | Rewrites `opprett-spiller-skjema.tsx`; installs `react-hook-form` |
 | 6 | Rediger spiller | Dialog, prefill via `defaultValues`, `FormProvider`/`useFormContext`, PUT | `spillere/[id]/components/rediger-spiller-dialog.tsx` |
 | 7 | Slett spiller | `AlertDialog`, DELETE | `spillere/[id]/components/slett-spiller-knapp.tsx` |
-| 8 | Filtrering og sortering | URL state (`useSearchParams`), server-side filter/sort, debounce, `loading.tsx` | Rewrites `spiller-sok.tsx` to URL state, deletes `spiller-sok-og-liste.tsx`, `spillere/loading.tsx`; installs `use-debounce` |
+| 8 | Filtrering og sortering | URL state (`useSearchParams`), server-side filter/sort, debounce, `loading.tsx` | Rewrites `spiller-sok.tsx` to URL state, deletes `spillere-liste-med-sok.tsx`, `spillere/loading.tsx`; installs `use-debounce` |
 | 9 | Alt du kan, brukt på nytt | Repetition — same patterns applied to a new resource | Entire `kamper/` module from scratch |
 | 10 | Dashboard | `Suspense`, `Promise.all`, streaming | Entire `dashboard/` module from scratch |
 

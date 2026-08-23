@@ -91,13 +91,41 @@ export default function SpillerSok() {
 
 Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvilke spillere som vises, men `page.tsx` er en server component og kan ikke ha `useState`. Løsningen er en ny client component som tar imot hele spillerlisten som prop, håndterer søkestate selv, og viser de filtrerte resultatene.
 
-Vi har laget en halvferdig fil til deg: `src/components/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
-
-Når `SpillerSokOgListe` er ferdig, oppdater `page.tsx`: fjern `<SpillerSok />` og `<SpillereListe />` og erstatt begge med:
+Opprett en ny fil `src/components/spillere/spillere-liste-med-sok.tsx` med dette innholdet, og fullfør de tre kommenterte stegene:
 
 ```tsx
-<SpillerSokOgListe spillere={spillere} />
+"use client";
+
+import { Spiller } from "@/lib/types";
+import { useState } from "react";
+import SpillereListe from "./spillere-liste";
+import SpillerSok from "./spiller-sok";
+
+type Props = {
+  spillere: Spiller[];
+};
+
+export default function SpillereListeMedSok({ spillere }: Props) {
+  // Oppgave 4b: Legg til useState for søketeksten her
+
+  // Oppgave 4b: Filtrer spillerlisten basert på søketeksten her
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Oppgave 4b: Vis SpillerSok her og send inn sok og setSok som props */}
+      <SpillereListe spillere={spillere} />
+    </div>
+  );
+}
 ```
+
+Når `SpillereListeMedSok` er ferdig, oppdater `page.tsx`: fjern `<SpillerSok />` og `<SpillereListe />` og erstatt begge med:
+
+```tsx
+<SpillereListeMedSok spillere={spillere} />
+```
+
+Husk å oppdatere importen til `import SpillereListeMedSok from "@/components/spillere/spillere-liste-med-sok";`.
 
 Husk også å oppdatere `SpillerSok` til å ta imot `sok` og `setSok` som props i stedet for å ha sin egen `useState`.
 
@@ -112,7 +140,7 @@ const filtrerte = spillere.filter((spiller) =>
 );
 ```
 
-Når `sok` og `setSok` flyttes ut av `SpillerSok` og inn i `SpillerSokOgListe`, trenger `SpillerSok` en ny `Props`-type:
+Når `sok` og `setSok` flyttes ut av `SpillerSok` og inn i `SpillereListeMedSok`, trenger `SpillerSok` en ny `Props`-type:
 
 ```tsx
 type Props = {
@@ -126,7 +154,7 @@ type Props = {
 <details class="losningsforslag">
 <summary>Løsningsforslag 4b</summary>
 
-`spiller-sok-og-liste.tsx`:
+`spillere-liste-med-sok.tsx`:
 
 ```tsx
 "use client";
@@ -140,7 +168,7 @@ type Props = {
   spillere: Spiller[];
 };
 
-export default function SpillerSokOgListe({ spillere }: Props) {
+export default function SpillereListeMedSok({ spillere }: Props) {
   const [sok, setSok] = useState("");
 
   const filtrerte = spillere.filter((spiller) =>
@@ -189,7 +217,7 @@ useEffect(() => {
 <details class="losningsforslag">
 <summary>Løsningsforslag 4c</summary>
 
-Legg til disse linjene i `SpillerSokOgListe`:
+Legg til disse linjene i `SpillereListeMedSok`:
 
 ```tsx
 import { useState, useEffect } from "react";

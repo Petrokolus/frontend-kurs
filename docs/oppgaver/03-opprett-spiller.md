@@ -1,4 +1,5 @@
 <!-- nav:start -->
+
 [← Oppgave 2](./02-spillerdetaljer.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 4 →](./04-hooks-i-praksis.md)
 <!-- nav:end -->
 
@@ -73,6 +74,28 @@ const [skjema, setSkjema] = useState({
 
 `{ ...skjema, navn: e.target.value }` betyr: «ta alle verdiene fra det gamle skjema-objektet, men overskriv `navn` med den nye verdien». Dette kalles en **spread** og er en vanlig måte å oppdatere objekter i React på.
 
+<details>
+<summary>Kontrollerte vs. ukontrollerte inputs</summary>
+
+Kontrollerte inputs, som vi bruker her, er ikke den eneste måten å håndtere skjemaer i React på. Alternativet er **ukontrollerte inputs**: du gir feltet et `name`-attributt og lar nettleseren holde på verdien selv, i stedet for å styre den med `useState`. Når skjemaet sendes inn, kan du hente ut alle verdiene samlet i ett `FormData`-objekt:
+
+```tsx
+<form
+  onSubmit={(e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    console.log(data.get("navn"));
+  }}
+>
+  <input name="navn" />
+  <button type="submit">Send</button>
+</form>
+```
+
+Ukontrollert er raskere å skrive og gir bedre ytelse (ingen re-render for hvert tastetrykk), men du mister muligheten til å reagere på det brukeren skriver underveis, som live validering. Kontrollert gir deg den funksjonaliteten, men koster mer kode.
+
+</details>
+
 #### Tilgjengelighet: label og id
 
 For at skjemaet skal fungere godt for alle, inkludert brukere med skjermleser, er det viktig å knytte hvert inputfelt til en `<label>` med `htmlFor` og `id`:
@@ -86,7 +109,7 @@ Dette gjør at klikk på etiketten fokuserer feltet, og at skjermlesere leser op
 
 ---
 
-Vil du lære mer om hvordan ratingsystemet fungerer? Les gjerne mer her:
+Ønsker du å vite hvordan rating-systemet fungerer?
 
 <details>
 <summary>Hva skjer med ratingen til en ny spiller?</summary>
@@ -124,6 +147,8 @@ I tillegg bruker skyggeratingen en **høyere K-verdi** enn vanlig rating, slik a
 Skyggeratingen tar også hensyn til **vinnstreaker og tapstreaker**. Flere seiere på rad gir en bonus, og flere tap på rad gir en straff, jo lengre streaken er, jo større effekt.
 
 </details>
+
+---
 
 #### Oppgave 3a – Legg til lenke til "Opprett spiller"-siden
 
@@ -164,14 +189,7 @@ export default async function SpillerePage() {
 
 #### Oppgave 3b – Oppdater `SkjemaData`-typen og startverdiene
 
-Øverst i filen er det definert en type `SkjemaData` og en startverdi for `useState`. Disse inneholder foreløpig bare `navn`. Legg til de andre feltene her også.
-
-<details class="hint">
-<summary>Hint</summary>
-
-TypeScript vil gi deg rød understrek hvis du glemmer et felt. Hvis du hoverer over feilmeldingene kan du se hva som forventes.
-
-</details>
+Øverst i filen er det definert en type `SkjemaData` og en startverdi for `useState`. Disse inneholder foreløpig bare `navn`. Legg til `avdeling`, `kull` og `posisjon` her også fra `Spiller`-typen i `src/lib/types.ts`. (`styrke` og `svakhet` er valgfrie og kommer i oppgave 3d.)
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 3b</summary>
@@ -214,6 +232,13 @@ Legg merke til at dette henger sammen med TypeScript-typen: Felt med `?` i `Skje
 <summary>Hint</summary>
 
 Se på `Spiller`-typen i `lib/types.ts` for å se hvilke felter en spiller har.
+
+</details>
+
+<details class="hint">
+<summary>Hint</summary>
+
+TypeScript vil gi deg rød understrek på `skjema.avdeling`, `skjema.kull` osv. hvis du glemte et felt i `SkjemaData`-typen i 3b. Hvis du hoverer over feilmeldingene kan du se hva som forventes.
 
 </details>
 
@@ -311,7 +336,7 @@ export default function OpprettSpillerSkjema() {
 
       <button
         type="submit"
-        className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+        className="bg-twoday-amber cursor-pointer rounded px-4 py-2 font-semibold"
       >
         Opprett spiller
       </button>
@@ -334,6 +359,8 @@ type SkjemaData = {
   styrke?: string;
 };
 ```
+
+Selv om feltene er valgfrie, må vi også huske å sette en startverdi for dem. Det er fordi vi styrer verdien deres manuelt med `useState`, og da må vi gi en startverdi: React tillater ikke at en verdi går fra `undefined` (ukontrollert) til tekst (kontrollert).
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 3d</summary>
@@ -404,7 +431,7 @@ Bruk `router.push()` for å navigere til riktig side etter at skjemaet er sendt 
 Husk å lese JSON-svaret fra APIet for å få tak i `id`-en til den nye spilleren:
 
 ```tsx
-const spiller = await response.json();
+const spiller: Spiller = await response.json();
 router.push(`/spillere/${spiller.id}`);
 ```
 
@@ -413,7 +440,11 @@ router.push(`/spillere/${spiller.id}`);
 <details class="losningsforslag">
 <summary>Løsningsforslag 3e</summary>
 
+Legg til `Spiller`-importen og oppdater `handleSubmit`:
+
 ```tsx
+import { Spiller } from "@/lib/types";
+
 async function handleSubmit(data: SkjemaData) {
   const response = await fetch("http://localhost:3000/api/spillere", {
     method: "POST",
@@ -422,7 +453,7 @@ async function handleSubmit(data: SkjemaData) {
   });
 
   if (response.ok) {
-    const spiller = await response.json();
+    const spiller: Spiller = await response.json();
     router.push(`/spillere/${spiller.id}`);
   }
 }
@@ -457,7 +488,7 @@ Fyll inn skjemaet og opprett en spiller. Sjekk at:
 
 ---
 
-
 <!-- nav:start -->
+
 [← Oppgave 2](./02-spillerdetaljer.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 4 →](./04-hooks-i-praksis.md)
 <!-- nav:end -->

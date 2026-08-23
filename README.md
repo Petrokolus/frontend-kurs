@@ -326,6 +326,41 @@ Oppgavene starter nøye instruert med forklaringer, teori og kodesnippets du kan
 
 **Hva du skal lære:** HTML/JSX, React-komponenter, props, TypeScript-typer, iterering med `.map()`, og henting av data fra API med server components.
 
+<details>
+<summary>Kort om HTML</summary>
+
+HTML (HyperText Markup Language) er språket nettlesere bruker til å strukturere innhold på en side. JSX, som vi skal bruke i React, ligner veldig på HTML, så det er greit å kjenne det grunnleggende før vi går videre.
+
+Byggeklossen i HTML kalles et **element**. Et element består vanligvis av en **åpnetag**, noe innhold, og en **lukketag**:
+
+```html
+<p>Dette er et avsnitt</p>
+```
+
+`<p>` er åpnetaggen, `</p>` er lukketaggen (legg merke til skråstreken), og teksten mellom dem er innholdet. Noen elementer, som `<img>`, har ikke noe innhold og trenger derfor ingen lukketag.
+
+Elementer kan ha **attributter**, ekstra informasjon skrevet inni åpnetaggen:
+
+```html
+<img src="/bilde.png" alt="Beskrivelse av bildet" />
+```
+
+Her er `src` og `alt` attributter. `src` sier hvor bildet ligger, `alt` er en tekstlig beskrivelse av bildet.
+
+Noen tags du kommer til å bruke mye i dette kurset:
+
+| Tag                      | Brukes til                                        |
+| ------------------------ | ------------------------------------------------- |
+| `<div>`                  | En generisk beholder for annet innhold, en "boks" |
+| `<p>`                    | Et avsnitt med tekst                              |
+| `<h1>` til og med `<h6>` | Overskrifter, `<h1>` er størst og `<h6>` er minst |
+| `<img>`                  | Vise et bilde                                     |
+| `<a>`                    | En lenke til en annen side                        |
+
+Du kommer til å få nøyere innføring i enkelte elementer senere i kurset der du først skal ta de i bruk.
+
+</details>
+
 I React bygger vi brukergrensesnitt av komponenter, gjenbrukbare byggeklosser som hver har sitt eget ansvar. En komponent (også kalt funksjonelt komponent) er egentlig bare en funksjon som returnerer JSX (HTML-lignende kode). Her er et superenkelt eksempel på en komponent, som vi her kaller "Hilsen":
 
 ```typescript
@@ -348,6 +383,13 @@ function Hilsen({ navn }: Props) {
 // Bruk:
 <Hilsen navn={"Ola"} />
 <Hilsen navn={"Kari"} />
+```
+
+Når disse rendres i nettleseren, blir resultatet:
+
+```
+Hei, Ola!
+Hei, Kari!
 ```
 
 Siden vi også skriver i TypeScript, så kan du se at vi definerer typen på alle props.
@@ -385,9 +427,9 @@ export default function MinKomponent() {
 
 Overskriften du skal legge til i denne oppgaven hører hjemme inni `return`.
 
-Hvis du har applikasjonen oppe og går lokalt, slik som beskrevet i slutten av oppstartsguiden, så kan du allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser du det som nå finnes av innhold i page.tsx i spillere-mappen.
+Hvis du har startet dev-serveren, slik som beskrevet i slutten av oppstartsguiden, så kan du allerede nå navigere i nettleseren til "Spillere" i sidemenyen. Der ser du det som nå finnes av innhold i page.tsx i spillere-mappen.
 
-Alle sider trenger en overskrift! Naviger til `page.tsx` og legg til overskriften "Spillere". HTML har sitt eget element for overskrifter:
+Alle sider trenger en overskrift! Naviger til `src/app/spillere/page.tsx` i VS code og legg til overskriften "Spillere". HTML har sitt eget element for overskrifter:
 
 ```typescript
 <h1>Spillere</h1>
@@ -410,18 +452,20 @@ Alle HTML-elementer kan styles på mange forskjellige måter ved hjelp av Tailwi
 
 Hvis du har lagt til overskriften riktig, så skal du allerede nå kunne se den dukke opp i nettleseren under siden "Spillere".
 
+La du merke til at du ikke trengte å laste siden på nytt for å se endringen? Dette kalles **hot reload** (eller "Fast Refresh" i Next.js): så snart du lagrer en fil, oppdaterer nettleseren seg automatisk med de nyeste endringene, uten at man må restarte dev-serveren. Det er en av de tingene som gjør frontend-utvikling gøy, du får se resultatet av endringene dine nesten øyeblikkelig.
+
 <details class="losningsforslag">
 <summary>Løsningsforslag 1a</summary>
 
 ```tsx
 export default async function SpillerePage() {
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
-        {/* Oppgave 1b - LEGG TIL ET SPILLERCARD HER */}
         {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
       </div>
+      {/* Oppgave 1b - LEGG TIL ET SPILLERCARD HER */}
       <p>Her var det ganske tomt foreløpig!</p>
     </div>
   );
@@ -432,7 +476,7 @@ export default async function SpillerePage() {
 
 #### Oppgave 1b - Vis et SpillerCard på siden
 
-En stor fordel med React er at man kan dele opp grensesnittet i gjenbrukbare komponenter og importere dem der man trenger dem. Slik ser en typisk import ut:
+En stor fordel med React er at man kan dele opp grensesnittet i gjenbrukbare komponenter. I stedet for å skrive alt i én stor fil, legger vi hver komponent i sin egen fil og henter den inn der vi trenger den. En fil gjør koden sin tilgjengelig for andre filer med `export` (se hvordan det er gjort i `src\components\spillere\spiller-card.tsx`), og andre filer henter den inn igjen med `import`. Slik ser en typisk import ut:
 
 ```tsx
 import SpillerCard from "@/components/spillere/spiller-card";
@@ -448,9 +492,9 @@ Når komponenten er importert kan du bruke den i JSX akkurat som en HTML-tag:
 
 Importer `SpillerCard` i `page.tsx` og legg den inn under overskriften.
 
-<details class="default">
+<details class="tip">
 <summary>Tips</summary>
-Du trenger ikke skrive importlinjer manuelt. Sett inn en komponent du ikke har importert ennå, hold musepekeren over navnet (som nå har en rød error-linje), og klikk Quick Fix → Add import from ...". VS Code setter inn importlinjen for deg. Dette fungerer for komponenter, typer og funksjoner.
+Du trenger ikke skrive importlinjer manuelt. Sett inn en komponent du ikke har importert ennå, plasser markøren i eller på navnet (som nå har en rød error-linje), og trykk `Ctrl+.` (`Cmd+.` på Mac) for å åpne Quick Fix. Velg "Add import from ..." fra listen som dukker opp. VS Code setter inn importlinjen for deg. Dette fungerer for komponenter, typer og funksjoner.
 </details>
 
 <details class="losningsforslag">
@@ -461,7 +505,7 @@ import SpillerCard from "@/components/spillere/spiller-card";
 
 export default async function SpillerePage() {
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
         {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
@@ -480,9 +524,9 @@ Nå som vi kan vise ett kort, er målet å vise flere. Til det har vi `SpillereL
 
 **Steg 1: Bytt ut `SpillerCard` i `page.tsx` med `SpillereListe`**
 
-`SpillereListe` forventer en prop som heter `spillere`, et array av `Spiller`-objekter. Siden vi ikke henter ekte data fra API-et enda, lager vi en mock-liste for å teste at det fungerer.
+`SpillereListe` forventer en prop som heter `spillere`, et array (en liste) av `Spiller`-objekter. Siden vi ikke henter ekte data fra API-et enda, lager vi en mock-liste for å teste at det fungerer.
 
-Erstatt `<SpillerCard />` i `page.tsx` med dette. Husk at `mockSpillere` er en konstant og skal ligge før `return`, ikke inni JSX-en:
+Erstatt `<SpillerCard />` i `page.tsx` med kodesnuttene nedenfor. Husk at `mockSpillere` er en konstant og skal ligge før `return`, ikke inni JSX-en:
 
 ```tsx
 import SpillereListe from "@/components/spillere/spillere-liste";
@@ -526,7 +570,12 @@ const mockSpillere: Spiller[] = [
 
 1. Slette `mockSpiller`-konstanten
 2. Ta imot `spiller` som prop i stedet
-3. Bruke `spiller.navn` (og eventuelt andre felt) i JSX-en
+3. Bruke `spiller.navn` i JSX-en
+
+<details class="tip">
+<summary>Tips</summary>
+Trykk `Ctrl+Space` (`Cmd+Space` på Mac) mens markøren står inni et element for å trigge IntelliSense, VS Code sin autofullfør. Dette er spesielt nyttig her: siden `SpillerCard` og `SpillereListe` har TypeScript-typer på propsene sine, kan editoren foreslå riktige prop-navn og tilgjengelige variabler mens du skriver, i stedet for at du må huske dem selv.
+</details>
 
 **Steg 3: Send `spiller` videre fra `SpillereListe`**
 
@@ -570,7 +619,7 @@ export default async function SpillerePage() {
     },
   ];
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
         {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
@@ -616,10 +665,20 @@ export default function SpillerCard({ spiller }: Props) {
 
 Hvis du klarte å vise et SpillerCard på siden i forrige oppgave, så la du kanskje merke til at det ikke var så mye mer spennende informasjon enn navnet som vises. Prøv å vise noe mer informasjon i SpillerCard.
 
-<details class="hint">
-<summary>Hint</summary>
+Husk `<p>`-taggen fra HTML-introen i Oppgave 1, standardvalget for tekstinnhold. Linjen
 
-Usikker på hva slags informasjon du kan vise? Se hvilke verdier som finnes i et spiller-objekt ved å holde musepekeren over "Spiller" eller ved å bruke `Ctrl + venstreklikk`.
+```tsx
+<p className="text-muted-foreground text-sm">
+  Her kan vi vise mer data fra spiller-objektene
+</p>
+```
+
+er et mønster du kan kopiere og bygge videre på.
+
+<details class="tip">
+<summary>Tips</summary>
+
+Usikker på hva slags informasjon du kan vise? Se hvilke verdier som finnes i et spiller-objekt ved å holde musepekeren over "Spiller" eller ved å trykke på "Spiller"-typen med `Ctrl + venstreklikk`.
 
 </details>
 
@@ -655,15 +714,19 @@ I Next.js bruker vi `<Image>` fra `next/image` i stedet for en vanlig `<img>`-ta
 ```tsx
 import Image from "next/image";
 
-<Image src="/spiller/1.png" alt="Ola Nordmann" width={100} height={100} />;
+<Image src="/spiller/1.png" alt="Ola Nordmann" width={100} height={100} />
 ```
 
-Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens data. Husk at du kan sette inn variabler i en streng med template literals: `` `/spiller/${spiller.id}.png` ``
-
-Vi anbefaler også å legge til denne `className` for å få bildet til å se bra ut:
+Bytt ut de hardkodede verdiene med riktig `src` og `alt` basert på spillerens data. For `src` trenger du å sette inn en variabel midt i en streng, noe en vanlig streng med anførselstegn ikke kan gjøre. Til det bruker vi en **template literal**, en streng omsluttet av backticks (`` ` ``) i stedet for anførselstegn, der `${...}` setter inn verdien av en variabel eller et uttrykk direkte i teksten:
 
 ```tsx
-className = "aspect-square rounded-full object-cover";
+`/spiller/${spiller.id}.png`
+```
+
+Vi anbefaler også å legge til `className` som et attributt på `<Image>`-taggen for å få bildet til å se bedre ut:
+
+```tsx
+className="aspect-square rounded-full object-cover"
 ```
 
 <details class="losningsforslag">
@@ -683,8 +746,8 @@ export default function SpillerCard({ spiller }: Props) {
       <Image
         src={`/spiller/${spiller.id}.png`}
         alt={spiller.navn}
-        width={64}
-        height={64}
+        width={100}
+        height={100}
         className="aspect-square rounded-full object-cover"
       />
       <div className="flex-1">
@@ -710,6 +773,8 @@ const result = await fetch("http://localhost:3000/api/spillere");
 const spillere: Spiller[] = await result.json();
 ```
 
+Det å hente data over nettverket tar tid. Legg merke til at vi har puttet `await` foran `fetch`. Det er fordi `fetch` er en asynkron funksjon: den returnerer med det samme et **Promise**, et løfte om at dataen kommer etter hvert, og kan derfor kjøres parallelt med andre ting. Når vi skriver `fetch("http://localhost:3000/api/spillere");` ber vi koden begynne å hente dataen. Men siden vi trenger at `result` er ferdig lastet inn før vi kan hente ut alle spillerne med `.json()`, må vi si til koden at den må vente (`await`) til all dataen er kommet før den går videre.
+
 Fordi `page.tsx` er en **server component**, en komponent som kjører på serveren, ikke i nettleseren, kan vi bruke `await` direkte i komponenten uten noe ekstra oppsett. Vi kommer tilbake til hva dette betyr i praksis i oppgave 3.
 
 Hent spillerne fra API-et og send dem til `SpillereListe` på samme måte som du sendte `mockSpillere` i oppgave 1c. Fjern `mockSpillere`-konstanten nå som vi har ekte data.
@@ -726,7 +791,7 @@ export default async function SpillerePage() {
   const spillere: Spiller[] = await result.json();
 
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
         {/* Oppgave 3a - LEGG TIL EN LENKE TIL /spillere/opprett HER */}
@@ -770,9 +835,13 @@ Dette forteller Next.js at dette segmentet av URL-en er dynamisk og kan innehold
 
 I dette tilfellet vil tekststrengen du putter inni firkantparentesene (`id`, `kampNr`, `liga`) være tilgjengelig som en variabel i `page.tsx`-filen gjennom `params`-objektet som Next.js automatisk sender inn i siden.
 
+`params` hentes asynkront, og er derfor typet som et Promise (`Promise<{ id: string }>`) i stedet for et vanlig objekt, samme som du så med `fetch` i oppgave 1f, bare før noen har brukt `await`. Hvis du awaiter `params` vil det du får ut ha typen `{ id: string }`.
+
 > **OBS:** Next.js tolker visse filnavn i `app`-mappen på en spesiell måte. `page.tsx` er ett av dem, men det finnes flere: `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx` og `template.tsx`. Disse er reservert for Next.js og bør ikke brukes som navn på egne komponenter.
 
 For å hjelpe deg i gang har vi allerede opprettet `src/app/spillere/[id]/page.tsx`. Naviger til `http://localhost:3000/spillere/1`, `http://localhost:3000/spillere/2`, `http://localhost:3000/spillere/3` i nettleseren. Ser du hvordan tittelen endres basert på `id`-verdien i URL-en?
+
+Dette er kjernen i dynamisk routing: Next.js bruker `id`-en fra URL-en til å avgjøre hvilken side som vises. Nå som du har sett det i praksis, skal vi bli kjent med API-et vi skal bruke til å hente ekte spillerdata etterpå.
 
 #### Oppgave 2b – Utforsk API-et i API-dokumentasjonen
 
@@ -780,7 +849,7 @@ Før vi skriver kode, la oss utforske hva API-et tilbyr. Klikk på **API-dokumen
 
 Her finner du en oversikt over alle tilgjengelige API-routes. Klikk på routen `GET /api/spillere/{id}`, skriv inn en spiller-ID (f.eks. `1`) og klikk **"Execute"**. Du vil se nøyaktig hva API-et returnerer, og dette er dataen du skal bruke på detaljsiden.
 
-På jobb vil du bruke API-dokumentasjon til å forstå hva som er tilgjengelig og hvordan dataen ser ut, før du begynner å kode. Gjør deg kjent med det!
+På jobb vil du bruke API-dokumentasjon til å forstå hva som er tilgjengelig og hvordan dataen ser ut, før du begynner å kode.
 
 #### Oppgave 2c – Hent og vis spillerdata
 
@@ -814,8 +883,9 @@ export default async function SpillerPage({ params }: Props) {
   const spiller: Spiller = await result.json();
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="max-w-2xl p-8 mx-auto">
       <h1 className="text-3xl font-bold">{spiller.navn}</h1>
+      {/* Oppgave 2d: Legg til bilde av spilleren her */}
       <p>
         {spiller.avdeling} - {spiller.kull}
       </p>
@@ -843,10 +913,10 @@ import Image from "next/image";
 <Image
   src={`/spiller/${id}.png`}
   alt={`Profilbilde av ${spiller.navn}`}
-  width={128}
-  height={128}
-  className="aspect-square rounded-full object-cover"
-/>;
+  width={200}
+  height={200}
+  className="aspect-square rounded-4xl object-cover"
+/>
 ```
 
 </details>
@@ -923,8 +993,10 @@ Detaljsiden er fin, men ingen kommer seg dit uten en lenke! I Next.js bruker vi 
 ```tsx
 import Link from "next/link";
 
-<Link href="/spillere/1">Gå til Erik Solberg</Link>;
+<Link href="/spillere/1">Gå til Erik Solberg</Link>
 ```
+
+> **OBS:** Bruker du `Ctrl+.` for å autofullføre importen av `Link`, kan VS Code foreslå flere alternativer, blant annet fra `lucide-react` (et ikonbibliotek som også har noe som heter `Link`). Sørg for å velge alternativet fra `next/link`. Velger du feil, vil du se en ESLint-advarsel som ber deg importere fra `next/link` i stedet.
 
 `<Link>` er på mange måter bare en vanlig `<a>`-tag, men den har noen fordeler som gjør navigasjonen raskere, blant annet **pre-fetching**. Prefetching betyr at `<Link>` begynner å laste inn siden den peker på i bakgrunnen, slik at navigeringen føles raskere når du klikker.
 
@@ -1012,7 +1084,7 @@ I React er det vanlig å bruke det vi kaller **kontrollerte inputs**, det vil si
 ```tsx
 const [navn, setNavn] = useState("");
 
-<input value={navn} onChange={(e) => setNavn(e.target.value)} />;
+<input value={navn} onChange={(e) => setNavn(e.target.value)} />
 ```
 
 Her speiler `navn` alltid det som er i inputfeltet. Når brukeren skriver, kjøres `onChange`, som oppdaterer state, som oppdaterer feltet. Det er en liten sirkel, men det gir deg full kontroll.
@@ -1028,7 +1100,7 @@ const [skjema, setSkjema] = useState({
 <input
   value={skjema.navn}
   onChange={(e) => setSkjema({ ...skjema, navn: e.target.value })}
-/>;
+/>
 ```
 
 `{ ...skjema, navn: e.target.value }` betyr: «ta alle verdiene fra det gamle skjema-objektet, men overskriv `navn` med den nye verdien». Dette kalles en **spread** og er en vanlig måte å oppdatere objekter i React på.
@@ -1104,7 +1176,7 @@ export default async function SpillerePage() {
   const spillere: Spiller[] = await result.json();
 
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
         <Link
@@ -1386,23 +1458,6 @@ async function handleSubmit(data: SkjemaData) {
     router.push(`/spillere/${spiller.id}`);
   }
 }
-```
-
-</details>
-
-<details>
-<summary>Får du 500-feil når du oppretter spiller?</summary>
-
-Hvis du ser `Argument 'rating' is missing` i terminalen, er den genererte Prisma-klienten utdatert. Kjør dette i terminalen:
-
-```bash
-pnpm exec prisma generate
-```
-
-Og restart serveren:
-
-```
-pnpm dev
 ```
 
 </details>
@@ -2202,7 +2257,7 @@ import { Button } from "@/components/ui/button";
     </DialogHeader>
     <p>Skjemaet kommer her.</p>
   </DialogContent>
-</Dialog>;
+</Dialog>
 ```
 
 `asChild` på `DialogTrigger` gjør at `Button` du skriver inni overtar ansvaret for å åpne dialogen, men beholder sin egen styling. Uten `asChild` ville `DialogTrigger` ha wrappert knappen din i et ekstra element, noe som kan gi uventet oppførsel og gjøre det vanskeligere å style.
@@ -2270,7 +2325,7 @@ export default async function SpillerPage({ params }: Props) {
   const spiller: Spiller = await result.json();
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="max-w-2xl p-8 mx-auto">
       <img src={`/spiller/${id}.png`} alt={`Profilbilde av ${spiller.navn}`} />
       <h1 className="text-3xl font-bold">{spiller.navn}</h1>
       <p>{spiller.avdeling}</p>
@@ -2345,7 +2400,7 @@ import { useForm, useFormContext, FormProvider, Path } from "react-hook-form";
   <form onSubmit={form.handleSubmit(redigerSpiller)}>
     <SkjemaFelt id="navn" label="Navn" required />
   </form>
-</FormProvider>;
+</FormProvider>
 ```
 
 Inne i `SkjemaFelt` kaller du `useFormContext` i stedet for å ta `form` som prop. Vi kan også forenkle props-typen: i stedet for å sende inn feilmeldingsteksten som en streng, sender vi bare `required?: boolean` og konstruerer feilmeldingen fra `label`-proppen.
@@ -2616,7 +2671,7 @@ import {
       <AlertDialogAction>Slett</AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
-</AlertDialog>;
+</AlertDialog>
 ```
 
 `variant="destructive"` på `Button` gir knappen en rød farge som signaliserer at dette er en farlig handling.
@@ -2920,7 +2975,7 @@ export default async function SpillerePage({ searchParams }: Props) {
   );
 
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <h1 className="mb-4 text-3xl font-bold">Spillere</h1>
       <Link href="/spillere/opprett">Opprett spiller</Link>
       <div className="mt-4 flex flex-col gap-4">
@@ -3099,7 +3154,7 @@ export default async function SpillerePage({ searchParams }: Props) {
     });
 
   return (
-    <div className="max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <h1 className="mb-4 text-3xl font-bold">Spillere</h1>
       <Link href="/spillere/opprett">Opprett spiller</Link>
       <div className="mt-4 flex flex-col gap-4">
@@ -3437,7 +3492,7 @@ export default async function KamperPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="max-w-5xl p-8">
+    <div className="max-w-5xl p-8 mx-auto">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Kamphistorikk</h1>
         <Button asChild>
@@ -3535,7 +3590,7 @@ export default async function KampPage({ params }: Props) {
   const lag2Maal = kamp.lagVinner === 2 ? 10 : kamp.taperMaal;
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="max-w-2xl p-8 mx-auto">
       <Link href="/kamper" className="text-muted-foreground text-sm">
         Tilbake til kamphistorikk
       </Link>
@@ -3655,7 +3710,7 @@ export default async function OpprettKampPage() {
   const spillere: Spiller[] = await response.json();
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="max-w-2xl p-8 mx-auto">
       <h1 className="mb-6 text-3xl font-bold">Registrer kamp</h1>
       <OpprettKampSkjema spillere={spillere} />
     </div>
@@ -4158,7 +4213,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
   <CardContent>
     <p className="text-4xl font-bold">{spillere.length}</p>
   </CardContent>
-</Card>;
+</Card>
 ```
 
 <details class="losningsforslag">

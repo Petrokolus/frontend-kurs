@@ -9,12 +9,12 @@ type Props = {
 export default async function SpillerPage({ params }: Props) {
   const { id } = await params; // Hent ut id-en
 
-  // TODO 2b: Hent spilleren fra API-et med id-en du har tilgjengelig.
+  // TODO 2c: Hent spilleren fra API-et med id-en du har tilgjengelig.
   // API-ruten er /api/spillere/:id — erstatt :id med id-variabelen.
   // Husk å hente ut spilleren fra resultatet med .json(), akkurat som i oppgave 1!
 
   return (
-    <div className="max-w-2xl p-8">
+    <div className="max-w-2xl p-8 mx-auto">
       <h1 className="text-3xl font-bold">Spiller {id}</h1>
       {/* Oppgave 2d: Legg til bilde av spilleren her */}
       {/* Oppgave 2c: Erstatt teksten over med spillerens navn, og vis resten av detaljene under */}

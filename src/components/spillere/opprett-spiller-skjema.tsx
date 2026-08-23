@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Spiller } from "@/lib/types";
+import { useForm } from "react-hook-form";
 
 type SkjemaData = {
   navn: string;
@@ -15,6 +16,8 @@ type SkjemaData = {
 
 export default function OpprettSpillerSkjema() {
   const router = useRouter();
+
+  const form = useForm<SkjemaData>();
 
   const [skjema, setSkjema] = useState<SkjemaData>({
     navn: "",
@@ -51,10 +54,8 @@ export default function OpprettSpillerSkjema() {
         <input
           id="navn"
           type="text"
-          value={skjema.navn}
-          onChange={(e) => setSkjema({ ...skjema, navn: e.target.value })}
           className="rounded border px-3 py-2"
-          required
+          {...form.register("navn", { required: "Navn er påkrevd" })}
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -114,7 +115,6 @@ export default function OpprettSpillerSkjema() {
 
       <button
         type="submit"
-        className="bg-twoday-amber cursor-pointer rounded px-4 py-2 font-semibold"
         className="bg-twoday-amber cursor-pointer rounded px-4 py-2 font-semibold"
       >
         Opprett spiller

@@ -1,5 +1,4 @@
-import SpillerSok from "@/components/spillere/spiller-sok";
-import SpillereListe from "@/components/spillere/spillere-liste";
+import SpillereListeMedSok from "@/components/spillere/spillere-liste-med-sok";
 import { Spiller } from "@/lib/types";
 import Link from "next/link";
 
@@ -18,8 +17,7 @@ export default async function SpillerePage() {
           Opprett spiller
         </Link>
       </div>
-      <SpillerSok />
-      <SpillereListe spillere={spillere} />
+      <SpillereListeMedSok spillere={spillere} />
     </div>
   );
 }

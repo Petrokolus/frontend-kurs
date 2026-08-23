@@ -1,11 +1,17 @@
 "use client";
 
+import { ChangeEvent } from "react";
+
 type Props = {
   sok: string;
   setSok: (verdi: string) => void;
 };
 
 export default function SpillerSok({ sok, setSok }: Props) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setSok(e.target.value);
+    localStorage.setItem("spillerSok", e.target.value);
+  }
   return (
     <div>
       <label htmlFor="sok" className="sr-only">
@@ -17,7 +23,7 @@ export default function SpillerSok({ sok, setSok }: Props) {
         placeholder="Søk etter spillere..."
         className="mb-4 w-full rounded border px-3 py-2"
         value={sok}
-        onChange={(e) => setSok(e.target.value)}
+        onChange={handleChange}
       />
     </div>
   );

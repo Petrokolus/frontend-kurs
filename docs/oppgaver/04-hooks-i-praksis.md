@@ -1,4 +1,5 @@
 <!-- nav:start -->
+
 [← Oppgave 3](./03-opprett-spiller.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 5 →](./05-opprett-spiller-med-react-hook-form.md)
 <!-- nav:end -->
 
@@ -29,15 +30,32 @@ Opprett en ny fil `src/components/spillere/spiller-sok.tsx`. Dette blir en clien
 
 Komponenten skal ha:
 
-- Et `<input>`-felt der brukeren kan skrive
-- En `useState` som holder søketeksten
-- En `onChange` på inputen som oppdaterer staten
+- Et `<input>`-felt der brukeren kan skrive.
+- En `useState` som holder søketeksten.
+- En `onChange` på inputen som oppdaterer staten.
+- En (visuelt skjult) `<label>` knyttet til input-feltet med `htmlFor`/`id`, slik at feltet oppfyller UU krav.
 
 ```tsx
 const [sok, setSok] = useState("");
 ```
 
 Importer og vis `SpillerSok` i `src/app/spillere/page.tsx`. Foreløpig trenger du ikke koble den til spillerlisten, det kommer i neste steg.
+
+> Tips: Legg til `border` i `className` for å gjøre input-feltet synlig mot hvit bakgrunn.
+
+<details class="hint">
+<summary>Hint</summary>
+
+Usikker på hvordan du setter sammen komponenten? Strukturen ligner de andre client components du har laget:
+
+- `"use client"` øverst i filen
+- en `function` med `export default` foran.
+- logikk før return
+- JSX inni/etter return.
+
+Du kan også se på hvordan andre komponenter i kodebasen er laget, feks inputfeltet i `opprett-spiller-skjema.tsx`.
+
+</details>
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 4a</summary>
@@ -50,13 +68,19 @@ import { useState } from "react";
 export default function SpillerSok() {
   const [sok, setSok] = useState("");
   return (
-    <input
-      type="text"
-      placeholder="Søk etter spillere..."
-      className="w-full rounded border px-3 py-2"
-      value={sok}
-      onChange={(e) => setSok(e.target.value)}
-    />
+    <div>
+      <label htmlFor="sok" className="sr-only">
+        Søk etter spillere
+      </label>
+      <input
+        id="sok"
+        type="text"
+        placeholder="Søk etter spillere..."
+        className="w-full rounded border px-3 py-2 mb-4"
+        value={sok}
+        onChange={(e) => setSok(e.target.value)}
+      />
+    </div>
   );
 }
 ```
@@ -223,14 +247,20 @@ export default function SpillerSok({ sok, setSok }: Props) {
   }, []);
 
   return (
-    <input
-      ref={inputRef}
-      type="text"
-      placeholder="Søk etter spillere..."
-      className="w-full rounded border px-3 py-2"
-      value={sok}
-      onChange={(e) => setSok(e.target.value)}
-    />
+    <div>
+      <label htmlFor="sok" className="sr-only">
+        Søk etter spillere
+      </label>
+      <input
+        ref={inputRef}
+        id="sok"
+        type="text"
+        placeholder="Søk etter spillere..."
+        className="w-full rounded border px-3 py-2"
+        value={sok}
+        onChange={(e) => setSok(e.target.value)}
+      />
+    </div>
   );
 }
 ```
@@ -239,7 +269,7 @@ export default function SpillerSok({ sok, setSok }: Props) {
 
 ---
 
-
 <!-- nav:start -->
+
 [← Oppgave 3](./03-opprett-spiller.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 5 →](./05-opprett-spiller-med-react-hook-form.md)
 <!-- nav:end -->

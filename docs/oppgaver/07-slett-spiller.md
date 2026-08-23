@@ -111,9 +111,11 @@ Importer `SlettSpillerKnapp` i `src/app/spillere/[id]/page.tsx` og plasser den p
 import RedigerSpillerDialog from "./components/rediger-spiller-dialog";
 import SlettSpillerKnapp from "./components/slett-spiller-knapp";
 
-// I JSX:
-<RedigerSpillerDialog spiller={spiller} />
-<SlettSpillerKnapp spiller={spiller} />
+// I JSX, rett under de eksisterende <p>-elementene med spillerdetaljer:
+<div className="flex gap-2">
+  <RedigerSpillerDialog spiller={spiller} />
+  <SlettSpillerKnapp spiller={spiller} />
+</div>
 ```
 
 </details>

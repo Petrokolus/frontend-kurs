@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, UseFormReturn, Path } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,67 +38,40 @@ export default function OpprettSpillerSkjema() {
       onSubmit={form.handleSubmit(opprettSpiller)}
       className="flex flex-col gap-4"
     >
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="navn" className="text-lg">
-          Navn
-        </Label>
-        <Input
-          id="navn"
-          {...form.register("navn", { required: "Navn er påkrevd" })}
-        />
-        <FieldError errors={[form.formState.errors.navn]} />
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="avdeling" className="text-lg">
-          Avdeling
-        </Label>
-        <Input
-          id="avdeling"
-          {...form.register("avdeling", { required: "Avdeling er påkrevd" })}
-        />
-        <FieldError errors={[form.formState.errors.avdeling]} />
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="kull" className="text-lg">
-          Kull
-        </Label>
-        <Input
-          id="kull"
-          {...form.register("kull", { required: "Kull er påkrevd" })}
-        />
-        <FieldError errors={[form.formState.errors.kull]} />
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="posisjon" className="text-lg">
-          Posisjon
-        </Label>
-        <Input
-          id="posisjon"
-          {...form.register("posisjon", { required: "Posisjon er påkrevd" })}
-        />
-        <FieldError errors={[form.formState.errors.posisjon]} />
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="styrke" className="text-lg">
-          Styrke (valgfritt)
-        </Label>
-        <Input id="styrke" {...form.register("styrke")} />
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="svakhet" className="text-lg">
-          Svakhet (valgfritt)
-        </Label>
-        <Input id="svakhet" {...form.register("svakhet")} />
-      </div>
+      <SkjemaFelt id="navn" label="Navn" isRequired form={form} />
+      <SkjemaFelt id="avdeling" label="Avdeling" isRequired form={form} />
+      <SkjemaFelt id="kull" label="Kull" isRequired form={form} />
+      <SkjemaFelt id="posisjon" label="Posisjon" isRequired form={form} />
+      <SkjemaFelt id="styrke" label="Styrke (valgfritt)" form={form} />
+      <SkjemaFelt id="svakhet" label="Svakhet (valgfritt)" form={form} />
 
       <Button type="submit" className="bg-twoday-amber">
         Opprett spiller
       </Button>
     </form>
+  );
+}
+
+type SkjemaFeltProps = {
+  id: Path<SkjemaData>;
+  label: string;
+  isRequired?: boolean;
+  form: UseFormReturn<SkjemaData>;
+};
+
+function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
+  return (
+    <div className="flex flex-col gap-1">
+      <Label className="text-lg" htmlFor={id}>
+        {label}
+      </Label>
+      <Input
+        id={id}
+        {...form.register(id, {
+          required: isRequired ? `${label} er påkrevd` : false,
+        })}
+      />
+      <FieldError errors={[form.formState.errors[id]]} />
+    </div>
   );
 }

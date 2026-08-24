@@ -1,4 +1,5 @@
 <!-- nav:start -->
+
 [← Oppgave 4](./04-hooks-i-praksis.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 6 →](./06-rediger-spiller.md)
 <!-- nav:end -->
 
@@ -33,17 +34,10 @@ Importer `useForm` og kall den øverst i komponenten.
 ```tsx
 import { useForm } from "react-hook-form";
 
-type SkjemaData = {
-  navn: string;
-  avdeling: string;
-  kull: string;
-  posisjon: string;
-  styrke?: string;
-  svakhet?: string;
-};
-
 const form = useForm<SkjemaData>();
 ```
+
+Merk: I steg 5b–5d vil skjemaet midlertidig være i en tilstand der både den gamle `useState`-baserte staten og den nye `useForm`-hooken eksisterer side om side. Skjemaet vil derfor ikke være testbart før du har fullført omskrivingen i oppgave 5e, som fjerner den gamle `useState`-logikken helt.
 
 #### Oppgave 5c: Konverter ett felt
 
@@ -84,19 +78,46 @@ Konverter `navn`-feltet til å bruke `form.register`. Fjern `value`, `onChange` 
 
 #### Oppgave 5d: Bytt til shadcn-komponenter
 
-Prosjektet har ferdiglagde komponenter for skjemaelementer som gir deg konsistent styling uten at du trenger å skrive CSS selv. Bytt ut `<label>` og `<input>` i `navn`-feltet med `Label`, `Input` og `FieldError` fra komponentbiblioteket:
+Prosjektet har ferdiglagde komponenter for skjemaelementer som gir deg konsistent styling uten at du trenger å skrive CSS selv. Bytt ut `<label>` og `<input>` for `navn`-feltet med `Label` og `Input` fra komponentbiblioteket (`@/components/ui/input`, `@/components/ui/label`).
+
+Legg på `FieldError` (`@/components/ui/field`) under `Input` for å vise frem feilmeldinger knyttet til feltet. `FieldError` tar inn en liste med feilobjekter og viser dem for deg. Den viser ingenting når det ikke er noen feil, så du trenger ingen ekstra `if`-sjekk.
+
+<details class="tip">
+<summary>Tips</summary>
+
+Hvis VS Code sin autofullfør (`Ctrl+.`) foreslår flere alternativer når du importerer `Label`, pass på at du velger `@/components/ui/label`. `recharts`, et annet bibliotek i prosjektet, eksporterer nemlig også en komponent som heter `Label`, så det er lett å importere fra feil sted ved et uhell. Velger du feil, mister komponenten riktig styling, eller du får en forvirrende TypeScript-feil.
+
+</details>
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 5d</summary>
 
 ```tsx
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FieldError } from "@/components/ui/field";
 
-<Label htmlFor="navn" className="text-lg">Navn</Label>
-<Input id="navn" {...form.register("navn", { required: "Navn er påkrevd" })} />
-<FieldError errors={[form.formState.errors.navn]} />
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(skjema);
+      }}
+      className="flex flex-col gap-4"
+    >
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="navn" className="text-lg">
+          Navn
+        </Label>
+        <Input
+          id="navn"
+          {...form.register("navn", { required: "Navn er påkrevd" })}
+        />
+        <FieldError errors={[form.formState.errors.navn]} />
+      </div>
 ```
 
-`FieldError` tar inn en liste med feilobjekter og viser dem for deg. Den viser ingenting når det ikke er noen feil, så du trenger ingen ekstra `if`-sjekk.
+</details>
 
 #### Oppgave 5e: Fullfør skjemaet
 
@@ -111,6 +132,8 @@ async function opprettSpiller(data: SkjemaData) {
 
 <form onSubmit={form.handleSubmit(opprettSpiller)}>
 ```
+
+Vi døper om funksjonen `handleSubmit` til `opprettSpiller`, delvis for å unngå navnekollisjon med `form.handleSubmit`, men mest fordi det er god praksis at navnet beskriver hva funksjonen faktisk gjør.
 
 `form.handleSubmit` kjører validering først og kaller `opprettSpiller` bare hvis alle feltene er gyldige. Flytt `fetch`-kallet og navigeringen inn i `opprettSpiller`, og fjern den gamle `handleSubmit`-funksjonen.
 
@@ -232,41 +255,15 @@ Du kan nå fjerne `useState`-importen og `skjema`-konstanten. React Hook Form ho
 
 Se på løsningsforslaget for 5e. Hvert felt følger nøyaktig samme mønster: en `Label`, en `Input` med `form.register`, og en `FieldError`. Det er bare `id`, `label` og feilmeldingsteksten som varierer.
 
-Dette er et klassisk tegn på at koden er klar til å trekkes ut i en egen komponent. Lag en `SkjemaFelt`-komponent øverst i filen som tar inn disse verdiene som props:
+Dette er et klassisk tegn på at koden er klar til å trekkes ut i en egen komponent. Lag en `SkjemaFelt`-komponent nederst i filen (i samme fil som `OpprettSpillerSkjema`, siden den kun brukes her) som tar inn disse verdiene som props: `id`, `label`, en valgfri `isRequired`, og selve `form`-objektet. `OpprettSpillerSkjema` er hovedkomponenten i filen og bør stå øverst; `SkjemaFelt` er en støttekomponent og hører hjemme under den.
 
-```tsx
-import { UseFormReturn, Path } from "react-hook-form";
+`id`-propen bør ha typen `Path<SkjemaData>`, en type fra React Hook Form som beskriver gyldige feltnavn i skjemaet, altså `"navn" | "avdeling" | "kull" | "posisjon" | "styrke" | "svakhet"`. Vi bruker den fordi det er nøyaktig det `form.register` forventer. Med `string` ville TypeScript klage på `form.register(id, ...)`. Med `Path<SkjemaData>` får du i tillegg hjelp av TypeScript til å oppdage skrivefeil, sender du inn `"nvan"` vil du få en feilmelding med én gang.
 
-type SkjemaFeltProps = {
-  id: Path<SkjemaData>;
-  label: string;
-  isRequired?: boolean;
-  form: UseFormReturn<SkjemaData>;
-};
-
-function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
-  return (
-    <div className="flex flex-col gap-1">
-      <Label className="text-lg" htmlFor={id}>
-        {label}
-      </Label>
-      <Input
-        id={id}
-        {...form.register(id, {
-          required: isRequired ? `${label} er påkrevd` : false,
-        })}
-      />
-      <FieldError errors={[form.formState.errors[id]]} />
-    </div>
-  );
-}
-```
-
-`Path<SkjemaData>` er en type fra React Hook Form som beskriver gyldige feltnavn i skjemaet, altså `"navn" | "avdeling" | "kull" | "posisjon" | "styrke" | "svakhet"`. Vi bruker den fordi det er nøyaktig det `form.register` forventer. Med `string` ville TypeScript klage på `form.register(id, ...)`. Med `Path<SkjemaData>` får du i tillegg hjelp av TypeScript til å oppdage skrivefeil, sender du inn `"nvan"` vil du få en feilmelding med én gang.
+`form`-propen bør ha typen `UseFormReturn<SkjemaData>`, en type fra React Hook Form som beskriver hele objektet `useForm<SkjemaData>()` returnerer, altså formen på `form.register`, `form.formState` og resten av det du allerede har brukt. Ved å typegi `form`-propen slik, får `SkjemaFelt` riktig type-støtte for alt den gjør med `form` internt.
 
 `isRequired` er en boolsk prop. Når den er `true`, bygger komponenten feilmeldingen selv fra `label`-propen, for eksempel `"Navn er påkrevd"`. Valgfrie felt sender du inn uten `isRequired`-prop.
 
-Bruk `SkjemaFelt` i stedet for de seks feltblokkene i skjemaet. Valgfrie felt sender du inn uten `isRequired`-prop.
+Bruk `SkjemaFelt` i stedet for de seks feltblokkene i skjemaet.
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 5f</summary>
@@ -289,30 +286,6 @@ type SkjemaData = {
   styrke?: string;
   svakhet?: string;
 };
-
-type SkjemaFeltProps = {
-  id: Path<SkjemaData>;
-  label: string;
-  isRequired?: boolean;
-  form: UseFormReturn<SkjemaData>;
-};
-
-function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
-  return (
-    <div className="flex flex-col gap-1">
-      <Label className="text-lg" htmlFor={id}>
-        {label}
-      </Label>
-      <Input
-        id={id}
-        {...form.register(id, {
-          required: isRequired ? `${label} er påkrevd` : false,
-        })}
-      />
-      <FieldError errors={[form.formState.errors[id]]} />
-    </div>
-  );
-}
 
 export default function OpprettSpillerSkjema() {
   const router = useRouter();
@@ -347,6 +320,30 @@ export default function OpprettSpillerSkjema() {
         Opprett spiller
       </Button>
     </form>
+  );
+}
+
+type SkjemaFeltProps = {
+  id: Path<SkjemaData>;
+  label: string;
+  isRequired?: boolean;
+  form: UseFormReturn<SkjemaData>;
+};
+
+function SkjemaFelt({ id, label, isRequired, form }: SkjemaFeltProps) {
+  return (
+    <div className="flex flex-col gap-1">
+      <Label className="text-lg" htmlFor={id}>
+        {label}
+      </Label>
+      <Input
+        id={id}
+        {...form.register(id, {
+          required: isRequired ? `${label} er påkrevd` : false,
+        })}
+      />
+      <FieldError errors={[form.formState.errors[id]]} />
+    </div>
   );
 }
 ```
@@ -459,6 +456,8 @@ if (fil) {
 }
 ```
 
+> **OBS:** Du kan se en feilmelding i nettleseren som sier "Cannot access refs during render", med en henvisning til `opprettSpiller`. Dette er en kjent falsk positiv. Koden er faktisk trygg, siden `bildeRef.current` kun leses inne i en event handler (når skjemaet sendes inn), aldri under selve rendringen. Skjemaet fungerer som det skal til tross for feilmeldingen. Du kan trykke "ctrl + .` og velge "disable react-hooks/refs for this line" for å silcence feilmeldingen.
+
 <details class="losningsforslag">
 <summary>Løsningsforslag 5h</summary>
 
@@ -497,7 +496,7 @@ async function opprettSpiller(data: SkjemaData) {
 
 ---
 
-
 <!-- nav:start -->
+
 [← Oppgave 4](./04-hooks-i-praksis.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 6 →](./06-rediger-spiller.md)
 <!-- nav:end -->

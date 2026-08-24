@@ -282,12 +282,15 @@ import { useForm, FormProvider } from "react-hook-form";
 </FormProvider>
 ```
 
+For at dialogen skal kunne lukke seg selv når redigeringen er vellykket, må `RedigerSpillerDialog` styre `open`-tilstanden med `useState` i stedet for å la `Dialog` håndtere den internt. `RedigerSpillerSkjema` får da en `onSuccess`-prop den kaller når lagringen er ferdig.
+
 <details class="losningsforslag">
 <summary>Løsningsforslag 6d</summary>
 
 ```tsx
 "use client";
 
+import { useState } from "react";
 import { useForm, useFormContext, FormProvider, Path } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -334,9 +337,10 @@ function SkjemaFelt({ id, label, required }: SkjemaFeltProps) {
 
 type SkjemaProps = {
   spiller: Spiller;
+  onSuccess: () => void;
 };
 
-function RedigerSpillerSkjema({ spiller }: SkjemaProps) {
+function RedigerSpillerSkjema({ spiller, onSuccess }: SkjemaProps) {
   const form = useForm<SkjemaData>({
     defaultValues: {
       navn: spiller.navn,
@@ -366,8 +370,12 @@ function RedigerSpillerSkjema({ spiller }: SkjemaProps) {
         <SkjemaFelt id="svakhet" label="Svakhet (valgfritt)" />
 
         <FieldError errors={[form.formState.errors.root]} />
-        <Button type="submit" className="bg-twoday-amber">
-          Lagre endringer
+        <Button
+          type="submit"
+          className="bg-twoday-amber"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? "Lagrer..." : "Lagre endringer"}
         </Button>
       </form>
     </FormProvider>
@@ -379,8 +387,10 @@ type Props = {
 };
 
 export default function RedigerSpillerDialog({ spiller }: Props) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="bg-twoday-amber">Rediger</Button>
       </DialogTrigger>
@@ -388,7 +398,10 @@ export default function RedigerSpillerDialog({ spiller }: Props) {
         <DialogHeader>
           <DialogTitle>Rediger {spiller.navn}</DialogTitle>
         </DialogHeader>
-        <RedigerSpillerSkjema spiller={spiller} />
+        <RedigerSpillerSkjema
+          spiller={spiller}
+          onSuccess={() => setOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   );
@@ -450,6 +463,7 @@ async function redigerSpiller(data: SkjemaData) {
   }
 
   router.refresh();
+  onSuccess();
 }
 ```
 

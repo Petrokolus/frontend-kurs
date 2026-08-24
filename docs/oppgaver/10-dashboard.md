@@ -1,10 +1,11 @@
 <!-- nav:start -->
+
 [← Oppgave 9](./09-alt-du-kan-brukt-pa-nytt.md) · [Oversikt](../../README.md#oppgaver) · [Veien videre →](./11-veien-videre.md)
 <!-- nav:end -->
 
 ## Oppgave 10 – Dashboard
 
-**Hva du skal lære:** Streaming med React `Suspense`, parallell datahenting med `Promise.all`, og å bygge en sammensatt side av uavhengige seksjoner.
+**Hva du skal lære:** Streaming med React `Suspense`, parallell datahenting med `Promise.all`, gjenbruk av komponenter ved å generalisere dem med props, og å bygge en sammensatt side av uavhengige seksjoner.
 
 Hittil har sidene i applikasjonen hentet data én gang og vist alt på en gang. Det fungerer bra for enkle sider, men tenk deg en dashboard-side med fire uavhengige seksjoner. Hvis én av dem er treg, blokkerer den alle de andre.
 
@@ -221,19 +222,19 @@ export default async function SisteKamper() {
             return (
               <li
                 key={kamp.id}
-                className="flex items-center justify-between text-sm"
+                className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 text-sm"
               >
-                <span className="text-muted-foreground">
-                  {new Date(kamp.dato).toLocaleDateString("nb-NO")}
-                </span>
-                <span>
+                <span className="truncate text-right">
                   {kamp.lag1Spiller1.navn} & {kamp.lag1Spiller2.navn}
                 </span>
-                <span className="font-mono font-semibold">
+                <span className="font-mono font-semibold whitespace-nowrap">
                   {lag1Maal} – {lag2Maal}
                 </span>
-                <span>
+                <span className="truncate">
                   {kamp.lag2Spiller1.navn} & {kamp.lag2Spiller2.navn}
+                </span>
+                <span className="text-muted-foreground col-span-3 text-center text-xs">
+                  {new Date(kamp.dato).toLocaleDateString("nb-NO")}
                 </span>
               </li>
             );
@@ -421,9 +422,95 @@ export default function DashboardPage() {
 
 </details>
 
+#### Oppgave 10g – Gjenbruk `Toppliste` for skyggerating
+
+Nå som du har `Toppliste`, `Siste kamper` og skeletons på plass, skal vi legge til én ting til: en topp 5-liste sortert på skyggerating i stedet for total rating.
+
+Du kunne laget en helt ny komponent, men `Toppliste` gjør allerede alt du trenger, bortsett fra at den er hardkodet til å sortere på `rating` og vise teksten "Toppliste". I stedet for å duplisere komponenten, generaliserer vi den med props, akkurat som du gjorde med `SkjemaFelt` i Oppgave 5f.
+
+Gjør om `Toppliste` til å ta imot `sorterPa: "rating" | "skyggerating"` og `tittel: string` som props, og bruk dem i stedet for de hardkodede verdiene.
+
+```tsx
+type Props = {
+  sorterPa: "rating" | "skyggerating";
+  tittel: string;
+};
+
+export default async function Toppliste({ sorterPa, tittel }: Props) {
+  // Bruk sorterPa og tittel der rating og "Toppliste" var hardkodet
+}
+```
+
+Bruk den nye `Toppliste` to ganger i `page.tsx`, én for rating og én for skyggerating, side om side i et grid. Flytt `Siste kamper` til en egen rad under, i full bredde, siden du nå har to kort ved siden av hverandre over den.
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 10g</summary>
+
+`src/app/dashboard/components/toppliste.tsx`:
+
+```tsx
+import { Spiller } from "@/lib/types";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+type Props = {
+  sorterPa: "rating" | "skyggerating";
+  tittel: string;
+};
+
+export default async function Toppliste({ sorterPa, tittel }: Props) {
+  const res = await fetch("http://localhost:3000/api/spillere");
+  const spillere: Spiller[] = await res.json();
+
+  const topp5 = spillere
+    .toSorted((a, b) => b[sorterPa] - a[sorterPa])
+    .slice(0, 5);
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{tittel}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ol className="flex flex-col gap-2">
+          {topp5.map((spiller, index) => (
+            <li key={spiller.id} className="flex items-center justify-between">
+              <span>
+                <span className="text-muted-foreground mr-3">{index + 1}.</span>
+                {spiller.navn}
+              </span>
+              <span className="font-mono font-semibold">
+                {spiller[sorterPa]}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+`src/app/dashboard/page.tsx` (kun den delen som endres):
+
+```tsx
+<div className="grid grid-cols-2 gap-6">
+  <Suspense fallback={<ListeSkeleton />}>
+    <Toppliste sorterPa="rating" tittel="Toppliste" />
+  </Suspense>
+  <Suspense fallback={<ListeSkeleton />}>
+    <Toppliste sorterPa="skyggerating" tittel="Toppliste (skyggerating)" />
+  </Suspense>
+</div>
+<Suspense fallback={<ListeSkeleton />}>
+  <SisteKamper />
+</Suspense>
+```
+
+</details>
+
 ---
 
-
 <!-- nav:start -->
+
 [← Oppgave 9](./09-alt-du-kan-brukt-pa-nytt.md) · [Oversikt](../../README.md#oppgaver) · [Veien videre →](./11-veien-videre.md)
 <!-- nav:end -->

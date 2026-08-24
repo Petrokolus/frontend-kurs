@@ -99,6 +99,8 @@ import {
 
 Legg til en lenke til kamphistorikk-siden i navigasjonen. "Gå til kamp"-knappen kan du lage med `<Button asChild><Link href={...}>...</Link></Button>`.
 
+Bruk ikon-only-knapper for handlingene i stedet for tekst. Med lange spillernavn i Lag 1- og Lag 2-kolonnene blir tabellen ellers fort bredere enn skjermen.
+
 For "Rediger" og "Slett" trenger du `RedigerKampDialog` og `SlettKampKnapp` fra oppgave 9d og 9e. Siden disse er Client Components kan du importere dem direkte i Server Component-siden. Page.tsx må i tillegg hente spillerlisten fra `GET /api/spillere` for å sende videre til redigeringsdialogen.
 
 <details class="losningsforslag">
@@ -107,6 +109,7 @@ For "Rediger" og "Slett" trenger du `RedigerKampDialog` og `SlettKampKnapp` fra 
 ```tsx
 import { Kamp, Spiller } from "@/lib/types";
 import Link from "next/link";
+import { Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -177,16 +180,19 @@ export default async function KamperPage({ searchParams }: Props) {
               <TableCell>
                 {new Date(kamp.dato).toLocaleDateString("nb-NO")}
               </TableCell>
-              <TableCell>
+              <TableCell className="max-w-40 truncate">
                 {kamp.lag1Spiller1.navn} & {kamp.lag1Spiller2.navn}
               </TableCell>
               <TableCell className="font-mono">{resultat(kamp)}</TableCell>
-              <TableCell>
+              <TableCell className="max-w-40 truncate">
                 {kamp.lag2Spiller1.navn} & {kamp.lag2Spiller2.navn}
               </TableCell>
-              <TableCell className="flex items-center justify-end gap-2">
-                <Button asChild variant="ghost" size="sm">
-                  <Link href={`/kamper/${kamp.id}`}>Gå til kamp →</Link>
+              <TableCell className="flex items-center justify-end gap-1">
+                <Button asChild variant="ghost" size="icon-sm">
+                  <Link href={`/kamper/${kamp.id}`}>
+                    <Eye />
+                    <span className="sr-only">Gå til kamp</span>
+                  </Link>
                 </Button>
                 <RedigerKampDialog kamp={kamp} spillere={spillere} />
                 <SlettKampKnapp kamp={kamp} />
@@ -195,23 +201,31 @@ export default async function KamperPage({ searchParams }: Props) {
           ))}
         </TableBody>
       </Table>
-      <Pagination className="mt-6">
-        <PaginationContent>
-          <PaginationItem>
-            {side > 1 && (
-              <PaginationPrevious
-                href={`/kamper?side=${side - 1}`}
-                text="Forrige"
-              />
-            )}
-          </PaginationItem>
-          <PaginationItem>
-            {side < antallSider && (
-              <PaginationNext href={`/kamper?side=${side + 1}`} text="Neste" />
-            )}
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      <div className="mt-6 flex items-center justify-between">
+        <p className="text-muted-foreground text-sm">
+          Side {side} av {antallSider}
+        </p>
+        <Pagination className="mx-0 w-auto">
+          <PaginationContent>
+            <PaginationItem>
+              {side > 1 && (
+                <PaginationPrevious
+                  href={`/kamper?side=${side - 1}`}
+                  text="Forrige"
+                />
+              )}
+            </PaginationItem>
+            <PaginationItem>
+              {side < antallSider && (
+                <PaginationNext
+                  href={`/kamper?side=${side + 1}`}
+                  text="Neste"
+                />
+              )}
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      </div>
     </div>
   );
 }
@@ -546,6 +560,7 @@ Opprett en redigeringsdialog som brukes i tabellen fra 9a. Dialogen skal ha et s
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { Pencil } from "lucide-react";
 import { Kamp, Spiller } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -626,8 +641,9 @@ export default function RedigerKampDialog({ kamp, spillere }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          Rediger
+        <Button variant="outline" size="icon-sm">
+          <Pencil />
+          <span className="sr-only">Rediger kamp</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -734,6 +750,7 @@ Opprett en sletteknapp som brukes i tabellen fra 9a. Knappen skal bekrefte handl
 "use client";
 
 import { useRouter } from "next/navigation";
+import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -765,7 +782,10 @@ export default function SlettKampKnapp({ kamp }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Slett</Button>
+        <Button variant="destructive" size="icon-sm">
+          <Trash2 />
+          <span className="sr-only">Slett kamp</span>
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

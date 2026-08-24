@@ -15,7 +15,11 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-const pages = [{ href: "/spillere", label: "Spillere" }];
+const pages = [
+  { href: "/spillere", label: "Spillere" },
+  { href: "/kamper", label: "Kamper" },
+  { href: "/dashboard", label: "Dashboard" },
+];
 
 const resourcePages = [
   { href: "/oppgaver", label: "Oppgaver" },

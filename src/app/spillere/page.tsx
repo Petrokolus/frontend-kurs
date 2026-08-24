@@ -1,13 +1,31 @@
-import SpillereListeMedSok from "@/components/spillere/spillere-liste-med-sok";
 import { Spiller } from "@/lib/types";
+import SpillerSok from "@/components/spillere/spiller-sok";
+import SpillereListe from "@/components/spillere/spillere-liste";
 import Link from "next/link";
 
-export default async function SpillerePage() {
-  const result = await fetch("http://localhost:3000/api/spillere");
-  const spillere: Spiller[] = await result.json();
+type Props = {
+  searchParams: Promise<{ sok?: string; sorter?: string }>;
+};
+
+export default async function SpillerePage({ searchParams }: Props) {
+  const { sok, sorter = "rating-desc" } = await searchParams;
+
+  const response = await fetch("http://localhost:3000/api/spillere");
+  const spillere: Spiller[] = await response.json();
+
+  const spillereListe = spillere
+    .filter(
+      (spiller) =>
+        !sok || spiller.navn.toLowerCase().includes(sok.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sorter === "rating-asc") return a.rating - b.rating;
+      if (sorter === "navn-asc") return a.navn.localeCompare(b.navn);
+      return b.rating - a.rating;
+    });
 
   return (
-    <div className="mx-auto max-w-4xl p-8">
+    <div className="max-w-4xl p-8 mx-auto">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Spillere</h1>
         <Link
@@ -17,7 +35,10 @@ export default async function SpillerePage() {
           Opprett spiller
         </Link>
       </div>
-      <SpillereListeMedSok spillere={spillere} />
+      <div className="flex flex-col gap-4">
+        <SpillerSok />
+        <SpillereListe spillere={spillereListe} />
+      </div>
     </div>
   );
 }

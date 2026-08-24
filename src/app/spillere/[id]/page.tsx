@@ -2,6 +2,8 @@
 
 import { Spiller } from "@/lib/types";
 import Image from "next/image";
+import RedigerSpillerDialog from "./components/rediger-spiller-dialog";
+import SlettSpillerKnapp from "./components/slett-spiller-knapp";
 
 // id-en fra URL-en er tilgjengelig via params-objektet nedenfor.
 type Props = {
@@ -35,6 +37,10 @@ export default async function SpillerPage({ params }: Props) {
           </p>
           {spiller.styrke && <p>Styrke: {spiller.styrke}</p>}
           {spiller.svakhet && <p>Svakhet: {spiller.svakhet}</p>}
+        </div>
+        <div className="flex gap-2">
+          <RedigerSpillerDialog spiller={spiller} />
+          <SlettSpillerKnapp spiller={spiller} />
         </div>
       </div>
     </div>

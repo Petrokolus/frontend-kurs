@@ -105,13 +105,19 @@ Prøv det: skriv noe i søkefeltet og se at URL-en oppdateres. Trykk reload. Sø
 ```tsx
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
 export default function SpillerSok() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const sok = searchParams.get("sok") ?? "";
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   function handleChange(verdi: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -124,12 +130,19 @@ export default function SpillerSok() {
   }
 
   return (
-    <input
-      value={sok}
-      onChange={(e) => handleChange(e.target.value)}
-      placeholder="Søk etter spiller..."
-      className="rounded border px-3 py-2"
-    />
+    <div>
+      <label htmlFor="sok" className="sr-only">
+        Søk etter spillere
+      </label>
+      <input
+        ref={inputRef}
+        id="sok"
+        value={sok}
+        onChange={(e) => handleChange(e.target.value)}
+        placeholder="Søk etter spiller..."
+        className="rounded border px-3 py-2"
+      />
+    </div>
   );
 }
 ```
@@ -253,6 +266,7 @@ const spillereListe = spillere
 ```tsx
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   Select,
@@ -271,9 +285,14 @@ const sorteringsalternativer = [
 export default function SpillerSok() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const sok = searchParams.get("sok") ?? "";
   const sorter = searchParams.get("sorter") ?? "rating-desc";
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   function oppdaterParams(nokkel: string, verdi: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -287,12 +306,19 @@ export default function SpillerSok() {
 
   return (
     <div className="flex gap-4">
-      <input
-        value={sok}
-        onChange={(e) => oppdaterParams("sok", e.target.value)}
-        placeholder="Søk etter spiller..."
-        className="rounded border px-3 py-2"
-      />
+      <div>
+        <label htmlFor="sok" className="sr-only">
+          Søk etter spillere
+        </label>
+        <input
+          ref={inputRef}
+          id="sok"
+          value={sok}
+          onChange={(e) => oppdaterParams("sok", e.target.value)}
+          placeholder="Søk etter spiller..."
+          className="rounded border px-3 py-2"
+        />
+      </div>
       <Select
         value={sorter}
         onValueChange={(verdi) => oppdaterParams("sorter", verdi)}
@@ -416,7 +442,7 @@ Bruk `inputVerdi` som `value` på inputfeltet i stedet for `sok`.
 ```tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import {
@@ -436,9 +462,14 @@ const sorteringsalternativer = [
 export default function SpillerSok() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const sorter = searchParams.get("sorter") ?? "rating-desc";
   const [inputVerdi, setInputVerdi] = useState(searchParams.get("sok") ?? "");
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   function oppdaterParams(nokkel: string, verdi: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -461,12 +492,19 @@ export default function SpillerSok() {
 
   return (
     <div className="flex gap-4">
-      <input
-        value={inputVerdi}
-        onChange={(e) => handleChange(e.target.value)}
-        placeholder="Søk etter spiller..."
-        className="rounded border px-3 py-2"
-      />
+      <div>
+        <label htmlFor="sok" className="sr-only">
+          Søk etter spillere
+        </label>
+        <input
+          ref={inputRef}
+          id="sok"
+          value={inputVerdi}
+          onChange={(e) => handleChange(e.target.value)}
+          placeholder="Søk etter spiller..."
+          className="rounded border px-3 py-2"
+        />
+      </div>
       <Select
         value={sorter}
         onValueChange={(verdi) => oppdaterParams("sorter", verdi)}

@@ -46,7 +46,7 @@ Opprett `src/app/dashboard/page.tsx` med en overskrift og en navigasjonslenke i 
 ```tsx
 export default function DashboardPage() {
   return (
-    <div className="max-w-5xl p-8">
+    <div className="max-w-5xl p-8 mx-auto">
       <h1 className="mb-8 text-3xl font-bold">Dashboard</h1>
     </div>
   );
@@ -144,7 +144,7 @@ Opprett `src/app/dashboard/components/toppliste.tsx`. Komponenten henter alle sp
 <summary>Hint</summary>
 
 ```tsx
-const topp5 = spillere.sort((a, b) => b.rating - a.rating).slice(0, 5);
+const topp5 = spillere.toSorted((a, b) => b.rating - a.rating).slice(0, 5);
 ```
 
 </details>
@@ -162,7 +162,7 @@ export default async function Toppliste() {
   const res = await fetch("http://localhost:3000/api/spillere");
   const spillere: Spiller[] = await res.json();
 
-  const topp5 = spillere.sort((a, b) => b.rating - a.rating).slice(0, 5);
+  const topp5 = spillere.toSorted((a, b) => b.rating - a.rating).slice(0, 5);
 
   return (
     <Card>
@@ -261,7 +261,7 @@ import SisteKamper from "./components/siste-kamper";
 
 export default function DashboardPage() {
   return (
-    <div className="max-w-5xl p-8">
+    <div className="max-w-5xl p-8 mx-auto">
       <h1 className="mb-8 text-3xl font-bold">Dashboard</h1>
       <Suspense fallback={<p>Laster statistikk...</p>}>
         <StatistikkKort />
@@ -300,7 +300,7 @@ import SisteKamper from "./components/siste-kamper";
 
 export default function DashboardPage() {
   return (
-    <div className="max-w-5xl p-8">
+    <div className="max-w-5xl p-8 mx-auto">
       <h1 className="mb-8 text-3xl font-bold">Dashboard</h1>
       <div className="flex flex-col gap-6">
         <Suspense fallback={<p>Laster statistikk...</p>}>
@@ -399,7 +399,7 @@ function ListeSkeleton() {
 
 export default function DashboardPage() {
   return (
-    <div className="max-w-5xl p-8">
+    <div className="max-w-5xl p-8 mx-auto">
       <h1 className="mb-8 text-3xl font-bold">Dashboard</h1>
       <div className="flex flex-col gap-6">
         <Suspense fallback={<StatistikkKortSkeleton />}>

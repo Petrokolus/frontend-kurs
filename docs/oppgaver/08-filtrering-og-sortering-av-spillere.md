@@ -158,9 +158,16 @@ export default async function SpillerePage({ searchParams }: Props) {
 
   return (
     <div className="max-w-4xl p-8 mx-auto">
-      <h1 className="mb-4 text-3xl font-bold">Spillere</h1>
-      <Link href="/spillere/opprett">Opprett spiller</Link>
-      <div className="mt-4 flex flex-col gap-4">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+        <Link
+          href="/spillere/opprett"
+          className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+        >
+          Opprett spiller
+        </Link>
+      </div>
+      <div className="flex flex-col gap-4">
         <SpillerSok />
         <SpillereListe spillere={spillereListe} />
       </div>
@@ -337,9 +344,16 @@ export default async function SpillerePage({ searchParams }: Props) {
 
   return (
     <div className="max-w-4xl p-8 mx-auto">
-      <h1 className="mb-4 text-3xl font-bold">Spillere</h1>
-      <Link href="/spillere/opprett">Opprett spiller</Link>
-      <div className="mt-4 flex flex-col gap-4">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Spillere</h1>
+        <Link
+          href="/spillere/opprett"
+          className="bg-twoday-amber rounded px-4 py-2 font-semibold"
+        >
+          Opprett spiller
+        </Link>
+      </div>
+      <div className="flex flex-col gap-4">
         <SpillerSok />
         <SpillereListe spillere={spillereListe} />
       </div>

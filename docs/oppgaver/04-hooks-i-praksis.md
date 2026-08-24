@@ -1,4 +1,5 @@
 <!-- nav:start -->
+
 [← Oppgave 3](./03-opprett-spiller.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 5 →](./05-opprett-spiller-med-react-hook-form.md)
 <!-- nav:end -->
 
@@ -29,15 +30,32 @@ Opprett en ny fil `src/components/spillere/spiller-sok.tsx`. Dette blir en clien
 
 Komponenten skal ha:
 
-- Et `<input>`-felt der brukeren kan skrive
-- En `useState` som holder søketeksten
-- En `onChange` på inputen som oppdaterer staten
+- Et `<input>`-felt der brukeren kan skrive.
+- En `useState` som holder søketeksten.
+- En `onChange` på inputen som oppdaterer staten.
+- En (visuelt skjult) `<label>` knyttet til input-feltet med `htmlFor`/`id`, slik at feltet oppfyller UU krav.
 
 ```tsx
 const [sok, setSok] = useState("");
 ```
 
 Importer og vis `SpillerSok` i `src/app/spillere/page.tsx`. Foreløpig trenger du ikke koble den til spillerlisten, det kommer i neste steg.
+
+> Tips: Legg til `border` i `className` for å gjøre input-feltet synlig mot hvit bakgrunn.
+
+<details class="hint">
+<summary>Hint</summary>
+
+Usikker på hvordan du setter sammen komponenten? Strukturen ligner de andre client components du har laget:
+
+- `"use client"` øverst i filen
+- en `function` med `export default` foran.
+- logikk før return
+- JSX inni/etter return.
+
+Du kan også se på hvordan andre komponenter i kodebasen er laget, feks inputfeltet i `opprett-spiller-skjema.tsx`.
+
+</details>
 
 <details class="losningsforslag">
 <summary>Løsningsforslag 4a</summary>
@@ -50,13 +68,19 @@ import { useState } from "react";
 export default function SpillerSok() {
   const [sok, setSok] = useState("");
   return (
-    <input
-      type="text"
-      placeholder="Søk etter spillere..."
-      className="w-full rounded border px-3 py-2"
-      value={sok}
-      onChange={(e) => setSok(e.target.value)}
-    />
+    <div>
+      <label htmlFor="sok" className="sr-only">
+        Søk etter spillere
+      </label>
+      <input
+        id="sok"
+        type="text"
+        placeholder="Søk etter spillere..."
+        className="w-full rounded border px-3 py-2 mb-4"
+        value={sok}
+        onChange={(e) => setSok(e.target.value)}
+      />
+    </div>
   );
 }
 ```
@@ -67,42 +91,7 @@ export default function SpillerSok() {
 
 Nå skal søket faktisk gjøre noe. Søketeksten må brukes til å filtrere hvilke spillere som vises, men `page.tsx` er en server component og kan ikke ha `useState`. Løsningen er en ny client component som tar imot hele spillerlisten som prop, håndterer søkestate selv, og viser de filtrerte resultatene.
 
-Vi har laget en halvferdig fil til deg: `src/components/spillere/spiller-sok-og-liste.tsx`. Åpne den og fullfør de tre kommenterte stegene.
-
-Når `SpillerSokOgListe` er ferdig, oppdater `page.tsx`: fjern `<SpillerSok />` og `<SpillereListe />` og erstatt begge med:
-
-```tsx
-<SpillerSokOgListe spillere={spillere} />
-```
-
-Husk også å oppdatere `SpillerSok` til å ta imot `sok` og `setSok` som props i stedet for å ha sin egen `useState`.
-
-<details class="hint">
-<summary>Hint</summary>
-
-Filtreringen kan gjøres slik:
-
-```tsx
-const filtrerte = spillere.filter((spiller) =>
-  spiller.navn.toLowerCase().includes(sok.toLowerCase())
-);
-```
-
-Når `sok` og `setSok` flyttes ut av `SpillerSok` og inn i `SpillerSokOgListe`, trenger `SpillerSok` en ny `Props`-type:
-
-```tsx
-type Props = {
-  sok: string;
-  setSok: (verdi: string) => void;
-};
-```
-
-</details>
-
-<details class="losningsforslag">
-<summary>Løsningsforslag 4b</summary>
-
-`spiller-sok-og-liste.tsx`:
+Opprett en ny fil `src/components/spillere/spillere-liste-med-sok.tsx` med dette innholdet, og fullfør de tre kommenterte stegene:
 
 ```tsx
 "use client";
@@ -116,17 +105,80 @@ type Props = {
   spillere: Spiller[];
 };
 
-export default function SpillerSokOgListe({ spillere }: Props) {
+export default function SpillereListeMedSok({ spillere }: Props) {
+  // Oppgave 4b: Legg til useState for søketeksten her
+
+  // Oppgave 4b: Filtrer spillerlisten basert på søketeksten her
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Oppgave 4b: Vis SpillerSok her og send inn sok og setSok som props */}
+      <SpillereListe spillere={spillere} />
+    </div>
+  );
+}
+```
+
+Når `SpillereListeMedSok` er ferdig, oppdater `page.tsx`: fjern `<SpillerSok />` og `<SpillereListe />` og erstatt begge med:
+
+```tsx
+<SpillereListeMedSok spillere={spillere} />
+```
+
+Husk å oppdatere importen til `import SpillereListeMedSok from "@/components/spillere/spillere-liste-med-sok";`.
+
+Husk også å oppdatere `SpillerSok` til å ta imot `sok` og `setSok` som props i stedet for å ha sin egen `useState`.
+
+<details class="hint">
+<summary>Hint</summary>
+
+Filtreringen kan gjøres slik:
+
+```tsx
+const filtrerteSpillere = spillere.filter((spiller) =>
+  spiller.navn.toLowerCase().includes(sok.toLowerCase())
+);
+```
+
+Når `sok` og `setSok` flyttes ut av `SpillerSok` og inn i `SpillereListeMedSok`, trenger `SpillerSok` en ny `Props`-type:
+
+```tsx
+type Props = {
+  sok: string;
+  setSok: (verdi: string) => void;
+};
+```
+
+</details>
+
+<details class="losningsforslag">
+<summary>Løsningsforslag 4b</summary>
+
+`spillere-liste-med-sok.tsx`:
+
+```tsx
+"use client";
+
+import { Spiller } from "@/lib/types";
+import { useState } from "react";
+import SpillereListe from "./spillere-liste";
+import SpillerSok from "./spiller-sok";
+
+type Props = {
+  spillere: Spiller[];
+};
+
+export default function SpillereListeMedSok({ spillere }: Props) {
   const [sok, setSok] = useState("");
 
-  const filtrerte = spillere.filter((spiller) =>
+  const filtrerteSpillere = spillere.filter((spiller) =>
     spiller.navn.toLowerCase().includes(sok.toLowerCase())
   );
 
   return (
     <div className="flex flex-col gap-4">
       <SpillerSok sok={sok} setSok={setSok} />
-      <SpillereListe spillere={filtrerte} />
+      <SpillereListe spillere={filtrerteSpillere} />
     </div>
   );
 }
@@ -146,15 +198,7 @@ useEffect(() => {
 }, [avhengigheter]); // Kjøres på nytt når avhengighetene endres
 ```
 
-Bruk `useEffect` til å lagre søketeksten i `localStorage` hver gang den endres:
-
-```tsx
-useEffect(() => {
-  localStorage.setItem("spillerSok", sok);
-}, [sok]);
-```
-
-Og les den ut med en egen `useEffect` som kjører én gang når komponenten mountes, slik at søket er gjenopprettet neste gang siden lastes. Vi kan ikke lese `localStorage` direkte i `useState` fordi komponenten også rendres på serveren, og `localStorage` finnes bare i nettleseren:
+Les ut søket fra `localStorage` med en `useEffect` som kjører én gang når komponenten mountes, slik at søket er gjenopprettet når siden lastes. Vi kan ikke lese `localStorage` direkte i `useState` fordi komponenten også rendres på serveren, og `localStorage` finnes bare i nettleseren:
 
 ```tsx
 useEffect(() => {
@@ -162,10 +206,23 @@ useEffect(() => {
 }, []);
 ```
 
+Legg denne useEffect-en til i `SpillereListeMedSok`.
+
+For å lagre søket når brukeren skriver, trenger vi ikke en egen useEffect, fordi vi vet nøyaktig når og hvor verdien endres; når brukeren skriver i feltet. Gå til `SpillerSok` og lag en `handleChange`-funksjon som oppdaterer state OG lagrer til `localStorage` samtidig:
+
+```tsx
+import { ChangeEvent } from "react";
+
+function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  setSok(e.target.value);
+  localStorage.setItem("spillerSok", e.target.value);
+}
+```
+
 <details class="losningsforslag">
 <summary>Løsningsforslag 4c</summary>
 
-Legg til disse linjene i `SpillerSokOgListe`:
+Legg til disse linjene i `SpillereListeMedSok`:
 
 ```tsx
 import { useState, useEffect } from "react";
@@ -175,10 +232,42 @@ const [sok, setSok] = useState("");
 useEffect(() => {
   setSok(localStorage.getItem("spillerSok") ?? "");
 }, []);
+```
 
-useEffect(() => {
-  localStorage.setItem("spillerSok", sok);
-}, [sok]);
+Legg til disse linjene i `SpillerSok`:
+
+```tsx
+"use client";
+
+import { ChangeEvent } from "react";
+
+type Props = {
+  sok: string;
+  setSok: (verdi: string) => void;
+};
+
+export default function SpillerSok({ sok, setSok }: Props) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setSok(e.target.value);
+    localStorage.setItem("spillerSok", e.target.value);
+  }
+
+  return (
+    <div>
+      <label htmlFor="sok" className="sr-only">
+        Søk etter spillere
+      </label>
+      <input
+        id="sok"
+        type="text"
+        placeholder="Søk etter spillere..."
+        className="w-full rounded border px-3 py-2 mb-4"
+        value={sok}
+        onChange={handleChange}
+      />
+    </div>
+  );
+}
 ```
 
 </details>
@@ -208,7 +297,7 @@ useEffect(() => {
 ```tsx
 "use client";
 
-import { useEffect, useRef } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 
 type Props = {
   sok: string;
@@ -222,15 +311,26 @@ export default function SpillerSok({ sok, setSok }: Props) {
     inputRef.current?.focus();
   }, []);
 
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setSok(e.target.value);
+    localStorage.setItem("spillerSok", e.target.value);
+  }
+
   return (
-    <input
-      ref={inputRef}
-      type="text"
-      placeholder="Søk etter spillere..."
-      className="w-full rounded border px-3 py-2"
-      value={sok}
-      onChange={(e) => setSok(e.target.value)}
-    />
+    <div>
+      <label htmlFor="sok" className="sr-only">
+        Søk etter spillere
+      </label>
+      <input
+        ref={inputRef}
+        id="sok"
+        type="text"
+        placeholder="Søk etter spillere..."
+        className="w-full rounded border px-3 py-2"
+        value={sok}
+        onChange={handleChange}
+      />
+    </div>
   );
 }
 ```
@@ -239,7 +339,7 @@ export default function SpillerSok({ sok, setSok }: Props) {
 
 ---
 
-
 <!-- nav:start -->
+
 [← Oppgave 3](./03-opprett-spiller.md) · [Oversikt](../../README.md#oppgaver) · [Oppgave 5 →](./05-opprett-spiller-med-react-hook-form.md)
 <!-- nav:end -->

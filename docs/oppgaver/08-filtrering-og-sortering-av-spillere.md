@@ -19,7 +19,7 @@ I oppgave 4 lagret du søketeksten i `useState`. Det fungerer bra for enkel inte
 
 URL-tilstand passer godt for ting som søk, filtrering og sortering: tilstander brukeren gjerne vil kunne bokmerke eller dele. Lokal tilstand passer bedre for midlertidig UI-tilstand som åpne/lukket-status på en dropdown eller hvilken fane som er aktiv.
 
-Legg også merke til at `useState` i oppgave 4 tvang deg til å samle søkelogikk og listeoppsett i én wrapper-komponent (`SpillerSokOgListe`). Det var fordi filtreringen trengte tilgang til `sok`-verdien, og `useState` bare eksisterer i den komponenten der den er deklarert. Med URL-tilstand forsvinner den begrensningen: søkeverdien er tilgjengelig overalt, og du trenger ikke en wrapper for å dele den.
+Legg også merke til at `useState` i oppgave 4 tvang deg til å samle søkelogikk og listeoppsett i én wrapper-komponent (`SpillereListeMedSok`). Det var fordi filtreringen trengte tilgang til `sok`-verdien, og `useState` bare eksisterer i den komponenten der den er deklarert. Med URL-tilstand forsvinner den begrensningen: søkeverdien er tilgjengelig overalt, og du trenger ikke en wrapper for å dele den.
 
 I denne oppgaven bytter vi til URL-tilstand og rydder opp i komponentstrukturen samtidig.
 
@@ -28,7 +28,7 @@ I denne oppgaven bytter vi til URL-tilstand og rydder opp i komponentstrukturen 
 Nå skal du gjøre tre ting:
 
 1. Gjøre `SpillerSok` om til en selvstendig komponent som skriver søket til URL-en
-2. Slette `src/components/spillere/spiller-sok-og-liste.tsx`, siden vi ikke trenger wrapperen lenger
+2. Slette `src/components/spillere/spillere-liste-med-sok.tsx`, siden vi ikke trenger wrapperen lenger
 3. Flytte filtrering til `page.tsx`, som leser søket fra URL-en via `searchParams`
 
 **Steg 1: Oppdater `SpillerSok`**
@@ -58,7 +58,7 @@ function handleChange(verdi: string) {
 
 `useSearchParams()` returnerer et read-only objekt, så du kan ikke kalle `.set()` eller `.delete()` på det direkte. `new URLSearchParams(searchParams.toString())` lager en muterbar kopi du kan redigere.
 
-**Steg 2: Slett `src/components/spillere/spiller-sok-og-liste.tsx`**
+**Steg 2: Slett `src/components/spillere/spillere-liste-med-sok.tsx`**
 
 Wrapperen trenger du ikke lenger. Slett filen.
 
